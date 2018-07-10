@@ -39,3 +39,12 @@ Homestead.json
 
 
 # End of https://www.gitignore.io/api/laravel
+
+
+# Susan added the following.
+# These are created after typing 'npm run dev' (Maybe, we'll see!)
+/public/css
+/public/js
+
+# Annoying mac file
+.DS_Store
