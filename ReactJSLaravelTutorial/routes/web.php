@@ -12,10 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
 // This is essential to allow React Router to work
+// But it creates a DevTools console error.
+// require('./bootstrap'); leads to this error in app.js
 Route::get( '/{path?}', function(){
-    return view( 'welcome' );
+    return view( 'app' );
 } )->where('path', '.*');

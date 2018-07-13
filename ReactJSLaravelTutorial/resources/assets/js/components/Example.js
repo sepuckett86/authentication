@@ -12,7 +12,8 @@ class Example extends Component {
                             <div className="card-header">Example Component</div>
 
                             <div className="card-body">
-                                I'm an example component!
+                                <p>I'm an example component!</p>
+                                <p>Here is where user-specific content will go!</p>
                             </div>
                         </div>
                     </div>
