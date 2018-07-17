@@ -8,7 +8,7 @@ Currently, this project has the following functionality: <br>
 
 ## To run this project
 
-I am using Homestead. Once you have cloned this repository and configured your Homestead.yaml file to access it in both folders and sites, then in the project directory do this:
+I am using Homestead. Once you have cloned this repository and configured your Homestead.yaml file to access it in both folders and sites, then in the project directory, use composer to install necessary Laravel dependencies. Then do this:
 
 ```npm install```
 ```npm run dev```
