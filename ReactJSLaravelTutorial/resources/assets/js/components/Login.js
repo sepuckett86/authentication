@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import AuthService from '../AuthService';
+import AuthService from './AuthService';
 
 
 class Login extends Component {
