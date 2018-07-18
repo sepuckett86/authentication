@@ -5,7 +5,7 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
-require('./bootstrap');
+
 
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import React, {Component} from 'react';
@@ -16,6 +16,8 @@ import Example from './components/Example';
 import Home from './components/Home';
 import Login from './components/Login';
 import Forgot from './components/Forgot';
+
+import '../css/app.css';
 
 // Note: Put ALL ROUTES in this file
 if (document.getElementById('root')) {
