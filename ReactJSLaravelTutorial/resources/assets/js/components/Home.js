@@ -4,15 +4,14 @@ import {BrowserRouter, Route, Link} from 'react-router-dom'
 
 class Home extends Component {
   render() {
-    return (<div className="container">
+    return (<div className="container-fluid">
       <div className="row justify-content-center">
         <div className="col col-12">
           <div className="card">
             <div className="card-header">Home Component</div>
 
             <div className="card-body">
-              <p>I'm a home component!</p>
-              <p>You can see me whether you are logged in or not!</p>
+              <p>You can see this whether you are logged in or not!</p>
               <h2>Current Goal</h2>
               <p>Hook up a RESTful Laravel API with React Frontend SPA</p>
               <h2>Objectives of this App</h2>
@@ -48,7 +47,13 @@ class Home extends Component {
                   </ul>
                 </div>
               </div>
-
+              <br />
+              <h2>Resources</h2>
+              <ul>
+                <li><a href='https://hptechblogs.com/using-json-web-token-react/' target='_blank' rel="noopener noreferrer">JSON Web Token and React Tutorial: HP Tech Blogs</a></li>
+                <li><a href='https://github.com/lijujohn13/react-laravel-auth' target='_blank' rel="noopener noreferrer">React + Laravel Login</a>
+</li>
+              </ul>
             </div>
           </div>
         </div>

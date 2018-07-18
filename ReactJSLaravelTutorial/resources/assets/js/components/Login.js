@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import '../util';
+import AuthService from '../AuthService';
 
 
 class Login extends Component {
@@ -12,10 +12,32 @@ class Login extends Component {
             email : '',
             password: '',
         }
+        this.Auth = new AuthService();
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+
      }
 
-     onSubmit(e){
-        // prevent default submit action??
+     // Why don't I need to bind(this) to onChange? Because it's binding in render.
+     //
+
+     componentWillMount() {
+       if(this.Auth.loggedIn())
+          this.props.history.replace('/');
+      }
+
+     handleFormSubmit(e){
+        e.preventDefault();
+
+        this.Auth.login(this.state.username,this.state.password)
+            .then(res =>{
+               this.props.history.replace('/');
+            })
+            .catch(err =>{
+                alert(err);
+            })
+    }
+     /*onSubmit(e){
+        // prevent default submit action for form??
         e.preventDefault();
         // defines email as this.state.email
         // defines password as this.state.password
@@ -34,10 +56,11 @@ class Login extends Component {
             this.refs.password.value="";
             this.setState({err: true});
           });
-     }
+     }*/
 
      onChange(e){
         const {name, value} = e.target;
+        // const {target: {name, value}} = e;
         this.setState({[name]: value});
      }
 
@@ -48,7 +71,9 @@ class Login extends Component {
         let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
 	    return (
             <div >
-
+                {console.log(this.state.email)}
+                {console.log(this.state.password)}
+                {console.log(this.props)}
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-8 col-md-offset-2">
@@ -58,7 +83,7 @@ class Login extends Component {
                                     <div className="col-md-offset-2 col-md-8 col-md-offset-2">
                                         {error != undefined && <div className={name} role="alert">{msg}</div>}
                                     </div>
-                                    <form className="form-horizontal" role="form" method="POST" onSubmit= {this.onSubmit.bind(this)}>
+                                    <form className="form-horizontal" role="form" method="POST" onSubmit= {this.handleFormSubmit}>
                                         <div className="form-group">
                                             <label htmlFor="email" className="col-md-4 control-label">E-Mail Address</label>
 
