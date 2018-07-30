@@ -25,7 +25,7 @@ class Login extends Component {
           this.props.history.replace('/');
       }
 
-     handleFormSubmit(e){
+     /*handleFormSubmit(e){
         e.preventDefault();
 
         this.Auth.login(this.state.username,this.state.password)
@@ -35,14 +35,14 @@ class Login extends Component {
             .catch(err =>{
                 alert(err);
             })
-    }
-     /*onSubmit(e){
+    }*/
+     handleFormSubmit(e){
         // prevent default submit action for form??
         e.preventDefault();
         // defines email as this.state.email
         // defines password as this.state.password
         const {email , password} = this.state ;
-        axios.post('api/login', {
+        axios.post('api/auth/login', {
             email,
             password
           })
@@ -56,7 +56,7 @@ class Login extends Component {
             this.refs.password.value="";
             this.setState({err: true});
           });
-     }*/
+     }
 
      onChange(e){
         const {name, value} = e.target;
