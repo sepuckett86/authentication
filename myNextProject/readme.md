@@ -1,5 +1,17 @@
 See https://github.com/francescomalatesta/laravel-api-boilerplate-jwt for more info on how this project was created.
 
+# How to use this repository via Homestead
+### Note: I haven't actually tried the following instructions for this project -- they are based on previous project experience. I may be missing something.
+1) update `homestead.yaml` folders and sites to include your repo followed by `vagrant up --provision`
+2) update `/etc/hosts` to include new site
+3) `composer install` within Laravel folder within ssh virtual machine
+4) duplicate `.env.example` and rename copy `.env` in the Laravel folder
+5) `php artisan key:generate`
+6) `php artistan migrate`
+7) `npm install`
+8) `npm run dev`
+
+
 <h2>Current Goal</h2>
               <p>Hook up a RESTful Laravel API with React Frontend SPA</p>
               <h2>Objectives of this App</h2>
