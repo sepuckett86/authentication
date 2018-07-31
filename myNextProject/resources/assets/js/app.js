@@ -6,7 +6,8 @@
  */
 
 
-
+// Note: Put ALL ROUTES in this file
+//
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
@@ -17,21 +18,55 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Forgot from './components/Forgot';
 import Register from './components/Register';
+import Logout from './components/Logout';
+import AuthService from './components/AuthService';
 
 import '../css/app.css';
 
-// Note: Put ALL ROUTES in this file
-if (document.getElementById('root')) {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false
+    }
+    this.Auth = new AuthService();
+    this.checkToken = this.checkToken.bind(this);
+  }
+  componentDidMount() {
+    this.checkToken()
+  }
 
-    ReactDOM.render(
-      <BrowserRouter>
+  checkToken() {
+    let loggedIn = this.Auth.loggedIn();
+    console.log(loggedIn);
+    this.setState({
+      loggedIn: loggedIn
+    })
+  }
+
+  render() {
+    return(
+
         <div>
-          <Navbar />
+          <Navbar loggedIn={this.state.loggedIn}/>
           <Route exact={true} path="/" component={Home}/>
           <Route path="/example" component={Example}/>
           <Route path="/login" component={Login}/>
           <Route path="/forgotpassword" component={Forgot}/>
           <Route path="/register" component={Register}/>
+          <Route path="/logout" component={Logout}/>
         </div>
-      </BrowserRouter>, document.getElementById('root'));
+
+
+    )
+  }
+}
+
+export default App;
+
+
+if (document.getElementById('root')) {
+
+    ReactDOM.render(<BrowserRouter forceRefresh={true}><App/></BrowserRouter>
+      , document.getElementById('root'));
 }

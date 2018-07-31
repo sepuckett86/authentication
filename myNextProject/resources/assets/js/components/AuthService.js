@@ -12,15 +12,16 @@ export default class AuthService {
         this.getProfile = this.getProfile.bind(this)
     }
 
-    login(username, password) {
+    login(email, password) {
         // Get a token from api server using the fetch api
         return this.fetch('api/auth/login', {
             method: 'POST',
             body: JSON.stringify({
-                username,
+                email,
                 password
             })
         }).then(res => {
+            console.log(res.token)
             this.setToken(res.token) // Setting the token in localStorage
             return Promise.resolve(res);
         })
