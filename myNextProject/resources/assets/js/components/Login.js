@@ -22,21 +22,21 @@ class Login extends Component {
 
      componentWillMount() {
        if(this.Auth.loggedIn())
-          this.props.history.replace('/');
+          this.props.history.push('/example');
       }
 
-     /*handleFormSubmit(e){
+     handleFormSubmit(e){
         e.preventDefault();
 
-        this.Auth.login(this.state.username,this.state.password)
+        this.Auth.login(this.state.email,this.state.password)
             .then(res =>{
-               this.props.history.replace('/');
+              this.props.history.push('/example');
             })
             .catch(err =>{
                 alert(err);
             })
-    }*/
-     handleFormSubmit(e){
+    }
+     /*handleFormSubmit(e){
         // prevent default submit action for form??
         e.preventDefault();
         // defines email as this.state.email
@@ -56,7 +56,7 @@ class Login extends Component {
             this.refs.password.value="";
             this.setState({err: true});
           });
-     }
+     }*/
 
      onChange(e){
         const {name, value} = e.target;
@@ -71,9 +71,6 @@ class Login extends Component {
         let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
 	    return (
             <div >
-                {console.log(this.state.email)}
-                {console.log(this.state.password)}
-                {console.log(this.props)}
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-8 col-md-offset-2">

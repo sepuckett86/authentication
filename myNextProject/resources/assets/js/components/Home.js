@@ -29,7 +29,7 @@ class Home extends Component {
                   <ul className="list-group">
                     <h3><li className="list-group-item active">Client</li></h3>
                     <li className="list-group-item">Send request with user info to server to generate JWT</li>
-                    <li className="list-group-item">Store JWT received from server in cookie</li>
+                    <li className="list-group-item">Store JWT received from server in local storage</li>
                     <li className="list-group-item">Send request with JWT to server API</li>
                     <li className="list-group-item">Single Page App (ReactJS) notes when user logs in, changes template accordingly</li>
                     <li className="list-group-item">If a response from server contains an error, redirect to login page</li>
@@ -53,6 +53,7 @@ class Home extends Component {
                 <li><a href='https://hptechblogs.com/using-json-web-token-react/' target='_blank' rel="noopener noreferrer">JSON Web Token and React Tutorial: HP Tech Blogs</a></li>
                 <li><a href='https://github.com/lijujohn13/react-laravel-auth' target='_blank' rel="noopener noreferrer">React + Laravel Login</a>
 </li>
+      <li><a href='https://github.com/francescomalatesta/laravel-api-boilerplate-jwt' target='_blank' rel="noopener noreferrer">Laravel API boilerplate JWT</a></li>
               </ul>
             </div>
           </div>
