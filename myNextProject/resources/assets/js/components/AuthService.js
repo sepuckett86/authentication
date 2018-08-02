@@ -58,8 +58,23 @@ export default class AuthService {
     }
 
     logout() {
-        // Clear user token and profile data from localStorage
-        localStorage.removeItem('id_token');
+      // Send a POST request to backend logout route
+      const token = this.getToken();
+      if (token) {
+        return this.fetch('api/auth/logout', {
+            method: 'POST',
+            body: JSON.stringify({
+                token
+            })
+        }).then(res => {
+            // Clear user token and profile data from localStorage
+            localStorage.removeItem('id_token');
+            
+        })
+      } else {
+        console.log('already logged out')
+      }
+
     }
 
     getProfile() {
