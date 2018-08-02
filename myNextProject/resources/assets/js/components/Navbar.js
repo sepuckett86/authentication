@@ -6,15 +6,20 @@ import AuthService from './AuthService';
 
 class Navbar extends Component {
     constructor(props) {
-        super(props)    
+        super(props)
+        this.Auth = new AuthService();
     }
 
   render() {
+
     return (
-      (this.props.loggedIn ?
+      (this.Auth.loggedIn() ?
         <nav className="navbar navbar-light bg-light">
         <a href='/' className="navbar-brand">MyAwesomeApp</a>
         <div className="dropdown show">
+          <span className="navbar-text">
+      Logged In!
+    </span>
           <a className="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menu
           </a>
@@ -31,6 +36,7 @@ class Navbar extends Component {
       <nav className="navbar navbar-light bg-light">
       <a href='/' className="navbar-brand">MyAwesomeApp</a>
       <div className="dropdown show">
+
         <a className="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Menu
         </a>

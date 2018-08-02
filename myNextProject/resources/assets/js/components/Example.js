@@ -6,19 +6,10 @@ import AuthService from './AuthService';
 class Example extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      loggedIn: false
-    }
     this.Auth = new AuthService();
   }
-  componentWillMount() {
-    if(this.Auth.loggedIn()) {
-      this.setState({
-        loggedIn: true
-      })
-    }
 
-   }
+   
     render() {
         return (
             <div className="container">
@@ -26,7 +17,7 @@ class Example extends Component {
                     <div className="col-md-8">
                         <div className="card">
                             <div className="card-header">Example Component</div>
-                            {(this.state.loggedIn ? <div className="card-body">
+                            {(this.Auth.loggedIn() ? <div className="card-body">
                                 <p>You are logged in. </p>
                                 <p>Special content here</p>
                             </div> : <div className="card-body">
