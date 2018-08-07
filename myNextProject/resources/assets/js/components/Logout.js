@@ -11,7 +11,7 @@ class Logout extends Component {
 
      }
      componentDidMount() {
-       this.Auth.logout()
+       this.Auth.logout();
      }
 
 	render() {

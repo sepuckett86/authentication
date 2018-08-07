@@ -24,31 +24,12 @@ import AuthService from './components/AuthService';
 import '../css/app.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false
-    }
-    this.Auth = new AuthService();
-    this.checkToken = this.checkToken.bind(this);
-  }
-  componentDidMount() {
-    this.checkToken()
-  }
-
-  checkToken() {
-    let loggedIn = this.Auth.loggedIn();
-    console.log(loggedIn);
-    this.setState({
-      loggedIn: loggedIn
-    })
-  }
 
   render() {
     return(
 
         <div>
-          <Navbar loggedIn={this.state.loggedIn}/>
+          <Navbar />
           <Route exact={true} path="/" component={Home}/>
           <Route path="/example" component={Example}/>
           <Route path="/login" component={Login}/>

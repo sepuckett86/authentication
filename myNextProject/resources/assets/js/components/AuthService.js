@@ -30,7 +30,13 @@ export default class AuthService {
     loggedIn() {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken() // GEtting token from localstorage
-        return !!token && !this.isTokenExpired(token) // handwaiving here
+        let test = !!token && !this.isTokenExpired(token)
+        if (test) {
+          console.log("Logged In")
+        } else {
+          console.log("Not logged in")
+        }
+        return test // handwaiving here
     }
 
     isTokenExpired(token) {
@@ -58,8 +64,23 @@ export default class AuthService {
     }
 
     logout() {
-        // Clear user token and profile data from localStorage
-        localStorage.removeItem('id_token');
+      // Send a POST request to backend logout route
+      const token = this.getToken();
+      if (token) {
+        return this.fetch('api/auth/logout', {
+            method: 'POST',
+            body: JSON.stringify({
+                token
+            })
+        }).then(res => {
+            // Clear user token and profile data from localStorage
+            localStorage.removeItem('id_token');
+            return Promise.resolve(res);
+        })
+      } else {
+        console.log('already logged out')
+      }
+
     }
 
     getProfile() {
