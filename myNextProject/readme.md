@@ -11,6 +11,9 @@ See https://github.com/francescomalatesta/laravel-api-boilerplate-jwt for more i
 7) `npm install`
 8) `npm run dev`
 
+Note: you may need to type
+`npm install cross-env`
+before `npm run dev`
 
 <h2>Current Goal</h2>
               <p>Hook up a RESTful Laravel API with React Frontend SPA</p>
