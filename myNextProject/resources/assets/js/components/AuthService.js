@@ -88,7 +88,6 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
-
     fetch(url, options) {
         // performs api calls sending the required authentication headers
         const headers = {
@@ -108,6 +107,7 @@ export default class AuthService {
         })
             .then(this._checkStatus)
             .then(response => response.json())
+            .catch(error => console.log(error) );
     }
 
     _checkStatus(response) {

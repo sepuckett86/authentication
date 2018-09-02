@@ -58,15 +58,15 @@ class Register extends Component {
                                     </div>
                                     <form className="form-horizontal" role="form" method="POST" onSubmit= {this.onSubmit.bind(this)}>
                                         <div className="form-group">
-                                            <label for="name" className="col-md-4 control-label">Name</label>
+                                            <label htmlFor="name" className="col-md-4 control-label">Name</label>
 
                                             <div className="col-md-6">
-                                                <input id="name" type="text" className="form-control" ref="name" name="name" onChange={this.onChange.bind(this)} required autofocus />
+                                                <input id="name" type="text" className="form-control" ref="name" name="name" onChange={this.onChange.bind(this)} required autoFocus />
                                             </div>
                                         </div>
 
                                         <div className="form-group">
-                                            <label for="email" className="col-md-4 control-label">E-Mail Address</label>
+                                            <label htmlFor="email" className="col-md-4 control-label">E-Mail Address</label>
 
                                             <div className="col-md-6">
                                                 <input id="email" type="email" className="form-control" ref="email" name="email" onChange={this.onChange.bind(this)} required />
@@ -74,7 +74,7 @@ class Register extends Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <label for="password" className="col-md-4 control-label">Password</label>
+                                            <label htmlFor="password" className="col-md-4 control-label">Password</label>
 
                                             <div className="col-md-6">
                                                 <input id="password" type="password" className="form-control"  ref="password" name="password" onChange={this.onChange.bind(this)} required/>
@@ -82,7 +82,7 @@ class Register extends Component {
                                         </div>
 
                                         <div className="form-group">
-                                            <label for="password-confirm" className="col-md-4 control-label">Confirm Password</label>
+                                            <label htmlFor="password-confirm" className="col-md-4 control-label">Confirm Password</label>
 
                                             <div className="col-md-6">
                                                 <input id="password-confirm" type="password" className="form-control" ref="confirm" name="password_confirmation" onChange={this.onChange.bind(this)} required/>
