@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 import AuthService from './AuthService';
+import withAuth from './withAuth';
 
 class Example extends Component {
   constructor(props) {
@@ -43,8 +44,7 @@ class Example extends Component {
                         <div className="card">
                             <div className="card-header">Example: API testing</div>
                             <div className="card-body">
-                            {this.Auth.loggedIn() ?
-                                <p>You are logged in. </p> : <p>You are not logged in. </p> }
+                                <p>You are logged in. </p>
                                 <p>Path: /api/hello</p>
                                 <p className='alert alert-primary' role="alert">{this.state.hello}</p>
                                 <p>Path: /api/gminders</p>
@@ -59,4 +59,4 @@ class Example extends Component {
     }
 }
 
-export default Example;
+export default withAuth(Example);
