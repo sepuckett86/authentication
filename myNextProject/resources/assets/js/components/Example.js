@@ -10,7 +10,8 @@ class Example extends Component {
     this.Auth = new AuthService();
     this.state = {
       gminder: '',
-      hello: ''
+      hello: '',
+      user: ''
     }
   }
 
@@ -32,6 +33,15 @@ class Example extends Component {
           })
         }
       })
+      const token = this.Auth.getToken();
+      let user = {};
+      this.Auth.fetch('/api/auth/me'
+        ).then(response => {
+        user = response
+        this.setState({
+          user: user
+        })
+      })
 
 
   }
@@ -45,6 +55,13 @@ class Example extends Component {
                             <div className="card-header">Example: API testing</div>
                             <div className="card-body">
                                 <p>You are logged in. </p>
+                                <p>Path: /api/auth/me</p>
+                                <div className='alert alert-primary' role="alert">
+                                  <p>ID: {this.state.user.id}</p>
+                                  <p>Name: {this.state.user.name}</p>
+                                  <p>E-mail: {this.state.user.email}</p>
+
+                                </div>
                                 <p>Path: /api/hello</p>
                                 <p className='alert alert-primary' role="alert">{this.state.hello}</p>
                                 <p>Path: /api/gminders</p>
