@@ -59,4 +59,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function gminders()
+    {
+        return $this->hasMany(Gminder::class);
+    }
 }
