@@ -7,10 +7,13 @@ See https://github.com/francescomalatesta/laravel-api-boilerplate-jwt for more i
 3) `composer install` within Laravel folder within ssh virtual machine
 4) duplicate `.env.example` and rename copy `.env` in the Laravel folder
 5) `php artisan key:generate`
-6) `php artistan migrate`
+6) `php artisan migrate`
 7) `npm install`
 8) `npm run dev`
 
+Note: you may need to type
+`npm install cross-env`
+before `npm run dev`
 
 <h2>Current Goal</h2>
               <p>Hook up a RESTful Laravel API with React Frontend SPA</p>

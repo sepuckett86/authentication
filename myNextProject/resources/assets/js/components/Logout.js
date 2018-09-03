@@ -11,13 +11,24 @@ class Logout extends Component {
 
      }
      componentDidMount() {
-       this.Auth.logout();
+       if (this.Auth.loggedIn()) {
+         this.Auth.logout()
+             .then(res =>{
+               this.props.history.push('/login');
+             })
+             .catch(err =>{
+                 alert(err);
+             })
+       } else {
+         this.props.history.push('/login');
+       }
+
      }
 
 	render() {
-
 	    return (
             <div >
+
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-8 col-md-offset-2">
