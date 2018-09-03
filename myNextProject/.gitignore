@@ -13,3 +13,6 @@ yarn-error.log
 .env
 /public/js
 /public/css
+/package-lock.json
+/package.json
+/public/mix-manifest.json
