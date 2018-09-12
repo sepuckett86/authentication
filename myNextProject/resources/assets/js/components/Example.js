@@ -11,8 +11,11 @@ class Example extends Component {
     this.state = {
       gminders: '',
       hello: '',
-      user: ''
+      user: '',
+      inputAnswer: ''
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +38,33 @@ class Example extends Component {
       user = response
       this.setState({user: user})
     })
+  }
+
+  handleChange(event) {
+      this.setState({[event.target.name]: event.target.value});
+  }
+
+  handleClick(event) {
+    if (event.target.name === 'submitButton') {
+      // prevent standard submit action
+      event.preventDefault();
+      const gminder = this.state.inputAnswer;
+      // POST request
+      this.Auth.fetch('/api/gminders', {
+        method: "POST",
+        body: JSON.stringify({gminder: gminder})
+    })
+    }
+    if (event.target.name === 'deleteButton') {
+      const id = event.target.id;
+      // DELETE request
+      this.Auth.fetch(`/api/gminders/${id}`, {
+        method: "DELETE",
+    })
+  }
 
   }
+
   render() {
 
     return (<div className="container">
@@ -47,20 +75,25 @@ class Example extends Component {
             <div className="card-body">
               <p>You are logged in.
               </p>
-              <p>Path: /api/auth/me</p>
+              <p>GET request. Path: /api/auth/me</p>
               <div className='alert alert-primary' role="alert">
                 <p>ID: {this.state.user.id}</p>
                 <p>Name: {this.state.user.name}</p>
                 <p>E-mail: {this.state.user.email}</p>
 
               </div>
-              <p>Path: /api/hello</p>
+              <p>GET request. Path: /api/hello</p>
               <p className='alert alert-primary' role="alert">{this.state.hello}</p>
-              <p>Path: /api/gminders</p>
+              <p>GET request. Path: /api/gminders</p>
+              <p>Delete buttons are DELETE request. Path: /api/gminders/id</p>
               {
                 this.state.gminders
                   ? this.state.gminders.map((gminder, i) => {
-                    return (<p key={i} className='alert alert-primary' role="alert">{gminder.mainResponse}</p>)
+                    return (<div key={i}><p className='alert alert-primary'
+                      role="alert">{gminder.mainResponse} <button id={gminder.id} name='deleteButton'
+                        onClick={this.handleClick}>Delete</button></p>
+
+                      </div>)
                   })
                   : <p>
                       Querying API
@@ -71,6 +104,17 @@ class Example extends Component {
                   ? null
                   : <p className='alert alert-primary' role="alert">No available gminders for this user</p>
               }
+              <p>POST request. Path: /api/gminders</p>
+              <form className='alert alert-primary' role="alert">
+              <div className="form-group">
+
+                  <label>Enter Anything</label>
+                  <textarea name='inputAnswer' className="form-control" value={this.state.inputAnswer} onChange={this.handleChange} rows="3"></textarea>
+                  <br />
+              </div>
+              <button name='submitButton' type="submit" onClick={this.handleClick}>Add gminder</button>
+              </form>
+
             </div>
 
           </div>
