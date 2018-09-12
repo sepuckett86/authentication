@@ -52,7 +52,7 @@ class Example extends Component {
       // POST request
       this.Auth.fetch('/api/gminders', {
         method: "POST",
-        body: JSON.stringify({gminder: gminder})
+        body: JSON.stringify({mainResponse: gminder})
     })
     }
     if (event.target.name === 'deleteButton') {
