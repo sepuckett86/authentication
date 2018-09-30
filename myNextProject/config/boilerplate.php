@@ -49,6 +49,11 @@ return [
             'email' => 'required|email',
             'password' => 'required|confirmed'
         ]
+    ],
+
+    // requirements for storing a gminder
+    'gminder_request' => [
+
     ]
 
 ];
