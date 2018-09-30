@@ -54,6 +54,23 @@ class GminderController extends Controller
         }
     }
 
+    public function update(GminderRequest $request)
+    {
+        $id = $request->get('id');
+        $mainResponse = $request->get('mainResponse');
+
+        $currentUser = Auth::guard()->user()->id;
+
+        $gminder = Gminder::find($id);
+        $gminder->mainResponse = $mainResponse;
+        
+        if ($gminder->save()) {
+            return 'Gminder updated.';
+        } else {
+            return 'Gminder update failed.';
+        }
+    }
+
     public function destroy(GminderRequest $request)
     {
         $gminderToDelete = $request->get('id');
