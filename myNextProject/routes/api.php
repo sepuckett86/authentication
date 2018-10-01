@@ -26,6 +26,9 @@ $api->version('v1', function (Router $api) {
         });
             
         $api->get('gminders', 'App\\Api\\V1\\Controllers\\GminderController@userGminders');
+        $api->post('gminders/store', 'App\\Api\\V1\\Controllers\\GminderController@store');
+        $api->post('gminders/update', 'App\\Api\\V1\\Controllers\\GminderController@update');
+        $api->post('gminders/destroy', 'App\\Api\\V1\\Controllers\\GminderController@destroy');
 
         $api->get('refresh', [
             'middleware' => 'jwt.refresh',
@@ -44,3 +47,4 @@ $api->version('v1', function (Router $api) {
             ]);
         });
 });
+
