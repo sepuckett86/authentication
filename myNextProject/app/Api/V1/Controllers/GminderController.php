@@ -15,9 +15,8 @@ use App\Api\V1\Requests\GminderRequest;
 
 class GminderController extends Controller
 {
-
     use Helpers;
-
+   
     /**
      * Create a new AuthController instance.
      *
@@ -28,11 +27,23 @@ class GminderController extends Controller
         $this->middleware('jwt.auth', []);
     }
 
+    public function userGminder($id)
+    {   
+        $currentUser = Auth::guard()->user()->id;
+
+        $gminders = Gminder::where('user_id', $currentUser)
+            ->where('id', $id)
+            ->get();
+
+        return response()->json($gminders);
+    }
+
     public function userGminders()
     {   
         $currentUser = Auth::guard()->user()->id;
 
-        $gminders = Gminder::where('user_id', '=', $currentUser)->get();
+        $gminders = Gminder::where('user_id', $currentUser)->get();
+
         return response()->json($gminders);
     }
 
@@ -54,30 +65,30 @@ class GminderController extends Controller
         }
     }
 
-    public function update(GminderRequest $request)
-    {
-        $id = $request->get('id');
+    public function update(GminderRequest $request, $id)
+    { 
         $mainResponse = $request->get('mainResponse');
 
         $currentUser = Auth::guard()->user()->id;
 
         $gminder = Gminder::find($id);
         $gminder->mainResponse = $mainResponse;
+
+        // Can't use strict equality because user_id can be a string or integer.
+        $gminderOwnedByUser = $gminder->user_id == $currentUser;
         
-        if ($gminder->save()) {
+        if ($gminderOwnedByUser && $gminder->save()) {
             return 'Gminder updated.';
         } else {
-            return 'Gminder update failed.';
+           return 'Gminder update failed.';
         }
     }
 
-    public function destroy(GminderRequest $request)
+    public function destroy($id)
     {
-        $gminderToDelete = $request->get('id');
-
         $currentUser = Auth::guard()->user()->id;
         $gminder = Gminder::where('user_id', $currentUser)
-            ->where('id', $gminderToDelete);
+            ->where('id', $id);
         
             if ($gminder->delete()) {
                 return 'Gminder deleted.';
