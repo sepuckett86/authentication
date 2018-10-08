@@ -12,7 +12,10 @@ class Example extends Component {
       gminders: '',
       hello: '',
       user: '',
-      inputAnswer: ''
+      inputAnswer: '',
+      putAnswer: '',
+      postedGminder: '',
+      deleteResponse: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -40,6 +43,10 @@ class Example extends Component {
     })
   }
 
+  componentDidUpdate() {
+
+  }
+
   handleChange(event) {
       this.setState({[event.target.name]: event.target.value});
   }
@@ -50,9 +57,20 @@ class Example extends Component {
       event.preventDefault();
       const gminder = this.state.inputAnswer;
       // POST request
+      let postedGminder;
       this.Auth.fetch('/api/gminders', {
         method: "POST",
         body: JSON.stringify({mainResponse: gminder})
+    }).then(response => {
+      postedGminder = response
+      this.setState({postedGminder: postedGminder})
+      let gminders = '';
+      this.Auth.fetch('/api/gminders').then(response => {
+        if (response) {
+          gminders = response;
+          this.setState({gminders: gminders})
+        }
+      })
     })
     }
     if (event.target.name === 'deleteButton') {
@@ -60,7 +78,36 @@ class Example extends Component {
       // DELETE request
       this.Auth.fetch(`/api/gminders/${id}`, {
         method: "DELETE",
+    }).then(response => {
+
+      let gminders = '';
+      this.Auth.fetch('/api/gminders').then(response => {
+        if (response) {
+          gminders = response;
+          this.setState({gminders: gminders})
+        }
+      })
     })
+  }
+
+  if (event.target.name === 'editButton') {
+    const id = event.target.id;
+    // PUT request
+    this.Auth.fetch(`/api/gminders/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        mainResponse: this.state.putAnswer,
+      })
+  }).then(response => {
+
+    let gminders = '';
+    this.Auth.fetch('/api/gminders').then(response => {
+      if (response) {
+        gminders = response;
+        this.setState({gminders: gminders})
+      }
+    })
+  })
   }
 
   }
@@ -89,10 +136,29 @@ class Example extends Component {
               {
                 this.state.gminders
                   ? this.state.gminders.map((gminder, i) => {
-                    return (<div key={i}><p className='alert alert-primary'
-                      role="alert">{gminder.mainResponse} <button id={gminder.id} name='deleteButton'
-                        onClick={this.handleClick}>Delete</button></p>
+                    let collapseTag = i.toString() + 'tag';
+                    let collapseHash = '#' + collapseTag;
+                    console.log(collapseTag)
+                    return (<div key={i}>
+                      <div className='alert alert-primary'
+                      role="alert">{gminder.mainResponse}
+                      <br />
+                          <button className="btn btn-primary" type="button" data-toggle="collapse" data-target={collapseHash} aria-expanded="false" aria-controls={collapseTag}>
+                            Edit
+                          </button>
 
+                        <div className="collapse" id={collapseTag}>
+                          <div className="card card-body">
+                            <textarea name='putAnswer' className="form-control" value={this.state.putAnswer} onChange={this.handleChange} rows="3"></textarea>
+                            <button className="btn btn-primary" data-toggle="collapse" data-target={collapseHash} id={gminder.id} name='editButton'
+                              onClick={this.handleClick}>Save Changes</button>
+                          </div>
+                        </div>
+                        {' '}
+                      <button className="btn btn-primary" type="button" id={gminder.id} name='deleteButton'
+                        onClick={this.handleClick}>Delete</button>
+
+                        </div>
                       </div>)
                   })
                   : <p>
