@@ -136,18 +136,21 @@ class Example extends Component {
               {
                 this.state.gminders
                   ? this.state.gminders.map((gminder, i) => {
+                    let collapseTag = i.toString() + 'tag';
+                    let collapseHash = '#' + collapseTag;
+                    console.log(collapseTag)
                     return (<div key={i}>
                       <div className='alert alert-primary'
                       role="alert">{gminder.mainResponse}
                       <br />
-                          <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          <button className="btn btn-primary" type="button" data-toggle="collapse" data-target={collapseHash} aria-expanded="false" aria-controls={collapseTag}>
                             Edit
                           </button>
 
-                        <div className="collapse" id="collapseExample">
+                        <div className="collapse" id={collapseTag}>
                           <div className="card card-body">
                             <textarea name='putAnswer' className="form-control" value={this.state.putAnswer} onChange={this.handleChange} rows="3"></textarea>
-                            <button className="btn btn-primary" id={gminder.id} name='editButton'
+                            <button className="btn btn-primary" data-toggle="collapse" data-target={collapseHash} id={gminder.id} name='editButton'
                               onClick={this.handleClick}>Save Changes</button>
                           </div>
                         </div>
