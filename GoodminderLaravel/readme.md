@@ -1,5 +1,7 @@
 # GoodminderLaravel
 
+Getting the authentication to work with Goodminder app frontend
+
 ## How to use this repository via Homestead
 
 1) update `homestead.yaml` folders and sites to include your repo followed by `vagrant up --provision`
