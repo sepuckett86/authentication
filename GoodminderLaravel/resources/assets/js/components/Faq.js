@@ -5,7 +5,8 @@ import Footer from './Footer';
 class Faq extends Component {
 
   render() {
-    return (<main>
+    return (
+      <main>
       <div className="bgimg-2 parallax">
         <div className="caption">
           <span className="border comfortaa">FAQ</span>
@@ -34,7 +35,8 @@ class Faq extends Component {
 
       </div>
       <Footer />
-    </main>);
+    </main>
+  );
   }
 }
 

@@ -19,7 +19,7 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
-  
+
         <!-- Not sure if this is necessary -->
         <script type='text/javascript'>
              window.Laravel = <?php echo json_encode([

@@ -1,14 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
-import Root from 'Root';
-import Navbar from 'components/Navbar';
-import App from 'components/App';
-import Intro from 'components/Intro';
-import Home from 'components/Home';
-import Settings from 'components/Settings';
-import LogIn from 'components/LogIn';
 import { MemoryRouter } from 'react-router-dom';
+
+import Root from '../Root';
+import Navbar from '../components/Navbar';
+import App from '../components/App';
+import Intro from '../components/Intro';
+import Home from '../components/Home';
+import Settings from '../components/Settings';
+import LogIn from '../components/LogIn';
+
 
 describe('when user is logged out', () => {
   let wrapped;
