@@ -1,0 +1,64 @@
+
+
+.media {
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  border: solid;
+  border-color: #46B3B3;
+}
+
+
+.alignL {
+  text-align: left;
+}
+
+/* Flex-box buttons settings */
+
+.my-flex-parent {
+  display: flex;
+  background: transparent;
+}
+
+.my-flex-child {
+  border-radius: 10px;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+  color: #fff;
+  background-color: #46B3B3;
+  font-family: 'Comfortaa', cursive;
+  font-size: 18px;
+}
+.my-flex-child:hover {
+    color: #fff;
+    filter: brightness(70%);
+    background-image: none;
+
+}
+
+.my-flex-child-active {
+  border-radius: 10px;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+  color: #fff;
+  background-color: #2b2b2b;
+  font-family: 'Comfortaa', cursive;
+  font-size: 18px;
+}
+
+.my-flex-child-active:hover {
+  color: #fff;
+  filter: brightness(70%);
+  background-image: none;
+  border-color: #01549b;
+
+}
+
+.btn-center {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+/* End Flex-box buttons settings */

@@ -1,0 +1,23 @@
+footer{
+	color: black;
+	font-family: 'Comfortaa', cursive;
+  background-color: white;
+	font-size: 14px;
+  width: 100%;
+	text-align: center;
+  height: 50px;
+  line-height: 50px;
+  border-top: 2px solid #46B3B3;
+}
+
+
+/* When resolution <= 1200px, hide short text and show full text*/
+@media (max-width: 768px) {
+    .short-text { display: inline; }
+    .full-text { display: none; }
+}
+/* regular screen */
+@media (min-width: 576px) {
+	.short-text { display: none; }
+	.full-text { display: inline; }
+}
