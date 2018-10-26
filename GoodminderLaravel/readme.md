@@ -20,6 +20,6 @@ before `npm run dev`
       <li><a href='https://hptechblogs.com/using-json-web-token-react/' target='_blank' rel="noopener noreferrer">JSON Web Token and React Tutorial: HP Tech Blogs</a></li>
       <li><a href='https://github.com/lijujohn13/react-laravel-auth' target='_blank' rel="noopener noreferrer">React + Laravel Login</a>
 </li>
-      <li><a href='https://github.com/francescomalatesta/laravel-api-boilerplate-jwt' target='_blank' rel="noopener noreferrer">Laravel API boilerplate JWT</a></li>
+      <li><a href='https://github.com/francescomalatesta/laravel-api-boilerplate-jwt' target='_blank' rel="noopener noreferrer">Francesco Malatesta Laravel API boilerplate JWT</a></li>
   <li><a href='https://www.udemy.com/react-redux-tutorial/' target='_blank' rel="noopener noreferrer">Stephen Grider's Authentication Udemy Class</a></li>
               </ul>
