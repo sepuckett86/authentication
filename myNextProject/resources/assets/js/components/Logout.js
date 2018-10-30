@@ -14,7 +14,7 @@ class Logout extends Component {
        if (this.Auth.loggedIn()) {
          this.Auth.logout()
              .then(res =>{
-               this.props.history.push('/login');
+               
              })
              .catch(err =>{
                  alert(err);

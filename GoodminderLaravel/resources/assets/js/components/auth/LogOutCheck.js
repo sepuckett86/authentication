@@ -3,9 +3,43 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { Link } from 'react-router-dom';
 
+import decode from 'jwt-decode';
+
 class LogOutCheck extends Component {
   componentDidMount() {
     this.props.postSignout();
+  }
+  loggedIn() {
+      // Checks if there is a saved token and it's still valid
+      const token = this.getToken() // GEtting token from localstorage
+      let test = !!token && !this.isTokenExpired(token)
+      if (test) {
+        console.log("Logged In")
+      } else {
+        console.log("Not logged in")
+      }
+      return test // handwaiving here
+  }
+  getToken() {
+      // Retrieves the user token from localStorage
+      return localStorage.getItem('id_token')
+  }
+  removeToken() {
+    localStorage.removeItem('id_token');
+    return localStorage.getItem('id_token')
+  }
+  isTokenExpired(token) {
+      try {
+          const decoded = decode(token);
+          if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
+              return true;
+          }
+          else
+              return false;
+      }
+      catch (err) {
+          return false;
+      }
   }
   checkAuth() {
     if (!this.props.auth) {
@@ -35,11 +69,18 @@ class LogOutCheck extends Component {
     } else {
       return (
         <div>
-          <p>You are logged in. {' '}
-            <Link to='/logout' onClick={() => this.props.changeAuth(false).bind(this)} className='btn btn-goodminder btn-sm'>
-              <i className="fas fa-arrow-circle-right"></i>{' '}Click here to log out.
-            </Link>
-          </p>
+          <p>You are logged in. {' '}</p>
+          <div style={{'display': 'flex', 'justifyContent': 'space-around'}}>
+            <button onClick={() => this.props.postSignout()} className='btn btn-goodminder btn-sm'>
+              <i className="fas fa-arrow-circle-right"></i>{' '}Log out.
+            </button>
+            <button onClick={() => this.loggedIn()} className='btn btn-goodminder btn-sm'>
+              <i className="fas fa-arrow-circle-right"></i>{' '}Check log in status.
+            </button>
+            <button onClick={() => this.removeToken()} className='btn btn-goodminder btn-sm'>
+              <i className="fas fa-arrow-circle-right"></i>{' '}Remove token.
+            </button>
+          </div>
         </div>
       )
     }

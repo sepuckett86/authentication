@@ -44,8 +44,10 @@ class SignUp extends Component {
     // If there are no error messages
     if (passwordFails.length === 0) {
       // API_request action
-      this.props.postSignup(this.state.email, this.state.password);
-      this.setState({submitted: true})
+      this.props.postSignup(this.state.email, this.state.password, this.state.password_again, () => {
+        this.setState({submitted: true});
+      });
+
     } else {
       alert(passwordFails.join('\n'));
     }
@@ -99,4 +101,7 @@ class SignUp extends Component {
   }
 };
 
-export default connect(null, actions)(SignUp);
+function mapStateToProps(state){
+  return { response: state.response }
+}
+export default connect(mapStateToProps, actions)(SignUp);
