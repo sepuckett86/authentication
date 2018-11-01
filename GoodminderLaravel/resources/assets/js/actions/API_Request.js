@@ -9,14 +9,28 @@
 //  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, RESPONSE } from './types';
+import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS } from './types';
 
-const baseURL = 'http://goodminder.test/'
+const baseURL = 'http://goodminder.test/';
+let options;
+const token = localStorage.getItem('id_token');
+if (token) {
+  options = {
+    'headers': {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  }
+}
 
 export const postSignout = () => async dispatch => {
   try {
     const path = baseURL + 'api/auth/logout';
-    const token = localStorage.getItem('id_token');
+    let token = localStorage.getItem('id_token');
+    if (!token) {
+      token = 'none'
+    }
     const bodyFormData = new FormData();
     bodyFormData.set('token', token);
     const content = { 'token': token }
@@ -78,6 +92,23 @@ export const postSignup = (email, password, password_confirmation, callback) => 
       const payload = {'component':'SignUp', 'status': 500, 'message': 'Email in use'};
       console.log(payload)
       dispatch({ type: RESPONSE, payload: payload});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
+  }
+};
+
+export const getGminders = (callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/gminders';
+    const response = await axios.get(path, options);
+    dispatch({ type: GET_GOODMINDERS, payload: response.data });
+    callback();
+  } catch (e) {
+    console.log(e)
+    // Internal server error
+    if (e.response.status === 500) {
+      dispatch({ type: RESPONSE, payload: e.response});
     } else {
       dispatch({ type: RESPONSE, payload: 'Unknown error' });
     }
