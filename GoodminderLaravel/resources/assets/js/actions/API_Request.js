@@ -9,7 +9,7 @@
 //  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS } from './types';
+import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS, POST_GOODMINDER } from './types';
 
 const baseURL = 'http://goodminder.test/';
 let options;
@@ -27,19 +27,10 @@ if (token) {
 export const postSignout = () => async dispatch => {
   try {
     const path = baseURL + 'api/auth/logout';
-    let token = localStorage.getItem('id_token');
-    if (!token) {
-      token = 'none'
-    }
-    const bodyFormData = new FormData();
-    bodyFormData.set('token', token);
     const content = { 'token': token }
-    const options = {
-      'headers': {
-        'Authorization': 'Bearer ' + token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
+    if (content.token === undefined) {
+      alert('You are already logged out')
+      return 0;
     }
     // Update back-end to show that user is logged out
     const response = await axios.post(path, content, options);
@@ -98,7 +89,7 @@ export const postSignup = (email, password, password_confirmation, callback) => 
   }
 };
 
-export const getGminders = (callback) => async dispatch => {
+export const getGoodminders = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/gminders';
     const response = await axios.get(path, options);
@@ -108,6 +99,24 @@ export const getGminders = (callback) => async dispatch => {
     console.log(e)
     // Internal server error
     if (e.response.status === 500) {
+      dispatch({ type: RESPONSE, payload: e.response});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
+  }
+};
+
+export const postGoodminder = (gminder, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/gminders';
+    const content = gminder;
+    const response = await axios.post(path, content, options);
+    dispatch({ type: POST_GOODMINDER, payload: gminder });
+    callback();
+  } catch (e) {
+    console.log(e)
+    // Internal server error
+    if (e.response) {
       dispatch({ type: RESPONSE, payload: e.response});
     } else {
       dispatch({ type: RESPONSE, payload: 'Unknown error' });

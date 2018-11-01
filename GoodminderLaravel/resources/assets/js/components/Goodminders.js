@@ -20,11 +20,13 @@ class Goodminders extends Component {
     // On mount, clear previous nav state
     this.props.navClear();
     // Request to pull from database
-    this.props.getGminders(() => {
+    this.props.getGoodminders(() => {
+      console.log(this.props.goodminders);
       // Then set current gminder
       if (this.props.goodminders.length > 0 ) {
         let current = this.props.goodminders[0];
         this.props.setCurrentGM(current);
+        console.log(this.props.currentGM)
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
         // If current gminder is a prompt response, find and store prompt
