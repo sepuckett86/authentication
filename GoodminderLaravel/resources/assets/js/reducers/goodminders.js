@@ -1,6 +1,6 @@
-import { SAVE_GOODMINDER } from '../actions/types';
+import { SAVE_GOODMINDER, GET_GOODMINDERS, POST_GOODMINDER } from '../actions/types';
 
-const initialState = [
+/* const initialState = [
   {
     id: 1,
     userID: 1,
@@ -19,9 +19,14 @@ const initialState = [
             publicFlag: 0,
   }
 ]
-export default function(state = initialState, action) {
+*/
+export default function(state = [], action) {
   switch(action.type) {
     case SAVE_GOODMINDER:
+      return [...state, action.payload];
+    case GET_GOODMINDERS:
+      return action.payload
+    case POST_GOODMINDER:
       return [...state, action.payload];
     default:
       return state;

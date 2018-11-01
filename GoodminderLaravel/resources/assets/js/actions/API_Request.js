@@ -1,88 +1,125 @@
-// NOTE: this is the file that must be altered to work with back end
-// Current form is functional but does not make calls to api
-// See API_Request_backend.js
+// this file is not connected to main app yet
+
+// POST api/auth/login, to do the login and get your access token;
+// POST api/auth/refresh, to refresh an existent access token by getting a new one;
+//  POST api/auth/signup, to create a new user into your application;
+//  POST api/auth/recovery, to recover your credentials;
+//  POST api/auth/reset, to reset your password after the recovery;
+//  POST api/auth/logout, to log out the user by invalidating the passed token;
+//  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { GET_GOODMINDER, POST_GOODMINDER, PUT_GOODMINDER,
-  DELETE_GOODMINDER, GET_GOODMINDERS } from './types';
-import { AUTH_USER, AUTH_ERROR, RESPONSE } from './types';
+import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS, POST_GOODMINDER } from './types';
 
-
-const baseURL = '';
-
-export function getGoodminder(id) {
-  axios.get(baseURL + `api/gminders/${id}`)
-  return {
-    type: GET_GOODMINDER,
-    payload: 'response'
+const baseURL = 'http://goodminder.test/';
+let options;
+const token = localStorage.getItem('id_token');
+if (token) {
+  options = {
+    'headers': {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
   }
 }
 
-export function postGoodminder(goodminder) {
-  return {
-    type: POST_GOODMINDER,
-    payload: goodminder
+export const postSignout = () => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/logout';
+    const content = { 'token': token }
+    if (content.token === undefined) {
+      alert('You are already logged out')
+      return 0;
+    }
+    // Update back-end to show that user is logged out
+    const response = await axios.post(path, content, options);
+    console.log(response);
+    // Update redux store to show that no user is logged in
+    dispatch({ type: AUTH_USER, payload: '' });
+    // Update local storage to remove token from browser
+    localStorage.removeItem('id_token');
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: AUTH_ERROR, payload: 'Error during logout' });
   }
 }
 
-export function putGoodminder(id) {
-  return {
-    type: PUT_GOODMINDER,
-    payload: id
+export const postLogin = (email, password, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/login';
+    console.log(path);
+    const content = {
+      email: email,
+      password: password
+    };
+    const response = await axios.post(path, content);
+    console.log(response);
+    dispatch({ type: AUTH_USER, payload: response.data.token });
+    localStorage.setItem('id_token', response.data.token);
+    callback();
+  } catch (e) {
+    console.log(e);
+    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
   }
-}
-
-export function deleteGoodminder(id) {
-  return {
-    type: DELETE_GOODMINDER,
-    payload: id
-  }
-}
-
-export function getGoodminders() {
-  return {
-    type: GET_GOODMINDERS,
-    payload: 'response'
-  }
-}
-
-export const postSignup = ( email, password ) => {
-  let action = {};
-
-  if ( email && password ) {
-    action = { type: AUTH_USER, payload: '' };
-
-  } else {
-    action = { type: AUTH_ERROR, payload: 'Email in use' };
-  }
-  return action
-}
-
-export const postLogin = (email, password) =>  {
-  let action = {};
-
-  if ( email && password ) {
-    action = { type: AUTH_USER, payload: 'MyToken' };
-    localStorage.setItem('token', 'MyToken');
-  } else {
-    action = { type: AUTH_ERROR, payload: 'Email in use' };
-  }
-  return action
 };
 
-// Normal, synchronous action creator
-export const postSignout = () => {
-  localStorage.removeItem('token');
+export const postSignup = (email, password, password_confirmation, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/signup';
+    const content = {
+        'name': 'no_data',
+        email,
+        password,
+        password_confirmation
+      }
+    const response = await axios.post(path, content);
 
-  return {
-    type: AUTH_USER,
-    payload: ''
+    dispatch({ type: RESPONSE, payload: response });
+    callback();
+  } catch (e) {
+    // Internal server error
+    if (e.response.status === 500) {
+      const payload = {'component':'SignUp', 'status': 500, 'message': 'Email in use'};
+      console.log(payload)
+      dispatch({ type: RESPONSE, payload: payload});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
   }
-}
+};
 
-export const postReset = (email) => {
-  return {
-    type: RESPONSE,
-    payload: 'password reset success for ' + email
+export const getGoodminders = (callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/gminders';
+    const response = await axios.get(path, options);
+    dispatch({ type: GET_GOODMINDERS, payload: response.data });
+    callback();
+  } catch (e) {
+    console.log(e)
+    // Internal server error
+    if (e.response.status === 500) {
+      dispatch({ type: RESPONSE, payload: e.response});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
   }
-}
+};
+
+export const postGoodminder = (gminder, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/gminders';
+    const content = gminder;
+    const response = await axios.post(path, content, options);
+    dispatch({ type: POST_GOODMINDER, payload: gminder });
+    callback();
+  } catch (e) {
+    console.log(e)
+    // Internal server error
+    if (e.response) {
+      dispatch({ type: RESPONSE, payload: e.response});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
+  }
+};

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import '../../css/App.css';
 
+import { connect } from 'react-redux';
+
 import Navbar from './Navbar';
 import About from './About';
 import Intro from './Intro';
@@ -37,8 +39,13 @@ class App extends Component {
           <Route path="/legal" component={Legal} />
           <Route path="/faq" component={Faq} />
         </div>
+        { this.props.error ? console.log(this.props.error) : null }
       </div>
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+  return { error: state.auth.errorMessage }
+}
+export default connect(mapStateToProps, null)(App);

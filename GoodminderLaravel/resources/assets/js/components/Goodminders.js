@@ -19,25 +19,30 @@ class Goodminders extends Component {
   componentDidMount() {
     // On mount, clear previous nav state
     this.props.navClear();
-    // Then set current gminder
-    if (this.props.goodminders.length > 0 ) {
-      let current = this.props.goodminders[0];
-      this.props.setCurrentGM(current);
-      // Also set current gminder to first in previous list
-      this.props.setPreviousGM([current]);
-      // If current gminder is a prompt response, find and store prompt
-      if (current.category === 'prompt') {
-        let currentPrompt = {};
-        for (let i = 0; i < this.props.prompts.length; i++) {
-          if (this.props.prompts[i].id === current.promptID) {
-            currentPrompt = this.props.prompts[i];
-          } else {
+    // Request to pull from database
+    this.props.getGoodminders(() => {
+      console.log(this.props.goodminders);
+      // Then set current gminder
+      if (this.props.goodminders.length > 0 ) {
+        let current = this.props.goodminders[0];
+        this.props.setCurrentGM(current);
+        console.log(this.props.currentGM)
+        // Also set current gminder to first in previous list
+        this.props.setPreviousGM([current]);
+        // If current gminder is a prompt response, find and store prompt
+        if (current.category === 'prompt') {
+          let currentPrompt = {};
+          for (let i = 0; i < this.props.prompts.length; i++) {
+            if (this.props.prompts[i].id === current.promptID) {
+              currentPrompt = this.props.prompts[i];
+            } else {
+            }
           }
-        }
-        this.props.setCurrentPrompt(currentPrompt);
-        }
+          this.props.setCurrentPrompt(currentPrompt);
+          }
+      }
+    });
 
-    }
   }
 
   // Button methods

@@ -21,7 +21,6 @@ export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
 export const RESPONSE = 'response';
 
-
 // User-specific Info
 export const UPDATE_USER = 'update_user';
 export const GET_GOODMINDER = 'get_goodminder';
