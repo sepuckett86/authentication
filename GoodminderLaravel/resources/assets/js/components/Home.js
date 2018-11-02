@@ -8,6 +8,9 @@ import Add from './Add';
 import Print from './Print';
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.getUser();
+  }
   renderDisplay() {
     switch(this.props.display) {
       case 'add':

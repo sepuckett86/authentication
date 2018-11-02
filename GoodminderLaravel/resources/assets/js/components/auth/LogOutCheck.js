@@ -8,6 +8,7 @@ import decode from 'jwt-decode';
 class LogOutCheck extends Component {
   componentDidMount() {
     this.props.postSignout();
+    this.props.clearGoodminders();
   }
   loggedIn() {
       // Checks if there is a saved token and it's still valid

@@ -40,7 +40,6 @@ class Navbar extends Component {
                           <Link to="/contact" className="dropdown-item">Contact</Link>
                           <Link to="/legal" className="dropdown-item">Legal</Link>
                           <div className="dropdown-divider"></div>
-                          <Link to="/login" onClick={() => this.props.postSignout()} className="dropdown-item">Switch User</Link>
                           <Link to="/logout" onClick={() => this.props.postSignout()} className="dropdown-item">Log out</Link>
                         </div>
                       </li>

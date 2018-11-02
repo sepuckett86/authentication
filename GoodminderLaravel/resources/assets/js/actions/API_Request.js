@@ -9,24 +9,24 @@
 //  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS, POST_GOODMINDER } from './types';
+import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS, POST_GOODMINDER, GET_USER } from './types';
 
 const baseURL = 'http://goodminder.test/';
-let options;
-const token = localStorage.getItem('id_token');
-if (token) {
-  options = {
-    'headers': {
-      'Authorization': 'Bearer ' + token,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  }
-}
 
 export const postSignout = () => async dispatch => {
   try {
     const path = baseURL + 'api/auth/logout';
+    let options;
+    let token = localStorage.getItem('id_token');
+    if (token) {
+      options = {
+        'headers': {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }
+    }
     const content = { 'token': token }
     if (content.token === undefined) {
       alert('You are already logged out')
@@ -48,25 +48,55 @@ export const postSignout = () => async dispatch => {
 export const postLogin = (email, password, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/auth/login';
-    console.log(path);
     const content = {
       email: email,
       password: password
     };
     const response = await axios.post(path, content);
-    console.log(response);
-    dispatch({ type: AUTH_USER, payload: response.data.token });
-    localStorage.setItem('id_token', response.data.token);
-    callback();
+
+    // Using Promise to wait until token is set before continuing
+    // to prevent 401 error
+    const promise1 = new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        dispatch({ type: AUTH_USER, payload: response.data.token });
+        localStorage.setItem('id_token', response.data.token)
+        resolve('done');
+      }, 300);
+    });
+    promise1.then(function(value) {
+      console.log(value);
+      callback();
+      // expected output: "foo"
+    });
+
+
+
+
   } catch (e) {
     console.log(e);
-    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+    if (e.response) {
+      console.log(e.response)
+      dispatch({ type: AUTH_ERROR, payload: e.response });
+    } else {
+      dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+    }
   }
 };
 
 export const postSignup = (email, password, password_confirmation, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/auth/signup';
+    let options;
+    let token = localStorage.getItem('id_token');
+    if (token) {
+      options = {
+        'headers': {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }
+    }
     const content = {
         'name': 'no_data',
         email,
@@ -92,9 +122,22 @@ export const postSignup = (email, password, password_confirmation, callback) => 
 export const getGoodminders = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/gminders';
-    const response = await axios.get(path, options);
-    dispatch({ type: GET_GOODMINDERS, payload: response.data });
-    callback();
+    const token = localStorage.getItem('id_token');
+    const options = {
+      'headers': {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }
+    if (token) {
+      const response = await axios.get(path, options);
+      dispatch({ type: GET_GOODMINDERS, payload: response.data });
+      callback();
+    } else {
+      console.log('No token')
+    }
+
   } catch (e) {
     console.log(e)
     // Internal server error
@@ -109,10 +152,49 @@ export const getGoodminders = (callback) => async dispatch => {
 export const postGoodminder = (gminder, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/gminders';
+    let options;
+    let token = localStorage.getItem('id_token');
+    if (token) {
+      options = {
+        'headers': {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }
+    }
     const content = gminder;
     const response = await axios.post(path, content, options);
     dispatch({ type: POST_GOODMINDER, payload: gminder });
     callback();
+  } catch (e) {
+    console.log(e)
+    // Internal server error
+    if (e.response) {
+      dispatch({ type: RESPONSE, payload: e.response});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
+  }
+};
+
+export const getUser = () => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/me';
+    let token = localStorage.getItem('id_token');
+    let options;
+    if (token) {
+      options = {
+        'headers': {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }
+    }
+    const response = await axios.get(path, options);
+    dispatch({ type: GET_USER, payload: response.data });
+    console.log(response.data)
   } catch (e) {
     console.log(e)
     // Internal server error

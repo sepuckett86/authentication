@@ -39,7 +39,7 @@ class App extends Component {
           <Route path="/legal" component={Legal} />
           <Route path="/faq" component={Faq} />
         </div>
-        { this.props.error ? console.log(this.props.error) : null }
+      
       </div>
     );
   }
