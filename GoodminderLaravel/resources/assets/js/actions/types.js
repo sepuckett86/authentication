@@ -10,6 +10,7 @@ export const SET_CURRENT_GM = 'set_current_gm';
 export const SET_PREVIOUS_GM = 'add_previous_gm';
 export const SET_BACK_GM = 'set_back_gm';
 export const SET_CURRENT_PROMPT = 'set_current_prompt';
+export const SET_COLLECTION = 'set_collection';
 export const NAV_BACK = 'nav_back';
 export const NAV_NEXT = 'nav_next';
 export const NAV_CLEAR = 'nav_clear';

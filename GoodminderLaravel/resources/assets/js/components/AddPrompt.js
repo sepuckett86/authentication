@@ -37,13 +37,14 @@ class AddPrompt extends React.Component {
 
   changePromptSame() {
     let collectionArray = [];
-    this.state.prompts.forEach(prompt => {
-      if (prompt.collection === this.state.prompt.collection) {
+    this.props.prompts.forEach(prompt => {
+      console.log(prompt)
+      if (prompt.collection === this.props.currentPrompt.collection) {
         collectionArray.push(prompt);
       }
     })
     let random = collectionArray[Math.floor(Math.random() * collectionArray.length)];
-    this.setState({prompt: random});
+    this.props.setCurrentPrompt(random);
   }
 
   handleClick(event) {
@@ -54,7 +55,7 @@ class AddPrompt extends React.Component {
       this.changePromptSame();
     }
     if (event.target.id === "collection") {
-      this.props.setCollection(this.state.prompt.collection);
+      this.props.setCollection(this.props.currentPrompt.collection);
       this.props.changeDisplay('manager');
     }
     if (event.target.id === "create-goodminder") {
@@ -111,11 +112,8 @@ class AddPrompt extends React.Component {
 
       <hr />
       {/* <p>Collection:
-        <button id="collection" className="button-transparent" onClick={this.handleClick}>{this.state.prompt.collection}</button>
+        <button id="collection" className="button-transparent" onClick={this.handleClick}>{this.props.currentPrompt.collection}</button>
       </p> */}
-
-
-
       <p className="paragraph-text">Prompt</p>
       <div className="g-box">
         <div className="large">
