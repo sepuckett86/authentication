@@ -9,7 +9,8 @@
 //  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS, POST_GOODMINDER, GET_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS,
+  GET_PROMPTS, POST_GOODMINDER, GET_USER } from './types';
 
 const baseURL = 'http://goodminder.test/';
 
@@ -125,7 +126,42 @@ export const getGoodminders = (callback) => async dispatch => {
   } catch (e) {
     console.log(e)
     // Internal server error
-    if (e.response.status === 500) {
+    if (e.response) {
+      dispatch({ type: RESPONSE, payload: e.response});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
+  }
+};
+
+export const getPrompts = (callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/prompts';
+    const token = localStorage.getItem('id_token');
+    const options = {
+      'headers': {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }
+    if (token) {
+      const response = await axios.get(path, options);
+      // dispatch({ type: GET_PROMPTS, payload: response.data });
+      dispatch({ type: GET_PROMPTS, payload: [{
+        id: 1,
+        collection: 'Favorites',
+        promptText: 'What is a song that made you smile in the past month?'
+      }]});
+      callback();
+    } else {
+      console.log('No token')
+    }
+
+  } catch (e) {
+    console.log(e)
+    // Internal server error
+    if (e.response) {
       dispatch({ type: RESPONSE, payload: e.response});
     } else {
       dispatch({ type: RESPONSE, payload: 'Unknown error' });

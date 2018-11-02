@@ -31,3 +31,4 @@ export const DELETE_GOODMINDER = 'delete_goodminder';
 export const CLEAR_GOODMINDERS = 'clear_goodminders';
 
 export const GET_GOODMINDERS = 'get_goodminders';
+export const GET_PROMPTS = 'get_prompts';
