@@ -16,6 +16,7 @@ class Settings extends Component {
         <p>Name: {this.props.user.name}</p>
         <p>User name: {this.props.user.username}</p>
         <p>Change password button</p>
+        <button onClick={() => {this.props.deleteUser()}}>Delete Account</button>
       </div>
     )
   }

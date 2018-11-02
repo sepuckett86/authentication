@@ -29,6 +29,7 @@ export const POST_GOODMINDER = 'post_goodminder';
 export const PUT_GOODMINDER = 'put_goodminder';
 export const DELETE_GOODMINDER = 'delete_goodminder';
 export const CLEAR_GOODMINDERS = 'clear_goodminders';
+export const DELETE_USER = 'delete_user';
 
 export const GET_GOODMINDERS = 'get_goodminders';
 export const GET_PROMPTS = 'get_prompts';

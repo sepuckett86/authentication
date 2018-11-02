@@ -10,7 +10,7 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS,
-  GET_PROMPTS, POST_GOODMINDER, GET_USER } from './types';
+  GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT } from './types';
 
 const baseURL = 'http://goodminder.test/';
 
@@ -59,12 +59,8 @@ export const postLogin = (email, password, callback) => async dispatch => {
     callback();
   } catch (e) {
     console.log(e);
-    if (e.response) {
-      console.log(e.response)
-      dispatch({ type: AUTH_ERROR, payload: e.response });
-    } else {
-      dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
-    }
+    console.log(e.response);
+    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
   }
 };
 
@@ -228,3 +224,11 @@ export const getUser = () => async dispatch => {
     }
   }
 };
+
+export const deleteUser = () => async dispatch => {
+  try {
+    console.log('Not enabled yet')
+  } catch (e) {
+    dispatch({ type: RESPONSE, payload: e });
+  }
+}
