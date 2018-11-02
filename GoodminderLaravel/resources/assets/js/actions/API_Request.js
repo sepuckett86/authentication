@@ -53,25 +53,9 @@ export const postLogin = (email, password, callback) => async dispatch => {
       password: password
     };
     const response = await axios.post(path, content);
-
-    // Using Promise to wait until token is set before continuing
-    // to prevent 401 error
-    const promise1 = new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        dispatch({ type: AUTH_USER, payload: response.data.token });
-        localStorage.setItem('id_token', response.data.token)
-        resolve('done');
-      }, 300);
-    });
-    promise1.then(function(value) {
-      console.log(value);
-      callback();
-      // expected output: "foo"
-    });
-
-
-
-
+    dispatch({ type: AUTH_USER, payload: response.data.token });
+    localStorage.setItem('id_token', response.data.token)
+    callback();
   } catch (e) {
     console.log(e);
     if (e.response) {
@@ -191,10 +175,11 @@ export const getUser = () => async dispatch => {
           'Content-Type': 'application/json',
         }
       }
+      const response = await axios.get(path, options);
+      dispatch({ type: GET_USER, payload: response.data });
+    } else {
+      console.log('no token for request')
     }
-    const response = await axios.get(path, options);
-    dispatch({ type: GET_USER, payload: response.data });
-    console.log(response.data)
   } catch (e) {
     console.log(e)
     // Internal server error

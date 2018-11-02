@@ -28,9 +28,9 @@ export default (ChildComponent, route) => {
         // Double exclamation !! coerces object to Boolean. Truthy = true, falsy = false
         let test = !!token && !this.isTokenExpired(token);
         if (test) {
-          console.log('logged in')
+          console.log('requireAuth: logged in')
         } else {
-          console.log('logged out')
+          console.log('requireAuth: logged out')
         }
         return test
     }

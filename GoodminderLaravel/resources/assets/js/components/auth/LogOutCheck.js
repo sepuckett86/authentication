@@ -13,12 +13,7 @@ class LogOutCheck extends Component {
   loggedIn() {
       // Checks if there is a saved token and it's still valid
       const token = this.getToken() // GEtting token from localstorage
-      let test = !!token && !this.isTokenExpired(token)
-      if (test) {
-        console.log("Logged In")
-      } else {
-        console.log("Not logged in")
-      }
+      let test = !!token && !this.isTokenExpired(token);
       return test // handwaiving here
   }
   getToken() {
@@ -70,7 +65,9 @@ class LogOutCheck extends Component {
     } else {
       return (
         <div>
-          <p>You are logged in. {' '}</p>
+          <p>Logging out.</p>
+          <br />
+          <p>If this screen does not refresh, use the following buttons:</p>
           <div style={{'display': 'flex', 'justifyContent': 'space-around'}}>
             <button onClick={() => this.props.postSignout()} className='btn btn-goodminder btn-sm'>
               <i className="fas fa-arrow-circle-right"></i>{' '}Log out.

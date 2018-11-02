@@ -29,7 +29,6 @@ class Goodminders extends Component {
       if (this.props.goodminders.length > 0 ) {
         let current = this.props.goodminders[0];
         this.props.setCurrentGM(current);
-        console.log(this.props.currentGM)
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
         // If current gminder is a prompt response, find and store prompt
@@ -203,7 +202,7 @@ class Goodminders extends Component {
     return (
       <div>
         {this.checkContent()}
-        
+
       </div>
     )
   }
