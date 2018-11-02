@@ -19,27 +19,30 @@ export const postSignout = () => async dispatch => {
     const path = baseURL + 'api/auth/logout';
     let options;
     let token = localStorage.getItem('id_token');
-    if (token) {
-      options = {
-        'headers': {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
+    options = {
+      'headers': {
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       }
     }
+    let response;
     const content = { 'token': token }
+    if (token) {
+      // Update back-end to show that user is logged out
+      response = await axios.post(path, content, options);
+      console.log(response);
+      // Update redux store to show that no user is logged in
+      dispatch({ type: AUTH_USER, payload: '' });
+      // Update local storage to remove token from browser
+      localStorage.removeItem('id_token');
+    }
     if (content.token === undefined) {
       alert('You are already logged out')
       return 0;
     }
-    // Update back-end to show that user is logged out
-    const response = await axios.post(path, content, options);
-    console.log(response);
-    // Update redux store to show that no user is logged in
-    dispatch({ type: AUTH_USER, payload: '' });
-    // Update local storage to remove token from browser
-    localStorage.removeItem('id_token');
+
+
   } catch (e) {
     console.log(e);
     dispatch({ type: AUTH_ERROR, payload: 'Error during logout' });
