@@ -17,6 +17,7 @@ class LogIn extends Component {
   // Our component just got rendered
   componentDidMount() {
     this.shouldNavigateAway();
+    this.props.clearError();
   }
 
   // Our component just got updated
