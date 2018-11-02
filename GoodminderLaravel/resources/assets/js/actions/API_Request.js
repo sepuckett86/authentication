@@ -181,7 +181,9 @@ export const getUser = () => async dispatch => {
       console.log('Load general page: User login token absent')
     }
   } catch (e) {
-    console.log(e)
+    // Update local storage to remove token from browser
+    localStorage.removeItem('id_token');
+    dispatch({ type: AUTH_USER, payload: false});
     // Internal server error
     if (e.response) {
       dispatch({ type: RESPONSE, payload: e.response});
