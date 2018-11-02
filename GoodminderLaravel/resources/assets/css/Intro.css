@@ -1,9 +1,13 @@
 /* INTRO CSS */
 
 #callToAction {
-  height: 92vh;
+  height: 100vh;
   background-image: url('../images/mountain.jpg');
   background-size: cover;
+
+}
+#div0 {
+  height: 5%;
 }
 
 #div1 {
@@ -24,7 +28,7 @@
 }
 
 #div2 {
-  height: 15%;
+  height: 10%;
 }
 
 #div3 {
@@ -50,6 +54,7 @@
   text-transform: uppercase;
   font-weight: bold;
   font-family: lato;
+  font-size: 2em;
 }
 
 #callHeader2 {
@@ -81,14 +86,44 @@
 .followUp {
   text-align: center;
 }
-/* Small screen */
 
-@media (max-width: 576px) {
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 400px) {
   #callToAction {
     background-color: rgba(0, 0, 0, 0);
   }
   #callHeader1 {
-    font-size: 3.5em;
+    font-size: 2em;
+  }
+  #callHeader2 {
+    font-size: 18px;
+  }
+  .focusOnYou {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #46B3B3);
+  }
+  #followUpButton {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  #followUpButton:hover {
+    background-color: white;
+  }
+  #outerDiv {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 92vh;
+  }
+}
+
+/* Small screen */
+
+@media (min-width: 400px) {
+  #callToAction {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  #callHeader1 {
+    font-size: 4em;
+  }
+  #callHeader2 {
+    font-size: 1.5em;
   }
   .focusOnYou {
     background: linear-gradient(to right, rgba(255, 255, 255, 0), #46B3B3);
@@ -127,6 +162,74 @@
   }
   #outerDiv {
     height: 92vh;
+  }
+  #div0 {
+    height: 0%;
+  }
+  #div2 {
+    height: 15%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #callToAction {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  #callHeader1 {
+    font-size: 5em;
+    color: white;
+  }
+  #introMiddle {
+    padding: 2%;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  .focusOnYou {
+    background: linear-gradient(to right, #46B3B3, rgba(255, 255, 255, 0));
+  }
+  #callHeader2 {
+    color: #2b2b2b;
+    font-size: 1.5em;
+  }
+  #outerDiv {
+    height: 92vh;
+  }
+  #div0 {
+    height: 0%;
+  }
+  #div2 {
+    height: 15%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 2000px) {
+  #callToAction {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  #callHeader1 {
+    font-size: 15em;
+    color: white;
+  }
+  #introMiddle {
+    padding: 2%;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  .focusOnYou {
+    background: linear-gradient(to right, #46B3B3, rgba(255, 255, 255, 0));
+  }
+  #callHeader2 {
+    color: #2b2b2b;
+    font-size: 2em;
+  }
+  #outerDiv {
+    height: 92vh;
+  }
+  #div0 {
+    height: 0%;
+  }
+  #div2 {
+    height: 15%;
   }
 }
 

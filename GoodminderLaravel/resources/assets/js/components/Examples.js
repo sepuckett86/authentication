@@ -27,22 +27,21 @@ class Examples extends Component {
           <h5 className="comfortaa">Here's what you can do with your account:</h5>
         <br />
     <div className="row examples-row">
-      <div className="col col-6 mb-4">
-        <div className="card">
-        <br />
-        <div>
-          <i className="fas fa-print icon"></i>
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Print</h5>
-          <p className="card-text">Print out your goodminders to hang on your wall or save in a book.</p>
-
-        </div>
+      <div className="col-sm-12 col-md-6 col-lg-3 mb-4">
+        <div className="card examples-card">
+          <br />
+          <div>
+            <i className="fas fa-print icon"></i>
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">Print</h5>
+            <p className="card-text">Print out your goodminders to hang on your wall or save in a book.</p>
+            </div>
         </div>
       </div>
       <br />
-    <div className="col col-6 mb-4">
-      <div className="card">
+    <div className="col-sm-12 col-md-6 col-lg-3 mb-4">
+      <div className="card examples-card">
       <br />
       <div>
         <i className="fas fa-book-open icon"></i>
@@ -55,8 +54,8 @@ class Examples extends Component {
       <br />
     </div>
 
-    <div className="col col-6 mb-4">
-      <div className="card">
+    <div className="col-sm-12 col-md-6 col-lg-3 mb-4">
+      <div className="card examples-card">
         <br />
         <div>
         <i className="fas fa-save icon"></i>
@@ -69,8 +68,8 @@ class Examples extends Component {
       <br />
     </div>
 
-    <div className="col col-6 mb-4">
-      <div className="card">
+    <div className="col-sm-12 col-md-6 col-lg-3 mb-4">
+      <div className="card examples-card">
         <br />
         <div>
         <i className="fas fa-envelope-square icon"></i>
