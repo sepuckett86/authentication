@@ -178,7 +178,7 @@ export const getUser = () => async dispatch => {
       const response = await axios.get(path, options);
       dispatch({ type: GET_USER, payload: response.data });
     } else {
-      console.log('no token for request')
+      console.log('Load general page: User login token absent')
     }
   } catch (e) {
     console.log(e)
@@ -186,7 +186,7 @@ export const getUser = () => async dispatch => {
     if (e.response) {
       dispatch({ type: RESPONSE, payload: e.response});
     } else {
-      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+      dispatch({ type: RESPONSE, payload: 'getUser failed' });
     }
   }
 };

@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import '../../css/App.css';
 
 import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import Navbar from './Navbar';
 import About from './About';
@@ -20,6 +21,9 @@ import ResetBegin from './auth/ResetBegin';
 import Home from './Home';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getUser()
+  }
   render() {
     return(
       <div className='App'>
@@ -39,7 +43,7 @@ class App extends Component {
           <Route path="/legal" component={Legal} />
           <Route path="/faq" component={Faq} />
         </div>
-      
+
       </div>
     );
   }
@@ -48,4 +52,4 @@ class App extends Component {
 function mapStateToProps(state) {
   return { error: state.auth.errorMessage }
 }
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, actions)(App);
