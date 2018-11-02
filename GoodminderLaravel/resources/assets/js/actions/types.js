@@ -22,10 +22,12 @@ export const AUTH_ERROR = 'auth_error';
 export const RESPONSE = 'response';
 
 // User-specific Info
+export const GET_USER = 'get_user';
 export const UPDATE_USER = 'update_user';
 export const GET_GOODMINDER = 'get_goodminder';
 export const POST_GOODMINDER = 'post_goodminder';
 export const PUT_GOODMINDER = 'put_goodminder';
 export const DELETE_GOODMINDER = 'delete_goodminder';
+export const CLEAR_GOODMINDERS = 'clear_goodminders';
 
 export const GET_GOODMINDERS = 'get_goodminders';

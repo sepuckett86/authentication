@@ -39,7 +39,6 @@ class AddCustom extends React.Component {
       collection: this.state.inputCollection,
       publicFlag: 0,
     }
-    console.log(newGminder)
     return newGminder;
   }
 

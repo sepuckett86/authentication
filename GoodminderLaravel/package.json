@@ -38,10 +38,11 @@
         "enzyme-adapter-react-16": "^1.6.0",
         "jwt-decode": "^2.2.0",
         "react-redux": "^5.0.7",
-        "react-responsive": "^5.0.0",
+        "react-responsive": "^6.0.0",
         "react-router-dom": "^4.3.1",
         "react-scrollable-anchor": "^0.6.1",
         "redux": "^4.0.1",
+        "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0"
     }
 }

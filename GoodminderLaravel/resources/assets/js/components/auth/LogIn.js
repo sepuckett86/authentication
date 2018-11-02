@@ -38,9 +38,9 @@ class LogIn extends Component {
     // prevent standard form submit behaviour
     event.preventDefault();
       // API_request action
-      this.props.updateUser(this.state.email, '');
+
       this.props.postLogin(this.state.email, this.state.password, () => {
-        this.props.history.push('/');
+          this.props.history.push('/');
       });
 
   }
@@ -93,7 +93,9 @@ class LogIn extends Component {
 };
 
 function mapStateToProps(state) {
-  return { auth: state.auth.authenticated }
+  return {
+    auth: state.auth.authenticated
+   }
 }
 
 export default connect(mapStateToProps, actions)(LogIn);

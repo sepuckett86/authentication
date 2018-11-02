@@ -10,6 +10,7 @@ class Goodminders extends Component {
     super(props);
     this.state = {
       prompts: [],
+      length: ''
     }
     this.nextClick = this.nextClick.bind(this);
     this.backClick = this.backClick.bind(this);
@@ -21,12 +22,13 @@ class Goodminders extends Component {
     this.props.navClear();
     // Request to pull from database
     this.props.getGoodminders(() => {
-      console.log(this.props.goodminders);
+      this.setState({
+        length: this.props.goodminders.length
+      })
       // Then set current gminder
       if (this.props.goodminders.length > 0 ) {
         let current = this.props.goodminders[0];
         this.props.setCurrentGM(current);
-        console.log(this.props.currentGM)
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
         // If current gminder is a prompt response, find and store prompt
@@ -134,19 +136,23 @@ class Goodminders extends Component {
     if(gminder.category === 'prompt') {
       return <Prompt/>
     }
-    if(gminder.category === 'quote') {
+    else if(gminder.category === 'quote') {
       return <Quote/>
     }
-    if(gminder.category === 'custom') {
+    else if(gminder.category === 'custom') {
       return <Custom/>
-    } else {
+    }
+    else if (this.props.goodminders.length === 0){
+      return <p>Loading</p>
+    }
+    else {
       return <p>Category Error</p>
     }
   }
 
   checkContent() {
     // Does user have goodminders to display?
-    if (this.props.goodminders.length === 0) {
+    if (this.state.length === 0) {
       return(
         <div>
           <h1>Get Started</h1>
@@ -196,7 +202,7 @@ class Goodminders extends Component {
     return (
       <div>
         {this.checkContent()}
-        {console.log(this.props.navigation)}
+
       </div>
     )
   }

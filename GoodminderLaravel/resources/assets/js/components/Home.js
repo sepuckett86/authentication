@@ -8,6 +8,9 @@ import Add from './Add';
 import Print from './Print';
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.getUser();
+  }
   renderDisplay() {
     switch(this.props.display) {
       case 'add':
@@ -30,6 +33,10 @@ class Home extends Component {
 };
 
 function mapStateToProps(state) {
-  return { display : state.display.home}
+  return {
+    display : state.display.home,
+    email: state.user.email,
+    name: state.user.name
+  }
 }
 export default connect(mapStateToProps, actions)(requireAuth(Home, '/intro'));

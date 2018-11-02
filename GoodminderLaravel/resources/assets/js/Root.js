@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 
@@ -11,7 +12,7 @@ export default ({ children, state = INITIAL_STATE }) => {
   const store = createStore(
     reducers,
     state,
-    applyMiddleware(reduxThunk)
+    applyMiddleware(reduxThunk, logger)
   );
   return (
     <Provider store={store}>

@@ -1,5 +1,5 @@
-import { SAVE_GOODMINDER, CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY } from './types';
-import { UPDATE_USER } from './types';
+import { SAVE_GOODMINDER, CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CLEAR_GOODMINDERS } from './types';
+import { AUTH_USER, UPDATE_USER } from './types';
 
 export * from './API_Request';
 export * from './navigation';
@@ -29,5 +29,19 @@ export function updateUser(email, username) {
   return {
     type: UPDATE_USER,
     payload: {email: email, username: username}
+  }
+}
+
+export function changeAuth(payload) {
+  return {
+    type: AUTH_USER,
+    payload: payload
+  }
+}
+
+export function clearGoodminders() {
+  return {
+    type: CLEAR_GOODMINDERS,
+    payload: []
   }
 }
