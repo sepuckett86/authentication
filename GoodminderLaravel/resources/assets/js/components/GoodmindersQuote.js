@@ -1,5 +1,5 @@
 import React from 'react';
-// import Stars from './Stars';
+import Stars from './Stars';
 import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -35,7 +35,7 @@ class Quote extends React.Component {
             <MediaQuery query="(min-width: 576px)">
             <div className="row">
               <div className="col alignL">
-                {/*<Stars/>*/}
+                <Stars/>
               </div>
               <div className="col alignR">
                 <p>Added {this.props.gminder.recordedDate} from Quote Collection: {this.props.gminder.collection}</p>
@@ -67,7 +67,7 @@ class Quote extends React.Component {
                 <br />
                 {/* MediaQuery for small screen */}
                 <MediaQuery query="(max-width: 576px)">
-                {/*<Stars/>*/}
+                <Stars/>
                   <br />
                 <p>{this.props.gminder.recordedDate ? (this.props.gminder.recordedDate + ' | '): null}
                    {this.props.gminder.collection}</p>
