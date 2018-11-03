@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import requireAuth from './auth/requireAuth';
+import { Link } from 'react-router-dom';
 
 class Settings extends Component {
 
   render() {
     return (
+      <div>
+      <br />
+      <button>
+      <Link to="/" className="dropdown-item">Back to Home</Link>
+      </button>
+      <br />
+
       <div className='log-box'>
         <h1>Settings</h1>
         <h2>Account Information</h2>
@@ -16,6 +24,7 @@ class Settings extends Component {
         <button onClick={() => {console.log('Not enabled yet')}}>Change password</button>
         <br /><br />
         <button onClick={() => {this.props.deleteUser()}}>Delete Account</button>
+      </div>
       </div>
     )
   }

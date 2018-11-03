@@ -1,10 +1,10 @@
 import React from 'react';
 import Gminder from '../../../../Utils/Gminder'
-import Button from '../../Components/Button/Button'
 
-import EditPrompt from './Components/EditPrompt/EditPrompt';
-import EditQuote from './Components/EditQuote/EditQuote';
-import EditCustom from './Components/EditCustom/EditCustom';
+
+import EditPrompt from './EditPrompt';
+import EditQuote from './EditQuote';
+import EditCustom from './EditCustom';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -123,11 +123,10 @@ class Edit extends React.Component {
         <br />
         <br />
         <br />
-        <Button
-          id='random'
-        name="Back"
-        onClick={this.props.changeDisplay}
-        />
+        <button
+        onClick={this.props.changeDisplay}>
+        Back
+        </button>
         </div>
       </div>
   )
