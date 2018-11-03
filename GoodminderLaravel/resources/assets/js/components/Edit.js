@@ -1,6 +1,6 @@
 import React from 'react';
-import Gminder from '../../../../Utils/Gminder'
-
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import EditPrompt from './EditPrompt';
 import EditQuote from './EditQuote';
@@ -9,57 +9,44 @@ import EditCustom from './EditCustom';
 class Edit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      updatedGminder: {}
-    }
     this.changeDatabase = this.changeDatabase.bind(this);
     this.setGminderforDatabase = this.setGminderforDatabase.bind(this);
   }
 
-  handleClick(event) {
-    if (event.target.id === 'updateButton') {
-    }
-  }
   changeDatabase(event) {
     if (event.target.id === 'deleteModal') {
       console.log(this.props.gminder);
-      Gminder.deleteGminder(this.props.gminder.id).then(() => {
-        this.props.changeDisplay('random');
-      });
+      this.props.deleteGoodminder(this.props.gminder.id, this.props.goodminders, () => {
+          this.props.changeHomeDisplay('random');
+      })
     }
     if (event.target.id === 'editModal') {
       console.log(this.props.gminder);
-      Gminder.updateGminder(this.state.updatedGminder).then(() => {
-        this.props.changeDisplay('random');
-      });
+      this.props.putGoodminder(this.props.updatedGminder, this.props.goodminders, () => {
+        this.props.changeHomeDisplay('random');
+      })
     }
-  }
-
-  setGminderforDatabase(gminder) {
-    this.setState({updatedGminder: gminder})
   }
 
   setDisplay() {
     if (this.props.gminder.category === 'prompt') {
       return (<div>
-        <EditPrompt
-          gminder={this.props.gminder}
-          prompts={this.props.prompts}
-          setGminderForDatabase={this.setGminderforDatabase}/>
+        <EditPrompt/>
       </div>)
     }
     if (this.props.gminder.category === 'quote') {
       return (<div>
-        <EditQuote
-        gminder={this.props.gminder}
-      setGminderForDatabase={this.setGminderforDatabase} />
+        <EditQuote/>
       </div>)
     }
     if (this.props.gminder.category === 'custom') {
       return (<div>
-        <EditCustom
-        gminder={this.props.gminder}
-      setGminderForDatabase={this.setGminderforDatabase} />
+        <EditCustom/>
+      </div>)
+    } else {
+      return (<div>
+        <p>No category</p>
+        <EditCustom/>
       </div>)
     }
   }
@@ -106,8 +93,6 @@ class Edit extends React.Component {
             </div>
           </div>
         </div>
-
-
         {/* End Modal */}
 
         <br />
@@ -124,7 +109,7 @@ class Edit extends React.Component {
         <br />
         <br />
         <button
-        onClick={this.props.changeDisplay}>
+        onClick={() => this.props.changeHomeDisplay('goodminders')}>
         Back
         </button>
         </div>
@@ -133,4 +118,11 @@ class Edit extends React.Component {
 }
 }
 
-export default Edit;
+funtion mapStateToProps(state) {
+  return {
+    gminder: state.navigation.currentGM,
+    goodminders: state.goodminders,
+    updatedGminder: state.navigation.updatedGM
+   }
+}
+export default connect(mapStateToProps, actions)(Edit);

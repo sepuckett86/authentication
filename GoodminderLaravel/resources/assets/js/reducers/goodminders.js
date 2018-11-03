@@ -1,4 +1,5 @@
-import { SAVE_GOODMINDER, GET_GOODMINDERS, POST_GOODMINDER, CLEAR_GOODMINDERS } from '../actions/types';
+import { GET_GOODMINDERS, POST_GOODMINDER,
+  PUT_GOODMINDER, DELETE_GOODMINDER, CLEAR_GOODMINDERS } from '../actions/types';
 
 /* const initialState = [
   {
@@ -22,14 +23,16 @@ import { SAVE_GOODMINDER, GET_GOODMINDERS, POST_GOODMINDER, CLEAR_GOODMINDERS } 
 */
 export default function(state = [], action) {
   switch(action.type) {
-    case SAVE_GOODMINDER:
-      return [...state, action.payload];
     case GET_GOODMINDERS:
       return action.payload
     case POST_GOODMINDER:
       return [...state, action.payload];
     case CLEAR_GOODMINDERS:
       return action.payload;
+    case PUT_GOODMINDER:
+      return action.payload
+    case DELETE_GOODMINDER:
+      return action.payload
     default:
       return state;
   }

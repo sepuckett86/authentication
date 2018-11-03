@@ -1,6 +1,5 @@
 // For Front End Interface
 
-export const SAVE_GOODMINDER = 'save_goodminder';
 export const CHANGE_AUTH = 'change_auth';
 export const CHANGE_HOME_DISPLAY = 'change_home_display';
 export const CHANGE_ADD_DISPLAY = 'change_add_display';
@@ -24,7 +23,7 @@ export const RESPONSE = 'response';
 
 // User-specific Info
 export const GET_USER = 'get_user';
-export const UPDATE_USER = 'update_user';
+export const PUT_USER = 'put_user';
 export const GET_GOODMINDER = 'get_goodminder';
 export const POST_GOODMINDER = 'post_goodminder';
 export const PUT_GOODMINDER = 'put_goodminder';

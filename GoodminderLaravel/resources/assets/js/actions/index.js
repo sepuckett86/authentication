@@ -1,15 +1,8 @@
-import { SAVE_GOODMINDER, CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CLEAR_GOODMINDERS } from './types';
-import { AUTH_USER, AUTH_ERROR, UPDATE_USER } from './types';
+import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CLEAR_GOODMINDERS } from './types';
+import { AUTH_USER, AUTH_ERROR, PUT_USER } from './types';
 
 export * from './API_Request';
 export * from './navigation';
-
-export function saveGoodminder(goodminder) {
-  return {
-    type: SAVE_GOODMINDER,
-    payload: goodminder
-  }
-}
 
 export function changeHomeDisplay(display) {
   return {
@@ -25,12 +18,6 @@ export function changeAddDisplay(display) {
   }
 }
 
-export function updateUser(email, username) {
-  return {
-    type: UPDATE_USER,
-    payload: {email: email, username: username}
-  }
-}
 
 export function changeAuth(payload) {
   return {

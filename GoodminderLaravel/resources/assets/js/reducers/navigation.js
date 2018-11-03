@@ -8,7 +8,8 @@ const initialState = {
     previousGM: [],
     backGM: 0,
     currentPrompt: {},
-    collection: ''
+    collection: '',
+    updatedGM: {}
   };
 
 export default function(state = initialState, action) {

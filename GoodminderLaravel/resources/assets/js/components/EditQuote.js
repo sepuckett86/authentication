@@ -1,5 +1,8 @@
 import React from 'react';
-import StarsSimple from '../../../../Components/StarsSimple/StarsSimple';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
+import StarsSimple from './StarsSimple';
 
 class EditQuote extends React.Component {
   constructor(props) {
@@ -84,7 +87,6 @@ class EditQuote extends React.Component {
     this.setState({inputRating: stars})
   }
 
-
   render() {
     return(
       <div>
@@ -138,7 +140,6 @@ class EditQuote extends React.Component {
 
           </form>
           <StarsSimple
-            gminder={this.props.gminder}
             changeRating={this.changeRating}
             stars={this.state.inputRating}
             />

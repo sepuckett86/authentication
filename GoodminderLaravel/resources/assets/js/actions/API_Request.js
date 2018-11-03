@@ -10,7 +10,8 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS,
-  GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT } from './types';
+  GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT,
+  PUT_GOODMINDER, DELETE_GOODMINDER } from './types';
 
 const baseURL = 'http://goodminder.test/';
 
@@ -58,7 +59,8 @@ export const postLogin = (email, password, callback) => async dispatch => {
     };
     const response = await axios.post(path, content);
     dispatch({ type: AUTH_USER, payload: response.data.token });
-    localStorage.setItem('id_token', response.data.token)
+    localStorage.setItem('id_token', response.data.token);
+    sessionStorage.setItem('myData', 'logged in');
     callback();
   } catch (e) {
     console.log(e);
@@ -231,6 +233,28 @@ export const getUser = () => async dispatch => {
 export const deleteUser = () => async dispatch => {
   try {
     console.log('Not enabled yet')
+  } catch (e) {
+    dispatch({ type: RESPONSE, payload: e });
+  }
+}
+
+export const putGoodminder = (updatedGoodminder, goodminders, callback) => async dispatch => {
+  try {
+    // PUT request with updatedGminder
+    console.log('Not enabled yet')
+    dispatch({ type: PUT_GOODMINDER, payload: goodminders });
+    callback();
+  } catch (e) {
+    dispatch({ type: RESPONSE, payload: e });
+  }
+}
+
+export const deleteGoodminder = (id, goodminders, callback) => async dispatch => {
+  try {
+    // DELETE request with gminder id
+    console.log('Not enabled yet')
+    dispatch({ type: DELETE_GOODMINDER, payload: goodminders });
+    callback()
   } catch (e) {
     dispatch({ type: RESPONSE, payload: e });
   }
