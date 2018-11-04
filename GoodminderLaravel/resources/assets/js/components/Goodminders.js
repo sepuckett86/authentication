@@ -40,6 +40,9 @@ class Goodminders extends Component {
           this.props.setCurrentPrompt(currentPrompt);
           }
       }
+      this.setState({
+        length: this.props.goodminders.length
+      })
     });
 
   }

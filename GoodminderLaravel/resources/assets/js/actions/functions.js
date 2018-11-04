@@ -1,4 +1,4 @@
-export const makeOptionsWithToken = () => {
+export const optionsWithToken = () => {
   const token = localStorage.getItem('id_token');
   const options = {
     'headers': {
@@ -8,4 +8,12 @@ export const makeOptionsWithToken = () => {
     }
   }
   return options
+}
+
+export const tokenInLocalStorage = () => {
+  if (localStorage.getItem('id_token')) {
+    return true;
+  } else {
+    return false;
+  }
 }

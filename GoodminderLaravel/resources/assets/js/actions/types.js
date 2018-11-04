@@ -20,7 +20,9 @@ export const NAV_CLEAR = 'nav_clear';
 // Auth
 export const AUTH_USER = 'auth_user';
 export const AUTH_ERROR = 'auth_error';
+export const CLEAR_AUTH_ERROR = 'clear_auth_error';
 export const RESPONSE = 'response';
+export const RESPONSE_ERROR = 'response_error';
 
 // User-specific Info
 export const GET_USER = 'get_user';
