@@ -1,5 +1,5 @@
 import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CLEAR_GOODMINDERS } from './types';
-import { AUTH_USER, AUTH_ERROR, PUT_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, CLEAR_AUTH_ERROR, PUT_USER } from './types';
 
 export * from './API_Request';
 export * from './navigation';
@@ -36,7 +36,6 @@ export function clearGoodminders() {
 
 export function clearError() {
   return {
-    type: AUTH_ERROR,
-    payload: ''
+    type: CLEAR_AUTH_ERROR
   }
 }

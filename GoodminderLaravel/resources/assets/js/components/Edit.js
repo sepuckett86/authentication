@@ -10,7 +10,6 @@ class Edit extends React.Component {
   constructor(props) {
     super(props);
     this.changeDatabase = this.changeDatabase.bind(this);
-    this.setGminderforDatabase = this.setGminderforDatabase.bind(this);
   }
 
   changeDatabase(event) {
@@ -118,7 +117,7 @@ class Edit extends React.Component {
 }
 }
 
-funtion mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     gminder: state.navigation.currentGM,
     goodminders: state.goodminders,

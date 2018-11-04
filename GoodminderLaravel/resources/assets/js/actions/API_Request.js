@@ -9,44 +9,33 @@
 //  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS,
+import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR, GET_GOODMINDERS,
   GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT,
   PUT_GOODMINDER, DELETE_GOODMINDER } from './types';
+import { optionsWithToken, tokenInLocalStorage } from './functions';
 
 const baseURL = 'http://goodminder.test/';
 
 export const postSignout = () => async dispatch => {
   try {
-    const path = baseURL + 'api/auth/logout';
-    let options;
-    let token = localStorage.getItem('id_token');
-    options = {
-      'headers': {
-        'Authorization': 'Bearer ' + token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    }
-    let response;
-    const content = { 'token': token }
-    if (token) {
+    if (tokenInLocalStorage()) {
+      const path = baseURL + 'api/auth/logout';
+      const content = { 'token': localStorage.getItem('id_token') };
+      const options = optionsWithToken();
       // Update back-end to show that user is logged out
-      response = await axios.post(path, content, options);
+      const response = await axios.post(path, content, options);
       console.log(response);
       // Update redux store to show that no user is logged in
       dispatch({ type: AUTH_USER, payload: '' });
       // Update local storage to remove token from browser
       localStorage.removeItem('id_token');
-    }
-    if (content.token === undefined) {
+      sessionStorage.removeItem('myData');
+    } else if (!tokenInLocalStorage()) {
       alert('You are already logged out')
       return 0;
     }
-
-
   } catch (e) {
-    console.log(e);
-    dispatch({ type: AUTH_ERROR, payload: 'Error during logout' });
+    dispatch({ type: RESPONSE_ERROR, payload: e });
   }
 }
 
@@ -63,9 +52,12 @@ export const postLogin = (email, password, callback) => async dispatch => {
     sessionStorage.setItem('myData', 'logged in');
     callback();
   } catch (e) {
-    console.log(e);
-    console.log(e.response);
-    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+    if (e.response.status === 403) {
+      dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+    } else {
+      dispatch({ type: RESPONSE_ERROR, payload: e });
+    }
+
   }
 };
 
@@ -73,15 +65,8 @@ export const postSignup = (email, password, password_confirmation, callback) => 
   try {
     const path = baseURL + 'api/auth/signup';
     let options;
-    let token = localStorage.getItem('id_token');
-    if (token) {
-      options = {
-        'headers': {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
-      }
+    if (tokenInLocalStorage()) {
+      options = optionsWithToken
     }
     const content = {
         'name': 'no_data',
@@ -108,27 +93,19 @@ export const postSignup = (email, password, password_confirmation, callback) => 
 export const getGoodminders = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/gminders';
-    const token = localStorage.getItem('id_token');
-    const options = {
-      'headers': {
-        'Authorization': 'Bearer ' + token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    }
-    if (token) {
+    const options = optionsWithToken();
+    if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
       dispatch({ type: GET_GOODMINDERS, payload: response.data });
       callback();
     } else {
       console.log('No token')
     }
-
   } catch (e) {
     console.log(e)
     // Internal server error
     if (e.response) {
-      dispatch({ type: RESPONSE, payload: e.response});
+      dispatch({ type: RESPONSE_ERROR, payload: e.response});
     } else {
       dispatch({ type: RESPONSE, payload: 'Unknown error' });
     }
@@ -138,15 +115,8 @@ export const getGoodminders = (callback) => async dispatch => {
 export const getPrompts = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/prompts';
-    const token = localStorage.getItem('id_token');
-    const options = {
-      'headers': {
-        'Authorization': 'Bearer ' + token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
-    }
-    if (token) {
+    const options = optionsWithToken();
+    if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
       // dispatch({ type: GET_PROMPTS, payload: response.data });
       dispatch({ type: GET_PROMPTS, payload: [{
@@ -160,58 +130,33 @@ export const getPrompts = (callback) => async dispatch => {
     }
 
   } catch (e) {
-    console.log(e)
-    // Internal server error
-    if (e.response) {
-      dispatch({ type: RESPONSE, payload: e.response});
-    } else {
-      dispatch({ type: RESPONSE, payload: 'Unknown error' });
-    }
+    dispatch({ type: RESPONSE_ERROR, payload: e});
   }
 };
 
 export const postGoodminder = (gminder, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/gminders';
-    let options;
-    let token = localStorage.getItem('id_token');
-    if (token) {
-      options = {
-        'headers': {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
-      }
-    }
-    const content = gminder;
-    const response = await axios.post(path, content, options);
-    dispatch({ type: POST_GOODMINDER, payload: gminder });
-    callback();
-  } catch (e) {
-    console.log(e)
-    // Internal server error
-    if (e.response) {
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = gminder;
+      const response = await axios.post(path, content, options);
+      dispatch({ type: POST_GOODMINDER, payload: gminder });
+      callback();
+    }  else {
+      console.log('No token')
       dispatch({ type: RESPONSE, payload: e.response});
-    } else {
-      dispatch({ type: RESPONSE, payload: 'Unknown error' });
     }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e});
   }
 };
 
 export const getUser = () => async dispatch => {
   try {
     const path = baseURL + 'api/auth/me';
-    let token = localStorage.getItem('id_token');
-    let options;
-    if (token) {
-      options = {
-        'headers': {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
-      }
+    if (localStorage.getItem('id_token')) {
+      const options = optionsWithToken();
       const response = await axios.get(path, options);
       dispatch({ type: GET_USER, payload: response.data });
     } else {
@@ -240,9 +185,18 @@ export const deleteUser = () => async dispatch => {
 
 export const putGoodminder = (updatedGoodminder, goodminders, callback) => async dispatch => {
   try {
+    const id = updatedGoodminder.id;
+    const path = baseURL + `/api/gminders/${id}`;
+    const options = optionsWithToken();
+    const content = updatedGoodminder;
     // PUT request with updatedGminder
-    console.log('Not enabled yet')
-    dispatch({ type: PUT_GOODMINDER, payload: goodminders });
+    const response = await axios.put(path, content, options);
+    // Remove old goodminder from goodminders array
+    const filtered = goodminders.filter(goodminder => goodminder.id !== id);
+    // Add updatedGoodminder to array
+    filtered.push(updatedGoodminder);
+    // Assign updated array to payload
+    dispatch({ type: PUT_GOODMINDER, payload: filtered });
     callback();
   } catch (e) {
     dispatch({ type: RESPONSE, payload: e });
