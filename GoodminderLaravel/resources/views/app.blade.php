@@ -10,7 +10,7 @@
 
         <title>GoodminderLaravel</title>
 
-
+        <link rel="icon" type="image/ico" href="favicon.ico" />
         <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
