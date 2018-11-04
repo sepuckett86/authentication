@@ -30,8 +30,7 @@ export const postSignout = () => async dispatch => {
       // Update local storage to remove token from browser
       localStorage.removeItem('id_token');
       sessionStorage.removeItem('myData');
-    }
-    if (!tokenInLocalStorage()) {
+    } else if (!tokenInLocalStorage()) {
       alert('You are already logged out')
       return 0;
     }

@@ -10,33 +10,7 @@ class LogOutCheck extends Component {
     this.props.postSignout();
     this.props.clearGoodminders();
   }
-  loggedIn() {
-      // Checks if there is a saved token and it's still valid
-      const token = this.getToken() // GEtting token from localstorage
-      let test = !!token && !this.isTokenExpired(token);
-      return test // handwaiving here
-  }
-  getToken() {
-      // Retrieves the user token from localStorage
-      return localStorage.getItem('id_token')
-  }
-  removeToken() {
-    localStorage.removeItem('id_token');
-    return localStorage.getItem('id_token')
-  }
-  isTokenExpired(token) {
-      try {
-          const decoded = decode(token);
-          if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
-              return true;
-          }
-          else
-              return false;
-      }
-      catch (err) {
-          return false;
-      }
-  }
+
   checkAuth() {
     if (!this.props.auth) {
       return (
@@ -67,16 +41,10 @@ class LogOutCheck extends Component {
         <div>
           <p>Logging out.</p>
           <br />
-          <p>If this screen does not refresh, use the following buttons:</p>
+          <p>If this screen does not refresh, use the following button:</p>
           <div style={{'display': 'flex', 'justifyContent': 'space-around'}}>
             <button onClick={() => this.props.postSignout()} className='btn btn-goodminder btn-sm'>
               <i className="fas fa-arrow-circle-right"></i>{' '}Log out.
-            </button>
-            <button onClick={() => this.loggedIn()} className='btn btn-goodminder btn-sm'>
-              <i className="fas fa-arrow-circle-right"></i>{' '}Check log in status.
-            </button>
-            <button onClick={() => this.removeToken()} className='btn btn-goodminder btn-sm'>
-              <i className="fas fa-arrow-circle-right"></i>{' '}Remove token.
             </button>
           </div>
         </div>
