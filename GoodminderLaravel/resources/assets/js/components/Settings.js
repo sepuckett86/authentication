@@ -2,20 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import requireAuth from './auth/requireAuth';
+import { Link } from 'react-router-dom';
 
 class Settings extends Component {
 
   render() {
     return (
+      <div>
+      <br />
+      <button>
+      <Link to="/" className="dropdown-item">Back to Home</Link>
+      </button>
+      <br />
+
       <div className='log-box'>
         <h1>Settings</h1>
         <h2>Account Information</h2>
         <p>Email: {this.props.user.email}</p>
-
-        <p>Enter what will help you have a more personal Goodminder experience</p>
-        <p>Name: {this.props.user.name}</p>
-        <p>User name: {this.props.user.username}</p>
-        <p>Change password button</p>
+        <p>Name: {this.props.user.name || 'no data'}</p>
+        <p>User name: {this.props.user.username || 'no data'}</p>
+        <button onClick={() => {console.log('Not enabled yet')}}>Change password</button>
+        <br /><br />
+        <button onClick={() => {this.props.deleteUser()}}>Delete Account</button>
+      </div>
       </div>
     )
   }

@@ -1,4 +1,5 @@
-import { SET_CURRENT_GM, SET_PREVIOUS_GM, SET_BACK_GM, SET_CURRENT_PROMPT } from './types';
+import { SET_CURRENT_GM, SET_PREVIOUS_GM, SET_BACK_GM, SET_CURRENT_PROMPT,
+  SET_COLLECTION } from './types';
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from './types';
 
 export function navClear() {
@@ -45,5 +46,12 @@ export function setCurrentPrompt(prompt) {
   return {
     type: SET_CURRENT_PROMPT,
     payload: prompt
+  }
+}
+
+export function setCollection(collection) {
+  return {
+    type: SET_COLLECTION,
+    payload: collection
   }
 }

@@ -15,6 +15,8 @@ class Intro extends Component {
         <div>
           <section id='callToAction' className='comfortaa'>
             <div id='outerDiv'>
+              <div id='div0'>
+              </div>
               <div id='div1'>
                 <div id='introMiddle'>
                 <br />
@@ -63,6 +65,7 @@ class Intro extends Component {
                 <div>
                   <Link to='/signup' onClick={() => this.scrollToTop()} id='pressMe' className="btn btn-custom header-font">Get Started</Link>
                 </div>
+                <br />
               </div>
             </div>
           </section>

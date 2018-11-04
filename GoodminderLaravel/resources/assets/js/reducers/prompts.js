@@ -1,4 +1,4 @@
-import { SAVE_GOODMINDER } from '../actions/types';
+import { GET_PROMPTS } from '../actions/types';
 
 const initialState = [
   {
@@ -9,8 +9,8 @@ const initialState = [
   ];
 export default function(state = initialState, action) {
   switch(action.type) {
-    case SAVE_GOODMINDER:
-      return [...state, action.payload];
+    case GET_PROMPTS:
+      return action.payload;
     default:
       return state;
   }

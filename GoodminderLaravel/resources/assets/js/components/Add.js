@@ -154,8 +154,12 @@ class Add extends React.Component {
 
 
           <br />
-
+          <button id='random'
+          name="Back" onClick={() => this.props.changeHomeDisplay('goodminders')}>
+          Back</button>
+          <br /><br />
           <div className="box">
+
     	         <p>Choose an entry type</p>
                {this.chooseType()}
           </div>

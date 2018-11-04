@@ -22,12 +22,9 @@ class Goodminders extends Component {
     this.props.navClear();
     // Request to pull from database
     this.props.getGoodminders(() => {
-      this.setState({
-        length: this.props.goodminders.length
-      })
       // Then set current gminder
-      if (this.props.goodminders.length > 0 ) {
-        let current = this.props.goodminders[0];
+      if (this.props.goodminders.length > 0) {
+        let current = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
         this.props.setCurrentGM(current);
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
@@ -70,7 +67,7 @@ class Goodminders extends Component {
         } else {
           let a = true;
           let brake = 20;
-          while (a === true && brake > 0) {
+          while (a && brake > 0) {
             let unique = true;
             let previous = this.props.previousGM;
             // Pick random gminder and save it
@@ -87,7 +84,7 @@ class Goodminders extends Component {
               // Do nothing
             }
 
-            if (unique === true) {
+            if (unique) {
               let previous = this.props.previousGM;
               previous.push(random);
               this.props.setCurrentGM(random);

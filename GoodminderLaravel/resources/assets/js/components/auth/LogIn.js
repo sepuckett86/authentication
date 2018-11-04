@@ -17,6 +17,7 @@ class LogIn extends Component {
   // Our component just got rendered
   componentDidMount() {
     this.shouldNavigateAway();
+    this.props.clearError();
   }
 
   // Our component just got updated
@@ -51,6 +52,7 @@ class LogIn extends Component {
         { !this.props.auth ?
         <div className="log-box" >
         <h1>Log In</h1>
+        {this.props.error}
         <br />
 				<form onSubmit={this.handleSubmit}>
 				  <div className="form-group row">
@@ -94,7 +96,8 @@ class LogIn extends Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth.authenticated
+    auth: state.auth.authenticated,
+    error: state.auth.errorMessage
    }
 }
 

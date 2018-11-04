@@ -36,11 +36,10 @@ class Navbar extends Component {
                           <Link to="/intro" className="dropdown-item">Welcome</Link>
                           <Link to="/about" className="dropdown-item" >About</Link>
                           <Link to="/examples" className="dropdown-item">Examples</Link>
-                          <Link to="/faq" className="dropdown-item">FAQ</Link>
                           <Link to="/contact" className="dropdown-item">Contact</Link>
                           <Link to="/legal" className="dropdown-item">Legal</Link>
                           <div className="dropdown-divider"></div>
-                          <Link to="/logout" onClick={() => this.props.postSignout()} className="dropdown-item">Log out</Link>
+                          <Link to="/logout" className="dropdown-item">Log out</Link>
                         </div>
                       </li>
                     </ul>
@@ -78,7 +77,7 @@ class Navbar extends Component {
                           <div className="dropdown-divider"></div>
                           <Link to="/about" className="dropdown-item" >About</Link>
                           <Link to="/examples" className="dropdown-item">Examples</Link>
-                          <a className="dropdown-item" href="/faq">FAQ</a>
+                        
                           <Link to="/contact" className="dropdown-item">Contact</Link>
                           <Link to="/legal" className="dropdown-item">Legal</Link>
                           <div className="dropdown-divider"></div>

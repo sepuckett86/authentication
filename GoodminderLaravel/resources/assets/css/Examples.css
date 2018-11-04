@@ -1,5 +1,5 @@
-.card {
-
+.examples-card {
+  width: 100%
 }
 
 .top {
@@ -17,4 +17,14 @@ span .noun {
 
 .card-title {
   font-weight: bold;
+}
+
+/* make all cards in row the same height */
+.examples-row {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.examples-row > div[class*='col-'] {
+  display: flex;
 }

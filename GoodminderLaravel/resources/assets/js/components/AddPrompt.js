@@ -1,14 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class AddPrompt extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      prompt: 'empty',
       inputAnswer: '',
       inputReason: '',
-      prompts: [],
       random: 'no'
     }
 
@@ -20,34 +20,31 @@ class AddPrompt extends React.Component {
 
   componentDidMount() {
     // Get data from database
-    // Gminder.getPrompts().then(res => this.setState({prompts: res.express})).catch(err => console.log(err)).then(() => {
-      // Check if there is data in prompts
-      if (this.state.prompts.length !== 0) {
-        let random = this.state.prompts[Math.floor(Math.random() * this.state.prompts.length)];
-        this.setState({prompt: random});
-      } else if (this.state.prompts.length === 0) {
-        this.setState({prompt: {promptText: 'No prompt available', collection: 'none'}});
-      }
-      else if (this.state.random === "no") {
-        this.setState({prompt: this.props.prompt})
-      }
-  //  });
+      this.props.getPrompts(() => {
+        // Check if there is data in prompts
+        if (this.props.prompts.length !== 0) {
+          this.changePrompt();
+        } else {
+          this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
+        }
+      });
   }
 
   changePrompt() {
-    let random = this.state.prompts[Math.floor(Math.random() * this.state.prompts.length)];
-    this.setState({prompt: random});
+    let random = this.props.prompts[Math.floor(Math.random() * this.props.prompts.length)];
+    this.props.setCurrentPrompt(random);
   }
 
   changePromptSame() {
     let collectionArray = [];
-    this.state.prompts.forEach(prompt => {
-      if (prompt.collection === this.state.prompt.collection) {
+    this.props.prompts.forEach(prompt => {
+      console.log(prompt)
+      if (prompt.collection === this.props.currentPrompt.collection) {
         collectionArray.push(prompt);
       }
     })
     let random = collectionArray[Math.floor(Math.random() * collectionArray.length)];
-    this.setState({prompt: random});
+    this.props.setCurrentPrompt(random);
   }
 
   handleClick(event) {
@@ -58,7 +55,7 @@ class AddPrompt extends React.Component {
       this.changePromptSame();
     }
     if (event.target.id === "collection") {
-      this.props.setCollection(this.state.prompt.collection);
+      this.props.setCollection(this.props.currentPrompt.collection);
       this.props.changeDisplay('manager');
     }
     if (event.target.id === "create-goodminder") {
@@ -68,13 +65,7 @@ class AddPrompt extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.id === "prompt-answer") {
-      this.setState({inputAnswer: event.target.value});
-    }
-    if (event.target.id === "prompt-reason") {
-      this.setState({inputReason: event.target.value});
-    }
-
+    this.setState({[event.target.name]: event.target.value})
   }
 
   getDate() {
@@ -97,7 +88,7 @@ class AddPrompt extends React.Component {
       category: 'prompt',
       mainResponse: this.state.inputAnswer,
       author: null,
-      promptID: this.state.prompt.id,
+      promptID: this.props.currentPrompt.id,
       reason: this.state.inputReason,
       source: null,
       who: null,
@@ -105,7 +96,7 @@ class AddPrompt extends React.Component {
       recordedDate: date,
       eventDate: null,
       updatedDate: null,
-      collection: this.state.prompt.collection,
+      collection: this.props.currentPrompt.collection,
       publicFlag: 0
     }
     console.log(newGminder)
@@ -121,24 +112,19 @@ class AddPrompt extends React.Component {
 
       <hr />
       {/* <p>Collection:
-        <button id="collection" className="button-transparent" onClick={this.handleClick}>{this.state.prompt.collection}</button>
+        <button id="collection" className="button-transparent" onClick={this.handleClick}>{this.props.currentPrompt.collection}</button>
       </p> */}
-
-
-
-<p className="lato">Prompt</p>
+      <p className="paragraph-text">Prompt</p>
       <div className="g-box">
         <div className="large">
-
-
-        <p className="lato" style={style}>{this.state.prompt.promptText}</p>
+        <p className="paragraph-text" style={style}>{this.props.currentPrompt.promptText}</p>
         </div>
       </div>
       <br />
-      <p className="lato">
+      <p className="paragraph-text">
       Next random prompt: <br />
       <button id="next-prompt-same" className="btn btn-small" onClick={this.handleClick}>
-        <i className="fas fa-long-arrow-alt-right"></i>{' '}Collection: {this.state.prompt.collection}</button>
+        <i className="fas fa-long-arrow-alt-right"></i>{' '}Collection: {this.props.currentPrompt.collection}</button>
       {' '}
       <button id="next-prompt-all" className="btn btn-small" onClick={this.handleClick}>
         <i className="fas fa-random"></i>{' '}All Collections</button>
@@ -146,11 +132,11 @@ class AddPrompt extends React.Component {
       <br />
       <form>
         <div className="form-group">
-          <p className="lato">Answer</p>
-          <textarea className="form-control" value={this.state.inputAnswer} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
+          <p className="paragraph-text">Answer</p>
+          <textarea className="form-control" name='inputAnswer' value={this.state.inputAnswer} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
           <br/>
-          <p className="lato">Reason</p>
-          <textarea className="form-control" value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
+          <p className="paragraph-text">Reason</p>
+          <textarea className="form-control" name='inputReason' value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
           <br/>
         </div>
 
@@ -164,4 +150,11 @@ class AddPrompt extends React.Component {
   }
 }
 
-export default AddPrompt;
+function mapStateToProps(state) {
+  return {
+    prompts: state.prompts,
+    currentPrompt: state.navigation.currentPrompt
+   }
+}
+
+export default connect(mapStateToProps, actions)(AddPrompt);
