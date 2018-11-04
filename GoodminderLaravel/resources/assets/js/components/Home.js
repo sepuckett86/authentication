@@ -6,6 +6,7 @@ import requireAuth from './auth/requireAuth';
 import Goodminders from './Goodminders';
 import Add from './Add';
 import Print from './Print';
+import Edit from './Edit';
 
 class Home extends Component {
   componentDidMount() {
@@ -19,6 +20,8 @@ class Home extends Component {
         return <Goodminders />;
       case 'print':
         return <Print />;
+      case 'edit':
+        return <Edit />;
       default:
         return <Goodminders />;
       }

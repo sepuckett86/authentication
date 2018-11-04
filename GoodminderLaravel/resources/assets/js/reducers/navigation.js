@@ -1,5 +1,6 @@
 import { SET_CURRENT_GM, SET_PREVIOUS_GM,
-  SET_BACK_GM, SET_CURRENT_PROMPT, SET_COLLECTION } from '../actions/types';
+  SET_BACK_GM, SET_UPDATED_GM,
+  SET_CURRENT_PROMPT, SET_COLLECTION } from '../actions/types';
 
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from '../actions/types';
 
@@ -22,6 +23,8 @@ export default function(state = initialState, action) {
       return { ...state, previousGM: action.payload };
     case SET_BACK_GM:
       return { ...state, backGM: action.payload };
+    case SET_UPDATED_GM:
+      return { ...state, updatedGM: action.payload };
     case SET_CURRENT_PROMPT:
       return { ...state, currentPrompt: action.payload };
     case SET_COLLECTION:

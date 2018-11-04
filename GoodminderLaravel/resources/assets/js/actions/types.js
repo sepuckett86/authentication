@@ -8,6 +8,7 @@ export const CHANGE_ADD_DISPLAY = 'change_add_display';
 export const SET_CURRENT_GM = 'set_current_gm';
 export const SET_PREVIOUS_GM = 'add_previous_gm';
 export const SET_BACK_GM = 'set_back_gm';
+export const SET_UPDATED_GM = 'set_updated_gm';
 export const SET_CURRENT_PROMPT = 'set_current_prompt';
 export const SET_COLLECTION = 'set_collection';
 export const NAV_BACK = 'nav_back';

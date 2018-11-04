@@ -54,7 +54,7 @@ class EditCustom extends React.Component {
   handleClick(event) {
     if (event.target.id === "update-goodminder") {
       const gminder = this.newGminder();
-      this.props.setGminderForDatabase(gminder);
+      this.props.setUpdatedGM(gminder);
     }
 
   }
@@ -103,4 +103,10 @@ class EditCustom extends React.Component {
   }
 }
 
-export default EditCustom;
+function mapStateToProps(state) {
+  return {
+    gminder: state.navigation.currentGM
+  }
+}
+
+export default connect(mapStateToProps, actions)(EditCustom);

@@ -12,6 +12,7 @@ import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, GET_GOODMINDERS,
   GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT,
   PUT_GOODMINDER, DELETE_GOODMINDER } from './types';
+import * as functions from './functions.js';
 
 const baseURL = 'http://goodminder.test/';
 
@@ -37,6 +38,7 @@ export const postSignout = () => async dispatch => {
       dispatch({ type: AUTH_USER, payload: '' });
       // Update local storage to remove token from browser
       localStorage.removeItem('id_token');
+      sessionStorage.removeItem('myData');
     }
     if (content.token === undefined) {
       alert('You are already logged out')
@@ -202,16 +204,8 @@ export const postGoodminder = (gminder, callback) => async dispatch => {
 export const getUser = () => async dispatch => {
   try {
     const path = baseURL + 'api/auth/me';
-    let token = localStorage.getItem('id_token');
-    let options;
-    if (token) {
-      options = {
-        'headers': {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
-      }
+    if (localStorage.getItem('id_token')) {
+      const options = functions.makeOptionsWithToken();
       const response = await axios.get(path, options);
       dispatch({ type: GET_USER, payload: response.data });
     } else {
@@ -240,9 +234,18 @@ export const deleteUser = () => async dispatch => {
 
 export const putGoodminder = (updatedGoodminder, goodminders, callback) => async dispatch => {
   try {
+    const id = updatedGoodminder.id;
+    const path = baseURL + `/api/gminders/${id}`;
+    const options = functions.makeOptionsWithToken();
+    const content = updatedGoodminder;
     // PUT request with updatedGminder
-    console.log('Not enabled yet')
-    dispatch({ type: PUT_GOODMINDER, payload: goodminders });
+    const response = await axios.put(path, content, options);
+    // Remove old goodminder from goodminders array
+    const filtered = goodminders.filter(goodminder => goodminder.id !== id);
+    // Add updatedGoodminder to array
+    filtered.push(updatedGoodminder);
+    // Assign updated array to payload
+    dispatch({ type: PUT_GOODMINDER, payload: filtered });
     callback();
   } catch (e) {
     dispatch({ type: RESPONSE, payload: e });
