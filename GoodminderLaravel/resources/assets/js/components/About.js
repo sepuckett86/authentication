@@ -14,37 +14,63 @@ export default () => {
       <div className="opaque-container">
         <div className="container">
 
-          <br/><br/>
-          <h1>Living in a digital age</h1>
-
-          <p>
-            It is easy to be distracted by social media and entertainment rather than focus on our own lives. How can we remember to appreciate the positive things in our day-to-day reality while continuing to participate in this digital age?</p>
           <br/>
+          <br />
+          <div className="card top">
+            <div className="card-body">
+              <h5 className="card-title">goodminder
+                <div className="noun" style={{fontSize: '12px'}}><i>noun</i>
+                </div>
+              </h5>
+              <p className="card-text">A prompt response, quote or custom entry crafted by <b>you</b>.</p>
+              <p className="card-text">Purpose -- to <b><u>remind</u></b> you of the <b><u>good</u></b> in your life.</p>
+            </div>
+            <hr />
+            <div className="card-body">
+              <h5 className="card-title">Goodminder
+                <div className="noun" style={{fontSize: '12px'}}><i>noun</i>
+                </div>
+              </h5>
+              <p className="card-text">A web app that allows you to collect goodminders.</p>
+            </div>
+          </div>
+
+        <br /><br/>
+          <h1>
+            Motivation</h1>
+          <div style={{'textAlign': 'left'}}>
+          <p>Have you ever recalled something wonderful, useful, funny, touching, or inspiring that you haven't thought about for months or years, and been thankful that something reminded you of it?</p>
+          <p>Is your email inbox filled with ads and requests, rather than things that brighten your day?</p>
+          <p>Do you sometimes get stuck in negative thought loops? </p>
+          <p>Do you ever have bad days and want to be cheered up?</p>
+          <p>Are you ever overwhelmed by the negativity in news and social media and wish there were more ways that technology could bring about positive change?</p>
+          <p>Do you wish that instead of reminding you to buy things you don't need, ads could remind you of positive ideas? </p>
+          <p>Would you like some life advice from yourself sometimes, rather than other people?</p>
+          <br/>
+          <p>Goodminder exists because we have answered 'yes' to all of these questions.</p>
+          <br/>
+          </div>
           <hr/>
           <br />
-          <h1>Enter
-            <img src={logo_dark} alt="logoDark" height="60px"/>Goodminder</h1>
-          <p>
-            <b>Explicitly you.</b>
-          </p>
 
-          <p>Goodminder is a similar to a journal, yet is more focused. Prompts help you think of things worth recording in your life. You can also save quotes or custom text that is meaningful to you. </p>
-          <p>Having a bad day? Log into Goodminder and read a randomly chosen memory -- a
-            <b> reminder </b>
-            of the
-            <b> good </b>
-            in your life.</p>
-          <br/>
-          <hr/>
-          <br />
           <h1>Inspirations</h1>
           <p>
             "A human being is not one in pursuit of happiness but rather in search of a reason to be happy."
           </p>
-          <p>
-            <a href="https://www.amazon.com/Mans-Search-Meaning-classic-Holocaust-ebook/dp/B00EKOC0HI" target="_blank" rel="noopener noreferrer">--Man's Search for Meaning</a>
+          <p><a href="https://www.amazon.com/Mans-Search-Meaning-classic-Holocaust-ebook/dp/B00EKOC0HI" target="_blank" rel="noopener noreferrer">--Man's Search for Meaning</a>
             {' '}by Viktor E. Frankl</p>
             <br />
+            <p>
+              "We are what we repeatedly do. Excellence, then, is not an act, but a habit."
+            </p>
+            <p><a href="https://medium.com/the-mission/my-favourite-quote-of-all-time-is-a-misattribution-66356f22843d" target="_blank" rel="noopener noreferrer">--The Story of Philospohy</a>{' '}by Will Durant</p>
+            <br />
+            <p>
+            The concept of the Patronus from Harry Potter by J.K. Rowling. To successfully repel dementors, dark soul-sucking beings, Harry must focus on a happy memory. The strength of the feelings produced from this memory is what determines the strength of the protective force (Patronus).
+            </p>
+            <br />
+
+
           <hr/>
           <br />
           <h1>Who we are</h1>

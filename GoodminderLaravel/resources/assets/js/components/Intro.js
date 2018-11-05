@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import '../../css/Intro.css';
 import { Link } from 'react-router-dom';
-import Footer from './Footer';
 
-import ScrollableAnchor from 'react-scrollable-anchor'
+import ScrollableAnchor from 'react-scrollable-anchor';
+
+import '../../css/Intro.css';
+
+import Footer from './Footer';
 
 class Intro extends Component {
   scrollToTop() {
@@ -13,14 +15,16 @@ class Intro extends Component {
     return(
       <main>
         <div>
-          <section id='callToAction' className='comfortaa'>
+          <section id='sectionCallToAction' className='comfortaa'>
             <div id='outerDiv'>
               <div id='div0'>
               </div>
               <div id='div1'>
                 <div id='introMiddle'>
                 <br />
-                <h1 id='callHeader1'><div className='focusOnYou'><div>Focus on the Good</div></div>
+                <h1 id='callHeader1'>
+                  <div className='gradient'>
+                  Focus on the Good</div>
                   <hr />
                 </h1>
                 <h2 id='callHeader2'><span style={{backgroundColor: "white"}}>Goodminder</span> is a <b>free web-app</b> to catalogue ideas that make life worth living.
