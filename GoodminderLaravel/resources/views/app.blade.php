@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- To get rid of CSRF token error -->
+        <!-- To get enable CSFR token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>GoodminderLaravel</title>
