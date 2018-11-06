@@ -7,6 +7,7 @@ import Goodminders from './Goodminders';
 import Add from './Add';
 import Print from './Print';
 import Edit from './Edit';
+import Manager from './Manager';
 
 class Home extends Component {
   componentDidMount() {
@@ -22,6 +23,8 @@ class Home extends Component {
         return <Print />;
       case 'edit':
         return <Edit />;
+      case 'manager':
+        return <Manager />;
       default:
         return <Goodminders />;
       }

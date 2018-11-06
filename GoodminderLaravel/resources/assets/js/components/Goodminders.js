@@ -188,7 +188,7 @@ class Goodminders extends Component {
                   Add</button>
               </div>
               <div className="col col-12 col-sm-6">
-                <button className='btn-custom btn'>More</button>
+                <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('manager')}>More</button>
               </div>
             </div>
           </div>

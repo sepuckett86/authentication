@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-import Button from '../../Components/Button/Button';
-import GminderTable from './Scenes/GminderTable/GminderTable';
-import PromptTable from './Scenes/PromptTable/PromptTable';
+import GminderTable from './ManagerGminderTable';
+import PromptTable from './ManagerPromptTable';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -10,19 +11,12 @@ class Manager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      managerDisplay: 'none',
-      csvData: [],
+      managerDisplay: 'none'
     };
-    // props
-    this.changeDisplay = this.props.changeDisplay;
-    this.setGminder = this.props.setGminder;
 
     // bind methods
-    this.handleClick = this.handleClick.bind(this);
     this.changeManagerDisplay = this.changeManagerDisplay.bind(this);
-  }
-
-  handleClick(event) {
+    this.handleClick = this.handleClick.bind(this);
   }
 
   changeManagerDisplay(id) {
@@ -30,76 +24,74 @@ class Manager extends React.Component {
       managerDisplay: id
     })
   }
+  handleClick(event) {
+    this.changeManagerDisplay(event.target.id);
+  }
 
+  renderManagerDisplay() {
+    switch(this.state.managerDisplay) {
+      case 'gminderTable':
+        return (<div>
+          <GminderTable/>
+            <br />
+          <button
+          name="Table of All Prompts"
+          id="promptTable"
+          onClick={this.handleClick}
+          ></button>
+          <br />
+          <button
+            id='random'
+          name="Back"
+          onClick={() => this.props.changeHomeDisplay('goodminders')}
+          >Back</button>
+        </div>)
+      case 'promptTable':
+        return (<div>
+          <PromptTable/>
+          <button
+          name="Table of All Gminders"
+          onClick={this.handleClick}
+          id="gminderTable"
+          >Table of All Gminders</button>
+          <br />
+          <button
+            id='random'
+          name="Back"
+          onClick={() => this.props.changeHomeDisplay('goodminders')}
+          >Back</button>
+          <br />
+        </div>)
+      default:
+        return (<div>
+          <button
+          name="Table of All Gminders"
+          onClick={this.handleClick}
+          id="gminderTable"
+          >Table of All Gminders</button>
+          <button
+          name="Table of All Prompts"
+          id="promptTable"
+          onClick={this.handleClick}
+          >Table of All Prompts</button>
+          <br />
+          <button
+          id='random'
+          name="Back"
+          onClick={() => this.props.changeHomeDisplay('goodminders')}
+          >Back</button>
+        </div>)
+    }
+  }
   render() {
     return(
       <div className="container-fluid">
         <br />
-        { this.state.managerDisplay === 'none' ?
-        (<div>
-          <Button
-          name="Table of All Gminders"
-          onClick={this.changeManagerDisplay}
-          id="gminderTable"
-          />
-
-          <Button
-          name="Table of All Prompts"
-          id="promptTable"
-          onClick={this.changeManagerDisplay}
-          />
-          <br />
-          <Button
-          id='random'
-          name="Back"
-          onClick={this.changeDisplay}
-          />
-        </div>) : null }
-
-        { this.state.managerDisplay === 'gminderTable' ? (<div>
-          <GminderTable
-            setGminder={this.setGminder}
-            changeDisplay={this.changeDisplay}/>
-            <br />
-          <Button
-          name="Table of All Prompts"
-          id="promptTable"
-          onClick={this.changeManagerDisplay}
-          />
-          <br />
-
-          <Button
-            id='random'
-          name="Back"
-          onClick={this.changeDisplay}
-          />
-
-        </div>) : null }
-
-        { this.state.managerDisplay === 'promptTable' ?
-        (<div>
-          <PromptTable
-            collection={this.props.collection}
-            setPrompt={this.props.setPrompt}
-            changeDisplay={this.props.changeDisplay}
-            changeType={this.props.changeType}/>
-          <Button
-          name="Table of All Gminders"
-          onClick={this.changeManagerDisplay}
-          id="gminderTable"
-          />
-          <br />
-          <Button
-            id='random'
-          name="Back"
-          onClick={this.changeDisplay}
-          />
-
-          <br />
-        </div>) : null }
-
+        {this.renderManagerDisplay()}
       </div>)
   }
 }
-
-export default Manager;
+function mapStateToProps(state) {
+  return {}
+}
+export default connect(mapStateToProps, actions)(Manager);

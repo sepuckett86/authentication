@@ -1,11 +1,8 @@
 import React from 'react';
-// mport Table from '../../Components/Table/Table';
-import './GminderTable.css';
 
 import MediaQuery from 'react-responsive';
-
-// Utils
-import Gminder from '../../../../../../Utils/Gminder';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 //Add CSVDownload to import if want to use it
 import {CSVLink} from 'react-csv';
