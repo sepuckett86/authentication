@@ -23,7 +23,7 @@ class EditPrompt extends React.Component {
   }
 
   componentDidMount() {
-
+    // Note: change to filter
     // Assign prompt from promptID
       for (let i = 0; i < this.props.prompts.length; i++) {
         if (this.props.prompts[i].id === this.props.gminder.promptID) {
@@ -139,7 +139,8 @@ class EditPrompt extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM
+    gminder: state.navigation.currentGM,
+    prompts: state.prompts
   }
 }
 

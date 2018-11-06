@@ -143,10 +143,13 @@ class Goodminders extends Component {
       return <Custom/>
     }
     else if (this.props.goodminders.length === 0){
-      return <p>Loading</p>
+      return <p>Loading goodminders</p>
+    }
+    else if (!this.props.currentGM.mainResponse){
+      return <p>Loading goodminder</p>
     }
     else {
-      return <p>Category Error</p>
+      return <p>Category error</p>
     }
   }
 
@@ -188,7 +191,8 @@ class Goodminders extends Component {
                   Add</button>
               </div>
               <div className="col col-12 col-sm-6">
-                <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('manager')}>More</button>
+                <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('manager')}>
+                More</button>
               </div>
             </div>
           </div>
