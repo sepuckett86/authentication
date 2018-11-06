@@ -9,13 +9,13 @@ class Settings extends Component {
   render() {
     return (
       <div>
-      <br />
+      <div className='log-box'>
+
       <button>
       <Link to="/" className="dropdown-item">Back to Home</Link>
       </button>
-      <br />
-
-      <div className='log-box'>
+        <br />
+          <br />
         <h1>Settings</h1>
         <h2>Account Information</h2>
         <p>Email: {this.props.user.email}</p>

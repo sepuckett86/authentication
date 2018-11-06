@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../../Components/Button/Button';
-
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 //Add CSVDownload to import if want to use it
 import {CSVLink} from 'react-csv';
@@ -9,13 +9,11 @@ class More extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'none',
       csvData: [],
       prompt: {}
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.changeDisplay = this.changeDisplay.bind(this);
 
   }
 
@@ -27,12 +25,6 @@ class More extends React.Component {
       prompt: prompt
     })
   }
-  }
-
-  changeDisplay(id) {
-    this.setState({
-      display: id
-    })
   }
 
   generateKey(index) {
@@ -159,24 +151,24 @@ class More extends React.Component {
 
         <br />
 
-        <Button
+        <button
         name="Manage Database"
-        onClick={this.props.changeDisplay}
+        onClick={() => this.props.changeHomeDisplay('manager')}
         id="manager"
-        />
+        >Manage Database</button>
 
-        <Button
+        <button
         name="Create PDF"
-        onClick={this.props.changeDisplay}
+        onClick={() => this.props.changeHomeDisplay('pdf')}
         id="PDF"
-        />
+        >Create PDF</button>
 
         <br />
-        <Button
+        <button
           id='random'
         name="Back"
-        onClick={this.props.changeDisplay}
-        />
+        onClick={() => this.props.changeHomeDisplay('goodminders')}
+        >Return to Home</button>
 
         <br />
         <br />
@@ -185,4 +177,8 @@ class More extends React.Component {
   }
 }
 
-export default More;
+function mapStateToProps(state) {
+  return { }
+}
+
+export default connect(mapStateToProps, actions)(More);

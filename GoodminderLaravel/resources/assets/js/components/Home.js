@@ -8,11 +8,10 @@ import Add from './Add';
 import Print from './Print';
 import Edit from './Edit';
 import Manager from './Manager';
+import More from './More';
+import PDF from './PDF';
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.getUser();
-  }
   renderDisplay() {
     switch(this.props.display) {
       case 'add':
@@ -25,6 +24,10 @@ class Home extends Component {
         return <Edit />;
       case 'manager':
         return <Manager />;
+      case 'more':
+        return <More />;
+      case 'pdf':
+        return <PDF />;
       default:
         return <Goodminders />;
       }
