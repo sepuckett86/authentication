@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import '../../css/Goodminders.css';
+
 import Prompt from './GoodmindersPrompt';
 import Quote from './GoodmindersQuote';
 import Custom from './GoodmindersCustom';
+
 
 class Goodminders extends Component {
   constructor(props) {
