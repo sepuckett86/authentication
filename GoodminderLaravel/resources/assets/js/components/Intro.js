@@ -20,7 +20,7 @@ class Intro extends Component {
               <div id='div0'>
               </div>
               <div id='div1'>
-                <div id='introMiddle'>
+                <div id='introMiddle' className='sectionCallToActionContent'>
                 <br />
                 <h1 id='callHeader1'>
                   <div className='gradient'>
@@ -43,7 +43,7 @@ class Intro extends Component {
           </section>
           <ScrollableAnchor id={'followUp'}>
           <section className='followUpStyles'>
-            <div id='div3'>
+            <div id='sectionList'>
               <div id='inspirationList' className="container">
                 <ul>
                   <li>Record positive life experiences to read at a later date.</li>
@@ -60,8 +60,8 @@ class Intro extends Component {
                     <Link to='/examples' onClick={() => this.scrollToTop()} className='btn-small btn-center btn' style={{minWidth: '20%'}}>
                       Examples
                     </Link>
-                    <Link to='/FAQ' onClick={() => this.scrollToTop()} className='btn-small btn-right btn' style={{minWidth: '20%'}}>
-                      FAQ
+                    <Link to='/contact' onClick={() => this.scrollToTop()} className='btn-small btn-right btn' style={{minWidth: '20%'}}>
+                      Contact
                     </Link>
                   </div>
                 </div>

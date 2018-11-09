@@ -9,9 +9,13 @@ import Print from './Print';
 import Edit from './Edit';
 import Manager from './Manager';
 import More from './More';
-import PDF from './PDF';
+import Pdf from './PDF';
 
 class Home extends Component {
+  componentDidMount() {
+    // required to change navbar upon token inactivation
+    this.props.getUser();
+  }
   renderDisplay() {
     switch(this.props.display) {
       case 'add':
@@ -27,7 +31,7 @@ class Home extends Component {
       case 'more':
         return <More />;
       case 'pdf':
-        return <PDF />;
+        return <Pdf />;
       default:
         return <Goodminders />;
       }
