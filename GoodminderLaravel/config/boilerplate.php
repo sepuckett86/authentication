@@ -54,6 +54,11 @@ return [
     // requirements for storing a gminder
     'gminder_request' => [
 
+    ],
+
+    // requirements for storing a prompt
+    'prompt_request' => [
+
     ]
 
 ];
