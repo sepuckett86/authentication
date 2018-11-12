@@ -56,18 +56,15 @@ class AddQuote extends React.Component {
   newGminder() {
     const date = this.getDate();
     const newGminder = {
-      userID: 1,
       category: 'quote',
       mainResponse: this.state.inputAnswer,
       author: this.state.inputAuthor,
-      promptID: null,
+      prompt_id: null,
       reason: this.state.inputReason,
       source: this.state.inputSource,
       who: this.state.inputWho,
       rating: 0,
-      recordedDate: date,
-      eventDate: null,
-      updatedDate: null,
+      eventDate: date,
       collection: this.state.inputCollection,
       publicFlag: 0,
     }

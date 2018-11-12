@@ -84,18 +84,15 @@ class AddPrompt extends React.Component {
   newGminder() {
     const date = this.getDate();
     const newGminder = {
-      userID: 1,
       category: 'prompt',
       mainResponse: this.state.inputAnswer,
       author: null,
-      promptID: this.props.currentPrompt.id,
+      prompt_id: this.props.currentPrompt.id,
       reason: this.state.inputReason,
       source: null,
       who: null,
       rating: 0,
-      recordedDate: date,
-      eventDate: null,
-      updatedDate: null,
+      eventDate: date,
       collection: this.props.currentPrompt.collection,
       publicFlag: 0
     }
