@@ -53,9 +53,11 @@ class GminderController extends Controller
         
         $gminder = new Gminder;
         $mainResponse = $request->get('mainResponse');
+        $category = $request->get('category');
 
         $gminder->user_id = $currentUser;
         $gminder->mainResponse = $mainResponse;
+        $gminder->category = $category;
         $gminder->save();
         
         if ($gminder->save()) {
