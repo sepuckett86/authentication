@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gminder extends Model
+class Prompt extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,8 +12,7 @@ class Gminder extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'category', 'mainResponse', 'author', 'reason', 'source', 'who',
-        'rating', 'eventDate', 'collection', 'publicFlag'
+        'user_id', 'collection', 'promptText', 'publicFlag'
     ];
 
     public function users()

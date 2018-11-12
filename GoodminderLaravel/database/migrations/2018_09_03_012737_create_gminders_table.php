@@ -15,8 +15,18 @@ class CreateGmindersTable extends Migration
     {
         Schema::create('gminders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');
-            $table->text('mainResponse');
+            $table->unsignedSmallInteger('user_id');
+            $table->mediumText('category');
+            $table->text('mainResponse')->nullable();
+            $table->mediumText('author')->nullable();
+            $table->string('prompt_id')->nullable();
+            $table->text('reason')->nullable();
+            $table->mediumText('source')->nullable();
+            $table->mediumText('who')->nullable();
+            $table->smallInteger('rating')->nullable();
+            $table->dateTime('eventDate')->nullable();
+            $table->mediumText('collection')->nullable();
+            $table->boolean('publicFlag')->default(0);
             $table->timestamps();
         });
     }

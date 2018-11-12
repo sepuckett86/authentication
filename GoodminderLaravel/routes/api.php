@@ -30,6 +30,12 @@ $api->version('v1', function (Router $api) {
         $api->put('gminders/{id}', 'App\\Api\\V1\\Controllers\\GminderController@update');
         $api->delete('gminders/{id}', 'App\\Api\\V1\\Controllers\\GminderController@destroy');
         $api->get('gminders', 'App\\Api\\V1\\Controllers\\GminderController@userGminders');
+        
+        $api->get('prompts/{id}', 'App\\Api\\V1\\Controllers\\PromptController@userPrompt');
+        $api->post('prompts', 'App\\Api\\V1\\Controllers\\PromptController@store');
+        $api->put('prompts/{id}', 'App\\Api\\V1\\Controllers\\PromptController@update');
+        $api->delete('prompts/{id}', 'App\\Api\\V1\\Controllers\\PromptController@destroy');
+        $api->get('prompts', 'App\\Api\\V1\\Controllers\\PromptController@userPrompts');
 
         $api->get('refresh', [
             'middleware' => 'jwt.refresh',
@@ -39,13 +45,6 @@ $api->version('v1', function (Router $api) {
                     ]);
                 }
         ]);
-        
     });
-                
-    $api->get('hello', function() {
-        return response()->json([
-            'message' => 'This is a simple example of item returned by your APIs. Everyone can see this example.'
-            ]);
-        });
 });
 
