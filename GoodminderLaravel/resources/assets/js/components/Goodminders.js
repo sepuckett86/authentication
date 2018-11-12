@@ -70,12 +70,12 @@ class Goodminders extends Component {
   }
   // Sets a new random gminder as state and accounts for back/forward ability
   nextClick() {
-
+    if (this.state.animate === false) {
     // Check that there we haven't gone back yet
     if (this.props.backGM === 0) {
       // Check that there are gminders in database
       if (this.props.goodminders.length !== 0) {
-        // If we've gone through everything, clear history.
+        // If we've gone through everything, alert.
         if (this.props.previousGM.length === this.props.goodminders.length) {
           alert("You've gone through all of your goodminders. Reload to reset.")
         } else {
@@ -119,15 +119,17 @@ class Goodminders extends Component {
 
     // If we have gone back and are going forward again
     if (this.props.backGM !== 0) {
+      this.setState({animate: true});
       let next = this.props.previousGM[this.props.previousGM.length - this.props.backGM];
       let back = this.props.backGM - 1;
       this.props.setBackGM(back);
       this.props.setCurrentGM(next);
     }
   }
+  }
 
   backClick() {
-
+    if (this.state.animate === false) {
     // If nothing to go back to
     if (this.props.previousGM.length === 1) {
       alert("Nothing there. Go forward :)");
@@ -143,6 +145,7 @@ class Goodminders extends Component {
       this.props.setCurrentGM(current);
     }
     }
+  }
   }
 
   chooseDisplay() {
@@ -198,7 +201,7 @@ class Goodminders extends Component {
                 }}
                 onEntered={() => {
                     this.setState({
-                      // need to put forward/backclick logic here 
+                      // need to put forward/backclick logic here
                       goodminder: this.props.currentGM,
                       animate: false,
                       height: "auto"
@@ -250,10 +253,8 @@ class Goodminders extends Component {
   render() {
     return (
       <div>
-
-
-                    {this.checkContent()}
-
+        {this.checkContent()}
+        {console.log(this.state.animate)}
       </div>
     )
   }
