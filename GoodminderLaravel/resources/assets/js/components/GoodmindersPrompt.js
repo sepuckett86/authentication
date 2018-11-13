@@ -19,12 +19,12 @@ class Prompt extends React.Component {
             <div className="row">
               <div className="col alignL">
                 <Stars
-                  gminder={this.props.gminder}
+                  gminder={this.props.goodminder}
 
                   />
               </div>
             <div className="col alignR paragraph-font">
-              <p>Added {this.props.gminder.recordedDate} from Prompt Collection: {this.props.gminder.collection}</p>
+              <p>Added {this.props.goodminder.recordedDate} from Prompt Collection: {this.props.goodminder.collection}</p>
             </div>
             </div>
           </MediaQuery>
@@ -39,16 +39,16 @@ class Prompt extends React.Component {
             <div className="g-box">
 
             <br />
-            <h4>{this.props.gminder.mainResponse}</h4><br />
+            <h4>{this.props.goodminder.mainResponse}</h4><br />
 
             </div>
 
-            { this.props.gminder.reason ?
+            { this.props.goodminder.reason ?
               <div>
             <br />
             <div className="g-box" style={style}>
 
-            {this.props.gminder.reason}
+            {this.props.goodminder.reason}
 
             </div>
 
@@ -61,12 +61,12 @@ class Prompt extends React.Component {
 
           <Stars
             starFun={this.props.starFun}
-            gminder={this.props.gminder}
+            gminder={this.props.goodminder}
 
             />
           <br />
-            <p>{this.props.gminder.recordedDate ? (this.props.gminder.recordedDate + ' | '): null}
-               {this.props.gminder.collection}</p>
+            <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
+               {this.props.goodminder.collection}</p>
        </MediaQuery>
 
 

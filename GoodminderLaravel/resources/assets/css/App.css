@@ -208,9 +208,56 @@ ul.clean {
 
 /* SCREEN RESIZING */
 
+/* Extra small devices (phones, 400px and down) */
+@media (max-width: 400px) {
+  .invisible-when-super-small {
+    display: none;
+  }
+  .invisible-when-small {
+    display: none;
+  }
+  .invisible-when-large {
+    display: inline-block;
+  }
+  .App {
+    background-color: rgba(255, 255, 255, 0.7);
+    min-height: 100vh;
+    height: 100%;
+  }
+  .log-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    min-height: 100vh;
+  }
+}
+
+@media (min-width: 400px) {
+  .invisible-when-super-small {
+    display: inline-block;
+  }
+  .invisible-when-small {
+    display: none;
+  }
+  .invisible-when-large {
+    display: inline-block;
+  }
+  .App {
+    background-color: rgba(255, 255, 255, 0.7);
+    min-height: 100vh;
+    height: 100%;
+  }
+  .log-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+  
+  }
+}
 /* Small screen */
 
-@media (max-width: 576px) {
+@media (min-width: 576px) {
+  .invisible-when-super-small {
+    display: inline-block;
+  }
   .invisible-when-small {
     display: none;
   }
@@ -238,19 +285,9 @@ ul.clean {
     font-size: 16px;
     color: #5777C0;
   }
-  .g-box {
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 5%;
-    border-radius: 10px;
-    position: relative;
-    border: solid;
-    border-color: #46B3B3;
-    color: #2b2b2b
-  }
   .log-box {
     background-color: rgba(255, 255, 255, 0.6);
     padding: 5%;
-    min-height: 100vh;
   }
   .btn-small {
     width: 100%;
@@ -260,30 +297,6 @@ ul.clean {
   }
   h2 {
     font-size: 1.5rem;
-  }
-  .arrow-button {
-    border: solid;
-    border-radius: 10px;
-    border-color: #46B3B3;
-    border-width: 2px;
-    color: #2b2b2b;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    width: 30%;
-    text-align: center;
-  	font-family: 'Comfortaa', cursive;
-    text-decoration: none;
-    font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.3);
-
-  }
-
-  .arrow-button:hover {
-      background-color: rgba(255, 255, 255, 1);
-  }
-  .edit-print {
-    text-align: center;
   }
   .btn-custom {
     border: solid;
@@ -308,6 +321,9 @@ ul.clean {
 /* Regular screen and up */
 
 @media (min-width: 576px) {
+  .invisible-when-super-small {
+    display: inline-block;
+  }
   .invisible-when-small {
     display: inline-block;
   }
@@ -333,15 +349,6 @@ ul.clean {
     font-size: 16px;
     color: #5777C0;
   }
-  .g-box {
-    background-color: transparent;
-    padding: 2%;
-    border-radius: 10px;
-    position: relative;
-    border: solid;
-    border-color: #46B3B3;
-    color: #2b2b2b
-  }
   .log-box {
     background-color: rgba(255, 255, 255, 0.6);
     padding: 2%;
@@ -353,31 +360,6 @@ ul.clean {
   }
   .btn-small {
     width: auto;
-  }
-  .arrow-button {
-    border: solid;
-    border-radius: 10px;
-    border-color: #46B3B3;
-    border-width: 2px;
-    color: #2b2b2b;
-    padding: 5px 10px;
-    margin: 10px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    width: 30%;
-    text-align: center;
-  	font-family: 'Comfortaa', cursive;
-    text-decoration: none;
-    font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.6);
-
-  }
-  .arrow-button:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-  }
-
-  .edit-print {
-    text-align: right;
   }
   .btn-custom {
     border: solid;

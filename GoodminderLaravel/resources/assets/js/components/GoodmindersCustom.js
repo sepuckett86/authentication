@@ -14,11 +14,11 @@ class Custom extends React.Component {
           <div className="row">
             <div className="col alignL">
               <Stars
-                gminder={this.props.gminder}
+                gminder={this.props.goodminder}
                 />
             </div>
             <div className="col alignR">
-              <p>Added {this.props.gminder.recordedDate} from Custom Collection: {this.props.gminder.collection}</p>
+              <p>Added {this.props.goodminder.recordedDate} from Custom Collection: {this.props.goodminder.collection}</p>
             </div>
           </div>
         </MediaQuery>
@@ -26,7 +26,7 @@ class Custom extends React.Component {
           <div className="media-body">
           <br />
           <h4 className="paragraph-font" id="quote-random_0">
-            {this.props.gminder.mainResponse}</h4>
+            {this.props.goodminder.mainResponse}</h4>
             <br />
           </div>
           </div>
@@ -39,11 +39,11 @@ class Custom extends React.Component {
            {/* MediaQuery for small screen */}
            <MediaQuery query="(max-width: 576px)">
            <Stars
-             gminder={this.props.gminder}
+             gminder={this.props.goodminder}
              />
              <br />
-             <p>{this.props.gminder.recordedDate ? (this.props.gminder.recordedDate + ' | '): null}
-               {this.props.gminder.collection}</p>
+             <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
+               {this.props.goodminder.collection}</p>
            </MediaQuery>
          </div>
 

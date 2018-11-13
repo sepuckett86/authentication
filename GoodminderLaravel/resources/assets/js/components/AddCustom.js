@@ -24,18 +24,15 @@ class AddCustom extends React.Component {
   newGminder() {
     const date = this.getDate();
     const newGminder = {
-      userID: 1,
       category: 'custom',
       mainResponse: this.state.inputAnswer,
       author: null,
-      promptID: null,
+      prompt_id: null,
       reason: null,
       source: null,
       who: null,
       rating: 0,
-      recordedDate: date,
-      eventDate: null,
-      updatedDate: null,
+      eventDate: date,
       collection: this.state.inputCollection,
       publicFlag: 0,
     }

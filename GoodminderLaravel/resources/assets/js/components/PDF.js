@@ -1,6 +1,6 @@
 import React from 'react';
-import Gminder from '../../../../Utils/Gminder';
-import Button from '../../Components/Button/Button'
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 /*
 Blurb requirements
@@ -18,13 +18,12 @@ For full-bleed printing, stretch images to the page's edge
 */
 
 
-
-class PDF extends React.Component {
+class Pdf extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gminders: [],
-      prompts: [],
+      gminders: this.props.gminders,
+      prompts: this.props.prompts,
       inputPageSize: '',
       inputTitle: '',
       inputAuthor: '',
@@ -48,11 +47,11 @@ class PDF extends React.Component {
     this.handleRadio = this.handleRadio.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Get data from database
-    Gminder.getGminders().then(res => this.setState({gminders: res.express})).catch(err => console.log(err)).then(() => {
-      Gminder.getPrompts().then(res => this.setState({prompts: res.express})).catch(err => console.log(err)).then(() => {
-        return
+    this.props.getGoodminders(() => {
+      this.props.getPrompts(() => {
+
       })
     })
   }
@@ -660,14 +659,21 @@ class PDF extends React.Component {
       </div>
       <br />
       <br />
-      <Button
+      <button
         id='random'
       name="Back"
-      onClick={this.props.changeDisplay}
-      />
+      onClick={() => this.props.changeHomeDisplay('goodminders')}
+      >Return to Home</button>
       </div>
     </div>)
   }
 }
 
-export default PDF;
+function mapStateToProps(state) {
+  return {
+    gminders: state.goodminders,
+    prompts: state.prompts
+  }
+}
+
+export default connect(mapStateToProps, actions)(Pdf);

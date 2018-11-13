@@ -199,17 +199,25 @@ export const putGoodminder = (updatedGoodminder, goodminders, callback) => async
     dispatch({ type: PUT_GOODMINDER, payload: filtered });
     callback();
   } catch (e) {
-    dispatch({ type: RESPONSE, payload: e });
+    dispatch({ type: RESPONSE_ERROR, payload: e });
   }
 }
 
 export const deleteGoodminder = (id, goodminders, callback) => async dispatch => {
   try {
-    // DELETE request with gminder id
-    console.log('Not enabled yet')
-    dispatch({ type: DELETE_GOODMINDER, payload: goodminders });
-    callback()
+    const path = baseURL + `/api/gminders/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      // DELETE request with gminder id
+      const response = await axios.delete(path, options);
+      // Remove old goodminder from goodminders array
+      const filtered = goodminders.filter(goodminder => goodminder.id !== id);
+      dispatch({ type: DELETE_GOODMINDER, payload: goodminders });
+      callback()
+    } else {
+      console.log('token absent')
+    }
   } catch (e) {
-    dispatch({ type: RESPONSE, payload: e });
+    dispatch({ type: RESPONSE_ERROR, payload: e });
   }
 }

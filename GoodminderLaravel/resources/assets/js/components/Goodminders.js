@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { CSSTransition } from "react-transition-group";
+import AnimateHeight from "react-animate-height";
+
+import '../../css/Goodminders.css';
+
 import Prompt from './GoodmindersPrompt';
 import Quote from './GoodmindersQuote';
 import Custom from './GoodmindersCustom';
+
 
 class Goodminders extends Component {
   constructor(props) {
     super(props);
     this.state = {
       prompts: [],
-      length: ''
+      length: '',
+      goodminder: {},
+      animate: false,
+      height: 'auto'
     }
     this.nextClick = this.nextClick.bind(this);
     this.backClick = this.backClick.bind(this);
@@ -41,7 +50,8 @@ class Goodminders extends Component {
           }
       }
       this.setState({
-        length: this.props.goodminders.length
+        length: this.props.goodminders.length,
+        goodminder: this.props.currentGM
       })
     });
 
@@ -60,14 +70,16 @@ class Goodminders extends Component {
   }
   // Sets a new random gminder as state and accounts for back/forward ability
   nextClick() {
+    if (this.state.animate === false) {
     // Check that there we haven't gone back yet
     if (this.props.backGM === 0) {
       // Check that there are gminders in database
       if (this.props.goodminders.length !== 0) {
-        // If we've gone through everything, clear history.
+        // If we've gone through everything, alert.
         if (this.props.previousGM.length === this.props.goodminders.length) {
           alert("You've gone through all of your goodminders. Reload to reset.")
         } else {
+          this.setState({animate: true});
           let a = true;
           let brake = 20;
           while (a && brake > 0) {
@@ -107,14 +119,17 @@ class Goodminders extends Component {
 
     // If we have gone back and are going forward again
     if (this.props.backGM !== 0) {
+      this.setState({animate: true});
       let next = this.props.previousGM[this.props.previousGM.length - this.props.backGM];
       let back = this.props.backGM - 1;
       this.props.setBackGM(back);
       this.props.setCurrentGM(next);
     }
   }
+  }
 
   backClick() {
+    if (this.state.animate === false) {
     // If nothing to go back to
     if (this.props.previousGM.length === 1) {
       alert("Nothing there. Go forward :)");
@@ -123,6 +138,7 @@ class Goodminders extends Component {
     if (this.props.previousGM.length === this.props.backGM + 1) {
       alert("Nothing there. Go forward :)")// If not at beginning and have something to go back to);
     } else if (this.props.previousGM.length > 1) {
+      this.setState({animate: true});
       let current = this.props.previousGM[this.props.previousGM.length - 2 - this.props.backGM];
       let back = this.props.backGM + 1;
       this.props.setBackGM(back);
@@ -130,23 +146,27 @@ class Goodminders extends Component {
     }
     }
   }
+  }
 
   chooseDisplay() {
-    let gminder = this.props.currentGM;
+    let gminder = this.state.goodminder;
     if(gminder.category === 'prompt') {
-      return <Prompt/>
+      return <Prompt goodminder={this.state.goodminder}/>
     }
     else if(gminder.category === 'quote') {
-      return <Quote/>
+      return <Quote goodminder={this.state.goodminder}/>
     }
     else if(gminder.category === 'custom') {
-      return <Custom/>
+      return <Custom goodminder={this.state.goodminder}/>
     }
     else if (this.props.goodminders.length === 0){
-      return <p>Loading</p>
+      return <p>Loading goodminders</p>
+    }
+    else if (!this.props.currentGM.mainResponse){
+      return <p>Loading goodminder</p>
     }
     else {
-      return <p>Category Error</p>
+      return <p>Category error</p>
     }
   }
 
@@ -170,7 +190,38 @@ class Goodminders extends Component {
             <button className="btn arrow-button" onClick={this.nextClick}> <i className="fas fa-arrow-right"></i></button>
             </div>
             <div className="box">
+            <CSSTransition
+                in={this.state.animate}
+                timeout={1000}
+                classNames="fade"
+                onEnter={() => {
+                  this.setState({
+                    height: "1000",
+                  });
+                }}
+                onEntered={() => {
+                    this.setState({
+                      // need to put forward/backclick logic here
+                      goodminder: this.props.currentGM,
+                      animate: false,
+                      height: "auto"
+                    });
+                  }
+                }
+              >
+                {state => (
+                  <div>
+                    <div>
+                      <AnimateHeight
+                        duration={1000}
+                        height={this.state.height} // see props documentation bellow
+                      >
         			{this.chooseDisplay()}
+              </AnimateHeight>
+            </div>
+          </div>
+        )}
+      </CSSTransition>
               <div className="edit-print">
               <button id='edit-button' onClick={this.handleClick} className="btn button-transparent">
                 <i className="fas fa-edit"></i>
@@ -188,7 +239,8 @@ class Goodminders extends Component {
                   Add</button>
               </div>
               <div className="col col-12 col-sm-6">
-                <button className='btn-custom btn'>More</button>
+                <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('more')}>
+                More</button>
               </div>
             </div>
           </div>
@@ -202,7 +254,7 @@ class Goodminders extends Component {
     return (
       <div>
         {this.checkContent()}
-
+        {console.log(this.state.animate)}
       </div>
     )
   }

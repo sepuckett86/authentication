@@ -154,9 +154,12 @@ class Add extends React.Component {
 
 
           <br />
-          <button id='random'
-          name="Back" onClick={() => this.props.changeHomeDisplay('goodminders')}>
-          Back</button>
+          <button
+          id='random'
+          name="Back"
+
+          onClick={() => this.props.changeHomeDisplay('goodminders')}>
+          Return to Home</button>
           <br /><br />
           <div className="box">
 
@@ -171,9 +174,12 @@ class Add extends React.Component {
          <br />
          <div className="row">
            <div className="col">
-        <button id='random'
-        name="Back" onClick={() => this.props.changeHomeDisplay('goodminders')}>
-        Back</button>
+        <button
+        id='random'
+        name="Back"
+    
+        onClick={() => this.props.changeHomeDisplay('goodminders')}>
+        Return to Home</button>
         <br />
 
       <br />

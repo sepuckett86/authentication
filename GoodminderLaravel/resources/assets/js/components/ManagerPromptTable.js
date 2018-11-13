@@ -1,7 +1,7 @@
 import React from 'react';
 
-// Utils
-import Gminder from '../../../../../../Utils/Gminder';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 //Add CSVDownload to import if want to use it
 import {CSVLink} from 'react-csv';

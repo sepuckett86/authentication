@@ -38,7 +38,7 @@ export default (ChildComponent, route) => {
     isTokenExpired(token) {
         try {
             const decoded = decode(token);
-            if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
+            if (decoded.exp < Date.now().valueOf() / 1000) { // Checking if token is expired. N
                 return true;
             }
             else
