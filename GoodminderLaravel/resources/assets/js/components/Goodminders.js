@@ -9,6 +9,7 @@ import '../../css/Goodminders.css';
 import Prompt from './GoodmindersPrompt';
 import Quote from './GoodmindersQuote';
 import Custom from './GoodmindersCustom';
+import Loading from './Loading';
 
 
 class Goodminders extends Component {
@@ -160,10 +161,10 @@ class Goodminders extends Component {
       return <Custom goodminder={this.state.goodminder}/>
     }
     else if (this.props.goodminders.length === 0){
-      return <p>Loading goodminders</p>
+      return <Loading />
     }
     else if (!this.props.currentGM.mainResponse){
-      return <p>Loading goodminder</p>
+      return <Loading />
     }
     else {
       return <p>Category error</p>
@@ -174,10 +175,11 @@ class Goodminders extends Component {
     // Does user have goodminders to display?
     if (this.state.length === 0) {
       return(
-        <div>
-          <h1>Get Started</h1>
-          <p>Add your first Goodminder!</p>
-          <button type='button' onClick={() => this.props.changeHomeDisplay('add')}>Add</button>
+        <div className='log-box'>
+          <h1>Welcome</h1>
+          <p>Add your first goodminder!</p>
+          <br />
+          <button type='button' className='btn-custom btn' onClick={() => this.props.changeHomeDisplay('add')}><i className="fas fa-plus"></i>{' '}Add</button>
         </div>
       )
     } else {
@@ -236,7 +238,7 @@ class Goodminders extends Component {
             <div className="row">
               <div className="col col-12 col-sm-6">
                 <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('add')}>
-                  Add</button>
+                  <i className="fas fa-plus"></i>{' '}Add</button>
               </div>
               <div className="col col-12 col-sm-6">
                 <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('more')}>

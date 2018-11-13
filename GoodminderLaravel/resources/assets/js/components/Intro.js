@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import MediaQuery from 'react-responsive';
 
 import ScrollableAnchor from 'react-scrollable-anchor';
 
@@ -17,8 +18,9 @@ class Intro extends Component {
         <div>
           <section id='sectionCallToAction' className='comfortaa'>
             <div id='outerDiv'>
-              <div id='div0'>
-              </div>
+                <MediaQuery query="(min-width: 800px)">
+                <br /><br />
+                </MediaQuery>
               <div id='div1'>
                 <div id='introMiddle' className='sectionCallToActionContent'>
                 <br />
@@ -37,8 +39,7 @@ class Intro extends Component {
                 <br />
                 </div>
               </div>
-              <div id='div2'>
-              </div>
+
             </div>
           </section>
           <ScrollableAnchor id={'followUp'}>

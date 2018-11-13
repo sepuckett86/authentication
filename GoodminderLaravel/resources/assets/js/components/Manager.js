@@ -32,7 +32,6 @@ class Manager extends React.Component {
     switch(this.state.managerDisplay) {
       case 'gminderTable':
         return (<div>
-          <button onClick={()=> this.props.changeHomeDisplay('goodminders')}>Return to Home</button>
           <GminderTable/>
             <br />
           <button
@@ -43,11 +42,13 @@ class Manager extends React.Component {
           >Table of All Prompts</button>
           <br />
           <button
-            id='random'
+          id='random'
           name="Back"
-        
-          onClick={() => this.props.changeHomeDisplay('goodminders')}
-          >Return to Home</button>
+          className='btn btn-custom'
+          onClick={() => this.props.changeHomeDisplay('goodminders')}>
+          <i className="fas fa-home"></i>{' '}Back to Home</button>
+
+          <br />
         </div>)
       case 'promptTable':
         return (<div>
@@ -60,11 +61,12 @@ class Manager extends React.Component {
           >Table of All Gminders</button>
           <br />
           <button
-            id='random'
+          id='random'
           name="Back"
+          className='btn btn-custom'
+          onClick={() => this.props.changeHomeDisplay('goodminders')}>
+          <i className="fas fa-home"></i>{' '}Back to Home</button>
 
-          onClick={() => this.props.changeHomeDisplay('goodminders')}
-          >Return to Home</button>
           <br />
         </div>)
       default:
@@ -85,10 +87,12 @@ class Manager extends React.Component {
           <br />
           <button
           id='random'
-
           name="Back"
-          onClick={() => this.props.changeHomeDisplay('goodminders')}
-          >Return to Home</button>
+          className='btn btn-custom'
+          onClick={() => this.props.changeHomeDisplay('goodminders')}>
+          <i className="fas fa-home"></i>{' '}Back to Home</button>
+
+          <br />
         </div>)
     }
   }

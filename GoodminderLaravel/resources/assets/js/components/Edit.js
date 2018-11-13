@@ -105,12 +105,14 @@ class Edit extends React.Component {
         </button>
         </div>
         <br />
-        <br />
-        <br />
         <button
+        id='random'
+        name="Back"
+        className='btn btn-custom'
         onClick={() => this.props.changeHomeDisplay('goodminders')}>
-        Back
-        </button>
+        <i className="fas fa-home"></i>{' '}Back to Home</button>
+        <br />
+        <br />
         </div>
       </div>
   )

@@ -30,7 +30,7 @@ class Navbar extends Component {
                             <div className="invisible-when-super-small">{this.props.user.email}</div>
                         </button>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                          <Link to="/" className="dropdown-item">Home</Link>
+                          <Link to="/" className="dropdown-item" onClick={() => {this.props.changeHomeDisplay('goodminders')}}>Home</Link>
                           <Link to="/settings" className="dropdown-item">Settings</Link>
                           <div className="dropdown-divider"></div>
                           <Link to="/intro" className="dropdown-item">Welcome</Link>

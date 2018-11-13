@@ -153,25 +153,29 @@ class More extends React.Component {
 
         <button
         name="Manage Database"
+        className='btn btn-custom'
         onClick={() => this.props.changeHomeDisplay('manager')}
         id="manager"
         >Manage Database</button>
+        <br />
 
         <button
         name="Create PDF"
+        className='btn btn-custom'
         onClick={() => this.props.changeHomeDisplay('pdf')}
         id="PDF"
         >Create PDF</button>
-
         <br />
+
         <button
-          id='random'
+        id='random'
         name="Back"
-        onClick={() => this.props.changeHomeDisplay('goodminders')}
-        >Return to Home</button>
+        className='btn btn-custom'
+        onClick={() => this.props.changeHomeDisplay('goodminders')}>
+        <i className="fas fa-home"></i>{' '}Back to Home</button>
 
         <br />
-        <br />
+
         <br />
       </div>)
   }
