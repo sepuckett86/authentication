@@ -49,15 +49,15 @@ class PromptController extends Controller
 
     public function store(PromptRequest $request)
     {
-        $currentUser = Auth::guard()->user()->id;
-        
         $prompt = new Prompt;
-        $promptText = $request->get('promptText');
-        $collection = $request->get('collection');
+        $prompt->user_id = Auth::guard()->user()->id;
+        $prompt->collection = $request->get('collection');
+        $prompt->promptText = $request->get('promptText');
 
-        $prompt->user_id = $currentUser;
-        $prompt->promptText = $promptText;
-        $prompt->collection = $collection;
+        if ($request->get('publicFlag') !== null) {
+            $prompt->publicFlag = $request->get('publicFlag');
+        }
+
         $prompt->save();
         
         if ($prompt->save()) {
@@ -69,15 +69,21 @@ class PromptController extends Controller
 
     public function update(PromptRequest $request, $id)
     { 
-        $promptText = $request->get('promptText');
-
-        $currentUser = Auth::guard()->user()->id;
-
         $prompt = Prompt::find($id);
-        $prompt->promptText = $promptText;
+        if ($request->get('collection') !== null) {
+            $prompt->collection = $request->get('collection');
+        }
 
-        // Can't use strict equality because user_id can be a string or integer.
-        $promptOwnedByUser = $prompt->user_id == $currentUser;
+        if ($request->get('promptText') !== null) {
+            $prompt->promptText = $request->get('promptText');
+        }
+
+        if ($request->get('publicFlag') !== null) {
+            $prompt->publicFlag = $request->get('publicFlag');
+        }
+
+        // User_id may be a string or integer.
+        $promptOwnedByUser = $prompt->user_id == Auth::guard()->user()->id;
         
         if ($promptOwnedByUser && $prompt->save()) {
             return 'Prompt updated.';
