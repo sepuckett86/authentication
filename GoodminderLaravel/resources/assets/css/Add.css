@@ -27,11 +27,15 @@
 .grid-upper-left {
   grid-column: 1 / 2;
   text-align: left;
+  align-content: start;
+  display: grid;
 }
 
 .grid-upper-right {
   grid-column: 2 / 3;
   text-align: right;
+  align-content: start;
+  display: grid;
 }
 
 .grid-lower-left {

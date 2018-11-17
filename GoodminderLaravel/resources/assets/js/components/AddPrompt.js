@@ -117,21 +117,37 @@ class AddPrompt extends React.Component {
       <p className="paragraph-text">Prompt</p>
       <div className="prompt-grid-box">
         <div className="grid-upper-left">
-          <button type="button" className="btn btn-info"><i className="fas fa-long-arrow-alt-right"></i></button>
-          <button type="button" className="btn btn-info"><i className="fas fa-random"></i></button>
-          <button id="btnGroupDrop1" type="button" className="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div>
+          <button type="button" className="btn button-transparent"><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
+
+          <button type="button" className="btn button-transparent"><i className="fas fa-random"></i></button>{" "}|{" "}
+          <button id="btnGroupDrop1" type="button" className="btn button-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i className="fas fa-ellipsis-h"></i>
           </button>
+
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
             <a className="dropdown-item" href="#">Dropdown link</a>
             <a className="dropdown-item" href="#">Dropdown link</a>
           </div>
         </div>
-      
-      <div className="grid-upper-right header-text" style={grey}>{this.props.nickname} | {this.props.currentPrompt.collection}</div>
+        </div>
+
+      <div className="grid-upper-right header-text">
+      <div>
+      <button className="btn button-transparent">{this.props.nickname}</button>{" "}|{" "}<button className="btn button-transparent">{this.props.currentPrompt.collection}</button>
+      </div>
+      </div>
       <div className="grid-center paragraph-text" style={style}>{this.props.currentPrompt.promptText}</div>
-      <div className="grid-lower-left">Lower-left</div>
-      <div className="grid-lower-right">Lower-right</div>
+      <div className="grid-lower-left">
+        <div>
+        <button type="button" className="btn button-transparent"><i className="fas fa-plus"></i></button>
+        </div>
+      </div>
+      <div className="grid-lower-right">
+        <div>
+        <button type="button" className="btn button-transparent"><i className="fas fa-edit"></i></button>
+        </div>
+      </div>
       </div>
       <br />
       <p className="paragraph-text">
