@@ -49,17 +49,41 @@ class GminderController extends Controller
 
     public function store(GminderRequest $request)
     {
-        $currentUser = Auth::guard()->user()->id;
-        
         $gminder = new Gminder;
-        $mainResponse = $request->get('mainResponse');
-        $category = $request->get('category');
+        $gminder->user_id = Auth::guard()->user()->id;
+        $gminder->category = $request->get('category');
 
-        $gminder->user_id = $currentUser;
-        $gminder->mainResponse = $mainResponse;
-        $gminder->category = $category;
-        $gminder->save();
-        
+        if ($request->get('mainResponse') !== null) {
+            $gminder->mainResponse = $request->get('mainResponse');
+        }
+        if ($request->get('author') !== null) {
+            $gminder->author = $request->get('author');
+        }
+        if ($request->get('prompt_id') !== null) {
+            $gminder->prompt_id = $request->get('prompt_id');
+        }
+        if ($request->get('reason') !== null) {
+            $gminder->reason = $request->get('reason');
+        }
+        if ($request->get('source') !== null) {
+            $gminder->source = $request->get('source');
+        }
+        if ($request->get('who') !== null) {
+            $gminder->who = $request->get('who');
+        }
+        if ($request->get('rating') !== null) {
+            $gminder->rating = $request->get('rating');
+        }
+        if ($request->get('eventDate') !== null) {
+            $gminder->eventDate = $request->get('eventDate');
+        }
+        if ($request->get('collection') !== null) {
+            $gminder->collection = $request->get('collection');
+        }
+        if ($request->get('publicFlag') !== null) {
+            $gminder->publicFlag = $request->get('publicFlag');
+        }
+                
         if ($gminder->save()) {
             return 'Gminder saved.';
         } else {
@@ -69,14 +93,44 @@ class GminderController extends Controller
 
     public function update(GminderRequest $request, $id)
     { 
-        $mainResponse = $request->get('mainResponse');
-
         $currentUser = Auth::guard()->user()->id;
-
         $gminder = Gminder::find($id);
-        $gminder->mainResponse = $mainResponse;
 
-        // Can't use strict equality because user_id can be a string or integer.
+        if ($request->get('category') !== null) {
+            $gminder->category = $request->get('category');
+        }
+        if ($request->get('mainResponse') !== null) {
+            $gminder->mainResponse = $request->get('mainResponse');
+        }
+        if ($request->get('author') !== null) {
+            $gminder->author = $request->get('author');
+        }
+        if ($request->get('prompt_id') !== null) {
+            $gminder->prompt_id = $request->get('prompt_id');
+        }
+        if ($request->get('reason') !== null) {
+            $gminder->reason = $request->get('reason');
+        }
+        if ($request->get('source') !== null) {
+            $gminder->source = $request->get('source');
+        }
+        if ($request->get('who') !== null) {
+            $gminder->who = $request->get('who');
+        }
+        if ($request->get('rating') !== null) {
+            $gminder->rating = $request->get('rating');
+        }
+        if ($request->get('eventDate') !== null) {
+            $gminder->eventDate = $request->get('eventDate');
+        }
+        if ($request->get('collection') !== null) {
+            $gminder->collection = $request->get('collection');
+        }
+        if ($request->get('publicFlag') !== null) {
+            $gminder->publicFlag = $request->get('publicFlag');
+        }
+
+        // User_id may be a string or integer.
         $gminderOwnedByUser = $gminder->user_id == $currentUser;
         
         if ($gminderOwnedByUser && $gminder->save()) {
