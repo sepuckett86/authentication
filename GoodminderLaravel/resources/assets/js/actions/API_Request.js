@@ -69,7 +69,7 @@ export const postSignup = (email, password, password_confirmation, callback) => 
       options = optionsWithToken
     }
     const content = {
-        'name': 'no_data',
+        'name': 'User',
         email,
         password,
         password_confirmation
