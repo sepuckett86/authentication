@@ -110,10 +110,10 @@ class AddPrompt extends React.Component {
       <div className="prompt-grid-box">
         <div className="grid-upper-left">
         <div>
-          <button id='next-prompt-same' type="button" className="btn button-transparent" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
+          <button id='next-prompt-same' type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
 
-          <button id='next-prompt-all' type="button" className="btn button-transparent" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
-          <button id="btnGroupDrop1" type="button" className="btn button-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button id='next-prompt-all' type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
+          <button id="btnGroupDrop1" type="button" className="btn-flat btn-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i className="fas fa-ellipsis-h"></i>
           </button>
 
@@ -126,7 +126,7 @@ class AddPrompt extends React.Component {
 
       <div className="grid-upper-right header-text">
       <div>
-      <button className="btn button-transparent">{this.props.nickname}</button>{" "}|{" "}<button className="btn button-transparent">{this.props.currentPrompt.collection}</button>
+      <button className="btn-flat btn-blue">{this.props.nickname}</button>{" "}|{" "}<button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button>
       </div>
       </div>
 
@@ -138,12 +138,12 @@ class AddPrompt extends React.Component {
 
       <div className="grid-lower-left">
         <div>
-        <button type="button" className="btn button-transparent"><i className="fas fa-plus"></i></button>
+        <button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>
         </div>
       </div>
       <div className="grid-lower-right">
         <div>
-        <button type="button" className="btn button-transparent"><i className="fas fa-edit"></i></button>
+        <button type="button" className="btn-flat btn-blue"><i className="fas fa-edit"></i></button>
         </div>
       </div>
       </div>
@@ -160,7 +160,7 @@ class AddPrompt extends React.Component {
 
       </form>
       {/* Button trigger modal */}
-      <button id="create-goodminder" type="button" className="btn btn-small" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
+      <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
         Create Goodminder
       </button>
 

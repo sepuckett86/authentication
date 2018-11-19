@@ -124,7 +124,7 @@ class AddQuote extends React.Component {
 
           </form>
           {/* Button trigger modal */}
-          <button id="create-goodminder" type="button" className="btn btn-small" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
+          <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
             Create Goodminder
           </button>
       </div>

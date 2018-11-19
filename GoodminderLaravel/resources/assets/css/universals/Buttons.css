@@ -19,6 +19,7 @@
   box-shadow: none;
 }
 
+
 /* End Navbar */
 
 /* ADD Flex-box buttons settings */
@@ -111,12 +112,16 @@
 	border: 0px;
 	background: transparent;
 	color: #5777C0;
-	margin:5px;
-	padding: 0px;
+	margin: 2px;
+	padding-right: 5px;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .btn-blue:hover {
 	filter: brightness(70%);
+  background-color: #f7f9f9;
 }
 
 /* Small screen */
