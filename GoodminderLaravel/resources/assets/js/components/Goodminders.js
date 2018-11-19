@@ -246,7 +246,7 @@ class Goodminders extends Component {
             <div>
             <div className="row">
               <div className="col col-12 col-sm-6">
-                <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('add')}>
+                <button className='btn-custom btn' type='button' onClick={() => {this.props.changeHomeDisplay('add'); this.props.setCurrentPrompt({})}}>
                   <i className="fas fa-plus"></i>{' '}Add</button>
               </div>
               <div className="col col-12 col-sm-6">

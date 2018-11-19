@@ -22,17 +22,6 @@ class EditPrompt extends React.Component {
 
   }
 
-  componentDidMount() {
-    // Note: change to filter
-    // Assign prompt from promptID
-      for (let i = 0; i < this.props.prompts.length; i++) {
-        if (this.props.prompts[i].id === this.props.gminder.promptID) {
-          const thePrompt = this.props.prompts[i];
-          this.setState({prompt: thePrompt})
-        }
-      }
-  }
-
   changeRating(stars) {
     this.setState({inputRating: stars})
   }
@@ -106,7 +95,7 @@ class EditPrompt extends React.Component {
       <div className="g-box">
         <div className="large">
 
-        <p className="lato" style={style}>{this.state.prompt.promptText}</p>
+        <p className="lato" style={style}>{this.props.prompt.promptText}</p>
         </div>
       </div>
       <br />
@@ -140,7 +129,8 @@ class EditPrompt extends React.Component {
 function mapStateToProps(state) {
   return {
     gminder: state.navigation.currentGM,
-    prompts: state.prompts
+    prompts: state.prompts,
+    prompt: state.navigation.currentPrompt
   }
 }
 
