@@ -68,7 +68,8 @@ class Quote extends React.Component {
                 <br />
                 {/* MediaQuery for small screen */}
                 <MediaQuery query="(max-width: 576px)">
-                <Stars/>
+                <Stars
+                  gminder={this.props.goodminder}/>
                   <br />
                 <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
                    {this.props.goodminder.collection}</p>

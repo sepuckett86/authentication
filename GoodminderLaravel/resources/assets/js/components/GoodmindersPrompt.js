@@ -59,7 +59,7 @@ class Prompt extends React.Component {
        <MediaQuery query="(max-width: 576px)">
 
           <Stars
-            starFun={this.props.starFun}
+
             gminder={this.props.goodminder}
 
             />
