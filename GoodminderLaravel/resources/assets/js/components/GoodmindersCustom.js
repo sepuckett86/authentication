@@ -31,10 +31,6 @@ class Custom extends React.Component {
           </div>
           </div>
 
-
-
-
-
            <br />
            {/* MediaQuery for small screen */}
            <MediaQuery query="(max-width: 576px)">
@@ -43,7 +39,8 @@ class Custom extends React.Component {
              />
              <br />
              <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
-               {this.props.goodminder.collection}</p>
+             {this.props.goodminder.collection ? ('Collection: ' + this.props.goodminder.collection): null}
+                </p>
            </MediaQuery>
          </div>
 

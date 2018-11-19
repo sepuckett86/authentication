@@ -69,7 +69,7 @@ export const postSignup = (email, password, password_confirmation, callback) => 
       options = optionsWithToken
     }
     const content = {
-        'name': 'no_data',
+        'name': 'User',
         email,
         password,
         password_confirmation
@@ -118,12 +118,7 @@ export const getPrompts = (callback) => async dispatch => {
     const options = optionsWithToken();
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
-      // dispatch({ type: GET_PROMPTS, payload: response.data });
-      dispatch({ type: GET_PROMPTS, payload: [{
-        id: 1,
-        collection: 'Favorites',
-        promptText: 'What is a song that made you smile in the past month?'
-      }]});
+      dispatch({ type: GET_PROMPTS, payload: response.data });
       callback();
     } else {
       console.log('No token')

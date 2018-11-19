@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import '../../css/App.css';
+import '../../css/universals/Buttons.css';
+import '../../css/universals/Boxes.css';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -19,6 +21,7 @@ import Legal from './Legal';
 import Reset from './auth/Reset';
 import ResetBegin from './auth/ResetBegin';
 import Home from './Home';
+
 
 class App extends Component {
   componentDidMount() {

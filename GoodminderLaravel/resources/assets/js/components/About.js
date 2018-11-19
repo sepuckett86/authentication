@@ -142,10 +142,10 @@ export default () => {
           </div>
 
           <p>
-            <button className="btn btn-small" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapseExample">
               Show goodminder fonts
             </button>{' '}
-            <button className="btn btn-small" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseExample">
+            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseExample">
               Show something else
             </button>
           </p>
@@ -180,7 +180,7 @@ export default () => {
             {' '}<a href="/contact">here</a>. Thanks a lot!</p>
 
           <p>
-            <button className="btn btn-small" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapseExample">
+            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapseExample">
               "Secret" Projects!!
             </button>
           </p>

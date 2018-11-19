@@ -64,7 +64,6 @@ class AddQuote extends React.Component {
       source: this.state.inputSource,
       who: this.state.inputWho,
       rating: 0,
-      eventDate: date,
       collection: this.state.inputCollection,
       publicFlag: 0,
     }
@@ -125,7 +124,7 @@ class AddQuote extends React.Component {
 
           </form>
           {/* Button trigger modal */}
-          <button id="create-goodminder" type="button" className="btn btn-small" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
+          <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
             Create Goodminder
           </button>
       </div>

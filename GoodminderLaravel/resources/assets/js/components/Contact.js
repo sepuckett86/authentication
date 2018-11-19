@@ -57,7 +57,7 @@ class Contact extends Component {
       <br />
       <h2>Have a question? </h2> <h2>Want to comment, make a suggestion, or donate?</h2>
       <br />
-  			 <div id="contact" className="box">
+  			 <div id="contact" className="box alignL">
   			<form>
   				<div className="form-group">
 
@@ -80,8 +80,9 @@ class Contact extends Component {
         </div>
 
         </form>
-
-        	<button id='submitContact' className="btn btn-small" onClick={this.handleClick} name="btn-faq">Submit</button>
+        <div style={{'textAlign': 'center'}}>
+        	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit</button>
+        </div>
         </div>
         </div>
   <br /><br />

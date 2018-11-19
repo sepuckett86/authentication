@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actions from '../actions';
+
+import Loading from './Loading';
 
 class AddPrompt extends React.Component {
   constructor(props) {
@@ -92,7 +95,6 @@ class AddPrompt extends React.Component {
       source: null,
       who: null,
       rating: 0,
-      eventDate: date,
       collection: this.props.currentPrompt.collection,
       publicFlag: 0
     }
@@ -104,28 +106,57 @@ class AddPrompt extends React.Component {
     const style = {
       fontSize: '24px',
       color: '#2b2b2b', /* Blackish */
+      paddingTop: '5%',
+      paddingBottom: '5%',
+      paddingRight: '2%',
+      paddingLeft: '2%'
     }
     return (<div>
 
       <hr />
-      {/* <p>Collection:
-        <button id="collection" className="button-transparent" onClick={this.handleClick}>{this.props.currentPrompt.collection}</button>
-      </p> */}
-      <p className="paragraph-text">Prompt</p>
-      <div className="g-box">
-        <div className="large">
-        <p className="paragraph-text" style={style}>{this.props.currentPrompt.promptText}</p>
+      <div className="prompt-grid-box">
+        <div className="grid-upper-left">
+        <div>
+          <button id='next-prompt-same' type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
+
+          <button id='next-prompt-all' type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
+          <button id="btnGroupDrop1" type="button" className="btn-flat btn-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i className="fas fa-ellipsis-h"></i>
+          </button>
+
+          <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            View All Prompts
+          </button>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            Customize Visible Prompts
+          </button>
+          </div>
+        </div>
+        </div>
+
+      <div className="grid-upper-right header-text">
+      <div>
+      <button className="btn-flat btn-blue">{this.props.nickname}</button>{" "}|{" "}<button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button>
+      </div>
+      </div>
+
+
+
+      {this.props.currentPrompt.promptText ?
+        (<div className="grid-center paragraph-text" style={style}>
+        {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center"><Loading /></div>}
+      <div className="grid-lower-left">
+        <div>
+        <button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>
         </div>
       </div>
-      <br />
-      <p className="paragraph-text">
-      Next random prompt: <br />
-      <button id="next-prompt-same" className="btn btn-small" onClick={this.handleClick}>
-        <i className="fas fa-long-arrow-alt-right"></i>{' '}Collection: {this.props.currentPrompt.collection}</button>
-      {' '}
-      <button id="next-prompt-all" className="btn btn-small" onClick={this.handleClick}>
-        <i className="fas fa-random"></i>{' '}All Collections</button>
-      </p>
+      <div className="grid-lower-right">
+        <div>
+        <button type="button" className="btn-flat btn-blue"><i className="fas fa-edit"></i></button>
+        </div>
+      </div>
+      </div>
       <br />
       <form>
         <div className="form-group">
@@ -139,7 +170,7 @@ class AddPrompt extends React.Component {
 
       </form>
       {/* Button trigger modal */}
-      <button id="create-goodminder" type="button" className="btn btn-small" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
+      <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
         Create Goodminder
       </button>
 
@@ -150,7 +181,8 @@ class AddPrompt extends React.Component {
 function mapStateToProps(state) {
   return {
     prompts: state.prompts,
-    currentPrompt: state.navigation.currentPrompt
+    currentPrompt: state.navigation.currentPrompt,
+    nickname: state.user.name
    }
 }
 

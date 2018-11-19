@@ -11,7 +11,7 @@ class EditPrompt extends React.Component {
 
     this.state = {
       prompt: '',
-      inputAnswer: this.props.gminder.mainResponse,
+      inputPrompt: this.props.prompt.promptText,
       inputReason: this.props.gminder.reason || '',
       inputRating: this.props.gminder.rating
     }
@@ -103,8 +103,8 @@ class EditPrompt extends React.Component {
       <br />
       <form>
         <div className="form-group">
-          <p className="lato">Answer</p>
-          <textarea className="form-control" value={this.state.inputAnswer} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
+          <p className="lato">Prompt</p>
+          <textarea className="form-control" value={this.state.inputPrompt} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
           <br/>
           <p className="lato">Reason</p>
           <textarea className="form-control" value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>

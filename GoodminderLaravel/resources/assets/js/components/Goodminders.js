@@ -9,6 +9,7 @@ import '../../css/Goodminders.css';
 import Prompt from './GoodmindersPrompt';
 import Quote from './GoodmindersQuote';
 import Custom from './GoodmindersCustom';
+import Loading from './Loading';
 
 
 class Goodminders extends Component {
@@ -31,6 +32,7 @@ class Goodminders extends Component {
     this.props.navClear();
     // Request to pull from database
     this.props.getGoodminders(() => {
+      this.props.getPrompts(() => {
       // Then set current gminder
       if (this.props.goodminders.length > 0) {
         let current = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
@@ -38,25 +40,29 @@ class Goodminders extends Component {
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
         // If current gminder is a prompt response, find and store prompt
-        if (current.category === 'prompt') {
-          let currentPrompt = {};
-          for (let i = 0; i < this.props.prompts.length; i++) {
-            if (this.props.prompts[i].id === current.promptID) {
-              currentPrompt = this.props.prompts[i];
-            } else {
-            }
-          }
-          this.props.setCurrentPrompt(currentPrompt);
-          }
+        this.props.setCurrentPrompt(this.findPrompt(current));
+
       }
       this.setState({
         length: this.props.goodminders.length,
         goodminder: this.props.currentGM
       })
-    });
+    })
+  });
 
   }
 
+  findPrompt(goodminder) {
+    let currentPrompt = {};
+    if (goodminder.category === 'prompt') {
+      for (let i = 0; i < this.props.prompts.length; i++) {
+        if (this.props.prompts[i].id === goodminder.prompt_id) {
+          currentPrompt = this.props.prompts[i];
+        }
+      }
+    }
+    return currentPrompt;
+  }
   // Button methods
   handleClick(event) {
     // Note: currentTarget is required to prevent clicking on the icon doing nothing
@@ -103,6 +109,7 @@ class Goodminders extends Component {
               let previous = this.props.previousGM;
               previous.push(random);
               this.props.setCurrentGM(random);
+
               this.props.setPreviousGM(previous);
               a = false;
             }
@@ -124,6 +131,7 @@ class Goodminders extends Component {
       let back = this.props.backGM - 1;
       this.props.setBackGM(back);
       this.props.setCurrentGM(next);
+      this.props.setCurrentPrompt(this.findPrompt(next));
     }
   }
   }
@@ -143,6 +151,7 @@ class Goodminders extends Component {
       let back = this.props.backGM + 1;
       this.props.setBackGM(back);
       this.props.setCurrentGM(current);
+      this.props.setCurrentPrompt(this.findPrompt(current));
     }
     }
   }
@@ -160,10 +169,10 @@ class Goodminders extends Component {
       return <Custom goodminder={this.state.goodminder}/>
     }
     else if (this.props.goodminders.length === 0){
-      return <p>Loading goodminders</p>
+      return <Loading />
     }
     else if (!this.props.currentGM.mainResponse){
-      return <p>Loading goodminder</p>
+      return <Loading />
     }
     else {
       return <p>Category error</p>
@@ -174,10 +183,11 @@ class Goodminders extends Component {
     // Does user have goodminders to display?
     if (this.state.length === 0) {
       return(
-        <div>
-          <h1>Get Started</h1>
-          <p>Add your first Goodminder!</p>
-          <button type='button' onClick={() => this.props.changeHomeDisplay('add')}>Add</button>
+        <div className='log-box'>
+          <h1>Welcome</h1>
+          <p>Add your first goodminder!</p>
+          <br />
+          <button type='button' className='btn-custom btn' onClick={() => this.props.changeHomeDisplay('add')}><i className="fas fa-plus"></i>{' '}Add</button>
         </div>
       )
     } else {
@@ -200,6 +210,7 @@ class Goodminders extends Component {
                   });
                 }}
                 onEntered={() => {
+                  this.props.setCurrentPrompt(this.findPrompt(this.props.currentGM));
                     this.setState({
                       // need to put forward/backclick logic here
                       goodminder: this.props.currentGM,
@@ -223,10 +234,10 @@ class Goodminders extends Component {
         )}
       </CSSTransition>
               <div className="edit-print">
-              <button id='edit-button' onClick={this.handleClick} className="btn button-transparent">
+              <button id='edit-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-edit"></i>
               </button>
-              <button id='print-button' onClick={this.handleClick} className="btn button-transparent">
+              <button id='print-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-print"></i>
               </button>
             </div>
@@ -235,8 +246,8 @@ class Goodminders extends Component {
             <div>
             <div className="row">
               <div className="col col-12 col-sm-6">
-                <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('add')}>
-                  Add</button>
+                <button className='btn-custom btn' type='button' onClick={() => {this.props.changeHomeDisplay('add'); this.props.setCurrentPrompt({})}}>
+                  <i className="fas fa-plus"></i>{' '}Add</button>
               </div>
               <div className="col col-12 col-sm-6">
                 <button className='btn-custom btn' type='button' onClick={() => this.props.changeHomeDisplay('more')}>

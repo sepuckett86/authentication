@@ -68,18 +68,18 @@ class LogIn extends Component {
 						<input name="password" onChange={this.handleChange} type="password" className="form-control" id="exampleInputPassword1" placeholder="**********" required/>
 				  </div></div>
           <br />
-				  <button type="submit"  className="btn btn-primary" name="btn-login">Submit</button>
+				  <button type="submit"  className="btn btn-green" name="btn-login">Submit</button>
 				</form>
         <div >
           <br />
           <hr />
         <p>First time here? {' '}
-          <Link to='/signup' className='btn btn-goodminder btn-sm'>
+          <Link to='/signup' className='btn btn-green btn-sm'>
             <i className="fas fa-arrow-circle-right" ></i>{' '}Sign Up
           </Link>
         </p>
 				<p>Forget your password? {' '}
-          <Link to='/resetbegin' className='btn btn-goodminder btn-sm'>
+          <Link to='/resetbegin' className='btn btn-green btn-sm'>
             <i className="fas fa-arrow-circle-right"></i>{' '}Reset Password
           </Link>
         </p>

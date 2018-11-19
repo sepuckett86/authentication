@@ -8,12 +8,10 @@ import {CSVLink} from 'react-csv';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
-class Manager extends React.Component {
+class PromptTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prompts: [],
-      collection: '',
       csvData: [],
       promptsShowing: [],
       sortBy: 'id',
@@ -21,7 +19,6 @@ class Manager extends React.Component {
     };
     // props
     this.changeDisplay = this.props.changeDisplay;
-    this.collection = this.props.collection;
 
     // bind methods
     this.handleClick = this.handleClick.bind(this);
@@ -31,18 +28,15 @@ class Manager extends React.Component {
   componentDidMount() {
     // Get data from database
     // Prompts
-    Gminder.getPrompts().then(res => this.setState({prompts: res.express})).catch(err => console.log(err)).then(() => {
-    if (this.collection) {
-      this.setState({collection: this.collection})
-      }
+    this.props.getPrompts(() => {
     })
   }
 
   handleClick(event) {
     const myID = event.currentTarget.getAttribute('value');
-    for (let i = 0; i < this.state.prompts.length; i++) {
-      if (Number(myID) === Number(this.state.prompts[i].id)) {
-        this.props.setPrompt(this.state.prompts[i]);
+    for (let i = 0; i < this.props.prompts.length; i++) {
+      if (Number(myID) === Number(this.props.prompts[i].id)) {
+        this.props.setPrompt(this.props.prompts[i]);
         this.props.changeType('prompt');
         this.props.changeDisplay('add');
       }
@@ -59,7 +53,7 @@ class Manager extends React.Component {
 
   makeCSVArrayPrompts() {
     let myArray = [['ID', 'Collection', 'Prompt']];
-    this.state.prompts.forEach(prompt => {
+    this.props.prompts.forEach(prompt => {
       let innerArray = [prompt.id, prompt.collection, prompt.promptText];
       myArray.push(innerArray);
     })
@@ -80,20 +74,20 @@ class Manager extends React.Component {
                 <th scope="col">ID</th>
                 <th scope="col">Collection</th>
                 <th scope="col">Prompt</th>
-                <th scope="col">Respond</th>
+                <th scope="col">Edit</th>
 
               </tr>
             </thead>
             <tbody>
           {
-            this.state.prompts.map((prompt, i) => {
+            this.props.prompts.map((prompt, i) => {
               return (
                   <tr key={this.generateKey(i)}>
                     <th scope="row">{prompt.id}</th>
                     <td>{prompt.collection}</td>
                     <td>{prompt.promptText}</td>
                     <td>
-                    <button className='clear-button' type='button' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
+                    <button className='btn-flat btn-blue' type='button' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
                     </td>
                   </tr>
               )
@@ -112,4 +106,12 @@ class Manager extends React.Component {
   }
 }
 
-export default Manager;
+function mapStateToProps(state) {
+  return {
+    gminders: state.goodminders,
+    prompts: state.prompts,
+    collection: state.navigation.collection
+  }
+}
+
+export default connect(mapStateToProps, actions)(PromptTable);

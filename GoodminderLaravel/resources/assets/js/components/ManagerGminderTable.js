@@ -303,7 +303,7 @@ class GminderTable extends React.Component {
                       {gminder.reason ? gminder.reason : null}
                     </td>
                     <td>
-                      <button className='clear-button' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                      <button className='btn-flat btn-blue' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
                     </td>
                   </tr>
               )
@@ -342,7 +342,7 @@ class GminderTable extends React.Component {
                       {gminder.reason ? gminder.reason : null}
                     </td>
                     <td>
-                      <button className='clear-button' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                      <button className='btn-flat btn-blue' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
                     </td>
                   </tr>
               )
@@ -352,7 +352,7 @@ class GminderTable extends React.Component {
         </table>
         </MediaQuery>
 
-        <CSVLink data={this.makeCSVArray()} ><button id='end' className='btn btn-small' type='button'>Download CSV of all data</button></CSVLink>
+        <CSVLink data={this.makeCSVArray()} ><button id='end' className='btn btn-green' type='button'>Download CSV of all data</button></CSVLink>
         <br />
         <a href='#beginning'>Scroll to top</a>
         <MediaQuery query="(max-width: 576px)">

@@ -81,13 +81,13 @@ class SignUp extends Component {
                     <input name="password_again" onChange={this.handleChange} type="password" className="form-control" id="inputPassword2" placeholder="********" required="required"/>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary" id="btn-signup" name="btn-signup">Submit</button>
+                <button type="submit" className="btn btn-green" id="btn-signup" name="btn-signup">Submit</button>
               </form>
               <div >
                 <br/>
                 <hr/>
                 <p>Already have an account? {' '}
-                  <Link to='/login' className='btn btn-goodminder btn-sm'>
+                  <Link to='/login' className='btn btn-green btn-sm'>
                     <i className="fas fa-arrow-circle-right"></i>{' '}Log In
                   </Link>
                 </p>

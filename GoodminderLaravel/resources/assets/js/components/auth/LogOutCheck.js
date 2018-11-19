@@ -20,17 +20,17 @@ class LogOutCheck extends Component {
           <hr />
 
         <p>Log in again:  {' '}
-          <Link to='/login' className='btn btn-goodminder btn-sm'>
+          <Link to='/login' className='btn btn-green btn-sm'>
             <i className="fas fa-arrow-circle-right"></i>{' '}Log In
           </Link>
         </p>
         <p>Create new user: {' '}
-          <Link to='/signup' className='btn btn-goodminder btn-sm'>
+          <Link to='/signup' className='btn btn-green btn-sm'>
             <i className="fas fa-arrow-circle-right" ></i>{' '}Sign Up
           </Link>
         </p>
         <p>Visit welcome page:  {' '}
-          <Link to='/intro' className='btn btn-goodminder btn-sm'>
+          <Link to='/intro' className='btn btn-green btn-sm'>
             <i className="fas fa-arrow-circle-right"></i>{' '}Welcome
           </Link>
         </p>
@@ -43,7 +43,7 @@ class LogOutCheck extends Component {
           <br />
           <p>If this screen does not refresh, use the following button:</p>
           <div style={{'display': 'flex', 'justifyContent': 'space-around'}}>
-            <button onClick={() => this.props.postSignout()} className='btn btn-goodminder btn-sm'>
+            <button onClick={() => this.props.postSignout()} className='btn btn-green btn-sm'>
               <i className="fas fa-arrow-circle-right"></i>{' '}Log out.
             </button>
           </div>

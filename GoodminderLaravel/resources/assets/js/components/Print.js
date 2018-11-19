@@ -62,7 +62,7 @@ class Print extends React.Component {
           </div>
           </div>
 
-          {this.props.gminder.promptID ?
+          {this.props.gminder.prompt_id ?
           (<div className="media prompt">
             <div className="media-body">
               <p className="paragraph-font">{prompt.promptText}</p>
@@ -102,11 +102,12 @@ class Print extends React.Component {
           </div>
           <div className="row printPageButton">
             <div className="col col-12 col-sm-6">
-              <button className='btn-primary btn printPageButton' type='button' onClick={() => window.print()}>
+              <button className='btn-green btn printPageButton' type='button' onClick={() => window.print()}>
                 Print</button>
             </div>
+            {' '}{' '}
             <div className="col col-12 col-sm-6">
-              <button className='btn-secondary btn printPageButton' type='button'
+              <button className='btn-green btn printPageButton' type='button'
                 onClick={() => {
                   this.showAppHeader();
                   this.props.changeHomeDisplay('goodminders');

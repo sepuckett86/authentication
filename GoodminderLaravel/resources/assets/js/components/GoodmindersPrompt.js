@@ -19,8 +19,7 @@ class Prompt extends React.Component {
             <div className="row">
               <div className="col alignL">
                 <Stars
-                  gminder={this.props.goodminder}
-
+                gminder={this.props.goodminder}
                   />
               </div>
             <div className="col alignR paragraph-font">
@@ -60,7 +59,7 @@ class Prompt extends React.Component {
        <MediaQuery query="(max-width: 576px)">
 
           <Stars
-            starFun={this.props.starFun}
+
             gminder={this.props.goodminder}
 
             />

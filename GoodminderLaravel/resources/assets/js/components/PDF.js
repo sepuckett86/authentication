@@ -51,7 +51,6 @@ class Pdf extends React.Component {
     // Get data from database
     this.props.getGoodminders(() => {
       this.props.getPrompts(() => {
-
       })
     })
   }
@@ -455,15 +454,14 @@ class Pdf extends React.Component {
     return (<div>
       <br />
       <div className='container'>
-        <div className='box alignL'>
+        <div className='box'>
         <h1>Customize PDF</h1>
-        <form>
+        <form className='alignL'>
           <div className="form-group">
             <h4>Title</h4>
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <div className="input-group-text">
-
                   <input id='checkboxTitle' type="checkbox" onClick={this.handleCheck} checked={this.state.checkboxTitle} aria-label="Checkbox for following text input"/>
                 </div>
               </div>
@@ -535,13 +533,14 @@ class Pdf extends React.Component {
               <br/>
             </div>
           </div>
+          <hr />
           {/* end row */}
-          <h1>Content - Goodminders</h1>
+          <h1 style={{'textAlign': 'center'}}>Content - Goodminders</h1>
           <br/>
           <div className='row justify-content-between'>
             <div className='col'>
               <h4>By Rating</h4>
-              <button type="button" id="checkAllRatings" onClick={this.handleClick} className='btn btn-small'>Check All
+              <button type="button" id="checkAllRatings" onClick={this.handleClick} className='btn btn-green'>Check All
               </button>
               <div className="form-check">
                 <input className="form-check-input" onChange={this.handleCheck} type="checkbox" value="" id="ratingCheck5" checked={this.state.checkboxRating5}/>
@@ -583,7 +582,7 @@ class Pdf extends React.Component {
             </div>
             <div className='col'>
               <h4>By Type</h4>
-              <button type="button" id='checkAllTypes' onClick={this.handleClick} className='btn btn-small'>Check All
+              <button type="button" id='checkAllTypes' onClick={this.handleClick} className='btn btn-green'>Check All
               </button>
               <div className="form-check">
                 <input className="form-check-input" onChange={this.handleCheck} type="checkbox" value="" id="typeCheck1" checked={this.state.checkboxTypePrompt}/>
@@ -654,16 +653,20 @@ class Pdf extends React.Component {
         </form>
         <div style={{textAlign:'center'}}>
         <p>{' '}Total pages (not including title page): <b>{this.makeSelectedGminders().length}</b></p>
-        <button id="make-PDF"  className='btn btn-small' onClick={this.handleClick}>Make PDF</button>
+        <button id="make-PDF"  className='btn btn-green' onClick={this.handleClick}>Make PDF</button>
       </div>
       </div>
-      <br />
       <br />
       <button
-        id='random'
+      id='random'
       name="Back"
-      onClick={() => this.props.changeHomeDisplay('goodminders')}
-      >Return to Home</button>
+      className='btn btn-custom'
+      onClick={() => this.props.changeHomeDisplay('goodminders')}>
+      <i className="fas fa-home"></i>{' '}Back to Home</button>
+
+      <br />
+      <br />
+      <br />
       </div>
     </div>)
   }
