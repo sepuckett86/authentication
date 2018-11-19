@@ -540,7 +540,7 @@ class Pdf extends React.Component {
           <div className='row justify-content-between'>
             <div className='col'>
               <h4>By Rating</h4>
-              <button type="button" id="checkAllRatings" onClick={this.handleClick} className='btn btn-small'>Check All
+              <button type="button" id="checkAllRatings" onClick={this.handleClick} className='btn btn-green'>Check All
               </button>
               <div className="form-check">
                 <input className="form-check-input" onChange={this.handleCheck} type="checkbox" value="" id="ratingCheck5" checked={this.state.checkboxRating5}/>
@@ -582,7 +582,7 @@ class Pdf extends React.Component {
             </div>
             <div className='col'>
               <h4>By Type</h4>
-              <button type="button" id='checkAllTypes' onClick={this.handleClick} className='btn btn-small'>Check All
+              <button type="button" id='checkAllTypes' onClick={this.handleClick} className='btn btn-green'>Check All
               </button>
               <div className="form-check">
                 <input className="form-check-input" onChange={this.handleCheck} type="checkbox" value="" id="typeCheck1" checked={this.state.checkboxTypePrompt}/>
@@ -653,7 +653,7 @@ class Pdf extends React.Component {
         </form>
         <div style={{textAlign:'center'}}>
         <p>{' '}Total pages (not including title page): <b>{this.makeSelectedGminders().length}</b></p>
-        <button id="make-PDF"  className='btn btn-small' onClick={this.handleClick}>Make PDF</button>
+        <button id="make-PDF"  className='btn btn-green' onClick={this.handleClick}>Make PDF</button>
       </div>
       </div>
       <br />

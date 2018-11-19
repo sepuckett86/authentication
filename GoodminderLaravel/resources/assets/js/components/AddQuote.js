@@ -64,7 +64,6 @@ class AddQuote extends React.Component {
       source: this.state.inputSource,
       who: this.state.inputWho,
       rating: 0,
-      eventDate: date,
       collection: this.state.inputCollection,
       publicFlag: 0,
     }

@@ -32,28 +32,5 @@
   color: white;
 }
 
-.btn-clean {
-  border: transparent;
-  background: transparent;
-}
-
-.btn-clean:focus {
-  text-decoration: none;
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.btn-goodminder {
-  color: #fff;
-  background-color: #46B3B3;
-  border-color: #46B3B3;
-}
-
-.btn-goodminder:hover {
-  color: #fff;
-  background-color: #399393;
-  border-color: #46B3B3;
-}
 
 /* END NAVBAR */

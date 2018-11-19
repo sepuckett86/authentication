@@ -25,7 +25,7 @@ class Navbar extends Component {
                     <ul className="navbar-nav ml-auto">
 
                       <li className="nav-item dropdown">
-                        <button className="nav-link paragraph-font btn btn-clean menu dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button className="nav-link paragraph-font btn-basic btn-flat menu dropdown-toggle" type="button" id="dropdownMenuButton"
                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div className="invisible-when-super-small">{this.props.user.email}</div>
                         </button>
@@ -66,13 +66,13 @@ class Navbar extends Component {
                     </div>
                     <div className="invisible-when-super-small">
                       <li>
-                        <Link to="/signup" className="nav-link paragraph-font btn btn-clean">
+                        <Link to="/signup" className="nav-link paragraph-font btn-flat">
                           Sign Up
                         </Link>
                       </li>
                     </div>
                       <li className="nav-item dropdown">
-                        <button className="nav-link paragraph-font btn btn-clean menu dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button className="nav-link paragraph-font btn-flat menu dropdown-toggle" type="button" id="dropdownMenuButton"
                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             More
                         </button>
@@ -94,13 +94,7 @@ class Navbar extends Component {
 
                         </div>
                       </li>
-                      {/*
-                        <li className="nav-item points">
-                          <button type="button" className="btn btn-goodminder" data-toggle="popover" title="Gminder Points" data-content="Earn points by daily log-in and writing entries. These will come in handy later :) ">
-                            {' '}<span className="badge badge-light">40</span>
-                          </button>
-                        </li>
-                        */}
+
                     </ul>
                   </div>
                 </nav>
@@ -111,11 +105,11 @@ class Navbar extends Component {
   renderButton() {
     if (this.props.auth) {
       return (
-        <button className="nav-link paragraph-font btn btn-clean logIn" onClick={() => this.props.postSignout()}>Log Out</button>
+        <button className="nav-link paragraph-font btn-flat logIn" onClick={() => this.props.postSignout()}>Log Out</button>
       )
     } else {
       return (
-        <Link to="/login" className="nav-link paragraph-font btn btn-clean">
+        <Link to="/login" className="nav-link paragraph-font btn-flat">
           Log In
         </Link>
       )

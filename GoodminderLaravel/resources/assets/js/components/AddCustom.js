@@ -32,7 +32,6 @@ class AddCustom extends React.Component {
       source: null,
       who: null,
       rating: 0,
-      eventDate: date,
       collection: this.state.inputCollection,
       publicFlag: 0,
     }
@@ -74,7 +73,7 @@ class AddCustom extends React.Component {
           </form>
           <br />
           {/* Button trigger modal */}
-          <button id="create-goodminder" type="button" className="btn btn-small" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
+          <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
             Create Goodminder
           </button>
       </div>

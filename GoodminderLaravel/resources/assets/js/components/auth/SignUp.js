@@ -87,7 +87,7 @@ class SignUp extends Component {
                 <br/>
                 <hr/>
                 <p>Already have an account? {' '}
-                  <Link to='/login' className='btn btn-goodminder btn-sm'>
+                  <Link to='/login' className='btn btn-green btn-sm'>
                     <i className="fas fa-arrow-circle-right"></i>{' '}Log In
                   </Link>
                 </p>

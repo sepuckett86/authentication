@@ -100,7 +100,7 @@ class Edit extends React.Component {
           <h1>Edit Goodminder</h1>
         {this.setDisplay()}
         {/* Button trigger modal */}
-        <button type="button" className="btn btn-small" data-toggle="modal" data-target="#deleteModal">
+        <button type="button" className="btn btn-green" data-toggle="modal" data-target="#deleteModal">
           Delete Goodminder
         </button>
         </div>

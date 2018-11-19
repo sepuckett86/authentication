@@ -352,7 +352,7 @@ class GminderTable extends React.Component {
         </table>
         </MediaQuery>
 
-        <CSVLink data={this.makeCSVArray()} ><button id='end' className='btn btn-small' type='button'>Download CSV of all data</button></CSVLink>
+        <CSVLink data={this.makeCSVArray()} ><button id='end' className='btn btn-green' type='button'>Download CSV of all data</button></CSVLink>
         <br />
         <a href='#beginning'>Scroll to top</a>
         <MediaQuery query="(max-width: 576px)">

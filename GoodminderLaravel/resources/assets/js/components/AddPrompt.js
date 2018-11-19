@@ -92,7 +92,6 @@ class AddPrompt extends React.Component {
       source: null,
       who: null,
       rating: 0,
-      eventDate: date,
       collection: this.props.currentPrompt.collection,
       publicFlag: 0
     }
@@ -105,22 +104,15 @@ class AddPrompt extends React.Component {
       fontSize: '24px',
       color: '#2b2b2b', /* Blackish */
     }
-    const grey = {
-      color: '#A3A3A3',
-    }
     return (<div>
 
       <hr />
-      {/* <p>Collection:
-        <button id="collection" className="button-transparent" onClick={this.handleClick}>{this.props.currentPrompt.collection}</button>
-      </p> */}
-      <p className="paragraph-text">Prompt</p>
       <div className="prompt-grid-box">
         <div className="grid-upper-left">
         <div>
-          <button type="button" className="btn button-transparent"><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
+          <button id='next-prompt-same' type="button" className="btn button-transparent" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
 
-          <button type="button" className="btn button-transparent"><i className="fas fa-random"></i></button>{" "}|{" "}
+          <button id='next-prompt-all' type="button" className="btn button-transparent" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
           <button id="btnGroupDrop1" type="button" className="btn button-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i className="fas fa-ellipsis-h"></i>
           </button>
@@ -137,7 +129,13 @@ class AddPrompt extends React.Component {
       <button className="btn button-transparent">{this.props.nickname}</button>{" "}|{" "}<button className="btn button-transparent">{this.props.currentPrompt.collection}</button>
       </div>
       </div>
-      <div className="grid-center paragraph-text" style={style}>{this.props.currentPrompt.promptText}</div>
+
+      <div className="grid-center paragraph-text" style={style}>
+
+      {this.props.currentPrompt.promptText}
+
+      </div>
+
       <div className="grid-lower-left">
         <div>
         <button type="button" className="btn button-transparent"><i className="fas fa-plus"></i></button>
@@ -149,15 +147,6 @@ class AddPrompt extends React.Component {
         </div>
       </div>
       </div>
-      <br />
-      <p className="paragraph-text">
-      Next random prompt: <br />
-      <button id="next-prompt-same" className="btn btn-small" onClick={this.handleClick}>
-        <i className="fas fa-long-arrow-alt-right"></i>{' '}Collection: {this.props.currentPrompt.collection}</button>
-      {' '}
-      <button id="next-prompt-all" className="btn btn-small" onClick={this.handleClick}>
-        <i className="fas fa-random"></i>{' '}All Collections</button>
-      </p>
       <br />
       <form>
         <div className="form-group">

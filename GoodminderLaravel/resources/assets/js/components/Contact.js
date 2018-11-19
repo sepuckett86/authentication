@@ -81,7 +81,7 @@ class Contact extends Component {
 
         </form>
 
-        	<button id='submitContact' className="btn btn-small" onClick={this.handleClick} name="btn-faq">Submit</button>
+        	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit</button>
         </div>
         </div>
   <br /><br />

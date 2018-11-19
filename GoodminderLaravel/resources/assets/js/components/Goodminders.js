@@ -225,10 +225,10 @@ class Goodminders extends Component {
         )}
       </CSSTransition>
               <div className="edit-print">
-              <button id='edit-button' onClick={this.handleClick} className="btn button-transparent">
+              <button id='edit-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-edit"></i>
               </button>
-              <button id='print-button' onClick={this.handleClick} className="btn button-transparent">
+              <button id='print-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-print"></i>
               </button>
             </div>

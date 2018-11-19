@@ -55,13 +55,13 @@ class Intro extends Component {
                 </ul>
                 <div>
                   <div style={{flexDirection: 'row', display: 'flex', width: '100%', justifyContent: 'center'}}>
-                    <Link to='/about' onClick={() => this.scrollToTop()} className='btn-small btn-left btn' style={{minWidth: '20%'}}>
+                    <Link to='/about' onClick={() => this.scrollToTop()} className='btn-green btn-left btn' style={{minWidth: '20%'}}>
                       About
                     </Link>
-                    <Link to='/examples' onClick={() => this.scrollToTop()} className='btn-small btn-center btn' style={{minWidth: '20%'}}>
+                    <Link to='/examples' onClick={() => this.scrollToTop()} className='btn-green btn-center btn' style={{minWidth: '20%'}}>
                       Examples
                     </Link>
-                    <Link to='/contact' onClick={() => this.scrollToTop()} className='btn-small btn-right btn' style={{minWidth: '20%'}}>
+                    <Link to='/contact' onClick={() => this.scrollToTop()} className='btn-green btn-right btn' style={{minWidth: '20%'}}>
                       Contact
                     </Link>
                   </div>

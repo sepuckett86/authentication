@@ -1,8 +1,12 @@
+/* STANDARDS
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+*/
+
 /* html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
-
 
 /* BACKGROUND */
 
@@ -116,105 +120,6 @@ h1, h2, h3, h4, h5 {
 }
 /* end space */
 
-/* BUTTONS */
-
-.btn-home {
-  color: #fff;
-  background-color: #46B3B3;
-  background-image: none;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  font-size: 18px;
-  border-color: black;
-}
-
-.btn-home:hover {
-  color: #fff;
-  background-color: #399393;
-  border-color: #46B3B3;
-}
-
-.btn-small {
-  color: #fff;
-  background-color: #46B3B3;
-  background-image: none;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  font-size: 18px;
-}
-
-.btn-small:hover {
-  color: #fff;
-  background-color: #399393;
-  border-color: #46B3B3;
-}
-
-.btn-center {
-  margin-left: 1%;
-  margin-right: 1%;
-}
-
-.button-transparent {
-	border: 0px;
-	background: transparent;
-	color: #5777C0;
-	margin:5px;
-	padding: 0px;
-}
-
-.button-transparent:hover {
-	cursor: pointer;
-	filter: brightness(70%);
-}
-
-/* Small screen */
-
-@media (min-width: 0px) {
-  .btn-custom {
-    border: solid;
-    border-radius: 10px;
-    border-color: #46B3B3;
-    border-width: 2px;
-    color: #2b2b2b;
-    padding: 15px 15px;
-    margin-bottom: 2%;
-    width: 100%;
-    text-align: center;
-    text-decoration: none;
-    font-size: 20px;
-    font-family: 'Comfortaa', cursive;
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-  .btn-custom:hover {
-    background-color: white;
-  }
-}
-
-/* Regular screen and up */
-
-@media (min-width: 576px) {
-  .btn-custom {
-    border: solid;
-    border-radius: 10px;
-    border-color: #46B3B3;
-    border-width: 2px;
-    color: #2b2b2b;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.7);
-    font-family: 'Comfortaa', cursive;
-    width: auto;
-  }
-  .btn-custom:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-}
-
-/* END BUTTONS */
-
 /* LISTS */
 
 ul.clean {
@@ -242,11 +147,6 @@ ul.clean {
     min-height: 100vh;
     height: 100%;
   }
-  .log-box {
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 5%;
-    min-height: 100vh;
-  }
 }
 
 @media (min-width: 400px) {
@@ -263,12 +163,6 @@ ul.clean {
     background-color: rgba(255, 255, 255, 0.7);
     min-height: 100vh;
     height: 100%;
-  }
-  .log-box {
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 5%;
-    min-height: 100vh;
-
   }
 }
 /* Small screen */
@@ -293,49 +187,14 @@ ul.clean {
     min-height: 100vh;
     height: 100%;
   }
-  .box {
-    background-color: transparent;
-    border: 0px;
-    padding: 0px;
-    border-radius: 0px;
-    -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    font-size: 16px;
-    color: #5777C0;
-  }
-  .log-box {
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 5%;
-    min-height: auto
-  }
-  .btn-small {
-    width: 100%;
-  }
+
   h1 {
     font-size: 2rem;
   }
   h2 {
     font-size: 1.5rem;
   }
-  .btn-custom {
-    border: solid;
-    border-radius: 10px;
-    border-color: #46B3B3;
-    border-width: 2px;
-    color: #2b2b2b;
-    padding: 15px 15px;
-    margin-bottom: 2%;
-    width: 100%;
-    text-align: center;
-  	font-family: 'Comfortaa', cursive;
-    text-decoration: none;
-    font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-  .btn-custom:hover {
-    background-color: white;
-  }
+
 }
 
 /* Regular screen and up */
@@ -357,47 +216,5 @@ ul.clean {
   }
   .App {
     background-color: transparent;
-  }
-  .box {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid #2b2b2b;
-    padding: 25px;
-    border-radius: 10px;
-    -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
-    font-size: 16px;
-    color: #5777C0;
-  }
-  .log-box {
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 2%;
-    margin: 2%;
-    border-radius: 10px;
-    max-width: 800px;
-    min-width: 500px;
-    min-height: auto;
-    display: inline-block;
-  }
-  .btn-small {
-    width: auto;
-  }
-  .btn-custom {
-    border: solid;
-    border-radius: 10px;
-    border-color: #46B3B3;
-    border-width: 2px;
-    color: #2b2b2b;
-    padding: 15px 32px;
-    text-align: center;
-  	font-family: 'Comfortaa', cursive;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.7);
-    width: auto;
-  }
-  .btn-custom:hover {
-    background-color: rgba(255, 255, 255, 0.9);
   }
 }

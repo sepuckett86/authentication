@@ -145,7 +145,7 @@ class EditQuote extends React.Component {
             />
           <br />
           {/* Button trigger modal */}
-          <button id="update-goodminder" type="button" className="btn btn-small" data-toggle="modal" onClick={this.handleClick} data-target="#editModal">
+          <button id="update-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#editModal">
             Update Goodminder
           </button>
       </div>

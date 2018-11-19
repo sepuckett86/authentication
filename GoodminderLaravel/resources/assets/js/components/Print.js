@@ -105,6 +105,7 @@ class Print extends React.Component {
               <button className='btn-primary btn printPageButton' type='button' onClick={() => window.print()}>
                 Print</button>
             </div>
+            {' '}
             <div className="col col-12 col-sm-6">
               <button className='btn-secondary btn printPageButton' type='button'
                 onClick={() => {

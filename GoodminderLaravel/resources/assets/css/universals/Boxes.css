@@ -1,0 +1,94 @@
+/* SCREEN RESIZING */
+
+/* Extra small devices (phones, 400px and down) */
+@media (max-width: 400px) {
+  .log-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    min-height: 100vh;
+    max-width: 100%;
+    border-radius: 0px;
+  }
+  .loading-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  .g-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    border-radius: 10px;
+    position: relative;
+    border: solid;
+    border-color: #46B3B3;
+    color: #2b2b2b
+  }
+}
+
+@media (min-width: 400px) {
+  .log-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    border-radius: 0px;
+    min-height: 100vh;
+  }
+  .loading-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  .g-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 5%;
+    border-radius: 10px;
+    position: relative;
+    border: solid;
+    border-color: #46B3B3;
+    color: #2b2b2b
+  }
+}
+/* Regular screen and up */
+
+@media (min-width: 576px) {
+  .box {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #2b2b2b;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 16px;
+    color: #5777C0;
+  }
+  .log-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 2%;
+    margin: 2%;
+    border-radius: 10px;
+    min-width: 70%;
+    min-height: auto;
+    display: inline-block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .loading-box {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 2%;
+    margin: 2%;
+    border-radius: 10px;
+    max-width: 800px;
+    min-width: 60%;
+    min-height: auto;
+    display: inline-block;
+  }
+  .g-box {
+    background-color: transparent;
+    padding: 2%;
+    border-radius: 10px;
+    position: relative;
+    border: solid;
+    border-color: #46B3B3;
+    color: #2b2b2b
+  }
+
+}
