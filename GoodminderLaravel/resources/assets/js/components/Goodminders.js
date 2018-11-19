@@ -32,6 +32,7 @@ class Goodminders extends Component {
     this.props.navClear();
     // Request to pull from database
     this.props.getGoodminders(() => {
+      this.props.getPrompts(() => {
       // Then set current gminder
       if (this.props.goodminders.length > 0) {
         let current = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
@@ -39,25 +40,29 @@ class Goodminders extends Component {
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
         // If current gminder is a prompt response, find and store prompt
-        if (current.category === 'prompt') {
-          let currentPrompt = {};
-          for (let i = 0; i < this.props.prompts.length; i++) {
-            if (this.props.prompts[i].id === current.promptID) {
-              currentPrompt = this.props.prompts[i];
-            } else {
-            }
-          }
-          this.props.setCurrentPrompt(currentPrompt);
-          }
+        this.props.setCurrentPrompt(this.findPrompt(current));
+
       }
       this.setState({
         length: this.props.goodminders.length,
         goodminder: this.props.currentGM
       })
-    });
+    })
+  });
 
   }
 
+  findPrompt(goodminder) {
+    let currentPrompt = {};
+    if (goodminder.category === 'prompt') {
+      for (let i = 0; i < this.props.prompts.length; i++) {
+        if (this.props.prompts[i].id === goodminder.prompt_id) {
+          currentPrompt = this.props.prompts[i];
+        }
+      }
+    }
+    return currentPrompt;
+  }
   // Button methods
   handleClick(event) {
     // Note: currentTarget is required to prevent clicking on the icon doing nothing
@@ -104,6 +109,7 @@ class Goodminders extends Component {
               let previous = this.props.previousGM;
               previous.push(random);
               this.props.setCurrentGM(random);
+              this.props.setCurrentPrompt(this.findPrompt(random));
               this.props.setPreviousGM(previous);
               a = false;
             }
@@ -125,6 +131,7 @@ class Goodminders extends Component {
       let back = this.props.backGM - 1;
       this.props.setBackGM(back);
       this.props.setCurrentGM(next);
+      this.props.setCurrentPrompt(this.findPrompt(next));
     }
   }
   }
@@ -144,6 +151,7 @@ class Goodminders extends Component {
       let back = this.props.backGM + 1;
       this.props.setBackGM(back);
       this.props.setCurrentGM(current);
+      this.props.setCurrentPrompt(this.findPrompt(current));
     }
     }
   }
