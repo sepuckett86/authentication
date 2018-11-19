@@ -62,7 +62,7 @@ class Print extends React.Component {
           </div>
           </div>
 
-          {this.props.gminder.promptID ?
+          {this.props.gminder.prompt_id ?
           (<div className="media prompt">
             <div className="media-body">
               <p className="paragraph-font">{prompt.promptText}</p>

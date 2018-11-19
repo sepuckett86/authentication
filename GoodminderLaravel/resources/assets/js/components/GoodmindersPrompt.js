@@ -19,8 +19,7 @@ class Prompt extends React.Component {
             <div className="row">
               <div className="col alignL">
                 <Stars
-                  gminder={this.props.goodminder}
-
+                gminder={this.props.goodminder}
                   />
               </div>
             <div className="col alignR paragraph-font">

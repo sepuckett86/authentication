@@ -60,7 +60,9 @@ class Stars extends React.Component {
     }
   }
   changeDatabase(updatedGminder) {
-    // Gminder.updateGminder(updatedGminder);
+    this.props.putGoodminder(updatedGminder, this.props.goodminders, () => {
+
+    })
   }
 
   generateKey(index) {
@@ -112,7 +114,6 @@ class Stars extends React.Component {
 function mapStateToProps(state) {
   return {
     goodminders: state.goodminders,
-    gminder: state.navigation.currentGM,
     previousGM: state.navigation.previousGM,
     backGM: state.navigation.backGM,
     currentPrompt: state.navigation.currentPrompt

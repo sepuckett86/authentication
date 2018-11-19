@@ -35,7 +35,8 @@ class Quote extends React.Component {
             <MediaQuery query="(min-width: 576px)">
             <div className="row">
               <div className="col alignL">
-                <Stars/>
+                <Stars
+                  gminder={this.props.goodminder}/>
               </div>
               <div className="col alignR">
                 <p>Added {this.props.goodminder.recordedDate} from Quote Collection: {this.props.goodminder.collection}</p>
