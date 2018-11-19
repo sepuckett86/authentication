@@ -303,7 +303,7 @@ class GminderTable extends React.Component {
                       {gminder.reason ? gminder.reason : null}
                     </td>
                     <td>
-                      <button className='clear-button' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                      <button className='btn-flat btn-blue' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
                     </td>
                   </tr>
               )
@@ -342,7 +342,7 @@ class GminderTable extends React.Component {
                       {gminder.reason ? gminder.reason : null}
                     </td>
                     <td>
-                      <button className='clear-button' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                      <button className='btn-flat btn-blue' type='button' value={gminder.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
                     </td>
                   </tr>
               )

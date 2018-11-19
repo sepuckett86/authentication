@@ -109,7 +109,7 @@ class Goodminders extends Component {
               let previous = this.props.previousGM;
               previous.push(random);
               this.props.setCurrentGM(random);
-              this.props.setCurrentPrompt(this.findPrompt(random));
+
               this.props.setPreviousGM(previous);
               a = false;
             }
@@ -210,6 +210,7 @@ class Goodminders extends Component {
                   });
                 }}
                 onEntered={() => {
+                  this.props.setCurrentPrompt(this.findPrompt(this.props.currentGM));
                     this.setState({
                       // need to put forward/backclick logic here
                       goodminder: this.props.currentGM,

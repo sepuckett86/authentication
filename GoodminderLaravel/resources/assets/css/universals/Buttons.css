@@ -1,5 +1,16 @@
+.btn-dropdown {
+  border: transparent;
+  background: transparent;
+  /* hand cursor on hover */
+  cursor: pointer;
+  /* Rounded corners */
+}
 
-
+.btn-dropdown:focus {
+  text-decoration: none;
+  outline: none;
+  border: none;
+}
 
 
 /* Navbar */

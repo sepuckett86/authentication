@@ -54,11 +54,11 @@ class Manager extends React.Component {
         return (<div>
           <PromptTable/>
           <button
-          name="Table of All Gminders"
+          name="Table of All Goodminders"
           onClick={this.handleClick}
           className='btn-custom btn'
           id="gminderTable"
-          >Table of All Gminders</button>
+          >Table of All Goodminders</button>
           <br />
           <button
           id='random'
@@ -72,11 +72,11 @@ class Manager extends React.Component {
       default:
         return (<div>
           <button
-          name="Table of All Gminders"
+          name="Table of All Goodminders"
           className='btn-custom btn'
           onClick={this.handleClick}
           id="gminderTable"
-          >Table of All Gminders</button>
+          >Table of All Goodminders</button>
           <br />
           <button
           name="Table of All Prompts"

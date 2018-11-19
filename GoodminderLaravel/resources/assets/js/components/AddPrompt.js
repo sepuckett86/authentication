@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
 class AddPrompt extends React.Component {
@@ -118,8 +119,12 @@ class AddPrompt extends React.Component {
           </button>
 
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a className="dropdown-item" href="#">Dropdown link</a>
-            <a className="dropdown-item" href="#">Dropdown link</a>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            View All Prompts
+          </button>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            Customize Visible Prompts
+          </button>
           </div>
         </div>
         </div>
