@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
+import Loading from './Loading';
+
 class AddPrompt extends React.Component {
   constructor(props) {
     super(props);
@@ -104,6 +106,10 @@ class AddPrompt extends React.Component {
     const style = {
       fontSize: '24px',
       color: '#2b2b2b', /* Blackish */
+      paddingTop: '5%',
+      paddingBottom: '5%',
+      paddingRight: '2%',
+      paddingLeft: '2%'
     }
     return (<div>
 
@@ -135,12 +141,11 @@ class AddPrompt extends React.Component {
       </div>
       </div>
 
-      <div className="grid-center paragraph-text" style={style}>
 
-      {this.props.currentPrompt.promptText}
 
-      </div>
-
+      {this.props.currentPrompt.promptText ?
+        (<div className="grid-center paragraph-text" style={style}>
+        {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center"><Loading /></div>}
       <div className="grid-lower-left">
         <div>
         <button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>

@@ -11,20 +11,25 @@ class Settings extends Component {
       <div>
       <div className='log-box'>
 
-      <button>
-      <Link to="/" className="dropdown-item">Back to Home</Link>
-      </button>
-        <br />
-          <br />
         <h1>Settings</h1>
         <h2>Account Information</h2>
         <p>Email: {this.props.user.email}</p>
-        <p>Name: {this.props.user.name || 'no data'}</p>
-        <p>User name: {this.props.user.username || 'no data'}</p>
-        <button onClick={() => {console.log('Not enabled yet')}}>Change password</button>
+        <p>Private Nickname: {this.props.user.nickname || 'no data'}</p>
+        <p>Public Username: {this.props.user.name || 'no data'}</p>
+        <button className="btn btn-green" onClick={() => {console.log('Not enabled yet')}}>Change password</button>
         <br /><br />
-        <button onClick={() => {this.props.deleteUser()}}>Delete Account</button>
+        <button className="btn btn-green" onClick={() => {this.props.deleteUser()}}>Delete Account</button>
+        <br /><br />
+        <Link to="/">
+        <button
+        id='random'
+        name="Back"
+        className='btn btn-custom'
+        onClick={() => this.props.changeHomeDisplay('goodminders')}>
+        <i className="fas fa-home"></i>{' '}Back to Home</button>
+              </Link>
       </div>
+
       </div>
     )
   }

@@ -6,14 +6,13 @@ class Loading extends Component {
 
   render() {
     return (
-      <div>
-      <div className='loading-box'>
 
+      <div className='loading-box'>
         <br />
         <h1><i className="fas fa-spinner"></i>{' '}Loading{' '}<i className="fas fa-spinner"></i></h1>
         <br />
       </div>
-      </div>
+
     )
   }
 };
