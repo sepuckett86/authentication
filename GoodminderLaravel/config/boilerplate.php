@@ -59,6 +59,11 @@ return [
     // requirements for storing a prompt
     'prompt_request' => [
 
+    ],
+
+    // requirements for storing a prompt
+    'user_request' => [
+
     ]
 
 ];
