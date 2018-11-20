@@ -15,12 +15,14 @@ class CreatePromptsTable extends Migration
     {
         Schema::create('prompts', function (Blueprint $table) {
             $table->increments('id');
-            $table->smallInteger('user_id');
+            $table->unsignedInteger('user_id');
             $table->mediumText('collection');
             $table->mediumText('promptText');
             $table->boolean('publicFlag')->default('0');
             $table->timestamps();
         });
+        
+        \Artisan::call('db:seed');
     }
 
     /**
