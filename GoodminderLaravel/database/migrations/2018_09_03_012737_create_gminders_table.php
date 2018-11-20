@@ -15,11 +15,11 @@ class CreateGmindersTable extends Migration
     {
         Schema::create('gminders', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedSmallInteger('user_id');
+            $table->unsignedInteger('user_id');
             $table->mediumText('category');
             $table->text('mainResponse')->nullable();
             $table->mediumText('author')->nullable();
-            $table->string('prompt_id')->nullable();
+            $table->unsignedInteger('prompt_id')->nullable();
             $table->text('reason')->nullable();
             $table->mediumText('source')->nullable();
             $table->mediumText('who')->nullable();

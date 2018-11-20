@@ -38,13 +38,33 @@ class PromptController extends Controller
         return response()->json($prompts);
     }
 
+    /*
+    * From stored_prompts table, get creator_id & promptCollection matching user_id.
+    * From prompts table, get all the prompt_ids that match the unique combo.
+    * Ensure the prompts are public before sending. 
+    */
     public function userPrompts()
     {   
         $currentUser = Auth::guard()->user()->id;
-
         $prompts = Prompt::where('user_id', $currentUser)->get();
 
-        return response()->json($prompts);
+        $storedPrompts = \DB::table('prompts')
+            ->leftJoin('stored_prompts', function($join)
+            {
+                $join->on('prompts.user_id', '=', 'stored_prompts.creator_id');
+                $join->on('prompts.collection', '=', 'stored_prompts.promptCollection');
+            })
+            ->where('prompts.publicFlag', '=', 1)
+            ->where('stored_prompts.user_id', '=', $currentUser)
+            ->get([
+                'prompts.id', 'prompts.user_id', 'collection', 'promptText',
+                'publicFlag', 'prompts.created_at', 'prompts.updated_at'
+            ]);
+
+        return response()->json([
+            'user prompts' =>$prompts,
+            'stored prompts' => $storedPrompts
+            ]);
     }
 
     public function store(PromptRequest $request)
@@ -53,11 +73,11 @@ class PromptController extends Controller
         $prompt->user_id = Auth::guard()->user()->id;
         $prompt->collection = $request->get('collection');
         $prompt->promptText = $request->get('promptText');
-
+        
         if ($request->get('publicFlag') !== null) {
             $prompt->publicFlag = $request->get('publicFlag');
         }
-
+        
         $prompt->save();
         
         if ($prompt->save()) {
@@ -70,18 +90,19 @@ class PromptController extends Controller
     public function update(PromptRequest $request, $id)
     { 
         $prompt = Prompt::find($id);
+        
         if ($request->get('collection') !== null) {
             $prompt->collection = $request->get('collection');
         }
-
+        
         if ($request->get('promptText') !== null) {
             $prompt->promptText = $request->get('promptText');
         }
-
+        
         if ($request->get('publicFlag') !== null) {
             $prompt->publicFlag = $request->get('publicFlag');
         }
-
+        
         // User_id may be a string or integer.
         $promptOwnedByUser = $prompt->user_id == Auth::guard()->user()->id;
         
