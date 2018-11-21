@@ -368,7 +368,7 @@ class Pdf extends React.Component {
             // get prompt text
             let promptText;
             for (let i = 0; i < this.state.prompts.length; i++) {
-              if (this.state.prompts[i].id === gminder.promptID) {
+              if (this.state.prompts[i].id === gminder.prompt_id) {
                 promptText = this.state.prompts[i].promptText;
               }
             }
