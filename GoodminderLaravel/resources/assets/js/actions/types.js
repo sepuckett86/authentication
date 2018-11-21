@@ -34,5 +34,11 @@ export const DELETE_GOODMINDER = 'delete_goodminder';
 export const CLEAR_GOODMINDERS = 'clear_goodminders';
 export const DELETE_USER = 'delete_user';
 
+export const GET_NICKNAME = 'get_nickname';
+
 export const GET_GOODMINDERS = 'get_goodminders';
 export const GET_PROMPTS = 'get_prompts';
+
+// Prompt Storage Table
+export const GET_COLLECTIONS = 'get_collections';
+export const POST_COLLECTION = 'post_collection';

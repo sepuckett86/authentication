@@ -289,7 +289,7 @@ class Pdf extends React.Component {
       return `-- ${quote.author}`;
     }
     if (!quote.who && !quote.source && !quote.author) {
-      return null;
+      return false;
     }
     if (quote.who && !quote.source && quote.author) {
       return `-- ${quote.who}, from a work by ${quote.author}`;
@@ -368,7 +368,7 @@ class Pdf extends React.Component {
             // get prompt text
             let promptText;
             for (let i = 0; i < this.state.prompts.length; i++) {
-              if (this.state.prompts[i].id === gminder.promptID) {
+              if (this.state.prompts[i].id === gminder.prompt_id) {
                 promptText = this.state.prompts[i].promptText;
               }
             }
@@ -403,10 +403,14 @@ class Pdf extends React.Component {
             doc.text(1, verticalOffset + size / 72, lines)
             verticalOffset += (lines.length * 4) * size / 72;
             // Credit
-            text = this.makeCredit(gminder);
-            lines = doc.setFont(font).setFontSize(size).splitTextToSize(text, 11)
-            // This code puts the text on the document.
-            doc.text(1, verticalOffset + size / 72, lines)
+            const credit = this.makeCredit(gminder);
+            // If there is a credit
+            if (credit) {
+              const creditLines = doc.setFont(font).setFontSize(size).splitTextToSize(credit, 11)
+              // This code puts the text on the document.
+              doc.text(1, verticalOffset + size / 72, creditLines)
+            }
+
             // Reset vertical Offset for next page
             verticalOffset = margin;
           }

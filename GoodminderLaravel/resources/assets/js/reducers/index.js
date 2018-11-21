@@ -6,6 +6,7 @@ import displayReducer from './display';
 import userReducer from './user';
 import navigationReducer from './navigation';
 import responseReducer from './response';
+import promptStorageReducer from './promptStorage';
 
 export default combineReducers({
   goodminders: goodmindersReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   display: displayReducer,
   user: userReducer,
   navigation: navigationReducer,
-  response: responseReducer
+  response: responseReducer,
+  promptStorage: promptStorageReducer
 })
