@@ -4,6 +4,7 @@ import * as actions from '../actions';
 
 import GminderTable from './ManagerGminderTable';
 import PromptTable from './ManagerPromptTable';
+import PromptCollections from './ManagerPromptCollections';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -34,56 +35,72 @@ class Manager extends React.Component {
         return (<div>
           <GminderTable/>
             <br />
-          <button
-          name="Table of All Prompts"
-          id="promptTable"
-          className='btn-custom btn'
-          onClick={this.handleClick}
-          >Table of All Prompts</button>
-          <br />
+
           <button
           id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeHomeDisplay('goodminders')}>
-          <i className="fas fa-home"></i>{' '}Back to Home</button>
+          onClick={() => this.changeManagerDisplay('')}>
+          {' '}Back to Manage</button>
 
           <br />
         </div>)
       case 'promptTable':
         return (<div>
           <PromptTable/>
-          <button
-          name="Table of All Goodminders"
-          onClick={this.handleClick}
-          className='btn-custom btn'
-          id="gminderTable"
-          >Table of All Goodminders</button>
-          <br />
+
           <button
           id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeHomeDisplay('goodminders')}>
-          <i className="fas fa-home"></i>{' '}Back to Home</button>
+          onClick={() => this.changeManagerDisplay('')}>
+          {' '}Back to Manage</button>
+          <br />
+        </div>)
+      case 'promptCollections':
+        return (<div>
+          <PromptCollections/>
+            <br />
+
+          <button
+          id='random'
+          name="Back"
+          className='btn btn-custom'
+          onClick={() => this.changeManagerDisplay('')}>
+          {' '}Back to Manage</button>
 
           <br />
         </div>)
       default:
         return (<div>
+
           <button
           name="Table of All Goodminders"
           className='btn-custom btn'
           onClick={this.handleClick}
           id="gminderTable"
-          >Table of All Goodminders</button>
+          >Goodminders</button>
           <br />
           <button
           name="Table of All Prompts"
           className='btn-custom btn'
           id="promptTable"
           onClick={this.handleClick}
-          >Table of All Prompts</button>
+          >User Prompts</button>
+          <br />
+          <button
+          name=""
+          className='btn-custom btn'
+          id="promptCollections"
+          onClick={this.handleClick}
+          >Prompt Collections</button>
+          <br />
+          <button
+          id=''
+          name="Back"
+          className='btn btn-custom'
+          onClick={() => this.props.changeHomeDisplay('more')}>
+          {' '}Back to More</button>
           <br />
           <button
           id='random'
@@ -91,7 +108,6 @@ class Manager extends React.Component {
           className='btn btn-custom'
           onClick={() => this.props.changeHomeDisplay('goodminders')}>
           <i className="fas fa-home"></i>{' '}Back to Home</button>
-
           <br />
         </div>)
     }

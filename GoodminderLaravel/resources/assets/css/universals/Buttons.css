@@ -114,6 +114,14 @@
   border-color: #399393;
 }
 
+.btn-black {
+  color: #fff;
+  background-color: #2b2b2b;
+  background-image: none;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 .btn-center {
   margin-left: 1%;
   margin-right: 1%;
@@ -173,7 +181,7 @@
   .btn-custom:hover {
     background-color: white;
   }
-  .btn-green {
+  .btn-green, .btn-black {
     width: 100%;
   }
   .btn-custom {
@@ -234,7 +242,7 @@
   .btn-custom:hover {
     background-color: rgba(255, 255, 255, 0.9);
   }
-  .btn-green {
+  .btn-green, .btn-black {
     width: auto;
   }
   .btn-custom {

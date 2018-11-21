@@ -132,10 +132,16 @@ class AddPrompt extends React.Component {
 
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
           <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
-            View All Prompts
+            Create New Prompt
           </button>
           <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
-            Customize Visible Prompts
+            View Custom Prompts
+          </button>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            Manage Prompt Collections
+          </button>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            Find More Prompts
           </button>
           </div>
         </div>
@@ -154,12 +160,12 @@ class AddPrompt extends React.Component {
         {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center"><Loading /></div>}
       <div className="grid-lower-left">
         <div>
-        <button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>
+        {/*<button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>*/}
         </div>
       </div>
       <div className="grid-lower-right">
         <div>
-        <button type="button" className="btn-flat btn-blue"><i className="fas fa-edit"></i></button>
+        {/*<button type="button" className="btn-flat btn-blue"><i className="fas fa-edit"></i></button>*/}
         </div>
       </div>
       </div>
