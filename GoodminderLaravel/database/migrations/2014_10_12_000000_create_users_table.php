@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \Artisan::call('db:seed', ['--class' => 'UsersTableSeeder']);
     }
 
     /**

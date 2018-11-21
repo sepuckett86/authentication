@@ -22,7 +22,7 @@ class CreatePromptsTable extends Migration
             $table->timestamps();
         });
         
-        \Artisan::call('db:seed');
+        \Artisan::call('db:seed', ['--class' => 'PromptsTableSeeder']);
     }
 
     /**
