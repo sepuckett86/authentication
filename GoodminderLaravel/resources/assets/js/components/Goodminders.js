@@ -47,6 +47,9 @@ class Goodminders extends Component {
         length: this.props.goodminders.length,
         goodminder: this.props.currentGM
       })
+      this.props.getCollections(() => {
+
+      })
     })
   });
 
@@ -265,7 +268,6 @@ class Goodminders extends Component {
     return (
       <div>
         {this.checkContent()}
-        {console.log(this.state.animate)}
       </div>
     )
   }

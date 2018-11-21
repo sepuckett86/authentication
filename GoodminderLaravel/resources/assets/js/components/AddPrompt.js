@@ -35,13 +35,19 @@ class AddPrompt extends React.Component {
 
   changePrompt() {
     let random = this.props.prompts[Math.floor(Math.random() * this.props.prompts.length)];
-    this.props.setCurrentPrompt(random);
+    // Only perform get request if needed
+    if (this.props.currentPrompt.user_id !== random.user_id) {
+      this.props.getNickname(random.user_id, () => {
+        this.props.setCurrentPrompt(random);
+      })
+    } else {
+      this.props.setCurrentPrompt(random);
+    }
   }
 
   changePromptSame() {
     let collectionArray = [];
     this.props.prompts.forEach(prompt => {
-      console.log(prompt)
       if (prompt.collection === this.props.currentPrompt.collection) {
         collectionArray.push(prompt);
       }
@@ -182,7 +188,7 @@ function mapStateToProps(state) {
   return {
     prompts: state.prompts,
     currentPrompt: state.navigation.currentPrompt,
-    nickname: state.user.name
+    nickname: state.navigation.nickname
    }
 }
 

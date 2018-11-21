@@ -1,6 +1,6 @@
 import { SET_CURRENT_GM, SET_PREVIOUS_GM,
   SET_BACK_GM, SET_UPDATED_GM,
-  SET_CURRENT_PROMPT, SET_COLLECTION } from '../actions/types';
+  SET_CURRENT_PROMPT, SET_COLLECTION, GET_NICKNAME } from '../actions/types';
 
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from '../actions/types';
 
@@ -10,7 +10,8 @@ const initialState = {
     backGM: 0,
     currentPrompt: {},
     collection: '',
-    updatedGM: {}
+    updatedGM: {},
+    nickname: ''
   };
 
 export default function(state = initialState, action) {
@@ -34,6 +35,8 @@ export default function(state = initialState, action) {
     case NAV_NEXT:
       // action.payload is goodminder to add
       return { ...state, previousGM: [ ...state.previousGM, action.payload ]};
+    case GET_NICKNAME:
+      return { ...state, nickname: action.payload };
     default:
       return state;
   }

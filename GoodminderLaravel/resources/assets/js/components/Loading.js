@@ -8,9 +8,11 @@ class Loading extends Component {
     return (
 
       <div className='loading-box'>
+
         <br />
-        <h1><i className="fas fa-spinner"></i>{' '}Loading{' '}<i className="fas fa-spinner"></i></h1>
+        <h1 style={{'fontSize': '30px'}}><i className="fas fa-spinner"></i>{' '}Loading{' '}<i className="fas fa-spinner"></i></h1>
         <br />
+
       </div>
 
     )
