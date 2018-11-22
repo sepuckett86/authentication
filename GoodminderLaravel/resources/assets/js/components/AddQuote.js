@@ -84,26 +84,30 @@ class AddQuote extends React.Component {
                     placeholder="Example: May your beer be laid under an enchantment of surpassing excellence for seven years!">
                     </textarea>
               </div>
-                  <div className="form-group">
-                      <label>Credit</label>
-                      <input type="text" value={this.state.inputAuthor}
-                        onChange={this.handleChange} className="form-control"
-                        id="quote-author"
-                        placeholder="Example: J. R. R. Tolkien"/>
-                  </div>
-                  <br />
+              <div className="form-group">
+                  <label>Who Said It</label>
+                  <input type="text" value={this.state.inputWho}
+                    onChange={this.handleChange} className="form-control"
+                    id="quote-who"
+                    placeholder="Example: Gandalf"/>
+              </div>
+              <br />
+
                   <p>
-                    <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      View more fields
+                    <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      View more fields (optional)
                     </button>
                   </p>
                   <div className="collapse" id="collapseExample">
+                  {/*
+
+                    */}
                     <div className="form-group">
-                        <label>Who Said It (Perhaps a Fictional Character)</label>
-                        <input type="text" value={this.state.inputWho}
+                        <label>Author</label>
+                        <input type="text" value={this.state.inputAuthor}
                           onChange={this.handleChange} className="form-control"
-                          id="quote-who"
-                          placeholder="Example: Gandalf"/>
+                          id="quote-author"
+                          placeholder="Example: J. R. R. Tolkien"/>
                     </div>
                     <br />
                     <div className="form-group">
@@ -113,7 +117,9 @@ class AddQuote extends React.Component {
                           id="quote-source"
                           placeholder="Example: The Fellowship of the Ring"/>
                     </div>
-                    <br />
+
+
+                   <br />
                     <label>Reason</label>
                     <textarea className="form-control"
                       value={this.state.inputReason}
@@ -127,12 +133,13 @@ class AddQuote extends React.Component {
                           onChange={this.handleChange} className="form-control"
                           id="quote-collection" placeholder="Example: Funny"/>
                     </div>
+                    <br />
                   </div>
 
 
 
 
-              <br />
+
 
           </form>
           {/* Button trigger modal */}
