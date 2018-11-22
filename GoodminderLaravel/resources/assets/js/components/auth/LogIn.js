@@ -74,12 +74,12 @@ class LogIn extends Component {
           <br />
           <hr />
         <p>First time here? {' '}
-          <Link to='/signup' className='btn btn-green btn-sm'>
+          <Link to='/signup' className='btn btn-green'>
             <i className="fas fa-arrow-circle-right" ></i>{' '}Sign Up
           </Link>
         </p>
 				<p>Forget your password? {' '}
-          <Link to='/resetbegin' className='btn btn-green btn-sm'>
+          <Link to='/resetbegin' className='btn btn-green '>
             <i className="fas fa-arrow-circle-right"></i>{' '}Reset Password
           </Link>
         </p>

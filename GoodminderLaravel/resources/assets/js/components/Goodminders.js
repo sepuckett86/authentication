@@ -232,6 +232,7 @@ class Goodminders extends Component {
           </div>
         )}
       </CSSTransition>
+      
               <div className="edit-print">
               <button id='edit-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-edit"></i>
