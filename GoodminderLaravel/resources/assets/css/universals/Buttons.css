@@ -114,6 +114,14 @@
   border-color: #399393;
 }
 
+.btn-black {
+  color: #fff;
+  background-color: #2b2b2b;
+  background-image: none;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 .btn-center {
   margin-left: 1%;
   margin-right: 1%;
@@ -154,6 +162,10 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transform: translateY(2px);
   }
+
+  .btn:focus {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
   /* End btn */
   .btn-custom {
     border: solid;
@@ -173,7 +185,7 @@
   .btn-custom:hover {
     background-color: white;
   }
-  .btn-green {
+  .btn-green, .btn-black {
     width: 100%;
   }
   .btn-custom {
@@ -215,6 +227,9 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transform: translateY(2px);
   }
+  .btn:focus {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
   /* End btn */
   .btn-custom {
     border: solid;
@@ -234,7 +249,7 @@
   .btn-custom:hover {
     background-color: rgba(255, 255, 255, 0.9);
   }
-  .btn-green {
+  .btn-green, .btn-black {
     width: auto;
   }
   .btn-custom {

@@ -14,8 +14,25 @@ export default () => {
       <div className="opaque-container">
         <div className="container">
 
-          <br/>
           <br />
+
+          <h4 className='card-body'>Goodminder is like a journal, yet with a positive focus.</h4>
+          <div style={{'textAlign': 'left'}}>
+          <ul>
+          <li>Have you ever recalled something wonderful, useful, funny, touching, or inspiring that you haven't thought about for months or years, and been thankful that something reminded you of it?</li>
+          <li>Do you ever have bad days and want to be cheered up?</li>
+          <li>Would you like some life advice from yourself sometimes, rather than other people?</li>
+          </ul>
+          <br/>
+          </div>
+          <h4>Goodminder is our response to these questions.</h4>
+          <br/>
+
+          <hr/>
+          <br/>
+          <h1>
+            Terms</h1>
+
           <div className="card top">
             <div className="card-body">
               <h5 className="card-title">goodminder
@@ -35,22 +52,7 @@ export default () => {
             </div>
           </div>
 
-        <br /><br/>
-          <h1>
-            Motivation</h1>
-          <div style={{'textAlign': 'left'}}>
-          <p>Have you ever recalled something wonderful, useful, funny, touching, or inspiring that you haven't thought about for months or years, and been thankful that something reminded you of it?</p>
-          <p>Is your email inbox filled with ads and requests, rather than things that brighten your day?</p>
-          <p>Do you sometimes get stuck in negative thought loops? </p>
-          <p>Do you ever have bad days and want to be cheered up?</p>
-          <p>Are you ever overwhelmed by the negativity in news and social media and wish there were more ways that technology could bring about positive change?</p>
-          <p>Do you wish that instead of reminding you to buy things you don't need, ads could remind you of positive ideas? </p>
-          <p>Would you like some life advice from yourself sometimes, rather than other people?</p>
-          <br/>
-          <p>Goodminder exists because we have answered 'yes' to all of these questions.</p>
-          <br/>
-          </div>
-          <hr/>
+        <br />
           <br />
 
           <h1>Inspirations</h1>

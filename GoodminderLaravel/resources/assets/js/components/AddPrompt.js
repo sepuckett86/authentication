@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from '../actions';
+import ReactTooltip from 'react-tooltip';
 
 import Loading from './Loading';
 
@@ -123,19 +124,25 @@ class AddPrompt extends React.Component {
       <div className="prompt-grid-box">
         <div className="grid-upper-left">
         <div>
-          <button id='next-prompt-same' type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
+          <button id='next-prompt-same' data-tip="Next prompt from same collection" type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
 
-          <button id='next-prompt-all' type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
-          <button id="btnGroupDrop1" type="button" className="btn-flat btn-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button id='next-prompt-all' data-tip="Next prompt from any collection" type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
+          <button id="btnGroupDrop1" data-tip="More options" type="button" className="btn-flat btn-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i className="fas fa-ellipsis-h"></i>
           </button>
 
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
           <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
-            View All Prompts
+            Create New Prompt
           </button>
           <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
-            Customize Visible Prompts
+            View Custom Prompts
+          </button>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            Manage Prompt Collections
+          </button>
+          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+            Find More Prompts
           </button>
           </div>
         </div>
@@ -154,24 +161,25 @@ class AddPrompt extends React.Component {
         {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center"><Loading /></div>}
       <div className="grid-lower-left">
         <div>
-        <button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>
+        {/*<button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>*/}
         </div>
       </div>
       <div className="grid-lower-right">
         <div>
-        <button type="button" className="btn-flat btn-blue"><i className="fas fa-edit"></i></button>
+        {/*<button type="button" className="btn-flat btn-blue"><i className="fas fa-edit"></i></button>*/}
         </div>
       </div>
       </div>
       <br />
       <form>
-        <div className="form-group">
-          <p className="paragraph-text">Answer</p>
+        <div className="form-group" style={{'margin': '1%'}}>
+
           <textarea className="form-control" name='inputAnswer' value={this.state.inputAnswer} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
           <br/>
+          {/*
           <p className="paragraph-text">Reason</p>
           <textarea className="form-control" name='inputReason' value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
-          <br/>
+          <br/>*/}
         </div>
 
       </form>
@@ -179,7 +187,7 @@ class AddPrompt extends React.Component {
       <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
         Create Goodminder
       </button>
-
+      <ReactTooltip delayShow={200}/>
     </div>)
   }
 }

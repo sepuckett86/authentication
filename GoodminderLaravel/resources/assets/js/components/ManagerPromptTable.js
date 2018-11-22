@@ -67,6 +67,7 @@ class PromptTable extends React.Component {
         <div className="box">
         <div id="prompts">
           <h1>Manage Prompts</h1>
+          <p>Here is where you can view, create, and edit your own custom prompts</p>
           <hr />
           <table className="table table-striped">
             <thead>

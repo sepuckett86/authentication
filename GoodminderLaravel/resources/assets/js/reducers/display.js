@@ -2,7 +2,7 @@ import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY } from '../actions/types';
 
 const initialState = {
     home: '',
-    add: 'prompt'
+    add: 'empty'
   };
 
 export default function(state = initialState, action) {
