@@ -20,15 +20,21 @@ class Add extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+    this.props.changeAddDisplay('empty');
+  }
+
   handleClick(event) {
     if (event.target.id === "prompt-tab") {
       this.props.changeAddDisplay('prompt');
     }
     if (event.target.id === "quote-tab") {
       this.props.changeAddDisplay('quote');
+      this.props.setCurrentPrompt({});
     }
     if (event.target.id === "custom-tab") {
       this.props.changeAddDisplay('custom');
+      this.props.setCurrentPrompt({});
     }
   }
 
@@ -165,6 +171,7 @@ class Add extends React.Component {
           <MediaQuery query="(max-width: 576px)">
             <hr />
           </MediaQuery>
+
          <br />
          <div className="row">
            <div className="col">
@@ -180,6 +187,7 @@ class Add extends React.Component {
     </div>
     <br />
         </div>
+
   </div>
   )
   }

@@ -10,6 +10,7 @@ import Prompt from './GoodmindersPrompt';
 import Quote from './GoodmindersQuote';
 import Custom from './GoodmindersCustom';
 import Loading from './Loading';
+import FirstGoodminder from './FirstGoodminder';
 
 
 class Goodminders extends Component {
@@ -186,12 +187,7 @@ class Goodminders extends Component {
     // Does user have goodminders to display?
     if (this.state.length === 0) {
       return(
-        <div className='log-box'>
-          <h1>Welcome</h1>
-          <p>Add your first goodminder!</p>
-          <br />
-          <button type='button' className='btn-custom btn' onClick={() => this.props.changeHomeDisplay('add')}><i className="fas fa-plus"></i>{' '}Add</button>
-        </div>
+        <FirstGoodminder />
       )
     } else {
 

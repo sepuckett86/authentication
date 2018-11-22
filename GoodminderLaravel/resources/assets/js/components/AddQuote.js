@@ -83,43 +83,55 @@ class AddQuote extends React.Component {
                     onChange={this.handleChange} className="form-control" rows="3"
                     placeholder="Example: May your beer be laid under an enchantment of surpassing excellence for seven years!">
                     </textarea>
-                  <br />
+              </div>
                   <div className="form-group">
-                      <label>Who Said It (Perhaps a Fictional Character)</label>
-                      <input type="text" value={this.state.inputWho}
-                        onChange={this.handleChange} className="form-control"
-                        id="quote-who"
-                        placeholder="Example: Gandalf"/>
-                  </div>
-                  <div className="form-group">
-                      <label>Author</label>
+                      <label>Credit</label>
                       <input type="text" value={this.state.inputAuthor}
                         onChange={this.handleChange} className="form-control"
                         id="quote-author"
                         placeholder="Example: J. R. R. Tolkien"/>
                   </div>
-                  <div className="form-group">
-                      <label>Source</label>
-                      <input type="text" value={this.state.inputSource}
-                        onChange={this.handleChange} className="form-control"
-                        id="quote-source"
-                        placeholder="Example: The Fellowship of the Ring"/>
-                  </div>
                   <br />
-                  <label>Reason</label>
-                  <textarea className="form-control"
-                    value={this.state.inputReason}
-                    onChange={this.handleChange}
-                    id="quote-reason" rows="3"
-                    placeholder="Example: When I was reading this out loud with my husband, we laughed like hyenas"></textarea>
-                  <br />
-                  <div className="form-group">
-                      <label>Collection</label>
-                      <input type="text" value={this.state.inputCollection}
-                        onChange={this.handleChange} className="form-control"
-                        id="quote-collection" placeholder="Example: Funny"/>
+                  <p>
+                    <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      View more fields
+                    </button>
+                  </p>
+                  <div className="collapse" id="collapseExample">
+                    <div className="form-group">
+                        <label>Who Said It (Perhaps a Fictional Character)</label>
+                        <input type="text" value={this.state.inputWho}
+                          onChange={this.handleChange} className="form-control"
+                          id="quote-who"
+                          placeholder="Example: Gandalf"/>
+                    </div>
+                    <br />
+                    <div className="form-group">
+                        <label>Source</label>
+                        <input type="text" value={this.state.inputSource}
+                          onChange={this.handleChange} className="form-control"
+                          id="quote-source"
+                          placeholder="Example: The Fellowship of the Ring"/>
+                    </div>
+                    <br />
+                    <label>Reason</label>
+                    <textarea className="form-control"
+                      value={this.state.inputReason}
+                      onChange={this.handleChange}
+                      id="quote-reason" rows="3"
+                      placeholder="Example: When I was reading this out loud with my husband, we laughed like hyenas"></textarea>
+                    <br />
+                    <div className="form-group">
+                        <label>Collection</label>
+                        <input type="text" value={this.state.inputCollection}
+                          onChange={this.handleChange} className="form-control"
+                          id="quote-collection" placeholder="Example: Funny"/>
+                    </div>
                   </div>
-              </div>
+
+
+
+
               <br />
 
           </form>
