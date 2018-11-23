@@ -82,7 +82,7 @@ class PromptCollections extends React.Component {
         </div>
         <div className='col'>
           <button name="other" className='btn-green btn' style={{'width':'100%'}} onClick={this.handleClick}>
-            Others
+            Other
           </button>
         </div>
         </div>
@@ -98,7 +98,7 @@ class PromptCollections extends React.Component {
         </div>
         <div className='col'>
           <button name="other" className='btn-green btn' style={{'width':'100%'}} onClick={this.handleClick}>
-            Others
+            Other
           </button>
         </div>
 
@@ -117,7 +117,7 @@ class PromptCollections extends React.Component {
         </div>
         <div className='col'>
           <button name="other" className='btn-black btn' style={{'width':'100%'}} onClick={this.handleClick}>
-            Others
+            Other
           </button>
         </div>
 

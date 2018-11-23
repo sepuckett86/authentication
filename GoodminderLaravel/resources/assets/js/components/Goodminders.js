@@ -173,10 +173,10 @@ class Goodminders extends Component {
       return <Custom  goodminder={this.state.goodminder}/>
     }
     else if (this.props.goodminders.length === 0){
-      return <Loading />
+      return <div><Loading /><br /></div>
     }
     else if (!this.props.currentGM.mainResponse){
-      return <Loading />
+      return <div><Loading /><br /></div>
     }
     else {
       return <p>Category error</p>

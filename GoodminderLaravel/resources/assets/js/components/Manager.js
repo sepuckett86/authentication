@@ -86,7 +86,7 @@ class Manager extends React.Component {
           className='btn-custom btn'
           id="promptTable"
           onClick={this.handleClick}
-          >User Prompts</button>
+          >Prompts</button>
           <br />
           <button
           name=""
