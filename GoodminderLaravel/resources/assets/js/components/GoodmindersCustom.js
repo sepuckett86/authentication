@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class Custom extends React.Component {
+
   render() {
+    const gminder = this.props.goodminder;
+    const date = gminder.date;
     return(
       <div id="custom">
 
@@ -18,7 +21,7 @@ class Custom extends React.Component {
                 />
             </div>
             <div className="col alignR">
-              <p>Added {this.props.goodminder.recordedDate} from Custom Collection: {this.props.goodminder.collection}</p>
+              <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }</p>
             </div>
           </div>
         </MediaQuery>
@@ -38,8 +41,7 @@ class Custom extends React.Component {
              gminder={this.props.goodminder}
              />
              <br />
-             <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
-             {this.props.goodminder.collection ? ('Collection: ' + this.props.goodminder.collection): null}
+             <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }
                 </p>
            </MediaQuery>
          </div>
@@ -50,7 +52,7 @@ class Custom extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM,
+    gminder: state.navigation.currentGM
   };
 }
 

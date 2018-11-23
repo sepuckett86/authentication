@@ -27,7 +27,8 @@ class Quote extends React.Component {
     }
   }
   render() {
-
+    const gminder = this.props.goodminder;
+    const date = gminder.date;
     return(
         <div id="quote">
 
@@ -36,10 +37,10 @@ class Quote extends React.Component {
             <div className="row">
               <div className="col alignL">
                 <Stars
-                  gminder={this.props.goodminder}/>
+                  gminder={gminder}/>
               </div>
               <div className="col alignR">
-                <p>Added {this.props.goodminder.recordedDate} from Quote Collection: {this.props.goodminder.collection}</p>
+                <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }</p>
               </div>
             </div>
             </MediaQuery>
@@ -70,9 +71,8 @@ class Quote extends React.Component {
                 <MediaQuery query="(max-width: 576px)">
                 <Stars
                   gminder={this.props.goodminder}/>
-
-                <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
-                {this.props.goodminder.collection ? (this.props.goodminder.collection): null}
+                  <br />
+                <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }
                    </p>
 
              </MediaQuery>
@@ -83,7 +83,7 @@ class Quote extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM,
+    gminder: state.navigation.currentGM
   };
 }
 

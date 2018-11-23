@@ -3,6 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
+import User from './ManagerPromptCollectionsUser';
+import Other from './ManagerPromptCollectionsOther';
+
 // This is the front-end of a database manager.
 // How you interact and change the database.
 class PromptCollections extends React.Component {
@@ -38,6 +41,28 @@ class PromptCollections extends React.Component {
     }
   }
 
+  renderListGroup() {
+    return (
+      <div className="list-group alignL">
+        <a
+          href="#"
+          className="list-group-item list-group-item-action flex-column align-items-start"
+        >
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="mb-1">Prompt | Funny </h5>
+            <small className="text-muted">5 stars</small>
+          </div>
+          <p className="mb-1">
+            What is your favorite food?
+            <br />
+            Burritos. Because delicious.
+          </p>
+          <small className="text-muted">2018-11-15</small>
+        </a>
+      </div>
+    );
+  }
+
   promptTableDisplayChange() {
     this.setState({promptTableDisplay: 'addPrompt'})
   }
@@ -52,7 +77,7 @@ class PromptCollections extends React.Component {
         <div className='row'>
         <div className='col'>
           <button name="user" className='btn-green btn' style={{'width':'100%'}} onClick={this.handleClick}>
-            User
+            Yours
           </button>
         </div>
         <div className='col'>
@@ -68,7 +93,7 @@ class PromptCollections extends React.Component {
         <div className='row'>
         <div className='col'>
           <button name="user" className='btn-black btn' style={{'width':'100%'}} onClick={this.handleClick}>
-            User
+            Yours
           </button>
         </div>
         <div className='col'>
@@ -76,7 +101,10 @@ class PromptCollections extends React.Component {
             Others
           </button>
         </div>
+
         </div>
+        <br />
+        <User />
       </div>)
     }
     if(this.state.display === 'other') {
@@ -84,7 +112,7 @@ class PromptCollections extends React.Component {
         <div className='row'>
         <div className='col'>
           <button name="user" className='btn-green btn' style={{'width':'100%'}} onClick={this.handleClick}>
-            User
+            Yours
           </button>
         </div>
         <div className='col'>
@@ -92,7 +120,10 @@ class PromptCollections extends React.Component {
             Others
           </button>
         </div>
+
         </div>
+        <br />
+        <Other />
       </div>)
     }
   }

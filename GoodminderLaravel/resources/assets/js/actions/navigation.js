@@ -22,9 +22,13 @@ export function navNext(goodminder) {
 }
 
 export function setCurrentGM(goodminder) {
+  // example date format: 2018-11-21 15:33:23
+  const fullDate = goodminder.created_at;
+  const date = fullDate.split(' ')[0];
+  const goodminderWithDate = { ...goodminder, date: date }
   return {
     type: SET_CURRENT_GM,
-    payload: goodminder
+    payload: goodminderWithDate
   }
 }
 

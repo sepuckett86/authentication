@@ -167,10 +167,10 @@ class Goodminders extends Component {
       return <Prompt goodminder={this.state.goodminder}/>
     }
     else if(gminder.category === 'quote') {
-      return <Quote goodminder={this.state.goodminder}/>
+      return <Quote  goodminder={this.state.goodminder}/>
     }
     else if(gminder.category === 'custom') {
-      return <Custom goodminder={this.state.goodminder}/>
+      return <Custom  goodminder={this.state.goodminder}/>
     }
     else if (this.props.goodminders.length === 0){
       return <Loading />
@@ -232,7 +232,7 @@ class Goodminders extends Component {
           </div>
         )}
       </CSSTransition>
-      
+
               <div className="edit-print">
               <button id='edit-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-edit"></i>

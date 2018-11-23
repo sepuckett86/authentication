@@ -13,7 +13,9 @@ class AddPrompt extends React.Component {
     this.state = {
       inputAnswer: '',
       inputReason: '',
-      random: 'no'
+      inputCollection: '',
+      random: 'no',
+
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -102,7 +104,7 @@ class AddPrompt extends React.Component {
       source: null,
       who: null,
       rating: 0,
-      collection: this.props.currentPrompt.collection,
+      collection: this.state.inputCollection,
       publicFlag: 0
     }
     console.log(newGminder)
@@ -176,10 +178,27 @@ class AddPrompt extends React.Component {
 
           <textarea className="form-control" name='inputAnswer' value={this.state.inputAnswer} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
           <br/>
-          {/*
+
+          <p>
+            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              View more fields (optional)
+            </button>
+          </p>
+          <div className="collapse" id="collapseExample">
           <p className="paragraph-text">Reason</p>
           <textarea className="form-control" name='inputReason' value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
-          <br/>*/}
+          <br/>
+
+            <div className="form-group">
+                <label>Collection</label>
+                <input type="text" value={this.state.inputCollection}
+                  onChange={this.handleChange} className="form-control"
+                  name="inputCollection" placeholder="Example: Funny"/>
+            </div>
+            <br />
+          </div>
+          {/*
+          */}
         </div>
 
       </form>

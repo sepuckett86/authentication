@@ -99,9 +99,6 @@ class AddQuote extends React.Component {
                     </button>
                   </p>
                   <div className="collapse" id="collapseExample">
-                  {/*
-
-                    */}
                     <div className="form-group">
                         <label>Author</label>
                         <input type="text" value={this.state.inputAuthor}
