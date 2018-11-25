@@ -12,8 +12,7 @@ class Gminder extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'category', 'mainResponse', 'author', 'reason', 'source', 'who',
-        'rating', 'eventDate', 'collection', 'publicFlag'
+        'user_id', 'category', 'mainResponse', 'author', 'prompt_id', 'reason', 'source', 'who', 'rating', 'eventDate', 'collection', 'publicFlag'
     ];
 
     public function users()

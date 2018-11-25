@@ -18,10 +18,9 @@ class PromptsTableSeeder extends Seeder
 
             for ($i=0; $i<$promptCount; $i++){
                 DB::table('prompts')->insert([
-                    'user_id' => 1,
-                    'collection' => $promptCategory,
+                    'creator_id' => 1,
+                    'creatorDeleted' => 0,
                     'promptText' => $prompts[$i],
-                    'publicFlag' => 1,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             }
