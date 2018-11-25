@@ -12,7 +12,7 @@ class Prompt extends Model
      * @var array
      */
     protected $fillable = [
-        'creator_id', 'creator_deleted', 'promptText'
+        'creator_id', 'creatorDeleted', 'promptText'
     ];
 
     public function users()

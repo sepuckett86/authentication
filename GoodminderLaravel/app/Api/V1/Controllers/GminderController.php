@@ -12,6 +12,7 @@ use App\Gminder;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use App\Api\V1\Requests\GminderRequest;
+use DB;
 
 class GminderController extends Controller
 {
@@ -30,9 +31,11 @@ class GminderController extends Controller
     public function userGminder($id)
     {   
         $currentUser = Auth::guard()->user()->id;
-
-        $gminders = Gminder::where('user_id', $currentUser)
-            ->where('id', $id)
+            
+        $gminders = DB::table('gminders')
+            ->leftJoin('prompts', 'gminders.prompt_id', '=', 'prompts.id')
+            ->where('gminders.id', '=', $id)
+            ->select('gminders.*', 'prompts.promptText')
             ->get();
 
         return response()->json($gminders);
@@ -43,6 +46,11 @@ class GminderController extends Controller
         $currentUser = Auth::guard()->user()->id;
 
         $gminders = Gminder::where('user_id', $currentUser)->get();
+
+        $gminders = DB::table('gminders')
+            ->leftJoin('prompts', 'gminders.prompt_id', 'prompts.id')
+            ->select('gminders.*', 'prompts.promptText')
+            ->get();
 
         return response()->json($gminders);
     }
