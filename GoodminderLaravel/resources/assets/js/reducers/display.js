@@ -1,4 +1,4 @@
-import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY } from '../actions/types';
+import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CHANGE_MANAGER_DISPLAY } from '../actions/types';
 
 const initialState = {
     home: '',
