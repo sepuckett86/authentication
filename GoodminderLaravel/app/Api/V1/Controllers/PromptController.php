@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Auth;
 use App\Prompt;
+use App\Gminder;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use App\Api\V1\Requests\PromptRequest;
@@ -103,8 +104,7 @@ class PromptController extends Controller
             $prompt->publicFlag = $request->get('publicFlag');
         }
         
-        // User_id may be a string or integer.
-        $promptOwnedByUser = $prompt->user_id == Auth::guard()->user()->id;
+        $promptOwnedByUser = $prompt->user_id === Auth::guard()->user()->id;
         
         if ($promptOwnedByUser && $prompt->save()) {
             return 'Prompt updated.';
@@ -113,16 +113,32 @@ class PromptController extends Controller
         }
     }
 
+    /*
+    * Only delete the prompt if no gminder is associated with it. If there is a gminder,
+    * don't delete, but set the prompts.creatorDeleted to 1
+    */
     public function destroy($id)
     {
         $currentUser = Auth::guard()->user()->id;
-        $prompt = Prompt::where('user_id', $currentUser)
-            ->where('id', $id);
+        $prompt = Prompt::find($id);
+
+        // Is the prompt id being used by any gminder,
+        //  including the user's own gminders?
+        $gminders = Gminder::where('prompt_id', '=', $id)
+            ->get();
+
+        if (count($gminders) > 0) {
+            $prompt->creatorDeleted = 1;
+            return 'Prompt used by gminders; set creatorDeleted = 1';
+        } 
+            
+        // prompt is not being used by any gminder and it is owned
+        // by the user. Go ahead and delete it from the prompts table.
+        if ($prompt->user_id === $currentUser) {
+            $prompt->delete();
+            return 'Prompt deleted.';
+        }
         
-            if ($prompt->delete()) {
-                return 'Prompt deleted.';
-            } else {
-                return 'Prompt delete failed.';
-            }
+        return 'Prompt delete failed.';
     }
 }

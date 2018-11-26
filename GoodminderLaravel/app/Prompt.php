@@ -12,11 +12,16 @@ class Prompt extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'collection', 'promptText', 'publicFlag'
+        'creator_id', 'creatorDeleted', 'promptText'
     ];
 
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function prompt_collections()
+    {
+        return $this->belongsToMany('App\PromptCollection')->withTimestamps();
     }
 }

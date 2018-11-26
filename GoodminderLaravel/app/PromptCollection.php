@@ -4,19 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StoredPrompt extends Model
+class PromptCollection extends Model
 {
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'creator_id', 'promptCollection', 'displayFlag'
+        'creator_id', 'collection', 'publicFlag', 'description'
     ];
 
-    public function users()
+    public function prompts()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany('App\Prompt')->withTimestamps();
     }
 }
+
