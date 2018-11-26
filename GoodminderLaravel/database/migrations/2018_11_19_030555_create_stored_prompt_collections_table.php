@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePromptsTable extends Migration
+class CreateStoredPromptCollectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreatePromptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('prompts', function (Blueprint $table) {
+        Schema::create('stored_prompt_collections', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('creator_id');
-            $table->boolean('creatorDeleted')->default('0');
-            $table->mediumText('promptText');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('prompt_collection_id');
+            $table->boolean('displayFlag')->default('1');
             $table->timestamps();
         });
-        
-        \Artisan::call('db:seed', ['--class' => 'PromptsTableSeeder']);
     }
 
     /**
@@ -31,6 +29,6 @@ class CreatePromptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prompts');
+        Schema::dropIfExists('stored_prompt_collections');
     }
 }
