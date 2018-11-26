@@ -2,7 +2,8 @@ import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY } from '../actions/types';
 
 const initialState = {
     home: '',
-    add: 'empty'
+    add: 'empty',
+    manager: ''
   };
 
 export default function(state = initialState, action) {
@@ -11,6 +12,8 @@ export default function(state = initialState, action) {
       return { ...state, home: action.payload };
     case CHANGE_ADD_DISPLAY:
       return { ...state, add: action.payload };
+    case CHANGE_MANAGER_DISPLAY:
+      return { ...state, manager: action.payload }
     default:
       return state;
   }

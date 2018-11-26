@@ -28,10 +28,14 @@ class AddPrompt extends React.Component {
     // Get data from database
       this.props.getPrompts(() => {
         // Check if there is data in prompts
-        if (this.props.prompts.length !== 0) {
+        if (this.props.prompts.length !== 0 && !this.props.currentPrompt.id) {
           this.changePrompt();
         } else {
-          this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
+          if (this.props.currentPrompt.id) {
+            // null
+          } else {
+            this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
+          }
         }
       });
   }
@@ -134,7 +138,7 @@ class AddPrompt extends React.Component {
           </button>
 
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+          <button onClick={() => {this.props.setCurrentPrompt({}); this.props.changeHomeDisplay('promptCreateEdit')}} className="dropdown-item btn-dropdown">
             Create New Prompt
           </button>
           <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">

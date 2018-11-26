@@ -33,14 +33,26 @@ class PromptTable extends React.Component {
   }
 
   handleClick(event) {
+    if (event.currentTarget.name === 'create') {
+      this.props.setCurrentPrompt({});
+      this.props.changeHomeDisplay('promptCreateEdit');
+    } else {
     const myID = event.currentTarget.getAttribute('value');
     for (let i = 0; i < this.props.prompts.length; i++) {
       if (Number(myID) === Number(this.props.prompts[i].id)) {
-        this.props.setPrompt(this.props.prompts[i]);
-        this.props.changeType('prompt');
-        this.props.changeDisplay('add');
+        this.props.setCurrentPrompt(this.props.prompts[i]);
       }
     }
+
+    if (event.currentTarget.name === 'edit') {
+      this.props.changeHomeDisplay('promptCreateEdit')
+    }
+
+    if (event.currentTarget.name === 'respond') {
+      this.props.changeAddDisplay('prompt');
+      this.props.changeHomeDisplay('add');
+    }
+  }
   }
 
   promptTableDisplayChange() {
@@ -70,7 +82,7 @@ class PromptTable extends React.Component {
           <p>Here is where you can view and respond to all prompts and create and edit your own custom prompts</p>
           <hr />
 
-          <button>Create Prompt</button>
+          <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
           <br /><br />
           <div className="row justify-content-center">
             <div className="col col-12 col-sm-6">
@@ -142,10 +154,10 @@ class PromptTable extends React.Component {
                     <td>{prompt.collection}</td>
                     <td>{prompt.promptText}</td>
                     <td>
-                    <button className='btn-flat btn-blue' type='button' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                    <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
                     </td>
                     <td>
-                    <button className='btn-flat btn-blue' type='button' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
+                    <button className='btn-flat btn-blue' type='button' name='respond' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
                     </td>
                   </tr>
               )

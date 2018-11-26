@@ -22,13 +22,6 @@ class User extends React.Component {
     this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
-  componentDidMount() {
-    // Get data from database
-    // Prompts
-    this.props.getPrompts(() => {
-    })
-  }
-
   handleClick(event) {
     if (event.target.name === 'user') {
       this.setState({ display: 'user'})

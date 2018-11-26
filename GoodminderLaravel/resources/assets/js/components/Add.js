@@ -20,10 +20,6 @@ class Add extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    this.props.changeAddDisplay('empty');
-  }
-
   handleClick(event) {
     if (event.target.id === "prompt-tab") {
       this.props.changeAddDisplay('prompt');
