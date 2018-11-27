@@ -3,6 +3,7 @@
 export const CHANGE_AUTH = 'change_auth';
 export const CHANGE_HOME_DISPLAY = 'change_home_display';
 export const CHANGE_ADD_DISPLAY = 'change_add_display';
+export const CHANGE_MANAGER_DISPLAY = 'change_manager_display';
 
 // Navigation
 export const SET_CURRENT_GM = 'set_current_gm';
@@ -27,17 +28,21 @@ export const RESPONSE_ERROR = 'response_error';
 // User-specific Info
 export const GET_USER = 'get_user';
 export const PUT_USER = 'put_user';
+export const DELETE_USER = 'delete_user';
+export const GET_NICKNAME = 'get_nickname';
+
+// Gminder Table
 export const GET_GOODMINDER = 'get_goodminder';
 export const POST_GOODMINDER = 'post_goodminder';
 export const PUT_GOODMINDER = 'put_goodminder';
 export const DELETE_GOODMINDER = 'delete_goodminder';
 export const CLEAR_GOODMINDERS = 'clear_goodminders';
-export const DELETE_USER = 'delete_user';
-
-export const GET_NICKNAME = 'get_nickname';
-
 export const GET_GOODMINDERS = 'get_goodminders';
+
+// Prompts Table
 export const GET_PROMPTS = 'get_prompts';
+export const POST_PROMPT = 'post_prompt';
+export const PUT_PROMPT = 'put_prompt';
 
 // Prompt Storage Table
 export const GET_COLLECTIONS = 'get_collections';

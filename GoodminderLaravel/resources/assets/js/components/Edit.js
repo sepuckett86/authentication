@@ -68,7 +68,7 @@ class Edit extends React.Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id='deleteModal' type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.changeDatabase}>Confirm</button>
+                <button id='deleteModal' type="button" className="btn btn-green" data-dismiss="modal" onClick={this.changeDatabase}>Confirm</button>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ class Edit extends React.Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id='editModal' type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.changeDatabase}>Confirm</button>
+                <button id='editModal' type="button" className="btn btn-green" data-dismiss="modal" onClick={this.changeDatabase}>Confirm</button>
               </div>
             </div>
           </div>

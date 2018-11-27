@@ -1,16 +1,14 @@
-import { GET_PROMPTS } from '../actions/types';
+import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT } from '../actions/types';
 
-const initialState = [
-  {
-    id: 1,
-    collection: 'Favorites',
-    promptText: 'What is a song that made you smile in the past month?'
-  }
-  ];
+const initialState = [];
 export default function(state = initialState, action) {
   switch(action.type) {
     case GET_PROMPTS:
       return action.payload;
+    case POST_PROMPT:
+      return state;
+    case PUT_PROMPT:
+      return state;
     default:
       return state;
   }

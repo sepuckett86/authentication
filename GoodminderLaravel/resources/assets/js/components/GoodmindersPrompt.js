@@ -12,6 +12,8 @@ class Prompt extends React.Component {
     const style = {
       fontSize: '20px'
     }
+    const gminder = this.props.goodminder;
+    const date = gminder.date;
     return(
       <div id="prompt">
         {/* MediaQuery for large screen */}
@@ -19,11 +21,11 @@ class Prompt extends React.Component {
             <div className="row">
               <div className="col alignL">
                 <Stars
-                gminder={this.props.goodminder}
+                gminder={gminder}
                   />
               </div>
             <div className="col alignR paragraph-font">
-              <p>Added {this.props.goodminder.recordedDate} from Prompt Collection: {this.props.goodminder.collection}</p>
+              <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }</p>
             </div>
             </div>
           </MediaQuery>
@@ -60,12 +62,11 @@ class Prompt extends React.Component {
 
           <Stars
 
-            gminder={this.props.goodminder}
+            gminder={gminder}
 
             />
           <br />
-            <p>{this.props.goodminder.recordedDate ? (this.props.goodminder.recordedDate + ' | '): null}
-               {this.props.goodminder.collection}</p>
+            <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }</p>
        </MediaQuery>
 
 

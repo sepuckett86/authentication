@@ -1,4 +1,4 @@
-import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CLEAR_GOODMINDERS } from './types';
+import { CHANGE_HOME_DISPLAY, CHANGE_ADD_DISPLAY, CHANGE_MANAGER_DISPLAY, CLEAR_GOODMINDERS } from './types';
 import { AUTH_USER, AUTH_ERROR, CLEAR_AUTH_ERROR, PUT_USER } from './types';
 
 export * from './API_Request';
@@ -14,6 +14,13 @@ export function changeHomeDisplay(display) {
 export function changeAddDisplay(display) {
   return {
     type: CHANGE_ADD_DISPLAY,
+    payload: display
+  }
+}
+
+export function changeManagerDisplay(display) {
+  return {
+    type: CHANGE_MANAGER_DISPLAY,
     payload: display
   }
 }

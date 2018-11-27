@@ -167,16 +167,16 @@ class Goodminders extends Component {
       return <Prompt goodminder={this.state.goodminder}/>
     }
     else if(gminder.category === 'quote') {
-      return <Quote goodminder={this.state.goodminder}/>
+      return <Quote  goodminder={this.state.goodminder}/>
     }
     else if(gminder.category === 'custom') {
-      return <Custom goodminder={this.state.goodminder}/>
+      return <Custom  goodminder={this.state.goodminder}/>
     }
     else if (this.props.goodminders.length === 0){
-      return <Loading />
+      return <div><Loading /><br /></div>
     }
     else if (!this.props.currentGM.mainResponse){
-      return <Loading />
+      return <div><Loading /><br /></div>
     }
     else {
       return <p>Category error</p>
@@ -232,7 +232,7 @@ class Goodminders extends Component {
           </div>
         )}
       </CSSTransition>
-      
+
               <div className="edit-print">
               <button id='edit-button' onClick={this.handleClick} className="btn-flat btn-blue">
                 <i className="fas fa-edit"></i>
@@ -246,7 +246,7 @@ class Goodminders extends Component {
             <div>
             <div className="row">
               <div className="col col-12 col-sm-6">
-                <button className='btn-custom btn' type='button' onClick={() => {this.props.changeHomeDisplay('add'); this.props.setCurrentPrompt({})}}>
+                <button className='btn-custom btn' type='button' onClick={() => {this.props.changeAddDisplay('empty'); this.props.changeHomeDisplay('add'); this.props.setCurrentPrompt({})}}>
                   <i className="fas fa-plus"></i>{' '}Add</button>
               </div>
               <div className="col col-12 col-sm-6">

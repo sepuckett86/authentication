@@ -13,7 +13,9 @@ class AddPrompt extends React.Component {
     this.state = {
       inputAnswer: '',
       inputReason: '',
-      random: 'no'
+      inputCollection: '',
+      random: 'no',
+
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -26,10 +28,14 @@ class AddPrompt extends React.Component {
     // Get data from database
       this.props.getPrompts(() => {
         // Check if there is data in prompts
-        if (this.props.prompts.length !== 0) {
+        if (this.props.prompts.length !== 0 && !this.props.currentPrompt.id) {
           this.changePrompt();
         } else {
-          this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
+          if (this.props.currentPrompt.id) {
+            // null
+          } else {
+            this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
+          }
         }
       });
   }
@@ -102,7 +108,7 @@ class AddPrompt extends React.Component {
       source: null,
       who: null,
       rating: 0,
-      collection: this.props.currentPrompt.collection,
+      collection: this.state.inputCollection,
       publicFlag: 0
     }
     console.log(newGminder)
@@ -132,7 +138,7 @@ class AddPrompt extends React.Component {
           </button>
 
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+          <button onClick={() => {this.props.setCurrentPrompt({}); this.props.changeHomeDisplay('promptCreateEdit')}} className="dropdown-item btn-dropdown">
             Create New Prompt
           </button>
           <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
@@ -176,10 +182,27 @@ class AddPrompt extends React.Component {
 
           <textarea className="form-control" name='inputAnswer' value={this.state.inputAnswer} onChange={this.handleChange} id="prompt-answer" rows="3"></textarea>
           <br/>
-          {/*
+
+          <p>
+            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              View more fields (optional)
+            </button>
+          </p>
+          <div className="collapse" id="collapseExample">
           <p className="paragraph-text">Reason</p>
           <textarea className="form-control" name='inputReason' value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
-          <br/>*/}
+          <br/>
+
+            <div className="form-group">
+                <label>Collection</label>
+                <input type="text" value={this.state.inputCollection}
+                  onChange={this.handleChange} className="form-control"
+                  name="inputCollection" placeholder="Example: Funny"/>
+            </div>
+            <br />
+          </div>
+          {/*
+          */}
         </div>
 
       </form>
