@@ -12,7 +12,7 @@ import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR, GET_GOODMINDERS,
   GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT,
   PUT_GOODMINDER, DELETE_GOODMINDER, GET_COLLECTIONS, GET_NICKNAME,
-  POST_PROMPT, PUT_PROMPT} from './types';
+  POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
 import { optionsWithToken, tokenInLocalStorage } from './functions';
 
 const baseURL = 'http://goodminder.test/';
@@ -304,6 +304,23 @@ export const putPrompt = (updatedPrompt, callback) => async dispatch => {
     const response = await axios.put(path, content, options);
     dispatch({ type: PUT_PROMPT, payload: updatedPrompt });
     callback();
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const deletePrompt = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `/api/prompts/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      // DELETE request with gminder id
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_PROMPT, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
   } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }

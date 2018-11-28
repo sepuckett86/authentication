@@ -43,6 +43,7 @@ export const GET_GOODMINDERS = 'get_goodminders';
 export const GET_PROMPTS = 'get_prompts';
 export const POST_PROMPT = 'post_prompt';
 export const PUT_PROMPT = 'put_prompt';
+export const DELETE_PROMPT = 'delete_prompt';
 
 // Prompt Storage Table
 export const GET_COLLECTIONS = 'get_collections';

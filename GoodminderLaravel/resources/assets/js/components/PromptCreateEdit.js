@@ -17,20 +17,27 @@ class PromptCreateEdit extends React.Component {
   }
 
   handleClick(event) {
-    const prompt = this.newPrompt();
-    if (event.target.name === 'confirm') {
-      if (this.props.currentPrompt.id) {
-        this.props.putPrompt(prompt, () => {
-          this.props.getPrompts();
-          this.props.changeHomeDisplay('goodminders');
-        })
-      }
-      if (!this.props.currentPrompt.id) {
-        this.props.postPrompt(prompt, () => {
-          this.props.getPrompts();
-          this.props.changeHomeDisplay('goodminders');
-        })
-      }
+    if (event.target.name === 'confirmCreate') {
+      const prompt = this.newPrompt();
+      this.props.postPrompt(prompt, () => {
+        this.props.getPrompts();
+        this.props.changeHomeDisplay('goodminders');
+      })
+    }
+    if (event.target.name === 'confirmChange') {
+      const prompt = this.newPrompt();
+      const id = this.props.currentPrompt.id;
+      this.props.putPrompt(prompt, id, () => {
+        this.props.getPrompts();
+        this.props.changeHomeDisplay('goodminders');
+      })
+    }
+    if (event.target.name === 'confirmDelete') {
+      const id = this.props.currentPrompt.id;
+      this.props.deletePrompt(id, () => {
+        this.props.getPrompts();
+        this.props.changeHomeDisplay('manager');
+      })
     }
   }
 
@@ -54,7 +61,7 @@ class PromptCreateEdit extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Create/Edit Prompt</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Edit Prompt</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -64,7 +71,45 @@ class PromptCreateEdit extends React.Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" className="btn btn-primary" name='confirm' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+                <button type="button" className="btn btn-primary" name='confirmChange' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="modal fade" id="deleteModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModal2" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Delete Prompt</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                Make permanent change to database?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" className="btn btn-primary" name='confirmDelete' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="modal fade" id="createModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModal2" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Create Prompt</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                Make permanent change to database?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" className="btn btn-primary" name='confirmCreate' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
               </div>
             </div>
           </div>
@@ -81,9 +126,20 @@ class PromptCreateEdit extends React.Component {
               </div>
           </form>
           {/* Button trigger modal */}
-          <button id="update-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#editModal">
-            Submit
-          </button>
+
+          {/* Button trigger modal */}
+          { this.props.currentPrompt.id ?
+            <div>
+            <button type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#editModal">
+              Edit Prompt
+            </button>
+            <button type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#deleteModal">
+              Delete Prompt
+            </button>
+            </div>:
+            <button type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#createModal">
+              Create Prompt
+            </button> }
           </div>
 
           {/* MediaQuery for small screen */}
