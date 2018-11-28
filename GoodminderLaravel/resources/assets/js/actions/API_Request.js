@@ -14,7 +14,10 @@ import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
-import { GET_COLLECTIONS, POST_COLLECTION, PUT_COLLECTION } from './types';
+import { GET_PROMPT_COLLECTIONS, POST_PROMPT_COLLECTION, PUT_PROMPT_COLLECTION,
+  DELETE_PROMPT_COLLECTION } from './types';
+import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
+  DELETE_STORED_COLLECTION } from './types';
 import { optionsWithToken, tokenInLocalStorage } from './functions';
 
 const baseURL = 'http://goodminder.test/';
@@ -171,7 +174,7 @@ export const postGoodminder = (gminder, callback) => async dispatch => {
 export const putGoodminder = (updatedGoodminder, goodminders, callback) => async dispatch => {
   try {
     const id = updatedGoodminder.id;
-    const path = baseURL + `/api/gminders/${id}`;
+    const path = baseURL + `api/gminders/${id}`;
     const options = optionsWithToken();
     const content = updatedGoodminder;
     // PUT request with updatedGminder
@@ -190,7 +193,7 @@ export const putGoodminder = (updatedGoodminder, goodminders, callback) => async
 
 export const deleteGoodminder = (id, goodminders, callback) => async dispatch => {
   try {
-    const path = baseURL + `/api/gminders/${id}`;
+    const path = baseURL + `api/gminders/${id}`;
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
       // DELETE request with gminder id
@@ -249,7 +252,7 @@ export const postPrompt = (prompt, callback) => async dispatch => {
 export const putPrompt = (updatedPrompt, callback) => async dispatch => {
   try {
     const id = updatedPrompt.id;
-    const path = baseURL + `/api/prompts/${id}`;
+    const path = baseURL + `api/prompts/${id}`;
     const options = optionsWithToken();
     const content = updatedPrompt;
     const response = await axios.put(path, content, options);
@@ -262,7 +265,7 @@ export const putPrompt = (updatedPrompt, callback) => async dispatch => {
 
 export const deletePrompt = (id, callback) => async dispatch => {
   try {
-    const path = baseURL + `/api/prompts/${id}`;
+    const path = baseURL + `api/prompts/${id}`;
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
       // DELETE request with gminder id
@@ -277,21 +280,32 @@ export const deletePrompt = (id, callback) => async dispatch => {
   }
 }
 
-// COLLECTIONS
+// PROMPT COLLECTIONS
 
-// Adds a collection to stored_prompts table
-export const postCollection = (collection, creator_id, callback) => async dispatch => {
+export const getPromptCollections = (callback) => async dispatch => {
   try {
-    const path = baseURL + '/api/promptStorage';
+    const path = baseURL + 'api/promptCollections';
+    const options = optionsWithToken();
+    if (tokenInLocalStorage()) {
+      const response = await axios.get(path, options);
+      dispatch({ type: GET_PROMPT_COLLECTIONS, payload: response.data });
+      callback();
+    } else {
+      console.log('No token')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e});
+  }
+};
+
+export const postPromptCollection = (collection, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/promptCollections';
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
-      const content = {
-        'promptCollection': collection,
-        'creator_id': creator_id
-      };
+      const content = collection;
       const response = await axios.post(path, content, options);
-      const payload = { collection: collection, creator_id: creator_id }
-      dispatch({ type: POST_COLLECTION, payload: payload });
+      dispatch({ type: POST_PROMPT_COLLECTION, payload: response });
       callback()
     } else {
       console.log('token absent')
@@ -301,13 +315,46 @@ export const postCollection = (collection, creator_id, callback) => async dispat
   }
 }
 
+export const putPromptCollection = (updatedCollection, callback) => async dispatch => {
+  try {
+    const id = updatedCollection.id;
+    const path = baseURL + `api/promptCollections/${id}`;
+    const options = optionsWithToken();
+    const content = updatedCollection;
+    const response = await axios.put(path, content, options);
+    dispatch({ type: PUT_PROMPT_COLLECTION, payload: response });
+    callback();
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const deletePromptCollection = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `api/promptCollections/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      // DELETE request with gminder id
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_PROMPT_COLLECTION, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+// STORED PROMPT COLLECTIONS
+
 export const getCollections = (callback) => async dispatch => {
   try {
-    const path = baseURL + 'api/promptStorage';
+    const path = baseURL + 'api/storedPromptCollections';
     const options = optionsWithToken();
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
-      dispatch({ type: GET_COLLECTIONS, payload: response.data });
+      dispatch({ type: GET_STORED_COLLECTIONS, payload: response.data });
       callback();
     } else {
       console.log('No token')
@@ -316,6 +363,59 @@ export const getCollections = (callback) => async dispatch => {
     dispatch({ type: RESPONSE_ERROR, payload: e});
   }
 };
+
+// Adds a collection to stored_prompts table
+export const postCollection = (collection, creator_id, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/storedPromptCollections';
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = {
+        'promptCollection': collection,
+        'creator_id': creator_id
+      };
+      const response = await axios.post(path, content, options);
+      const payload = { collection: collection, creator_id: creator_id }
+      dispatch({ type: POST_STORED_COLLECTION, payload: payload });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const putCollection = (updatedCollection, callback) => async dispatch => {
+  try {
+    const id = updatedCollection.id;
+    const path = baseURL + `api/storedPromptCollections/${id}`;
+    const options = optionsWithToken();
+    const content = updatedCollection;
+    const response = await axios.put(path, content, options);
+    dispatch({ type: PUT_STORED_COLLECTION, payload: response });
+    callback();
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const deleteCollection = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `api/storedPromptCollections/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      // DELETE request with gminder id
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_STORED_COLLECTION, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
 
 // OTHER
 
