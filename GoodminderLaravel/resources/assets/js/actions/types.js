@@ -48,3 +48,4 @@ export const DELETE_PROMPT = 'delete_prompt';
 // Prompt Storage Table
 export const GET_COLLECTIONS = 'get_collections';
 export const POST_COLLECTION = 'post_collection';
+export const PUT_COLLECTION = 'put_collection';

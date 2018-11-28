@@ -9,13 +9,77 @@
 //  GET api/auth/me, to get current user data;
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR, GET_GOODMINDERS,
-  GET_PROMPTS, POST_GOODMINDER, GET_USER, DELETE_ACCOUNT,
-  PUT_GOODMINDER, DELETE_GOODMINDER, GET_COLLECTIONS, GET_NICKNAME,
-  POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
+import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME } from './types';
+import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
+  DELETE_GOODMINDER } from './types';
+import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
+import { GET_COLLECTIONS, POST_COLLECTION, PUT_COLLECTION } from './types';
 import { optionsWithToken, tokenInLocalStorage } from './functions';
 
 const baseURL = 'http://goodminder.test/';
+
+// AUTH
+
+export const getUser = () => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/me';
+    if (localStorage.getItem('id_token')) {
+      const options = optionsWithToken();
+      const response = await axios.get(path, options);
+      dispatch({ type: GET_USER, payload: response.data });
+    } else {
+      console.log('Load general page: User login token absent')
+    }
+  } catch (e) {
+    // Update local storage to remove token from browser
+    localStorage.removeItem('id_token');
+    dispatch({ type: AUTH_USER, payload: false});
+    // Internal server error
+    if (e.response) {
+      dispatch({ type: RESPONSE, payload: e.response});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'getUser failed' });
+    }
+  }
+};
+
+export const deleteUser = () => async dispatch => {
+  try {
+    console.log('Not enabled yet')
+  } catch (e) {
+    dispatch({ type: RESPONSE, payload: e });
+  }
+}
+
+export const postSignup = (email, password, password_confirmation, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/signup';
+    let options;
+    if (tokenInLocalStorage()) {
+      options = optionsWithToken
+    }
+    const content = {
+        'name': 'User',
+        email,
+        password,
+        password_confirmation
+      }
+    const response = await axios.post(path, content);
+
+    dispatch({ type: RESPONSE, payload: response });
+    callback();
+  } catch (e) {
+    // Internal server error
+    if (e.response.status === 500) {
+      const payload = {'component':'SignUp', 'status': 500, 'message': 'Email in use'};
+      console.log(payload)
+      dispatch({ type: RESPONSE, payload: payload});
+    } else {
+      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+    }
+  }
+};
 
 export const postSignout = () => async dispatch => {
   try {
@@ -62,34 +126,7 @@ export const postLogin = (email, password, callback) => async dispatch => {
   }
 };
 
-export const postSignup = (email, password, password_confirmation, callback) => async dispatch => {
-  try {
-    const path = baseURL + 'api/auth/signup';
-    let options;
-    if (tokenInLocalStorage()) {
-      options = optionsWithToken
-    }
-    const content = {
-        'name': 'User',
-        email,
-        password,
-        password_confirmation
-      }
-    const response = await axios.post(path, content);
-
-    dispatch({ type: RESPONSE, payload: response });
-    callback();
-  } catch (e) {
-    // Internal server error
-    if (e.response.status === 500) {
-      const payload = {'component':'SignUp', 'status': 500, 'message': 'Email in use'};
-      console.log(payload)
-      dispatch({ type: RESPONSE, payload: payload});
-    } else {
-      dispatch({ type: RESPONSE, payload: 'Unknown error' });
-    }
-  }
-};
+// GOODMINDERS
 
 export const getGoodminders = (callback) => async dispatch => {
   try {
@@ -113,26 +150,6 @@ export const getGoodminders = (callback) => async dispatch => {
   }
 };
 
-export const getPrompts = (callback) => async dispatch => {
-  try {
-    const path = baseURL + 'api/prompts';
-    const options = optionsWithToken();
-    if (tokenInLocalStorage()) {
-      const response = await axios.get(path, options);
-      const user_prompts = response.data['user prompts'];
-      const stored_prompts = response.data['stored prompts'];
-      const all_prompts = user_prompts.concat(stored_prompts);
-      dispatch({ type: GET_PROMPTS, payload: all_prompts });
-      callback();
-    } else {
-      console.log('No token')
-    }
-
-  } catch (e) {
-    dispatch({ type: RESPONSE_ERROR, payload: e});
-  }
-};
-
 export const postGoodminder = (gminder, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/gminders';
@@ -150,37 +167,6 @@ export const postGoodminder = (gminder, callback) => async dispatch => {
     dispatch({ type: RESPONSE_ERROR, payload: e});
   }
 };
-
-export const getUser = () => async dispatch => {
-  try {
-    const path = baseURL + 'api/auth/me';
-    if (localStorage.getItem('id_token')) {
-      const options = optionsWithToken();
-      const response = await axios.get(path, options);
-      dispatch({ type: GET_USER, payload: response.data });
-    } else {
-      console.log('Load general page: User login token absent')
-    }
-  } catch (e) {
-    // Update local storage to remove token from browser
-    localStorage.removeItem('id_token');
-    dispatch({ type: AUTH_USER, payload: false});
-    // Internal server error
-    if (e.response) {
-      dispatch({ type: RESPONSE, payload: e.response});
-    } else {
-      dispatch({ type: RESPONSE, payload: 'getUser failed' });
-    }
-  }
-};
-
-export const deleteUser = () => async dispatch => {
-  try {
-    console.log('Not enabled yet')
-  } catch (e) {
-    dispatch({ type: RESPONSE, payload: e });
-  }
-}
 
 export const putGoodminder = (updatedGoodminder, goodminders, callback) => async dispatch => {
   try {
@@ -221,62 +207,27 @@ export const deleteGoodminder = (id, goodminders, callback) => async dispatch =>
   }
 }
 
-// Adds a collection to stored_prompts table
-export const postCollection = (collection, creator_id, callback) => async dispatch => {
-  try {
-    const path = baseURL + '/api/promptStorage';
-    if (tokenInLocalStorage()) {
-      const options = optionsWithToken();
-      const content = {
-        'promptCollection': collection,
-        'creator_id': creator_id
-      };
-      const response = await axios.post(path, content, options);
-      const payload = { collection: collection, creator_id: creator_id }
-      dispatch({ type: POST_COLLECTION, payload: payload });
-      callback()
-    } else {
-      console.log('token absent')
-    }
-  } catch (e) {
-    dispatch({ type: RESPONSE_ERROR, payload: e });
-  }
-}
+// PROMPTS
 
-export const getCollections = (callback) => async dispatch => {
+export const getPrompts = (callback) => async dispatch => {
   try {
-    const path = baseURL + 'api/promptStorage';
+    const path = baseURL + 'api/prompts';
     const options = optionsWithToken();
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
-      dispatch({ type: GET_COLLECTIONS, payload: response.data });
+      const user_prompts = response.data['user prompts'];
+      const stored_prompts = response.data['stored prompts'];
+      const all_prompts = user_prompts.concat(stored_prompts);
+      dispatch({ type: GET_PROMPTS, payload: all_prompts });
       callback();
     } else {
       console.log('No token')
     }
+
   } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e});
   }
 };
-
-// Get a user's nickname based on id
-export const getNickname = (id, callback) => async dispatch => {
-  try {
-    const path = baseURL + `api/users/${id}`;
-    const options = optionsWithToken();
-    if (tokenInLocalStorage()) {
-      const response = await axios.get(path, options);
-      const nickname = response.data[0].nickname;
-      dispatch({ type: GET_NICKNAME, payload: nickname });
-      callback();
-    } else {
-      console.log('No token')
-    }
-  } catch (e) {
-    dispatch({ type: RESPONSE_ERROR, payload: e});
-  }
-};
-
 
 export const postPrompt = (prompt, callback) => async dispatch => {
   try {
@@ -325,3 +276,63 @@ export const deletePrompt = (id, callback) => async dispatch => {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }
 }
+
+// COLLECTIONS
+
+// Adds a collection to stored_prompts table
+export const postCollection = (collection, creator_id, callback) => async dispatch => {
+  try {
+    const path = baseURL + '/api/promptStorage';
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = {
+        'promptCollection': collection,
+        'creator_id': creator_id
+      };
+      const response = await axios.post(path, content, options);
+      const payload = { collection: collection, creator_id: creator_id }
+      dispatch({ type: POST_COLLECTION, payload: payload });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const getCollections = (callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/promptStorage';
+    const options = optionsWithToken();
+    if (tokenInLocalStorage()) {
+      const response = await axios.get(path, options);
+      dispatch({ type: GET_COLLECTIONS, payload: response.data });
+      callback();
+    } else {
+      console.log('No token')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e});
+  }
+};
+
+// OTHER
+
+// Get a user's nickname based on id
+export const getNickname = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `api/users/${id}`;
+    const options = optionsWithToken();
+    if (tokenInLocalStorage()) {
+      const response = await axios.get(path, options);
+      const nickname = response.data[0].nickname;
+      dispatch({ type: GET_NICKNAME, payload: nickname });
+      callback();
+    } else {
+      console.log('No token')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e});
+  }
+};
