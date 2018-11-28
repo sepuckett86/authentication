@@ -29,6 +29,9 @@ class User extends React.Component {
     if (event.target.name === 'other') {
       this.setState({ display: 'other'})
     }
+    if (event.target.name === 'createNewCollection') {
+      console.log('Function not enabled yet')
+    }
   }
 
   renderListGroup() {
@@ -82,7 +85,7 @@ class User extends React.Component {
   render() {
     return(
       <div>
-      <button>Create New Collection</button>
+      <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
         {this.renderListGroup()}
       </div>)
   }

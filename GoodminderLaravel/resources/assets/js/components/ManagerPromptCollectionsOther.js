@@ -22,13 +22,15 @@ class Other extends React.Component {
     this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
-
   handleClick(event) {
     if (event.target.name === 'user') {
       this.setState({ display: 'user'})
     }
     if (event.target.name === 'other') {
       this.setState({ display: 'other'})
+    }
+    if (event.target.name === 'findMorePrompts') {
+      console.log('Not enabled yet')
     }
   }
 
@@ -66,7 +68,7 @@ class Other extends React.Component {
   render() {
     return(
       <div>
-      <button>Find More Prompts</button>
+      <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
           {this.renderListGroup()}
       </div>)
   }

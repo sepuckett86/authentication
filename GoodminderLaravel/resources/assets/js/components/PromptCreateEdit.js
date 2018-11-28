@@ -130,14 +130,14 @@ class PromptCreateEdit extends React.Component {
           {/* Button trigger modal */}
           { this.props.currentPrompt.id ?
             <div>
-            <button type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#editModal">
+            <button type="button" className="btn btn-green" data-toggle="modal" data-target="#editModal">
               Edit Prompt
             </button>
-            <button type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#deleteModal">
+            <button type="button" className="btn btn-green" data-toggle="modal" data-target="#deleteModal">
               Delete Prompt
             </button>
             </div>:
-            <button type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#createModal">
+            <button type="button" className="btn btn-green" data-toggle="modal" data-target="#createModal">
               Create Prompt
             </button> }
           </div>

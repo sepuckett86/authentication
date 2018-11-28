@@ -140,9 +140,6 @@ class PromptCollections extends React.Component {
         </div>
         </div>
 
-        <br />
-        <br />
-
       </div>)
   }
 }
