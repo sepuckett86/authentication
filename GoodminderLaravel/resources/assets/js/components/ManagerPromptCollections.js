@@ -130,7 +130,7 @@ class PromptCollections extends React.Component {
   }
   render() {
     return(
-      <div className="container">
+      <div >
 
         <div className="box">
         <div id="promptCollections">

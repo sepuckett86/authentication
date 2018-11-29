@@ -306,7 +306,7 @@ export const getPromptCollection = (id, callback) => async dispatch => {
     const path = baseURL + `api/promptCollections/${id}`;
     const options = optionsWithToken();
     let response = {};
-    response.data = { 'id': 1, 'creator_id': 1, 'collection': 'Happy', 'description': 'This collection is fun.' };
+    response.data = [ { 'id': 1, 'promptText': 'Prompt here' } , { 'id': 2, 'promptText': 'Another prompt' } ];
     if (tokenInLocalStorage()) {
       // const response = await axios.get(path, options);
 

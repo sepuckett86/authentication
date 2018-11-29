@@ -41,11 +41,19 @@ class Other extends React.Component {
     return (
       other.map((collection, i) => {
           return (
-        <div key={i} className="list-group alignL">
-          <a
-            href="#"
+        <div key={i} style={{'cursor': 'pointer'}} className="list-group alignL">
+          <div
             className="list-group-item list-group-item-action flex-column align-items-start"
           >
+          <a className='btn-flat' onClick={ () => {
+              this.props.getPromptCollection(
+                collection.prompt_collection_id,
+                ()=> {
+                  this.props.setCurrentStoredPromptCollection(collection);
+                  this.props.changeManagerDisplay('promptCollection');
+                })
+          }
+          }>
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
               <small className="text-muted">{collection.promptCount} prompts</small>
@@ -53,17 +61,19 @@ class Other extends React.Component {
             <p className="mb-1">
             {collection.description}
             </p>
+
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
-            <small className="text-muted"><button className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></button>{' '}<button className='btn-flat btn-blue'><i className="fas fa-trash"></i></button></small>
+
+            <small className="text-muted"><span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
+            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
             </div>
           </a>
+          </div>
         </div>
       );
     })
-
     )
-
   }
 
   promptTableDisplayChange() {
