@@ -1,4 +1,4 @@
-import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT } from '../actions/types';
+import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT } from '../actions/types';
 
 const initialState = [];
 export default function(state = initialState, action) {
@@ -8,6 +8,8 @@ export default function(state = initialState, action) {
     case POST_PROMPT:
       return state;
     case PUT_PROMPT:
+      return state;
+    case DELETE_PROMPT:
       return state;
     default:
       return state;

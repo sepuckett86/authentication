@@ -12,6 +12,9 @@ export const SET_BACK_GM = 'set_back_gm';
 export const SET_UPDATED_GM = 'set_updated_gm';
 export const SET_CURRENT_PROMPT = 'set_current_prompt';
 export const SET_COLLECTION = 'set_collection';
+export const SET_CURRENT_PROMPT_COLLECTION = 'set_current_prompt_collection';
+export const SET_CURRENT_STORED_PROMPT_COLLECTION = 'set_current_stored_prompt_collection';
+
 export const NAV_BACK = 'nav_back';
 export const NAV_NEXT = 'nav_next';
 export const NAV_CLEAR = 'nav_clear';
@@ -43,7 +46,17 @@ export const GET_GOODMINDERS = 'get_goodminders';
 export const GET_PROMPTS = 'get_prompts';
 export const POST_PROMPT = 'post_prompt';
 export const PUT_PROMPT = 'put_prompt';
+export const DELETE_PROMPT = 'delete_prompt';
 
-// Prompt Storage Table
-export const GET_COLLECTIONS = 'get_collections';
-export const POST_COLLECTION = 'post_collection';
+// Stored Prompt Collections Table
+export const GET_STORED_COLLECTIONS = 'get_stored_collections';
+export const POST_STORED_COLLECTION = 'post_stored_collection';
+export const PUT_STORED_COLLECTION = 'put_stored_collection';
+export const DELETE_STORED_COLLECTION = 'delete_stored_collection';
+
+// Prompt Collections Table
+export const GET_PROMPT_COLLECTIONS = 'get_prompt_collections';
+export const POST_PROMPT_COLLECTION = 'post_prompt_collection';
+export const PUT_PROMPT_COLLECTION = 'put_prompt_collection';
+export const DELETE_PROMPT_COLLECTION = 'delete_prompt_collection';
+export const GET_PROMPT_COLLECTION = 'get_prompt_collection';

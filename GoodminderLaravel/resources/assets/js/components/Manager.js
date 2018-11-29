@@ -5,32 +5,25 @@ import * as actions from '../actions';
 import GminderTable from './ManagerGminderTable';
 import PromptTable from './ManagerPromptTable';
 import PromptCollections from './ManagerPromptCollections';
+import PromptCollection from './ManagerPromptCollection';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      managerDisplay: 'none'
-    };
 
     // bind methods
-    this.changeManagerDisplay = this.changeManagerDisplay.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  changeManagerDisplay(id) {
-    this.setState({
-      managerDisplay: id
-    })
-  }
+
   handleClick(event) {
-    this.changeManagerDisplay(event.target.id);
+    this.props.changeManagerDisplay(event.target.id);
   }
 
   renderManagerDisplay() {
-    switch(this.state.managerDisplay) {
+    switch(this.props.managerDisplay) {
       case 'gminderTable':
         return (<div>
           <GminderTable/>
@@ -40,7 +33,7 @@ class Manager extends React.Component {
           id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.changeManagerDisplay('')}>
+          onClick={() => this.props.changeManagerDisplay('')}>
           {' '}Back to Manage</button>
 
           <br />
@@ -53,8 +46,21 @@ class Manager extends React.Component {
           id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.changeManagerDisplay('')}>
+          onClick={() => this.props.changeManagerDisplay('')}>
           {' '}Back to Manage</button>
+          <br />
+        </div>)
+      case 'promptCollection':
+        return (<div>
+          <PromptCollection/>
+            <br />
+          <button
+          id='random'
+          name="Back"
+          className='btn btn-custom'
+          onClick={() => this.props.changeManagerDisplay('promptCollections')}>
+          {' '}Back to Prompt Collections</button>
+
           <br />
         </div>)
       case 'promptCollections':
@@ -66,7 +72,7 @@ class Manager extends React.Component {
           id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.changeManagerDisplay('')}>
+          onClick={() => this.props.changeManagerDisplay('')}>
           {' '}Back to Manage</button>
 
           <br />
@@ -122,6 +128,6 @@ class Manager extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return {}
+  return {managerDisplay: state.display.manager}
 }
 export default connect(mapStateToProps, actions)(Manager);

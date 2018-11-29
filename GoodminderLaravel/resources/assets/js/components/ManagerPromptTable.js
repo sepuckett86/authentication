@@ -74,7 +74,7 @@ class PromptTable extends React.Component {
 
   render() {
     return(
-      <div className="container-fluid">
+      <div>
 
         <div className="box">
         <div id="prompts">

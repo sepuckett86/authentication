@@ -27,8 +27,9 @@ class PromptCollections extends React.Component {
 
   componentDidMount() {
     // Get data from database
-    // Prompts
-    this.props.getPrompts(() => {
+    // Prompt Collections
+    this.props.getCollections(() => {
+
     })
   }
 
@@ -129,7 +130,7 @@ class PromptCollections extends React.Component {
   }
   render() {
     return(
-      <div className="container">
+      <div >
 
         <div className="box">
         <div id="promptCollections">
@@ -140,9 +141,6 @@ class PromptCollections extends React.Component {
         </div>
         </div>
 
-        <br />
-        <br />
-
       </div>)
   }
 }
@@ -151,7 +149,7 @@ function mapStateToProps(state) {
   return {
     gminders: state.goodminders,
     prompts: state.prompts,
-    collection: state.navigation.collection
+    collection: state.navigation.collection,
   }
 }
 
