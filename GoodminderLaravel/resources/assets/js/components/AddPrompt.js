@@ -25,15 +25,14 @@ class AddPrompt extends React.Component {
   }
 
   componentDidMount() {
+    this.props.clearResponse();
     // Get data from database
       this.props.getPrompts(() => {
         // Check if there is data in prompts
         if (this.props.prompts.length !== 0 && !this.props.currentPrompt.id) {
           this.changePrompt();
         } else {
-          if (this.props.currentPrompt.id) {
-            // null
-          } else {
+          if (this.props.currentPrompt === {}) {
             this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
           }
         }
@@ -160,11 +159,11 @@ class AddPrompt extends React.Component {
       </div>
       </div>
 
-
-
       {this.props.currentPrompt.promptText ?
         (<div className="grid-center paragraph-text" style={style}>
-        {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center"><Loading /></div>}
+        {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center">
+        {Object.keys(this.props.responseError).length !== 0 ? 'Could not retrieve prompts from server' : <Loading />}
+        </div>}
       <div className="grid-lower-left">
         <div>
         {/*<button type="button" className="btn-flat btn-blue"><i className="fas fa-plus"></i></button>*/}
@@ -219,7 +218,8 @@ function mapStateToProps(state) {
   return {
     prompts: state.prompts,
     currentPrompt: state.navigation.currentPrompt,
-    nickname: state.navigation.nickname
+    nickname: state.navigation.nickname,
+    responseError: state.response.responseError
    }
 }
 
