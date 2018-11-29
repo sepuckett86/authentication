@@ -58,3 +58,4 @@ export const GET_PROMPT_COLLECTIONS = 'get_prompt_collections';
 export const POST_PROMPT_COLLECTION = 'post_prompt_collection';
 export const PUT_PROMPT_COLLECTION = 'put_prompt_collection';
 export const DELETE_PROMPT_COLLECTION = 'delete_prompt_collection';
+export const GET_PROMPT_COLLECTION = 'get_prompt_collection';

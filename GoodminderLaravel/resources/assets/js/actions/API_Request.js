@@ -14,7 +14,7 @@ import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
-import { GET_PROMPT_COLLECTIONS, POST_PROMPT_COLLECTION, PUT_PROMPT_COLLECTION,
+import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION, PUT_PROMPT_COLLECTION,
   DELETE_PROMPT_COLLECTION } from './types';
 import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
   DELETE_STORED_COLLECTION } from './types';
@@ -286,9 +286,31 @@ export const getPromptCollections = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/promptCollections';
     const options = optionsWithToken();
+    let response = {};
+    response.data = [ { 'id': 1, 'creator_id': 1, 'collection': 'Happy', 'description': 'This collection is fun.' }, {'id': 2, 'creator_id': 2, 'collection': 'Self', 'description': 'I made this myself'} ]
     if (tokenInLocalStorage()) {
-      const response = await axios.get(path, options);
+      // const response = await axios.get(path, options);
+
       dispatch({ type: GET_PROMPT_COLLECTIONS, payload: response.data });
+      callback();
+    } else {
+      console.log('No token')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e});
+  }
+};
+
+export const getPromptCollection = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `api/promptCollections/${id}`;
+    const options = optionsWithToken();
+    let response = {};
+    response.data = { 'id': 1, 'creator_id': 1, 'collection': 'Happy', 'description': 'This collection is fun.' };
+    if (tokenInLocalStorage()) {
+      // const response = await axios.get(path, options);
+
+      dispatch({ type: GET_PROMPT_COLLECTION, payload: response.data });
       callback();
     } else {
       console.log('No token')
@@ -352,8 +374,10 @@ export const getCollections = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/storedPromptCollections';
     const options = optionsWithToken();
+    let response = {};
+    response.data = [ { 'id': 1, 'prompt_collection_id': 3, 'creator_id': 1, 'collection': 'Happy', 'promptCount': 4, 'description': 'This collection is fun.' , 'displayFlag': 1, 'publicFlag': 1}, {'id': 2, 'creator_id': 2, 'prompt_collection_id': 4, 'collection': 'Self', 'promptCount': 4, 'description': 'I made this myself', 'displayFlag': 1, 'publicFlag': 1}, {'id': 3, 'creator_id': 2, 'prompt_collection_id': 5, 'collection': 'Private', 'promptCount': 4, 'description': 'Private collection', 'displayFlag': 1, 'publicFlag': 0} ]
     if (tokenInLocalStorage()) {
-      const response = await axios.get(path, options);
+      // const response = await axios.get(path, options);
       dispatch({ type: GET_STORED_COLLECTIONS, payload: response.data });
       callback();
     } else {

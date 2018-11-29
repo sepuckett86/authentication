@@ -1,7 +1,7 @@
 import { SET_CURRENT_GM, SET_PREVIOUS_GM,
   SET_BACK_GM, SET_UPDATED_GM,
   SET_CURRENT_PROMPT, SET_COLLECTION, GET_NICKNAME,
-  SET_CURRENT_PROMPT_COLLECTION } from '../actions/types';
+  SET_CURRENT_PROMPT_COLLECTION, GET_PROMPT_COLLECTION } from '../actions/types';
 
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from '../actions/types';
 
@@ -33,6 +33,8 @@ export default function(state = initialState, action) {
     case SET_COLLECTION:
       return { ...state, collection: action.payload };
     case SET_CURRENT_PROMPT_COLLECTION:
+      return { ...state, currentPromptCollection: action.payload };
+    case GET_PROMPT_COLLECTION:
       return { ...state, currentPromptCollection: action.payload };
     case NAV_BACK:
       return { ...state}

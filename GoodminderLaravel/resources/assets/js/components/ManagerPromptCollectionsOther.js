@@ -35,26 +35,35 @@ class Other extends React.Component {
   }
 
   renderListGroup() {
-    return (
-      <div className="list-group alignL">
-        <a
-          href="#"
-          className="list-group-item list-group-item-action flex-column align-items-start"
-        >
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">Become Interesting | <a href='#'>user29</a></h5>
-            <small className="text-muted">30 prompts</small>
-          </div>
-          <p className="mb-1">
-            Want to be inspired about conversation topics? Want to improve your small talk? This is the collection for you.
-          </p>
-          <div className="d-flex w-100 justify-content-between">
-          <small className="text-muted">Updated 2018-11-15.</small>
-          <small className="text-muted">Toggle. Delete.</small>
-          </div>
-        </a>
-      </div>
+    const other = this.props.storedPromptCollections.filter(collection =>
+      collection.creator_id !== this.props.user_id
     );
+    return (
+      other.map((collection, i) => {
+          return (
+        <div key={i} className="list-group alignL">
+          <a
+            href="#"
+            className="list-group-item list-group-item-action flex-column align-items-start"
+          >
+            <div className="d-flex w-100 justify-content-between">
+              <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
+              <small className="text-muted">{collection.promptCount} prompts</small>
+            </div>
+            <p className="mb-1">
+            {collection.description}
+            </p>
+            <div className="d-flex w-100 justify-content-between">
+            <small className="text-muted">Updated 2018-11-15.</small>
+            <small className="text-muted"><button className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></button>{' '}<button className='btn-flat btn-blue'><i className="fas fa-trash"></i></button></small>
+            </div>
+          </a>
+        </div>
+      );
+    })
+
+    )
+
   }
 
   promptTableDisplayChange() {
@@ -78,7 +87,9 @@ function mapStateToProps(state) {
   return {
     gminders: state.goodminders,
     prompts: state.prompts,
-    collection: state.navigation.collection
+    collection: state.navigation.collection,
+    storedPromptCollections: state.storedPromptCollections,
+    user_id: state.user.backend.id
   }
 }
 

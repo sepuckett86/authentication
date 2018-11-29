@@ -35,43 +35,33 @@ class User extends React.Component {
   }
 
   renderListGroup() {
-    return (
-      <div className="list-group alignL">
-        <a
-          href="#"
-          className="list-group-item list-group-item-action flex-column align-items-start"
-        >
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">Funny | <span style={{'color': 'blue'}}>Public</span></h5>
-            <small className="text-muted">10 prompts</small>
-          </div>
-          <p className="mb-1">
-            A collection for winners.
-          </p>
-          <div className="d-flex w-100 justify-content-between">
-          <small className="text-muted">Created 2018-11-15. Modified 2018-11-15.</small>
-          <small className="text-muted">Toggle. Delete.</small>
-          </div>
-        </a>
-        <a
-          href="#"
-          className="list-group-item list-group-item-action flex-column align-items-start"
-        >
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">Funny | <span style={{'color': 'green'}}>Private</span></h5>
-            <small className="text-muted">10 prompts</small>
-          </div>
-          <p className="mb-1">
-            A collection for losers.
-          </p>
-          <div className="d-flex w-100 justify-content-between">
-          <small className="text-muted">Created 2018-11-15. Modified 2018-11-15.</small>
-          <small className="text-muted">Toggle. Delete.</small>
-          </div>
-
-        </a>
-      </div>
+    const user = this.props.storedPromptCollections.filter(collection =>
+      collection.creator_id === this.props.user_id
     );
+    return (
+      user.map((collection, i) => {
+          return (
+        <div key={i} className="list-group alignL">
+          <a
+            href="#"
+            className="list-group-item list-group-item-action flex-column align-items-start"
+          >
+            <div className="d-flex w-100 justify-content-between">
+              <h5 className="mb-1">{collection.collection} | {collection.publicFlag}</h5>
+              <small className="text-muted">{collection.promptCount} prompts</small>
+            </div>
+            <p className="mb-1">
+            {collection.description}
+            </p>
+            <div className="d-flex w-100 justify-content-between">
+            <small className="text-muted">Updated 2018-11-15.</small>
+            <small className="text-muted"><button className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></button>{' '}<button className='btn-flat btn-blue'><i className="fas fa-trash"></i></button></small>
+            </div>
+          </a>
+        </div>
+      );
+    })
+    )
   }
 
   promptTableDisplayChange() {
@@ -95,7 +85,9 @@ function mapStateToProps(state) {
   return {
     gminders: state.goodminders,
     prompts: state.prompts,
-    collection: state.navigation.collection
+    collection: state.navigation.collection,
+    storedPromptCollections: state.storedPromptCollections,
+    user_id: state.user.backend.id
   }
 }
 
