@@ -4,8 +4,9 @@ import MediaQuery from "react-responsive";
 import {connect} from "react-redux";
 import * as actions from "../actions";
 
-//Add CSVDownload to import if want to use it
+// CSV capabilities
 import {CSVLink} from "react-csv";
+import CSVReader from "react-csv-reader";
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -13,10 +14,10 @@ class GminderTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      csvData: [],
       gmindersShowing: [],
       sortBy: "id",
-      filterBy: "all"
+      filterBy: "all",
+      gmindersFromCSV: [],
     };
 
     // bind methods
@@ -24,15 +25,43 @@ class GminderTable extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.setGmindersShowing = this.setGmindersShowing.bind(this);
     this.sortBy = this.sortBy.bind(this);
+    this.handleForce = this.handleForce.bind(this);
+    this.handleClickUpload = this.handleClickUpload.bind(this);
   }
 
   componentDidMount() {
     // Get data from database
     this.props.getGoodminders(() => {
-      this.props.getPrompts(() => {
-        this.setGmindersShowing(this.state.filterBy, this.state.showBy);
-      });
+
+      this.setGmindersShowing(this.state.filterBy, this.state.showBy);
+
     });
+  }
+
+  handleForce(data) {
+    const arrayOfArrays = data;
+    let arrayOfNewGminders = [];
+    let newGminder = {};
+    for (let arr of arrayOfArrays) {
+      newGminder["category"] = arr[0];
+      newGminder["mainResponse"] = arr[1];
+      newGminder["author"] = arr[2];
+      newGminder["reason"] = arr[3];
+      newGminder["source"] = arr[4];
+      newGminder["who"] = arr[5];
+      newGminder["rating"] = Number(arr[6]);
+      newGminder["collection"] = arr[7];
+      arrayOfNewGminders.push({ ...newGminder });
+    }
+    arrayOfNewGminders.shift();
+    this.setState({ gmindersFromCSV: arrayOfNewGminders })
+  }
+
+  handleClickUpload() {
+    console.log(this.state.gmindersFromCSV)
+    this.state.gmindersFromCSV.forEach(goodminder => {
+      this.props.postGoodminder(goodminder, ()=> {})
+    })
   }
 
   setGmindersShowing(filterBy, sortBy) {
@@ -186,6 +215,43 @@ class GminderTable extends React.Component {
   generateKey(index) {
     return `${index}_${new Date().getTime()}`;
   }
+  makeEmptyCSVArray() {
+    let myEmptyArray = [
+      [
+        "category",
+        "mainResponse",
+        "author",
+        "reason",
+        "source",
+        "who",
+        "rating",
+        "collection"
+      ]
+    ];
+    let innerArray = [
+      'quote',
+      'May your beer be laid under an enchantment of surpassing excellence for seven years!',
+      'J.R.R. Tolkien',
+      'We laughed out loud at this quote.',
+      'The Fellowship of the Ring',
+      'Gandalf',
+      5,
+      'Funny Sayings'
+    ];
+    myEmptyArray.push(innerArray);
+    innerArray = [
+      'custom',
+      'Breathe.',
+      null,
+      null,
+      null,
+      null,
+      4,
+      'Affirmations'
+    ];
+    myEmptyArray.push(innerArray);
+    return myEmptyArray;
+  }
 
   makeCSVArray() {
     let myArray = [
@@ -201,13 +267,14 @@ class GminderTable extends React.Component {
         "Stars"
       ]
     ];
+
     this.props.gminders.forEach(gminder => {
       let innerArray = [
         gminder.id,
         gminder.category,
         gminder.collection,
         gminder.date,
-        this.getPromptWithId(gminder.promptID),
+        gminder.promptID,
         gminder.mainResponse,
         gminder.reason,
         gminder.author,
@@ -216,15 +283,6 @@ class GminderTable extends React.Component {
       myArray.push(innerArray);
     });
     return myArray;
-  }
-
-  getPromptWithId(id) {
-    id = Number(id);
-    for (let i = 0; i < this.props.prompts.length; i++) {
-      if (this.props.prompts[i].id === id) {
-        return this.props.prompts[i];
-      }
-    }
   }
 
   shortenGminder(gminder) {
@@ -374,7 +432,7 @@ class GminderTable extends React.Component {
                       <td>{gminder.rating}</td>
                       <td>
                         {gminder.promptID
-                          ? this.getPromptWithId(gminder.promptID).promptText
+                          ? 'fix me later'
                           : null}
                         {gminder.promptID ? <br /> : null}
                         {gminder.mainResponse}
@@ -400,7 +458,7 @@ class GminderTable extends React.Component {
             </table>
 
           </MediaQuery>
-          
+
           {/* MediaQuery for small screen */}
           <MediaQuery query="(max-width: 575px)">
             <table className="table table-striped alignL">
@@ -418,7 +476,7 @@ class GminderTable extends React.Component {
                       <td>{gminder.rating}</td>
                       <td>
                         {gminder.promptID
-                          ? this.getPromptWithId(gminder.promptID).promptText
+                          ? 'fix me later'
                           : null}
                         {gminder.promptID ? <br /> : null}
                         {gminder.mainResponse}
@@ -445,10 +503,32 @@ class GminderTable extends React.Component {
           </MediaQuery>
 
           <CSVLink data={this.makeCSVArray()}>
-            <button id="end" className="btn btn-green" type="button">
+            <button className="btn btn-green" type="button">
               Download CSV of all data
             </button>
           </CSVLink>
+          <CSVLink data={this.makeEmptyCSVArray()}>
+            <button className="btn btn-green" type="button">
+              Download CSV Template
+            </button>
+          </CSVLink>
+
+
+          <p>
+            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Upload CSV
+            </button>
+          </p>
+          <div className="collapse" id="collapseExample">
+            <div className="card card-body">
+            <CSVReader
+              cssclassName="react-csv-input"
+              label="Select CSV with Goodminders to Upload. Note: CSV must be in CSV template format, and not contain quotation marks."
+              onFileLoaded={this.handleForce}
+            />
+            <button onClick={this.handleClickUpload}>Add Goodminders from Uploaded CSV to Database</button>
+            </div>
+          </div>
           <br />
           <a href="#beginning">Scroll to top</a>
           <MediaQuery query="(max-width: 576px)">
@@ -462,8 +542,7 @@ class GminderTable extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminders: state.goodminders,
-    prompts: state.prompts
+    gminders: state.goodminders
   };
 }
 
