@@ -9,13 +9,15 @@ class Settings extends Component {
     super(props);
     this.state = {
       edit: 'none',
-      inputName: this.props.user.name,
-      inputUsername: this.props.user.nickname
+      inputName: this.props.user.name || '',
+      inputUsername: this.props.user.nickname || ''
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  componentDidMount() {
 
+  }
   handleClick(e) {
     // Change this.state.edit to reflect the field being edited
     if (e.currentTarget.name === 'editEmail' ||
@@ -74,11 +76,11 @@ class Settings extends Component {
       case 'editName':
         if (edit === field) {
           return (<div>
-            <p><b>Name</b>: <input name='inputName' onChange={this.handleChange} value={this.state.inputName} />{' '}
+            <b>Name</b>: <input name='inputName' onChange={this.handleChange} type="text" value={this.state.inputName} />{' '}
               <button name='editName' onClick={this.handleClick} className="btn-flat btn-blue">
                 Update
               </button>
-            </p>
+
             </div>);
         } else {
           return (<div>
@@ -119,13 +121,15 @@ class Settings extends Component {
     return (
       <div>
       <div className='log-box'>
-
         <h1>Settings</h1>
+        <br />
         <div className='g-box'>
         <h2><u>Account Information</u></h2>
+        <br />
         <h3>Private</h3>
         {this.renderEdit('editEmail')}
         {this.renderEdit('editName')}
+        <br />
         <h3>Public</h3>
         {this.renderEdit('editUsername')}
         </div>
