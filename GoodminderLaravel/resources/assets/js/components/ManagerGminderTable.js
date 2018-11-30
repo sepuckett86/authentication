@@ -530,7 +530,7 @@ class GminderTable extends React.Component {
             </div>
           </div>
           <br />
-          <a href="#beginning">Scroll to top</a>
+          <a id='end' href="#beginning">Scroll to top</a>
           <MediaQuery query="(max-width: 576px)">
             <hr />
           </MediaQuery>
