@@ -60,8 +60,11 @@ class Stars extends React.Component {
   changeDatabase(updatedGminder) {
     this.props.putGoodminder(updatedGminder, this.props.goodminders, () => {
       this.props.setCurrentGM(updatedGminder);
+      // Use spread operator to not change redux store without action
       let newPreviousGM = [ ...this.props.previousGM ];
+      // Find index in previousGM array of GM
       const index = newPreviousGM.findIndex(GM => GM.id === updatedGminder.id);
+      // Remove old GM and replace with updated in same location in array
       newPreviousGM.splice(index, 1, updatedGminder);
       this.props.setPreviousGM(newPreviousGM);
     })
