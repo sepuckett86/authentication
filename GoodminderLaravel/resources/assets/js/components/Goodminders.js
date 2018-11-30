@@ -19,7 +19,7 @@ class Goodminders extends Component {
     this.state = {
       prompts: [],
       length: '',
-      goodminder: {},
+      newCurrentGM: {},
       animate: false,
       height: 'auto'
     }
@@ -31,18 +31,15 @@ class Goodminders extends Component {
   componentDidMount() {
     // On mount, clear previous nav state
     this.props.navClear();
+    this.props.clearResponse();
     // Request to pull from database
     this.props.getGoodminders(() => {
-      this.props.getPrompts(() => {
       // Then set current gminder
       if (this.props.goodminders.length > 0) {
         let current = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
         this.props.setCurrentGM(current);
         // Also set current gminder to first in previous list
         this.props.setPreviousGM([current]);
-        // If current gminder is a prompt response, find and store prompt
-        this.props.setCurrentPrompt(this.findPrompt(current));
-
       }
       this.setState({
         length: this.props.goodminders.length,
@@ -52,21 +49,8 @@ class Goodminders extends Component {
 
       })
     })
-  });
-
   }
 
-  findPrompt(goodminder) {
-    let currentPrompt = {};
-    if (goodminder.category === 'prompt') {
-      for (let i = 0; i < this.props.prompts.length; i++) {
-        if (this.props.prompts[i].id === goodminder.prompt_id) {
-          currentPrompt = this.props.prompts[i];
-        }
-      }
-    }
-    return currentPrompt;
-  }
   // Button methods
   handleClick(event) {
     // Note: currentTarget is required to prevent clicking on the icon doing nothing
@@ -94,25 +78,23 @@ class Goodminders extends Component {
           let brake = 20;
           while (a && brake > 0) {
             let unique = true;
-            let previous = this.props.previousGM;
+            let previous = [ ...this.props.previousGM ];
             // Pick random gminder and save it
             let random = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
-
             // Make sure we haven't already seen this one
-
             for (let i = 0; i < previous.length; i++)
               if (previous[i] === random) {
                 unique = false;
-
               }
             else {
               // Do nothing
             }
-
             if (unique) {
-              let previous = this.props.previousGM;
+              let previous = [ ...this.props.previousGM ];
               previous.push(random);
-              this.props.setCurrentGM(random);
+              this.setState({
+                newCurrentGM: random
+              })
 
               this.props.setPreviousGM(previous);
               a = false;
@@ -125,7 +107,6 @@ class Goodminders extends Component {
     // If no gminders in database
     if (this.props.goodminders.length === 0) {
       console.log('There are no gminders');
-
     }
 
     // If we have gone back and are going forward again
@@ -134,8 +115,9 @@ class Goodminders extends Component {
       let next = this.props.previousGM[this.props.previousGM.length - this.props.backGM];
       let back = this.props.backGM - 1;
       this.props.setBackGM(back);
-      this.props.setCurrentGM(next);
-      this.props.setCurrentPrompt(this.findPrompt(next));
+      this.setState({
+        newCurrentGM: next
+      })
     }
   }
   }
@@ -154,23 +136,24 @@ class Goodminders extends Component {
       let current = this.props.previousGM[this.props.previousGM.length - 2 - this.props.backGM];
       let back = this.props.backGM + 1;
       this.props.setBackGM(back);
-      this.props.setCurrentGM(current);
-      this.props.setCurrentPrompt(this.findPrompt(current));
+      this.setState({
+        newCurrentGM: current
+      })
     }
     }
   }
   }
 
   chooseDisplay() {
-    let gminder = this.state.goodminder;
+    let gminder = this.props.currentGM;
     if(gminder.category === 'prompt') {
-      return <Prompt goodminder={this.state.goodminder}/>
+      return <Prompt />
     }
     else if(gminder.category === 'quote') {
-      return <Quote  goodminder={this.state.goodminder}/>
+      return <Quote />
     }
     else if(gminder.category === 'custom') {
-      return <Custom  goodminder={this.state.goodminder}/>
+      return <Custom />
     }
     else if (this.props.goodminders.length === 0){
       return <div><Loading /><br /></div>
@@ -185,10 +168,16 @@ class Goodminders extends Component {
 
   checkContent() {
     // Does user have goodminders to display?
-    if (this.state.length === 0) {
+    // Also test for empty responseError object
+    if (this.state.length === 0 && Object.keys(this.props.responseError).length === 0) {
       return(
         <FirstGoodminder />
       )
+    } else if (Object.keys(this.props.responseError).length !== 0) {
+      console.log(this.props.responseError)
+      return (<div className='loading-box'>
+      <h3>Problems with access to the Goodminder server. Check your internet connection.</h3>
+      </div>)
     } else {
 
       return(
@@ -204,15 +193,16 @@ class Goodminders extends Component {
                 timeout={1000}
                 classNames="fade"
                 onEnter={() => {
+                  // Changing height is what triggers the animation
                   this.setState({
                     height: "1000",
                   });
                 }}
                 onEntered={() => {
-                  this.props.setCurrentPrompt(this.findPrompt(this.props.currentGM));
+                  this.props.setCurrentGM(this.state.newCurrentGM);
                     this.setState({
                       // need to put forward/backclick logic here
-                      goodminder: this.props.currentGM,
+
                       animate: false,
                       height: "auto"
                     });
@@ -278,7 +268,8 @@ function mapStateToProps(state) {
     previousGM: state.navigation.previousGM,
     backGM: state.navigation.backGM,
     currentPrompt: state.navigation.currentPrompt,
-    navigation: state.navigation
+    navigation: state.navigation,
+    responseError: state.response.responseError
   };
 }
 

@@ -6,7 +6,7 @@ import * as actions from '../actions';
 
 class Quote extends React.Component {
   makeCredit() {
-    const quote = this.props.goodminder;
+    const quote = this.props.currentGM;
     if (quote.who && quote.source && quote.author) {
       return `-- ${quote.who}, from ${quote.source} by ${quote.author}`
     }
@@ -27,7 +27,7 @@ class Quote extends React.Component {
     }
   }
   render() {
-    const gminder = this.props.goodminder;
+    const gminder = { ...this.props.currentGM };
     const date = gminder.date;
     return(
         <div id="quote">
@@ -49,7 +49,7 @@ class Quote extends React.Component {
       			<div className="media-body">
       			<br />
       			<h4 className="paragraph-font alignL" id="quote-random_0">
-      				"{this.props.goodminder.mainResponse}"</h4>
+      				"{this.props.currentGM.mainResponse}"</h4>
               <br />
               <p className="paragraph-font alignR" id="quote-who-source-author">
                 {this.makeCredit()}</p>
@@ -58,10 +58,10 @@ class Quote extends React.Component {
       			</div>
       			<br />
             {/* Determine if there is reason content */}
-            { this.props.goodminder.reason ?
+            { this.props.currentGM.reason ?
               (<div className="media reason g-box">
               <div className="media-body paragraph-font" id="quote-reason">
-                {this.props.goodminder.reason}
+                {this.props.currentGM.reason}
               </div>
             </div>)
               : null }
@@ -70,7 +70,7 @@ class Quote extends React.Component {
                 {/* MediaQuery for small screen */}
                 <MediaQuery query="(max-width: 576px)">
                 <Stars
-                  gminder={this.props.goodminder}/>
+                  gminder={this.props.currentGM}/>
                   <br />
                 <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }
                    </p>
@@ -83,7 +83,7 @@ class Quote extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM
+    currentGM: state.navigation.currentGM
   };
 }
 

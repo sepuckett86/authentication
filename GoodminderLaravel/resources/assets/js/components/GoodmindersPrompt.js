@@ -12,7 +12,7 @@ class Prompt extends React.Component {
     const style = {
       fontSize: '20px'
     }
-    const gminder = this.props.goodminder;
+    const gminder = this.props.currentGM;
     const date = gminder.date;
     return(
       <div id="prompt">
@@ -40,16 +40,16 @@ class Prompt extends React.Component {
             <div className="g-box">
 
             <br />
-            <h4>{this.props.goodminder.mainResponse}</h4><br />
+            <h4>{this.props.currentGM.mainResponse}</h4><br />
 
             </div>
 
-            { this.props.goodminder.reason ?
+            { this.props.currentGM.reason ?
               <div>
             <br />
             <div className="g-box" style={style}>
 
-            {this.props.goodminder.reason}
+            {this.props.currentGM.reason}
 
             </div>
 
@@ -77,7 +77,7 @@ class Prompt extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM,
+    currentGM: state.navigation.currentGM,
     prompt: state.navigation.currentPrompt,
     prompts: state.prompts
   };

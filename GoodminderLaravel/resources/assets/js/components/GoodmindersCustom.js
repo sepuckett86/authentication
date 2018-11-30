@@ -7,7 +7,7 @@ import * as actions from '../actions';
 class Custom extends React.Component {
 
   render() {
-    const gminder = this.props.goodminder;
+    const gminder = this.props.currentGM;
     const date = gminder.date;
     return(
       <div id="custom">
@@ -17,7 +17,7 @@ class Custom extends React.Component {
           <div className="row">
             <div className="col alignL">
               <Stars
-                gminder={this.props.goodminder}
+                gminder={this.props.currentGM}
                 />
             </div>
             <div className="col alignR">
@@ -29,7 +29,7 @@ class Custom extends React.Component {
           <div className="media-body">
           <br />
           <h4 className="paragraph-font" id="quote-random_0">
-            {this.props.goodminder.mainResponse}</h4>
+            {this.props.currentGM.mainResponse}</h4>
             <br />
           </div>
           </div>
@@ -38,7 +38,7 @@ class Custom extends React.Component {
            {/* MediaQuery for small screen */}
            <MediaQuery query="(max-width: 576px)">
            <Stars
-             gminder={this.props.goodminder}
+             gminder={this.props.currentGM}
              />
              <br />
              <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }
@@ -52,7 +52,7 @@ class Custom extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM
+    currentGM: state.navigation.currentGM
   };
 }
 
