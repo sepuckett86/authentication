@@ -39,6 +39,11 @@ $api->version('v1', function (Router $api) {
 
         $api->get('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@nickname');
 
+        $api->get('storedPromptCollections', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@storedPromptCollections');
+        $api->post('storedPromptCollections', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@store');
+        $api->put('storedPromptCollections/{id}', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@update');
+        $api->delete('storedPromptCollections/{id}', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@destroy');
+
         $api->get('refresh', [
             'middleware' => 'jwt.refresh',
             function() {
