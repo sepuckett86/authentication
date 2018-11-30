@@ -7,7 +7,7 @@ export const CHANGE_MANAGER_DISPLAY = 'change_manager_display';
 
 // Navigation
 export const SET_CURRENT_GM = 'set_current_gm';
-export const SET_PREVIOUS_GM = 'add_previous_gm';
+export const SET_PREVIOUS_GM = 'set_previous_gm';
 export const SET_BACK_GM = 'set_back_gm';
 export const SET_UPDATED_GM = 'set_updated_gm';
 export const SET_CURRENT_PROMPT = 'set_current_prompt';

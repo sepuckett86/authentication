@@ -16,7 +16,7 @@ class Stars extends React.Component {
 
 /* const stars must be updated to reflect database value */
   makeStarArray() {
-    let stars = this.props.gminder.rating;
+    let stars = this.props.currentGM.rating;
     let myArray = [];
     for(let i = stars; i > 0; i--) {
       myArray.push('fas fa-star');
@@ -28,7 +28,6 @@ class Stars extends React.Component {
   }
 
   handleClick(event) {
-
     // Handle first star click
     // Note: currentTarget is necessary to record the number; target does not work
     if (event.currentTarget.id !== 'starModal') {
@@ -39,29 +38,32 @@ class Stars extends React.Component {
     if (event.target.id === 'starModal') {
       let stars = this.state.numForDatabase
       // Create gminder to push
-      let updatedGminder = this.props.gminder;
-
+      // Making a new object prevents updates to store without an action
+      let updatedGminder = {...this.props.currentGM};
       // change database
-      if (stars === this.props.gminder.rating) {
+      if (stars === this.props.currentGM.rating) {
         updatedGminder['rating'] = 0;
         this.changeDatabase(updatedGminder);
         this.setState({
           numForDatabase: null
         })
-
       } else {
       updatedGminder['rating'] = stars;
       this.changeDatabase(updatedGminder);
       this.setState({
         numForDatabase: null
       })
-
-    }
+      }
     }
   }
+
   changeDatabase(updatedGminder) {
     this.props.putGoodminder(updatedGminder, this.props.goodminders, () => {
-
+      this.props.setCurrentGM(updatedGminder);
+      let newPreviousGM = [ ...this.props.previousGM ];
+      const index = newPreviousGM.findIndex(GM => GM.id === updatedGminder.id);
+      newPreviousGM.splice(index, 1, updatedGminder);
+      this.props.setPreviousGM(newPreviousGM);
     })
   }
 
@@ -114,6 +116,7 @@ class Stars extends React.Component {
 function mapStateToProps(state) {
   return {
     goodminders: state.goodminders,
+    currentGM: state.navigation.currentGM,
     previousGM: state.navigation.previousGM,
     backGM: state.navigation.backGM,
     currentPrompt: state.navigation.currentPrompt

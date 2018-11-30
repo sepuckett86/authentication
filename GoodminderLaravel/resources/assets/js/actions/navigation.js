@@ -33,10 +33,10 @@ export function setCurrentGM(goodminder) {
   }
 }
 
-export function setPreviousGM(goodminders) {
+export function setPreviousGM(goodminderArray) {
   return {
     type: SET_PREVIOUS_GM,
-    payload: goodminders
+    payload: goodminderArray
   }
 }
 
