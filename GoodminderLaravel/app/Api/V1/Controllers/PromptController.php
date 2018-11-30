@@ -115,7 +115,7 @@ class PromptController extends Controller
 
     /*
     * Only delete the prompt if no gminder is associated with it. If there is a gminder,
-    * don't delete, but set the prompts.creatorDeleted to 1
+    * (even if it is the creator's) don't delete, but set the prompts.creatorDeleted=1.
     */
     public function destroy($id)
     {
@@ -123,18 +123,18 @@ class PromptController extends Controller
         $prompt = Prompt::find($id);
 
         // Is the prompt id being used by any gminder,
-        //  including the user's own gminders?
-        $gminders = Gminder::where('prompt_id', '=', $id)
-            ->get();
+        // including the user's own gminders?
+        $gminders = Gminder::where('prompt_id', '=', $id)->get();
 
         if (count($gminders) > 0) {
             $prompt->creatorDeleted = 1;
+            $prompt->save();
             return 'Prompt used by gminders; set creatorDeleted = 1';
         } 
             
-        // prompt is not being used by any gminder and it is owned
+        // Prompt is not being used by any gminder and it is owned
         // by the user. Go ahead and delete it from the prompts table.
-        if ($prompt->user_id === $currentUser) {
+        if ($prompt->creator_id === $currentUser) {
             $prompt->delete();
             return 'Prompt deleted.';
         }
