@@ -32,7 +32,7 @@ class PromptController extends Controller
     {   
         $currentUser = Auth::guard()->user()->id;
 
-        $prompts = Prompt::where('user_id', $currentUser)
+        $prompts = Prompt::where('creator_id', $currentUser)
             ->where('id', $id)
             ->get();
 
@@ -40,43 +40,24 @@ class PromptController extends Controller
     }
 
     /*
-    * From stored_prompts table, get creator_id & promptCollection matching user_id.
-    * From prompts table, get all the prompt_ids that match the unique combo.
-    * Ensure the prompts are public before sending. 
+    * Get all of user's prompts
     */
     public function userPrompts()
     {   
         $currentUser = Auth::guard()->user()->id;
-        $prompts = Prompt::where('user_id', $currentUser)->get();
+        $prompts = Prompt::where('creator_id', $currentUser)->get();
 
-        $storedPrompts = \DB::table('prompts')
-            ->leftJoin('stored_prompts', function($join)
-            {
-                $join->on('prompts.user_id', '=', 'stored_prompts.creator_id');
-                $join->on('prompts.collection', '=', 'stored_prompts.promptCollection');
-            })
-            ->where('prompts.publicFlag', '=', 1)
-            ->where('stored_prompts.user_id', '=', $currentUser)
-            ->get([
-                'prompts.id', 'prompts.user_id', 'collection', 'promptText',
-                'publicFlag', 'prompts.created_at', 'prompts.updated_at'
-            ]);
-
-        return response()->json([
-            'user prompts' =>$prompts,
-            'stored prompts' => $storedPrompts
-            ]);
+        return response()->json($prompts);
     }
 
     public function store(PromptRequest $request)
     {
         $prompt = new Prompt;
-        $prompt->user_id = Auth::guard()->user()->id;
-        $prompt->collection = $request->get('collection');
+        $prompt->creator_id = Auth::guard()->user()->id;
         $prompt->promptText = $request->get('promptText');
         
-        if ($request->get('publicFlag') !== null) {
-            $prompt->publicFlag = $request->get('publicFlag');
+        if ($request->get('creatorDeleted') !== null) {
+            $prompt->creatorDeleted = $request->get('creatorDeleted');
         }
         
         $prompt->save();
@@ -104,7 +85,7 @@ class PromptController extends Controller
             $prompt->publicFlag = $request->get('publicFlag');
         }
         
-        $promptOwnedByUser = $prompt->user_id === Auth::guard()->user()->id;
+        $promptOwnedByUser = $prompt->creator_id === Auth::guard()->user()->id;
         
         if ($promptOwnedByUser && $prompt->save()) {
             return 'Prompt updated.';
