@@ -38,6 +38,7 @@ $api->version('v1', function (Router $api) {
         $api->get('prompts', 'App\\Api\\V1\\Controllers\\PromptController@userPrompts');
 
         $api->get('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@nickname');
+        $api->put('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@update');
 
         $api->get('storedPromptCollections', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@storedPromptCollections');
         $api->post('storedPromptCollections', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@store');
