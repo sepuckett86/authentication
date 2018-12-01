@@ -59,35 +59,34 @@ class PromptController extends Controller
         if ($request->get('creatorDeleted') !== null) {
             $prompt->creatorDeleted = $request->get('creatorDeleted');
         }
-        
-        $prompt->save();
-        
         if ($prompt->save()) {
-            return 'Prompt saved.';
+            return 'Prompt created.';
         } else {
-            return 'Prompt save failed.';
+            return 'Prompt create failed.';
         }
     }
 
+    /* 
+    * Only edit if user created the prompt. If the prompt is being used by gminder,
+    * create new prompt and set creatorDeleted = 1. Otherwise, edit existing prompt.
+    */
     public function update(PromptRequest $request, $id)
     { 
+        $gminders = Gminder::where('prompt_id', '=', $id)->get();
         $prompt = Prompt::find($id);
         
-        if ($request->get('collection') !== null) {
-            $prompt->collection = $request->get('collection');
+        $promptOwnedByUser = $prompt->creator_id === Auth::guard()->user()->id;
+        if (!$promptOwnedByUser) {
+            return "Unable to edit another user's prompt.";
         }
-        
-        if ($request->get('promptText') !== null) {
+        if (count($gminders) > 0) {
+            $prompt->creatorDeleted = 1;
+            return $this->store($request);
+        } elseif ($request->get('promptText') !== null) {
             $prompt->promptText = $request->get('promptText');
         }
-        
-        if ($request->get('publicFlag') !== null) {
-            $prompt->publicFlag = $request->get('publicFlag');
-        }
-        
-        $promptOwnedByUser = $prompt->creator_id === Auth::guard()->user()->id;
-        
-        if ($promptOwnedByUser && $prompt->save()) {
+
+        if ($prompt->save()) {
             return 'Prompt updated.';
         } else {
            return 'Prompt update failed.';
