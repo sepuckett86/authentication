@@ -59,8 +59,15 @@ class GminderTable extends React.Component {
 
   handleClickUpload() {
     console.log(this.state.gmindersFromCSV)
+    let arrayOfGminderMainResponses = [];
+    this.props.gminders.forEach(gminder => {
+      arrayOfGminderMainResponses.push(gminder.mainResponse)
+    })
+    // mainResponses must be unique
     this.state.gmindersFromCSV.forEach(goodminder => {
-      this.props.postGoodminder(goodminder, ()=> {})
+      if (!arrayOfGminderMainResponses.includes(goodminder.mainResponse)) {
+        this.props.postGoodminder(goodminder, ()=> {})
+      }
     })
   }
 
@@ -523,7 +530,7 @@ class GminderTable extends React.Component {
             <div className="card card-body">
             <CSVReader
               cssclassName="react-csv-input"
-              label="Select CSV with Goodminders to Upload. Note: CSV must be in CSV template format, and not contain quotation marks."
+              label="Select CSV with Goodminders to Upload. Note: CSV must be in CSV template format. Quotation marks may be problematic, so avoid if possible. Goodminder will only be added if the mainResponse is unique."
               onFileLoaded={this.handleForce}
             />
             <button onClick={this.handleClickUpload}>Add Goodminders from Uploaded CSV to Database</button>

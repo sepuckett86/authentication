@@ -22,6 +22,10 @@ class SignUp extends Component {
       [event.target.name]: event.target.value
     })
   }
+ // from http://www.frontcoded.com/javascript-create-unique-ids.html
+  uniqueId() {
+    return 'user-' + Math.random().toString(36).substr(2, 16);
+  }
 
   passTest(test, message, arr) {
     if (test)
@@ -44,7 +48,12 @@ class SignUp extends Component {
     // If there are no error messages
     if (passwordFails.length === 0) {
       // API_request action
-      this.props.postSignup(this.state.email, this.state.password, this.state.password_again, () => {
+      this.props.postSignup(
+        this.state.email,
+        this.uniqueId(),
+        this.state.password,
+        this.state.password_again,
+        () => {
         this.setState({submitted: true});
       });
 

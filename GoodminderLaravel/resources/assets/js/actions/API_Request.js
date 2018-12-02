@@ -55,7 +55,7 @@ export const deleteUser = () => async dispatch => {
   }
 }
 
-export const postSignup = (email, password, password_confirmation, callback) => async dispatch => {
+export const postSignup = (email, nickname, password, password_confirmation, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/auth/signup';
     let options;
@@ -64,6 +64,7 @@ export const postSignup = (email, password, password_confirmation, callback) => 
     }
     const content = {
         'name': 'User',
+        nickname,
         email,
         password,
         password_confirmation
