@@ -35,6 +35,7 @@ class GminderController extends Controller
         $gminders = DB::table('gminders')
             ->leftJoin('prompts', 'gminders.prompt_id', '=', 'prompts.id')
             ->where('gminders.id', '=', $id)
+            ->where('gminders.user_id', '=', $currentUser)
             ->select('gminders.*', 'prompts.promptText')
             ->get();
 
@@ -45,10 +46,9 @@ class GminderController extends Controller
     {   
         $currentUser = Auth::guard()->user()->id;
 
-        $gminders = Gminder::where('user_id', $currentUser)->get();
-
         $gminders = DB::table('gminders')
             ->leftJoin('prompts', 'gminders.prompt_id', 'prompts.id')
+            ->where('gminders.user_id', '=', $currentUser)
             ->select('gminders.*', 'prompts.promptText')
             ->get();
 
