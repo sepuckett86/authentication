@@ -40,6 +40,12 @@ $api->version('v1', function (Router $api) {
         $api->get('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@nickname');
         $api->put('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@update');
 
+        $api->get('promptCollections', 'App\\Api\\V1\\Controllers\\promptCollectionController@promptCollections');
+        $api->get('promptCollections/{id}', 'App\\Api\\V1\\Controllers\\promptCollectionController@promptCollection');
+        $api->post('promptCollections', 'App\\Api\\V1\\Controllers\\promptCollectionController@store');
+        $api->put('promptCollections/{id}', 'App\\Api\\V1\\Controllers\\promptCollectionController@update');
+        $api->delete('promptCollections/{id}', 'App\\Api\\V1\\Controllers\\promptCollectionController@destroy');
+
         $api->get('storedPromptCollections', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@storedPromptCollections');
         $api->post('storedPromptCollections', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@store');
         $api->put('storedPromptCollections/{id}', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@update');
