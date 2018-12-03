@@ -155,14 +155,18 @@ class AddPrompt extends React.Component {
 
       <div className="grid-upper-right header-text">
       <div>
-      <button className="btn-flat btn-blue">{this.props.nickname}</button>{" "}|{" "}<button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button>
+      { this.props.currentPrompt.creator_id === this.props.user_id ?
+        <button className="btn-flat btn-blue">{this.props.user_name}</button> :
+        <div><button className="btn-flat btn-blue">{this.props.nickname}</button>{" "}|{" "}<button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button></div>}
       </div>
       </div>
-
       {this.props.currentPrompt.promptText ?
         (<div className="grid-center paragraph-text" style={style}>
         {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center">
-        {Object.keys(this.props.responseError).length !== 0 ? 'Could not retrieve prompts from server' : <Loading />}
+        {Object.keys(this.props.responseError).length !== 0 ? 'Could not retrieve prompts from server' :
+          <div>{this.props.prompts.length === 0 ? 'There are no prompt collections. Add prompt collection.' : <Loading /> }</div>
+
+      }
         </div>}
       <div className="grid-lower-left">
         <div>
@@ -219,7 +223,9 @@ function mapStateToProps(state) {
     prompts: state.prompts,
     currentPrompt: state.navigation.currentPrompt,
     nickname: state.navigation.nickname,
-    responseError: state.response.responseError
+    responseError: state.response.responseError,
+    user_id: state.user.backend.id,
+    user_name: state.user.name
    }
 }
 

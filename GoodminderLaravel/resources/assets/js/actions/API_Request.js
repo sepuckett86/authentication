@@ -219,10 +219,10 @@ export const getPrompts = (callback) => async dispatch => {
     const options = optionsWithToken();
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
-      const user_prompts = response.data['user prompts'];
-      const stored_prompts = response.data['stored prompts'];
-      const all_prompts = user_prompts.concat(stored_prompts);
-      dispatch({ type: GET_PROMPTS, payload: all_prompts });
+      // const user_prompts = response.data['user prompts'];
+      // const stored_prompts = response.data['stored prompts'];
+      // const all_prompts = user_prompts.concat(stored_prompts);
+      dispatch({ type: GET_PROMPTS, payload: response.data });
       callback();
     } else {
       console.log('No token')
