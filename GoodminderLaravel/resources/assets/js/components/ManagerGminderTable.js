@@ -8,6 +8,8 @@ import * as actions from "../actions";
 import {CSVLink} from "react-csv";
 import CSVReader from "react-csv-reader";
 
+import { replaceQuotes } from './functions';
+
 // This is the front-end of a database manager.
 // How you interact and change the database.
 class GminderTable extends React.Component {
@@ -65,8 +67,10 @@ class GminderTable extends React.Component {
     })
     // mainResponses must be unique
     this.state.gmindersFromCSV.forEach(goodminder => {
+      let dequotedGminder = goodminder;
       if (!arrayOfGminderMainResponses.includes(goodminder.mainResponse)) {
-        this.props.postGoodminder(goodminder, ()=> {})
+        dequotedGminder.mainResponse = replaceQuotes(goodminder.mainResponse)
+        this.props.postGoodminder(dequotedGminder, ()=> {})
       }
     })
   }
