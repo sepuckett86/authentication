@@ -534,7 +534,7 @@ class GminderTable extends React.Component {
             <div className="card card-body">
             <CSVReader
               cssclassName="react-csv-input"
-              label="Select CSV with Goodminders to Upload. Note: CSV must be in CSV template format. Quotation marks may be problematic, so avoid if possible. Goodminder will only be added if the mainResponse is unique."
+              label="Select CSV file with goodminders to upload. It must have the .csv extension and be a modified version of the downloadable CSV template, with the same column order. Goodminder will only be added if the mainResponse is unique."
               onFileLoaded={this.handleForce}
             />
             <button onClick={this.handleClickUpload}>Add Goodminders from Uploaded CSV to Database</button>
