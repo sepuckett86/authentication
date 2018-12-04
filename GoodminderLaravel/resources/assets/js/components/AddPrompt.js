@@ -31,10 +31,8 @@ class AddPrompt extends React.Component {
         // Check if there is data in prompts
         if (this.props.prompts.length !== 0 && !this.props.currentPrompt.id) {
           this.changePrompt();
-        } else {
-          if (this.props.currentPrompt === {}) {
-            this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
-          }
+        } else if (this.props.currentPrompt === {}) {
+            this.props.setCurrentPrompt({promptText: 'No prompt available'});
         }
       });
   }
@@ -154,17 +152,23 @@ class AddPrompt extends React.Component {
         </div>
 
       <div className="grid-upper-right header-text">
+
       <div>
       { this.props.currentPrompt.creator_id === this.props.user_id ?
-        <button className="btn-flat btn-blue">{this.props.user_name}</button> :
-        <div><button className="btn-flat btn-blue">{this.props.nickname}</button>{" "}|{" "}<button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button></div>}
+        (<div>
+          <button type="button" onClick={this.handleClick} data-tip="You wrote this prompt" className="btn-flat btn-blue">{this.props.user_name}</button>
+        </div>) :
+        <div><button className="btn-flat btn-blue">{this.props.nickname}</button>
+        { this.props.nickname && this.props.currentPrompt.collection ? <div>{" "}|{" "}</div> : null }
+
+        <button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button></div> }
       </div>
       </div>
       {this.props.currentPrompt.promptText ?
         (<div className="grid-center paragraph-text" style={style}>
         {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center">
         {Object.keys(this.props.responseError).length !== 0 ? 'Could not retrieve prompts from server' :
-          <div>{this.props.prompts.length === 0 ? 'There are no prompt collections. Add prompt collection.' : <Loading /> }</div>
+          <div><Loading /></div>
 
       }
         </div>}
@@ -213,6 +217,7 @@ class AddPrompt extends React.Component {
       <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
         Create Goodminder
       </button>
+
       <ReactTooltip delayShow={200}/>
     </div>)
   }

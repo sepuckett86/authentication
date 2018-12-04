@@ -4,6 +4,8 @@ import * as actions from '../actions';
 import requireAuth from './auth/requireAuth';
 import { Link } from 'react-router-dom';
 
+import { textFails } from './functions';
+
 class Settings extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +18,43 @@ class Settings extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-
+    this.props.clearResponse();
+    this.props.setAuthError({username: '', name: ''})
   }
+
   handleClick(e) {
+    // Make requests to backend to change data
+    if (e.currentTarget.name === this.state.edit) {
+      switch(e.currentTarget.name) {
+        case 'editName':
+          this.props.clearError();
+          if (textFails(this.state.inputName)) {
+            this.props.setAuthError({name: textFails(this.state.inputName)[0], username: ''});
+            break;
+          }
+          this.props.putUser(this.state.inputName, this.props.user.nickname, this.props.user.backend.id, ()=> {
+            this.props.getUser();
+          })
+          break;
+        case 'editUsername':
+          this.props.clearError();
+          if (textFails(this.state.inputUsername)) {
+            this.props.setAuthError({username: textFails(this.state.inputUsername)[0], name: ''});
+            break;
+          }
+        this.props.putUser(this.props.user.name, this.state.inputUsername, this.props.user.backend.id, ()=> {
+          this.props.getUser();
+        })
+        if (this.props.responseError) {
+          this.setState({
+            inputUsername: ''
+          })
+        }
+          break;
+        default:
+          break;
+      }
+    }
     // Change this.state.edit to reflect the field being edited
     if (e.currentTarget.name === 'editEmail' ||
         e.currentTarget.name === 'editName' ||
@@ -33,17 +69,7 @@ class Settings extends Component {
         })
       }
     }
-    // Make requests to backend to change data
-    switch(e.currentTarget.name) {
-      case 'editName':
-        // call to backend to change name
-        break;
-      case 'editUsername':
-      // call to backend to change name
-        break;
-      default:
-        break;
-    }
+
   }
 
   handleChange(e) {
@@ -129,9 +155,11 @@ class Settings extends Component {
         <h3>Private</h3>
         {this.renderEdit('editEmail')}
         {this.renderEdit('editName')}
+        {this.props.error ? null || <div>{this.props.error.name}<br /></div> : null}
         <br />
         <h3>Public</h3>
         {this.renderEdit('editUsername')}
+        {this.props.error ? this.props.error.username : null}
         </div>
         <br />
         <button className="btn btn-green" onClick={() => {console.log('Not enabled yet')}}>Change password</button>
@@ -155,7 +183,9 @@ class Settings extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    error: state.auth.errorMessage,
+    responseError: state.response.responseError
   };
 }
 
