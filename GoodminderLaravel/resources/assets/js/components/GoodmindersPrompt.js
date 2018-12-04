@@ -8,11 +8,11 @@ class Prompt extends React.Component {
 
 
   render() {
-    const prompt = this.props.prompt.promptText;
     const style = {
       fontSize: '20px'
     }
     const gminder = this.props.currentGM;
+    const prompt = gminder.promptText;
     const date = gminder.date;
     return(
       <div id="prompt">

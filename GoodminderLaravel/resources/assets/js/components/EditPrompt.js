@@ -95,7 +95,7 @@ class EditPrompt extends React.Component {
       <div className="g-box">
         <div className="large">
 
-        <p className="lato" style={style}>{this.props.prompt.promptText}</p>
+        <p className="lato" style={style}>{this.props.gminder.promptText}</p>
         </div>
       </div>
       <br />
