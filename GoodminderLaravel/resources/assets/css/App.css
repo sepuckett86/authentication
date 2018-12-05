@@ -30,7 +30,10 @@ body {
 
 /* END APP SIZING */
 
-
+.card-body-menu {
+  height: 300px;
+  overflow: scroll;
+}
 
 /* FONTS */
 
