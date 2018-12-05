@@ -32,6 +32,7 @@ class Navbar extends Component {
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                           <Link to="/" className="dropdown-item" onClick={() => {this.props.changeHomeDisplay('goodminders')}}>Home</Link>
                           <Link to="/settings" className="dropdown-item">Settings</Link>
+                          <Link to="/manager" className="dropdown-item">Manager</Link>
                           <div className="dropdown-divider"></div>
                           <Link to="/intro" className="dropdown-item">Welcome</Link>
                           <Link to="/about" className="dropdown-item" >About</Link>

@@ -21,6 +21,7 @@ import Legal from './Legal';
 import Reset from './auth/Reset';
 import ResetBegin from './auth/ResetBegin';
 import Home from './Home';
+import Manager from './Manager';
 
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
           <Route path="/contact" component={Contact} />
           <Route path="/legal" component={Legal} />
           <Route path="/faq" component={Faq} />
+          <Route path="/manager" component={Manager} />
         </div>
 
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Link } from 'react-router-dom';
 
 //Add CSVDownload to import if want to use it
 import {CSVLink} from 'react-csv';
@@ -150,13 +151,15 @@ class More extends React.Component {
 
 
         <br />
+<Link to="/manager">
+<button
+name="Manage Database"
+className='btn btn-custom'
+onClick={() => this.props.changeManagerDisplay('')}
+id="manager"
+>Manage Database</button>
+</Link>
 
-        <button
-        name="Manage Database"
-        className='btn btn-custom'
-        onClick={() => this.props.changeHomeDisplay('manager')}
-        id="manager"
-        >Manage Database</button>
         <br />
 
         <button
