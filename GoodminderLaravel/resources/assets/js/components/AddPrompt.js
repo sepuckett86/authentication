@@ -138,15 +138,15 @@ class AddPrompt extends React.Component {
           <button onClick={() => {this.props.setCurrentPrompt({}); this.props.changeHomeDisplay('promptCreateEdit')}} className="dropdown-item btn-dropdown">
             Create New Prompt
           </button>
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
-            View Custom Prompts
-          </button>
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+          <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptTable')} className="dropdown-item">
+            View Prompts
+          </Link>
+          <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptCollections')} className="dropdown-item">
             Manage Prompt Collections
-          </button>
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+          </Link>
+          <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptCollections')} className="dropdown-item">
             Find More Prompts
-          </button>
+          </Link>
           </div>
         </div>
         </div>

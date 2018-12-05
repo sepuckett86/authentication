@@ -121,7 +121,9 @@ class PromptCollectionCreate extends React.Component {
               </div>
           </form>
           { this.state.promptsToAdd.length !== 0 ?
-          <div><ul className="list-group">
+          <div>
+          <p>Prompts In Collection</p>
+          <ul className="list-group">
                     {
                       this.state.promptsToAdd.map((prompt, i) => {
                         return (
