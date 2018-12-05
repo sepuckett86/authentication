@@ -14,9 +14,7 @@ class PromptCollectionCreate extends React.Component {
       inputTitle: "",
       inputDescription: "",
       list1: [],
-      list2: [],
-      promptPages: 0,
-      currentPage: 1
+      list2: []
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -83,7 +81,7 @@ class PromptCollectionCreate extends React.Component {
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
-  
+
   renderSections(name) {
     if (name === "Prompts for New Collection") {
       return this.state.list2.map(section => {
@@ -122,27 +120,12 @@ class PromptCollectionCreate extends React.Component {
     }
   }
 
-  makePromptPages() {
-    const numberOfPrompts = this.props.prompts.length;
-    let numberOfPages;
-    if (numberOfPrompts / 10 > 0) {
-      if (numberOfPrompts % 10 !== 0) {
-        numberOfPages = numberOfPrompts / 10 + 1;
-      } else if (numberOfPrompts % 10 === 0) {
-        numberOfPages = numberOfPrompts / 10;
-      }
-    } else {
-      numberOfPages = 1;
-    }
-    return numberOfPages;
-  }
-
   createCollection() {
     return {
-      collection: this.state.inputCollection,
+      collection: this.state.inputTitle,
       description: this.state.inputDescription,
       publicFlag: 0,
-      prompts: this.state.promptsToAdd
+      prompts: this.state.list2
     };
   }
 
@@ -205,7 +188,7 @@ class PromptCollectionCreate extends React.Component {
         </div>
 
         <br />
-        {console.log(this.state)}
+
         <div className="box">
           <h1>Create New Prompt Collection</h1>
           <form>
@@ -216,15 +199,15 @@ class PromptCollectionCreate extends React.Component {
                 value={this.state.inputTitle}
                 onChange={this.handleChange}
                 className="form-control"
-                name="inputCollection"
+                name="inputTitle"
               />
             </div>
             <div className="form-group">
               <label>Description</label>
               <textarea
                 className="form-control"
-                name="inputPrompt"
-                value={this.state.inputPrompt}
+                name="inputDescription"
+                value={this.state.inputDescription}
                 onChange={this.handleChange}
                 rows="3"
               />
