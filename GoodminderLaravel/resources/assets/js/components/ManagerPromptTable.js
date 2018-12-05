@@ -142,7 +142,6 @@ class PromptTable extends React.Component {
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Collection</th>
                 <th scope="col">Prompt</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Respond</th>
@@ -155,7 +154,6 @@ class PromptTable extends React.Component {
               return (
                   <tr key={this.generateKey(i)}>
                     <th scope="row">{prompt.id}</th>
-                    <td>{prompt.collection}</td>
                     <td>{prompt.promptText}</td>
                     <td>
                     <Link to="/">
