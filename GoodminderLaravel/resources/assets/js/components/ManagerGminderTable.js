@@ -3,6 +3,7 @@ import React from "react";
 import MediaQuery from "react-responsive";
 import {connect} from "react-redux";
 import * as actions from "../actions";
+import { Link } from 'react-router-dom';
 
 // CSV capabilities
 import {CSVLink} from "react-csv";
@@ -453,6 +454,7 @@ class GminderTable extends React.Component {
                         {gminder.reason ? gminder.reason : null}
                       </td>
                       <td>
+                      <Link to="/">
                         <button
                           className="btn-flat btn-blue"
                           type="button"
@@ -461,6 +463,7 @@ class GminderTable extends React.Component {
                         >
                           <i className="fas fa-edit" />
                         </button>
+                        </Link>
                       </td>
                     </tr>
                   );
@@ -497,6 +500,7 @@ class GminderTable extends React.Component {
                         {gminder.reason ? gminder.reason : null}
                       </td>
                       <td>
+                      <Link to="/">
                         <button
                           className="btn-flat btn-blue"
                           type="button"
@@ -505,6 +509,7 @@ class GminderTable extends React.Component {
                         >
                           <i className="fas fa-edit" />
                         </button>
+                        </Link>
                       </td>
                     </tr>
                   );
@@ -518,18 +523,18 @@ class GminderTable extends React.Component {
               Download CSV of all data
             </button>
           </CSVLink>
+          {' '}
           <CSVLink data={this.makeEmptyCSVArray()}>
             <button className="btn btn-green" type="button">
               Download CSV Template
             </button>
           </CSVLink>
 
-
-          <p>
+          <br />
             <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               Upload CSV
             </button>
-          </p>
+            <br />
           <div className="collapse" id="collapseExample">
             <div className="card card-body">
             <CSVReader
@@ -540,7 +545,6 @@ class GminderTable extends React.Component {
             <button onClick={this.handleClickUpload}>Add Goodminders from Uploaded CSV to Database</button>
             </div>
           </div>
-          <br />
           <a id='end' href="#beginning">Scroll to top</a>
           <MediaQuery query="(max-width: 576px)">
             <hr />

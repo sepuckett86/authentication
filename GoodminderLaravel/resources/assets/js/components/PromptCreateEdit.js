@@ -20,7 +20,7 @@ class PromptCreateEdit extends React.Component {
     if (event.target.name === 'confirmCreate') {
       const prompt = this.newPrompt();
       this.props.postPrompt(prompt, () => {
-        this.props.getPrompts();
+        this.props.getPrompts(()=> {});
         this.props.changeHomeDisplay('goodminders');
       })
     }
@@ -28,14 +28,14 @@ class PromptCreateEdit extends React.Component {
       const prompt = this.newPrompt();
       const id = this.props.currentPrompt.id;
       this.props.putPrompt(prompt, id, () => {
-        this.props.getPrompts();
+        this.props.getPrompts(()=> {});
         this.props.changeHomeDisplay('goodminders');
       })
     }
     if (event.target.name === 'confirmDelete') {
       const id = this.props.currentPrompt.id;
       this.props.deletePrompt(id, () => {
-        this.props.getPrompts();
+        this.props.getPrompts(()=> {});
         this.props.changeHomeDisplay('manager');
       })
     }

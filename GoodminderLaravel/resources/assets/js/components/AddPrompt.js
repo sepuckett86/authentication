@@ -196,7 +196,7 @@ class AddPrompt extends React.Component {
             </button>
           </p>
           <div className="collapse" id="collapseExample">
-          <p className="paragraph-text">Reason</p>
+          <p className="paragraph-text">Reason for your answer</p>
           <textarea className="form-control" name='inputReason' value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
           <br/>
 
@@ -204,7 +204,7 @@ class AddPrompt extends React.Component {
                 <label>Collection</label>
                 <input type="text" value={this.state.inputCollection}
                   onChange={this.handleChange} className="form-control"
-                  name="inputCollection" placeholder="Example: Funny"/>
+                  name="inputCollection" />
             </div>
             <br />
           </div>

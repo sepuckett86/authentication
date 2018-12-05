@@ -96,7 +96,6 @@ class Manager extends React.Component {
           onClick={this.handleClick}
           >Prompt Collections</button>
           <br />
-
           <Link to="/" >
           <button
           id='random'

@@ -67,7 +67,7 @@ class AddCustom extends React.Component {
                   <br />
                   <div className="form-group">
                       <label>Collection</label>
-                      <input type="text" className="form-control" value={this.state.inputCollection} onChange={this.handleChange} id="custom-collection" placeholder="Example: Affirmations"/>
+                      <input type="text" className="form-control" value={this.state.inputCollection} onChange={this.handleChange} id="custom-collection" />
                   </div>
               </div>
           </form>
