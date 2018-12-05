@@ -129,10 +129,8 @@ class PromptTable extends React.Component {
                   id="sort"
                   defaultValue="id"
                 >
-                  <option value="id">ID</option>
-                  <option value="category">Category</option>
-                  <option value="rating">Rating</option>
-                  <option value="author">Author</option>
+                  <option value="id">Date Added</option>
+                  <option value="alphabetical">Alphabetical</option>
                 </select>
               </div>
             </div>
