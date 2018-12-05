@@ -162,7 +162,9 @@ class Settings extends Component {
         {this.props.error ? this.props.error.username : null}
         </div>
         <br />
-        <button className="btn btn-green" onClick={() => {console.log('Not enabled yet')}}>Change password</button>
+        <Link to='/reset'>
+        <button className="btn btn-green">Change password</button>
+        </Link>
         <br /><br />
         <button className="btn btn-green" onClick={() => {this.props.deleteUser()}}>Delete Account</button>
         <br /><br />

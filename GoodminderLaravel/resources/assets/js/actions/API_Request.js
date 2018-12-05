@@ -10,7 +10,7 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
-  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER } from './types';
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET } from './types';
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
@@ -129,6 +129,36 @@ export const postLogin = (email, password, callback) => async dispatch => {
 
   }
 };
+
+export const postReset = (token, email, password, password_confirmation, callback) => async dispatch => {
+  try {
+    if (tokenInLocalStorage()) {
+      const path = baseURL + 'api/auth/reset';
+      const content = {
+        token,
+        email,
+        password,
+        password_confirmation
+      };
+      const options = optionsWithToken();
+      // Update back-end to show that user is logged out
+      const response = await axios.post(path, content, options);
+      dispatch({ type: POST_RESET, payload: response });
+      dispatch({ type: AUTH_USER, payload: '' });
+      // Update local storage to remove token from browser
+      localStorage.removeItem('id_token');
+      sessionStorage.removeItem('myData');
+      callback();
+    } else if (!tokenInLocalStorage()) {
+      alert('You need to be logged in')
+      return 0;
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+
 
 // GOODMINDERS
 

@@ -28,6 +28,7 @@ export const CLEAR_AUTH_ERROR = 'clear_auth_error';
 export const RESPONSE = 'response';
 export const RESPONSE_ERROR = 'response_error';
 export const CLEAR_RESPONSE = 'clear_response';
+export const POST_RESET = 'post_reset';
 
 // User-specific Info
 export const GET_USER = 'get_user';

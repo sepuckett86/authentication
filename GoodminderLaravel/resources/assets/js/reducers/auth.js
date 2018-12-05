@@ -1,8 +1,9 @@
-import { AUTH_USER, AUTH_ERROR, CLEAR_AUTH_ERROR } from '../actions/types';
+import { AUTH_USER, AUTH_ERROR, CLEAR_AUTH_ERROR, POST_RESET } from '../actions/types';
 
 const INITIAL_STATE = {
   authenticated: '',
-  errorMessage: ''
+  errorMessage: '',
+  response: ''
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -13,6 +14,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, errorMessage: action.payload };
     case CLEAR_AUTH_ERROR:
       return { ...state, errorMessage: '' };
+    case POST_RESET:
+      return { ...state, response: action.payload}
     default:
       return state;
   }
