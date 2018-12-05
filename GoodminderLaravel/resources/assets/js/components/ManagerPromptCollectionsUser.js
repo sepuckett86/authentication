@@ -64,7 +64,11 @@ class User extends React.Component {
             </p>
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
-            <small className="text-muted"><button className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></button>{' '}<button className='btn-flat btn-blue'><i className="fas fa-trash"></i></button></small>
+            <small className="text-muted">
+            <span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
+            {' '}
+            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+            </small>
             </div>
             </a>
           </div>
@@ -85,10 +89,11 @@ class User extends React.Component {
   render() {
     return(
       <div>
-      <Link to='/'>
-      <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
-      </Link>
         {this.renderListGroup()}
+        <br />
+        <Link to='/'>
+        <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
+        </Link>
       </div>)
   }
 }
