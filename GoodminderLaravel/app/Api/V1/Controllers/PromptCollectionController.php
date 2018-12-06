@@ -11,6 +11,7 @@ use Auth;
 use App\StoredPromptCollection;
 use App\PromptCollection;
 use App\Prompt;
+use App\User;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use App\Api\V1\Requests\PromptRequest;
@@ -59,7 +60,17 @@ class PromptCollectionController extends Controller
     */
     public function promptCollections()
     {   
-        return response()->json(PromptCollection::where('publicFlag', '=', 1)->get());
+        $promptCollection = PromptCollection::where('publicFlag', '=', 1)->get();
+        
+        $promptCollection = \DB::table('users')
+            ->leftJoin('prompt_collections', 'prompt_collections.creator_id', '=', 'users.id')
+            ->where('prompt_collections.publicFlag', '=', 1)
+            ->get([
+                'prompt_collections.id', 'prompt_collections.creator_id',
+                'users.nickname', 'prompt_collections.collection', 'prompt_collections.description'
+            ]);
+
+        return response()->json($promptCollection);
     }
 
     /* 
