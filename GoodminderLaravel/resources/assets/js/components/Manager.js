@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import requireAuth from './auth/requireAuth';
+import { Link } from 'react-router-dom';
 
 import GminderTable from './ManagerGminderTable';
 import PromptTable from './ManagerPromptTable';
@@ -30,10 +32,9 @@ class Manager extends React.Component {
             <br />
 
           <button
-          id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeManagerDisplay('')}>
+          onClick={this.handleClick}>
           {' '}Back to Manage</button>
 
           <br />
@@ -41,12 +42,10 @@ class Manager extends React.Component {
       case 'promptTable':
         return (<div>
           <PromptTable/>
-
           <button
-          id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeManagerDisplay('')}>
+          onClick={this.handleClick}>
           {' '}Back to Manage</button>
           <br />
         </div>)
@@ -55,10 +54,10 @@ class Manager extends React.Component {
           <PromptCollection/>
             <br />
           <button
-          id='random'
+          id='promptCollections'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeManagerDisplay('promptCollections')}>
+          onClick={this.handleClick}>
           {' '}Back to Prompt Collections</button>
 
           <br />
@@ -67,19 +66,15 @@ class Manager extends React.Component {
         return (<div>
           <PromptCollections/>
             <br />
-
           <button
-          id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeManagerDisplay('')}>
+          onClick={this.handleClick}>
           {' '}Back to Manage</button>
-
           <br />
         </div>)
       default:
         return (<div>
-
           <button
           name="Table of All Goodminders"
           className='btn-custom btn'
@@ -101,19 +96,13 @@ class Manager extends React.Component {
           onClick={this.handleClick}
           >Prompt Collections</button>
           <br />
-          <button
-          id=''
-          name="Back"
-          className='btn btn-custom'
-          onClick={() => this.props.changeHomeDisplay('more')}>
-          {' '}Back to More</button>
-          <br />
+          <Link to="/" >
           <button
           id='random'
           name="Back"
           className='btn btn-custom'
-          onClick={() => this.props.changeHomeDisplay('goodminders')}>
-          <i className="fas fa-home"></i>{' '}Back to Home</button>
+          onClick={() => {this.props.changeHomeDisplay('goodminders')}}>
+          <i className="fas fa-home"></i>{' '}Back to Home</button></Link>
           <br />
         </div>)
     }
@@ -130,4 +119,4 @@ class Manager extends React.Component {
 function mapStateToProps(state) {
   return {managerDisplay: state.display.manager}
 }
-export default connect(mapStateToProps, actions)(Manager);
+export default connect(mapStateToProps, actions)(requireAuth(Manager, '/login'));;

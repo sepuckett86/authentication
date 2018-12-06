@@ -87,8 +87,9 @@ class Other extends React.Component {
   render() {
     return(
       <div>
+      {this.renderListGroup()}
+      <br />
       <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
-          {this.renderListGroup()}
       </div>)
   }
 }

@@ -33,6 +33,13 @@ export function changeAuth(payload) {
   }
 }
 
+export function setAuthError(payload) {
+  return {
+    type: AUTH_ERROR,
+    payload: payload
+  }
+}
+
 export function clearGoodminders() {
   return {
     type: CLEAR_GOODMINDERS,

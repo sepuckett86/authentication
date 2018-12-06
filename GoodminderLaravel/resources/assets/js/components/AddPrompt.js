@@ -31,10 +31,8 @@ class AddPrompt extends React.Component {
         // Check if there is data in prompts
         if (this.props.prompts.length !== 0 && !this.props.currentPrompt.id) {
           this.changePrompt();
-        } else {
-          if (this.props.currentPrompt === {}) {
-            this.props.setCurrentPrompt({promptText: 'No prompt available', collection: 'none'});
-          }
+        } else if (this.props.currentPrompt === {}) {
+            this.props.setCurrentPrompt({promptText: 'No prompt available'});
         }
       });
   }
@@ -140,29 +138,39 @@ class AddPrompt extends React.Component {
           <button onClick={() => {this.props.setCurrentPrompt({}); this.props.changeHomeDisplay('promptCreateEdit')}} className="dropdown-item btn-dropdown">
             Create New Prompt
           </button>
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
-            View Custom Prompts
-          </button>
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+          <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptTable')} className="dropdown-item">
+            View Prompts
+          </Link>
+          <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptCollections')} className="dropdown-item">
             Manage Prompt Collections
-          </button>
-          <button onClick={() => this.props.changeHomeDisplay('manager')} className="dropdown-item btn-dropdown">
+          </Link>
+          <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptCollections')} className="dropdown-item">
             Find More Prompts
-          </button>
+          </Link>
           </div>
         </div>
         </div>
 
       <div className="grid-upper-right header-text">
-      <div>
-      <button className="btn-flat btn-blue">{this.props.nickname}</button>{" "}|{" "}<button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button>
-      </div>
-      </div>
 
+      <div>
+      { this.props.currentPrompt.creator_id === this.props.user_id ?
+        (<div>
+          <button type="button" onClick={this.handleClick} data-tip="You wrote this prompt" className="btn-flat btn-blue">{this.props.user_name}</button>
+        </div>) :
+        <div><button className="btn-flat btn-blue">{this.props.nickname}</button>
+        { this.props.nickname && this.props.currentPrompt.collection ? <div>{" "}|{" "}</div> : null }
+
+        <button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button></div> }
+      </div>
+      </div>
       {this.props.currentPrompt.promptText ?
         (<div className="grid-center paragraph-text" style={style}>
         {this.props.currentPrompt.promptText}  </div> ): <div className="grid-center">
-        {Object.keys(this.props.responseError).length !== 0 ? 'Could not retrieve prompts from server' : <Loading />}
+        {Object.keys(this.props.responseError).length !== 0 ? 'Could not retrieve prompts from server' :
+          <div><Loading /></div>
+
+      }
         </div>}
       <div className="grid-lower-left">
         <div>
@@ -188,7 +196,7 @@ class AddPrompt extends React.Component {
             </button>
           </p>
           <div className="collapse" id="collapseExample">
-          <p className="paragraph-text">Reason</p>
+          <p className="paragraph-text">Reason for your answer</p>
           <textarea className="form-control" name='inputReason' value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
           <br/>
 
@@ -196,7 +204,7 @@ class AddPrompt extends React.Component {
                 <label>Collection</label>
                 <input type="text" value={this.state.inputCollection}
                   onChange={this.handleChange} className="form-control"
-                  name="inputCollection" placeholder="Example: Funny"/>
+                  name="inputCollection" />
             </div>
             <br />
           </div>
@@ -209,6 +217,7 @@ class AddPrompt extends React.Component {
       <button id="create-goodminder" type="button" className="btn btn-green" data-toggle="modal" onClick={this.handleClick} data-target="#exampleModal">
         Create Goodminder
       </button>
+
       <ReactTooltip delayShow={200}/>
     </div>)
   }
@@ -219,7 +228,9 @@ function mapStateToProps(state) {
     prompts: state.prompts,
     currentPrompt: state.navigation.currentPrompt,
     nickname: state.navigation.nickname,
-    responseError: state.response.responseError
+    responseError: state.response.responseError,
+    user_id: state.user.backend.id,
+    user_name: state.user.name
    }
 }
 

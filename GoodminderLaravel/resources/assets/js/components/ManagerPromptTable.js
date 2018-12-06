@@ -1,7 +1,9 @@
 import React from 'react';
 
+import MediaQuery from "react-responsive";
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Link } from 'react-router-dom';
 
 //Add CSVDownload to import if want to use it
 import {CSVLink} from 'react-csv';
@@ -77,13 +79,15 @@ class PromptTable extends React.Component {
       <div>
 
         <div className="box">
-        <div id="prompts">
+        <div id="beginning">
           <h1>Manage Prompts</h1>
           <p>Here is where you can view and respond to all prompts and create and edit your own custom prompts</p>
           <hr />
-
+          <Link to="/">
           <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
-          <br /><br />
+          </Link>
+          <br />
+          <br />
           <div className="row justify-content-center">
             <div className="col col-12 col-sm-6">
               <div className="input-group mb-3">
@@ -125,20 +129,19 @@ class PromptTable extends React.Component {
                   id="sort"
                   defaultValue="id"
                 >
-                  <option value="id">ID</option>
-                  <option value="category">Category</option>
-                  <option value="rating">Rating</option>
-                  <option value="author">Author</option>
+                  <option value="id">Date Added</option>
+                  <option value="alphabetical">Alphabetical</option>
                 </select>
               </div>
             </div>
           </div>
-
+          <a href="#end">Scroll to bottom</a>
+          {/* MediaQuery for large screen */}
+          <MediaQuery query="(min-width: 576px)">
           <table className="table table-striped" style={{'textAlign': 'left'}}>
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Collection</th>
                 <th scope="col">Prompt</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Respond</th>
@@ -151,13 +154,17 @@ class PromptTable extends React.Component {
               return (
                   <tr key={this.generateKey(i)}>
                     <th scope="row">{prompt.id}</th>
-                    <td>{prompt.collection}</td>
                     <td>{prompt.promptText}</td>
                     <td>
+                    <Link to="/">
                     <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                    </Link>
                     </td>
+
                     <td>
+                    <Link to="/">
                     <button className='btn-flat btn-blue' type='button' name='respond' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
+                    </Link>
                     </td>
                   </tr>
               )
@@ -165,7 +172,53 @@ class PromptTable extends React.Component {
           }
         </tbody>
         </table>
-        <CSVLink data={this.makeCSVArrayPrompts()} >Download CSV of all data</CSVLink>
+        </MediaQuery>
+
+        {/* MediaQuery for small screen */}
+        <MediaQuery query="(max-width: 575px)">
+        <table className="table table-striped" style={{'textAlign': 'left'}}>
+          <thead>
+            <tr>
+              <th scope="col">Prompt</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+        {
+          this.props.prompts.map((prompt, i) => {
+            return (
+                <tr key={this.generateKey(i)}>
+                  <td scope="row">{prompt.promptText}</td>
+                  <td>
+                  <Link to="/">
+                  <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                  </Link>
+                  </td>
+
+                  <td>
+                  <Link to="/">
+                  <button className='btn-flat btn-blue' type='button' name='respond' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
+                  </Link>
+                  </td>
+                </tr>
+            )
+          })
+        }
+      </tbody>
+      </table>
+      </MediaQuery>
+
+        <CSVLink data={this.makeCSVArrayPrompts()}>
+        <button className="btn btn-green" type="button">
+          Download CSV of all data
+        </button>
+        </CSVLink>
+        <br />
+        <a id='end' href="#beginning">Scroll to top</a>
+        <MediaQuery query="(max-width: 576px)">
+          <hr />
+        </MediaQuery>
         </div>
         </div>
 

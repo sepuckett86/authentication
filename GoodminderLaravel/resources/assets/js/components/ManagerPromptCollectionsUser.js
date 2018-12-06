@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Link } from 'react-router-dom';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -30,7 +31,7 @@ class User extends React.Component {
       this.setState({ display: 'other'})
     }
     if (event.target.name === 'createNewCollection') {
-      console.log('Function not enabled yet')
+      this.props.changeHomeDisplay('promptCollectionCreate')
     }
   }
 
@@ -42,10 +43,18 @@ class User extends React.Component {
       user.map((collection, i) => {
           return (
         <div key={i} className="list-group alignL">
-          <a
-            href="#"
+          <div
             className="list-group-item list-group-item-action flex-column align-items-start"
           >
+          <a className='btn-flat' onClick={ () => {
+              this.props.getPromptCollection(
+                collection.prompt_collection_id,
+                ()=> {
+                  this.props.setCurrentStoredPromptCollection(collection);
+                  this.props.changeManagerDisplay('promptCollection');
+                })
+          }
+          }>
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.publicFlag}</h5>
               <small className="text-muted">{collection.promptCount} prompts</small>
@@ -55,9 +64,14 @@ class User extends React.Component {
             </p>
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
-            <small className="text-muted"><button className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></button>{' '}<button className='btn-flat btn-blue'><i className="fas fa-trash"></i></button></small>
+            <small className="text-muted">
+            <span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
+            {' '}
+            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+            </small>
             </div>
-          </a>
+            </a>
+          </div>
         </div>
       );
     })
@@ -75,8 +89,11 @@ class User extends React.Component {
   render() {
     return(
       <div>
-      <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
         {this.renderListGroup()}
+        <br />
+        <Link to='/'>
+        <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
+        </Link>
       </div>)
   }
 }

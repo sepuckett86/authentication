@@ -14,6 +14,9 @@ class ManagerPromptCollection extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this);
   }
+  componentDidMount() {
+    this.props.getNickname(this.props.collectionInfo.creator_id, ()=>{});
+  }
 
   handleClick(e) {
     if (e.currentTarget.name === 'delete') {
@@ -55,15 +58,10 @@ class ManagerPromptCollection extends React.Component {
       </tbody>
       </table>
       )
-    } else {
+    } else if (this.props.collectionInfo.creator_id !== this.props.user_id) {
       return(
         <table className="table table-striped" style={{'textAlign': 'left'}}>
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Prompt</th>
-            </tr>
-          </thead>
+
           <tbody>
         {
           this.props.collection.map((prompt, i) => {
@@ -83,7 +81,7 @@ class ManagerPromptCollection extends React.Component {
 
   render() {
     return(
-      <div className="container">
+      <div className="">
 
       {/* Modal - Must be outside of responsive design displays */}
       <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -107,11 +105,17 @@ class ManagerPromptCollection extends React.Component {
       </div>
 
         <div className="box">
-        <h3>View Prompt Collection: {this.props.collectionInfo.collection}</h3>
+        <h2>Prompt Collection</h2>
+        <div className="alignL g-box">
+        <h4>Title: {this.props.collectionInfo.collection}</h4>
+        <h4>Creator: {this.props.nickname}</h4>
+        <br />
+        <h4><u>Description</u></h4>
         <p>{this.props.collectionInfo.description}</p>
           <br />
+          <h4><u>Prompts in collection</u></h4>
           {this.chooseTable()}
-
+          </div>
         </div>
         <br />
       </div>
@@ -123,7 +127,8 @@ function mapStateToProps(state) {
   return {
     collection: state.navigation.currentPromptCollection,
     collectionInfo: state.navigation.currentStoredPromptCollection,
-    user_id: state.user.backend.id
+    user_id: state.user.backend.id,
+    nickname: state.navigation.nickname
   }
 }
 export default connect(mapStateToProps, actions)(ManagerPromptCollection);

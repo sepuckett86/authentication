@@ -7,10 +7,10 @@ import Goodminders from './Goodminders';
 import Add from './Add';
 import Print from './Print';
 import Edit from './Edit';
-import Manager from './Manager';
 import More from './More';
 import Pdf from './PDF';
 import PromptCreateEdit from './PromptCreateEdit';
+import PromptCollectionCreate from './PromptCollectionCreate';
 
 class Home extends Component {
   componentDidMount() {
@@ -27,14 +27,14 @@ class Home extends Component {
         return <Print />;
       case 'edit':
         return <Edit />;
-      case 'manager':
-        return <Manager />;
       case 'more':
         return <More />;
       case 'pdf':
         return <Pdf />;
       case 'promptCreateEdit':
         return <PromptCreateEdit />;
+      case 'promptCollectionCreate':
+        return <PromptCollectionCreate />;
       default:
         return <Goodminders />;
       }

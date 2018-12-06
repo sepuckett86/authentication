@@ -12,7 +12,7 @@ export default function(state = initialState, action) {
     case GET_USER:
       return { ...state, backend: action.payload, email: action.payload.email, name: action.payload.name, nickname: action.payload.nickname  }
     case PUT_USER:
-      return { ...state, backend: action.payload, email: action.payload.email, name: action.payload.name, nickname: action.payload.nickname };
+      return { ...state, backend: action.payload, name: action.payload.name, nickname: action.payload.nickname };
     default:
       return state;
   }

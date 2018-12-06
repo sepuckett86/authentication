@@ -80,8 +80,7 @@ class AddQuote extends React.Component {
               <div className="form-group">
                   <label>Quote</label>
                   <textarea id="quote-answer" value={this.state.inputAnswer}
-                    onChange={this.handleChange} className="form-control" rows="3"
-                    placeholder="Example: May your beer be laid under an enchantment of surpassing excellence for seven years!">
+                    onChange={this.handleChange} className="form-control" rows="3">
                     </textarea>
               </div>
               <div className="form-group">
@@ -89,7 +88,7 @@ class AddQuote extends React.Component {
                   <input type="text" value={this.state.inputWho}
                     onChange={this.handleChange} className="form-control"
                     id="quote-who"
-                    placeholder="Example: Gandalf"/>
+                    />
               </div>
               <br />
 
@@ -100,11 +99,11 @@ class AddQuote extends React.Component {
                   </p>
                   <div className="collapse" id="collapseExample">
                     <div className="form-group">
-                        <label>Author</label>
+                        <label>Author (if "Who Said It" is a fictional character)</label>
                         <input type="text" value={this.state.inputAuthor}
                           onChange={this.handleChange} className="form-control"
                           id="quote-author"
-                          placeholder="Example: J. R. R. Tolkien"/>
+                          />
                     </div>
                     <br />
                     <div className="form-group">
@@ -112,23 +111,23 @@ class AddQuote extends React.Component {
                         <input type="text" value={this.state.inputSource}
                           onChange={this.handleChange} className="form-control"
                           id="quote-source"
-                          placeholder="Example: The Fellowship of the Ring"/>
+                          />
                     </div>
 
 
                    <br />
-                    <label>Reason</label>
+                    <label>Reason you like this quote</label>
                     <textarea className="form-control"
                       value={this.state.inputReason}
                       onChange={this.handleChange}
                       id="quote-reason" rows="3"
-                      placeholder="Example: When I was reading this out loud with my husband, we laughed like hyenas"></textarea>
+                      ></textarea>
                     <br />
                     <div className="form-group">
                         <label>Collection</label>
                         <input type="text" value={this.state.inputCollection}
                           onChange={this.handleChange} className="form-control"
-                          id="quote-collection" placeholder="Example: Funny"/>
+                          id="quote-collection" />
                     </div>
                     <br />
                   </div>

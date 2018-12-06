@@ -7,6 +7,7 @@ import '../../css/Add.css';
 import AddCustom from './AddCustom';
 import AddPrompt from './AddPrompt';
 import AddQuote from './AddQuote';
+import { replaceQuotes } from './functions';
 
 import MediaQuery from 'react-responsive';
 
@@ -145,9 +146,16 @@ class Add extends React.Component {
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={()=> {
-                  this.props.postGoodminder(this.state.gminderForDatabase, () => {
-                      this.props.changeHomeDisplay('goodminders');
-                  });
+                  let gminder = this.state.gminderForDatabase;
+                  if (!this.state.gminderForDatabase.mainResponse) {
+                    alert('Main response required')
+                  } else {
+                    // convert badquotes to goodquotes
+                    gminder.mainResponse = replaceQuotes(gminder.mainResponse);
+                    this.props.postGoodminder(gminder, () => {
+                        this.props.changeHomeDisplay('goodminders');
+                    });
+                  }
                  }}>Confirm</button>
               </div>
             </div>
