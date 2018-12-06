@@ -35,6 +35,15 @@ body {
   overflow: scroll;
 }
 
+.invisible-input {
+  border: 0;
+  background: transparent
+}
+
+.cursor-text:hover {
+  cursor: text
+}
+
 /* FONTS */
 
 .header-font {
