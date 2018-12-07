@@ -64,8 +64,8 @@ class EditCustom extends React.Component {
 
   handleClick(event) {
     if (event.target.id === "update-goodminder") {
-      const gminder = this.newGminder();
-      this.props.setUpdatedGM(gminder);
+        const gminder = this.newGminder();
+        this.props.setUpdatedGM(gminder);
     }
     if (event.target.id === "editAnswer") {
       this.setState({
@@ -90,7 +90,8 @@ class EditCustom extends React.Component {
             handleChange={this.handleChange}
           />)
       } else {
-        return <div><button id='editAnswer' onClick={this.handleClick} className='btn-flat cursor-text'>{this.state.inputAnswer}</button></div>
+        return <div><button id='editAnswer' onClick={this.handleClick} className='btn-editMe'>
+        {this.state.inputAnswer ? this.state.inputAnswer : 'Add Main Response Here'}</button></div>
       }
     }
     if (type === 'editCollection') {
@@ -103,7 +104,9 @@ class EditCustom extends React.Component {
         />)
       } else {
         return (
-          <span><button id='editCollection' onClick={this.handleClick} className='btn-flat cursor-text'>{this.state.inputCollection ? ' | ' + this.state.inputCollection : 'Add Collection Here' }</button></span>
+          <span><button id='editCollection' onClick={this.handleClick} className='btn-editMe'>
+          {this.state.inputCollection ? this.state.inputCollection : 'Add Collection Here' }
+          </button></span>
         )
       }
 
@@ -129,7 +132,7 @@ class EditCustom extends React.Component {
     const rows = this.state.inputAnswer.length /40;
     return(
       <div>
-      <p>Click on what you'd like to edit below</p>
+      <p>Click on the grey areas you'd like to edit below.</p>
         <hr />
         <div id="custom">
 
@@ -137,20 +140,22 @@ class EditCustom extends React.Component {
             <MediaQuery query="(min-width: 576px)">
             <div className="row">
               <div className="col alignL">
+
                 <StarsSimple
                   changeRating={this.changeRating}
                   stars={this.state.inputRating}
                   />
-              </div>
+                  </div>
+
               <div className="col alignR">
-                <p>{date} {this.renderInput('editCollection')}</p>
+                <p>{date} {' | '} {this.renderInput('editCollection')}</p>
               </div>
             </div>
           </MediaQuery>
             <div className="g-box answer">
             <div className="media-body">
             <br />
-            <h4 className="paragraph-font" id="quote-random_0">
+            <h4 className="paragraph-font show-whitespace" id="quote-random_0">
               {this.renderInput('editAnswer')}
               </h4>
               <br />
@@ -165,7 +170,7 @@ class EditCustom extends React.Component {
                stars={this.state.inputRating}
                />
                <br />
-               <p>{date} {this.renderInput('editCollection')}
+               <p>{date} {' | '} {this.renderInput('editCollection')}
                   </p>
              </MediaQuery>
            </div>

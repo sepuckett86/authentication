@@ -14,16 +14,18 @@ class Edit extends React.Component {
 
   changeDatabase(event) {
     if (event.target.id === 'deleteModal') {
-      console.log(this.props.gminder);
       this.props.deleteGoodminder(this.props.gminder.id, this.props.goodminders, () => {
           this.props.changeHomeDisplay('random');
       })
     }
     if (event.target.id === 'editModal') {
-      console.log(this.props.gminder);
-      this.props.putGoodminder(this.props.updatedGminder, this.props.goodminders, () => {
-        this.props.changeHomeDisplay('random');
-      })
+      if (this.props.updatedGminder.mainResponse !== '') {
+        this.props.putGoodminder(this.props.updatedGminder, this.props.goodminders, () => {
+          this.props.changeHomeDisplay('random');
+        })
+      } else {
+          alert('Please enter main response or delete goodminder')
+      }
     }
   }
 

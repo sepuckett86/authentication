@@ -28,7 +28,7 @@ class Custom extends React.Component {
           <div className="g-box answer">
           <div className="media-body">
           <br />
-          <h4 className="paragraph-font" id="quote-random_0">
+          <h4 className="paragraph-font show-whitespace" id="quote-random_0">
             {this.props.currentGM.mainResponse}</h4>
             <br />
           </div>

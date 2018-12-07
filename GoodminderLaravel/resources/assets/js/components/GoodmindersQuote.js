@@ -48,7 +48,7 @@ class Quote extends React.Component {
       			<div className="g-box">
       			<div className="media-body">
       			<br />
-      			<h4 className="paragraph-font alignL" id="quote-random_0">
+      			<h4 className="paragraph-font alignL show-whitespace" id="quote-random_0">
       				"{this.props.currentGM.mainResponse}"</h4>
               <br />
               <p className="paragraph-font alignR" id="quote-who-source-author">
@@ -60,7 +60,7 @@ class Quote extends React.Component {
             {/* Determine if there is reason content */}
             { this.props.currentGM.reason ?
               (<div className="media reason g-box">
-              <div className="media-body paragraph-font" id="quote-reason">
+              <div className="media-body paragraph-font show-whitespace" id="quote-reason">
                 {this.props.currentGM.reason}
               </div>
             </div>)
