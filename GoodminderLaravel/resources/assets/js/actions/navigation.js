@@ -1,6 +1,6 @@
 import { SET_CURRENT_GM, SET_PREVIOUS_GM, SET_BACK_GM, SET_UPDATED_GM,
   SET_CURRENT_PROMPT, SET_COLLECTION, SET_CURRENT_PROMPT_COLLECTION,
-  SET_CURRENT_STORED_PROMPT_COLLECTION} from './types';
+  SET_CURRENT_STORED_PROMPT_COLLECTION, SET_DISPLAY_GM} from './types';
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from './types';
 
 export function navClear() {
@@ -51,6 +51,13 @@ export function setUpdatedGM(goodminder) {
   return {
     type: SET_UPDATED_GM,
     payload: goodminder
+  }
+}
+
+export function setDisplayGM(text) {
+  return {
+    type: SET_DISPLAY_GM,
+    payload: text
   }
 }
 
