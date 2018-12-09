@@ -51,6 +51,8 @@ $api->version('v1', function (Router $api) {
         $api->put('storedPromptCollections/{id}', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@update');
         $api->delete('storedPromptCollections/{id}', 'App\\Api\\V1\\Controllers\\StoredPromptCollectionController@destroy');
 
+        $api->post('addPromptsToCollection', 'App\\Api\\V1\\Controllers\\PromptCollectionController@add');
+
         $api->get('refresh', [
             'middleware' => 'jwt.refresh',
             function() {
