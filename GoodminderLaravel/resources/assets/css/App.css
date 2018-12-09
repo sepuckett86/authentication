@@ -35,6 +35,42 @@ body {
   overflow: scroll;
 }
 
+.invisible-input {
+  border: 0;
+  background: transparent
+}
+
+.cursor-text:hover {
+  cursor: text
+}
+
+.btn-editMe {
+  background-color: #E8E8E8;
+  border-radius: 10px;
+}
+
+.btn-editMe:hover {
+  cursor: pointer;
+  background-color: #C7C7C7;
+}
+
+.btn-editStar {
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.btn-editStar:hover {
+  cursor: pointer;
+  background-color: #C7C7C7;
+}
+
+.show-whitespace {
+  white-space: pre-line
+}
+
+
 /* FONTS */
 
 .header-font {

@@ -30,11 +30,14 @@ class StarsSimple extends React.Component {
   handleClick(event) {
     // Handle first star click
     // Note: currentTarget is necessary to record the number; target does not work
-    if (event.currentTarget.id !== 'starModal') {
       const stars = Number(event.currentTarget.id) + 1;
-      this.changeRating(stars);
-      this.setState({stars: stars})
-    }
+      if (stars === this.state.stars) {
+        this.changeRating(0);
+        this.setState({stars: 0})
+      } else {
+        this.changeRating(stars);
+        this.setState({stars: stars})
+      }
   }
 
   generateKey(index) {
@@ -49,7 +52,7 @@ class StarsSimple extends React.Component {
         this.makeStarArray(this.state.stars).map((x, i) => {
           return (<span key={ this.generateKey(i) }>
             {/* Button trigger modal */}
-            <button id={i} type="button" onClick={this.handleClick} className="star-button" data-toggle="modal" >
+            <button id={i} type="button" onClick={this.handleClick} className="btn-editStar" >
             <i className={x}></i></button>
 
 

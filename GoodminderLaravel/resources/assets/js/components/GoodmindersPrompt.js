@@ -40,14 +40,14 @@ class Prompt extends React.Component {
             <div className="g-box">
 
             <br />
-            <h4>{this.props.currentGM.mainResponse}</h4><br />
+            <h4 className='show-whitespace'>{this.props.currentGM.mainResponse}</h4><br />
 
             </div>
 
             { this.props.currentGM.reason ?
               <div>
             <br />
-            <div className="g-box" style={style}>
+            <div className="g-box show-whitespace" style={style}>
 
             {this.props.currentGM.reason}
 

@@ -10,6 +10,7 @@ export const SET_CURRENT_GM = 'set_current_gm';
 export const SET_PREVIOUS_GM = 'set_previous_gm';
 export const SET_BACK_GM = 'set_back_gm';
 export const SET_UPDATED_GM = 'set_updated_gm';
+export const SET_DISPLAY_GM = 'set_display_gm';
 export const SET_CURRENT_PROMPT = 'set_current_prompt';
 export const SET_COLLECTION = 'set_collection';
 export const SET_CURRENT_PROMPT_COLLECTION = 'set_current_prompt_collection';
