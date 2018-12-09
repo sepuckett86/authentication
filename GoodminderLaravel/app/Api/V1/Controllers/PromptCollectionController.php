@@ -108,7 +108,7 @@ class PromptCollectionController extends Controller
     public function add(PromptRequest $request)
     {
         $currentUser = Auth::guard()->user()->id;
-        $promptCollection = $request->get('promptCollection');
+        $promptCollection = $request->get('promptCollectionID');
 
         if (
             PromptCollection::where('id', '=', $promptCollection)
