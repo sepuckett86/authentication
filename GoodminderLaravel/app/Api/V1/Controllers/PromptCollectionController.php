@@ -103,6 +103,60 @@ class PromptCollectionController extends Controller
     }
 
     /* 
+    * Add array of prompts to user's own prompt collection. Verify prompts are
+    * owned by user before adding them.
+    */
+    public function add(PromptRequest $request)
+    {
+        $currentUser = Auth::guard()->user()->id;
+        $promptCollection = $request->get('promptCollection');
+
+        if (
+            PromptCollection::where('id', '=', $promptCollection)
+            ->where('creator_id', '=', $currentUser)
+            ->exists()
+        ) {
+            $usersPromptCollection = PromptCollection::where('id', '=', $promptCollection)
+                ->where('creator_id', '=', $currentUser)
+                ->get()
+                ->toArray();
+        } else {
+            return "Error: promptCollection isn't the user's.";
+        }
+
+        $prompts = explode(',', $request->get('prompts'));
+        $usersPrompts = Prompt::where('creator_id', '=', $currentUser)
+            ->whereIn('id', $prompts)
+            ->get(['id'])
+            ->toArray();
+
+        $usersPrompts = array_map(function($value) {
+            return $value['id'];
+        }, $usersPrompts);
+
+        $usersPromptsCount = count($usersPrompts);
+        if ($usersPromptsCount <= 0) {
+            return 'Error: None of the prompts can be added.';
+        }
+
+        for ($i=0; $i<$usersPromptsCount; $i++) {
+            if (
+                \DB::table('prompts_prompt_collections')
+                    ->where('prompt_id', $usersPrompts[$i])
+                    ->where('prompt_collection_id', $promptCollection)
+                    ->doesntExist()
+            ) {
+                \DB::table('prompts_prompt_collections')->insert([
+                    'prompt_id' => $usersPrompts[$i],
+                    'prompt_collection_id' => $promptCollection
+                ]);
+            }
+        }
+
+        return 'Prompts are in the collection.';
+    }
+
+    /* 
      * Update user's own collection.
      */
     public function update(PromptRequest $request, $id)
