@@ -14,7 +14,8 @@ import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
-import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION, PUT_PROMPT_COLLECTION,
+import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION,
+  PUT_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION,
   DELETE_PROMPT_COLLECTION } from './types';
 import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
   DELETE_STORED_COLLECTION } from './types';
@@ -364,7 +365,8 @@ export const postPromptCollection = (collection, callback) => async dispatch => 
       const options = optionsWithToken();
       const content = collection;
       const response = await axios.post(path, content, options);
-      dispatch({ type: POST_PROMPT_COLLECTION, payload: response });
+      const promptCollectionID = Number(response.data.split(' ')[1]);
+      dispatch({ type: POST_PROMPT_COLLECTION, payload: promptCollectionID });
       callback()
     } else {
       console.log('token absent')
@@ -396,6 +398,27 @@ export const deletePromptCollection = (id, callback) => async dispatch => {
       // DELETE request with gminder id
       const response = await axios.delete(path, options);
       dispatch({ type: DELETE_PROMPT_COLLECTION, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+// PROMPT PROMPT COLLECTIONS
+export const postPromptPromptCollection = (promptCollectionID, prompts, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/addPromptsToCollection';
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = {
+        promptCollectionID: promptCollectionID,
+        prompts: prompts  // A string of promptIDs
+      }
+      const response = await axios.post(path, content, options);
+      dispatch({ type: POST_PROMPT_PROMPT_COLLECTION, payload: response });
       callback()
     } else {
       console.log('token absent')
