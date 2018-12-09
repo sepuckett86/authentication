@@ -87,7 +87,6 @@ class PromptCollectionController extends Controller
         if ($request->get('publicFlag') !== null) {
             $promptCollection->publicFlag = $request->get('publicFlag');
         }
-        
         $promptCollection->save();
 
         $storedPromptCollection = new StoredPromptCollection;
@@ -96,7 +95,7 @@ class PromptCollectionController extends Controller
         $storedPromptCollection->prompt_collection_id = $promptCollection->id;
 
         if ($storedPromptCollection->save()) {
-            return 'PromptCollection created and saved to StoredPromptCollection.';
+            return 'PromptCollectionID ' . $promptCollection->id . ' created and saved to StoredPromptCollection.';
         } else {
             return 'PromptCollection create and save to StoredPromptCollection failed.';
         }
