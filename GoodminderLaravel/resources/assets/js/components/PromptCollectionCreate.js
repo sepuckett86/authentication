@@ -266,14 +266,16 @@ class PromptCollectionCreate extends React.Component {
         <br />
         <div className="row">
           <div className="col">
+          <Link to='manager'>
             <button
               id="random"
               name="Back"
               className="btn btn-custom"
-              onClick={() => this.props.changeHomeDisplay("goodminders")}
+              onClick={() => this.props.changeManagerDisplay("promptCollections")}
             >
-              <i className="fas fa-home" /> Back to Home
+            Back to Prompt Collections
             </button>
+            </Link>
             <br />
 
             <br />

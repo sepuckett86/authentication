@@ -2,10 +2,11 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import {Link} from "react-router-dom";
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
-class Other extends React.Component {
+class PromptCollectionFind extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +55,7 @@ class Other extends React.Component {
 
           <div className='btn-flat' onClick={ () => {
               this.props.getPromptCollection(
-                collection.prompt_collection_id,
+                collection.id,
                 ()=> {
                   this.props.setCurrentPromptCollection(collection);
                   this.props.changeHomeDisplay('promptCollectionView');
@@ -64,7 +65,12 @@ class Other extends React.Component {
 
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
-              <small className="text-muted">{collection.promptCount} prompts</small>
+              <small className="text-muted">
+              {/*
+                {collection.prompts.length}{' '}
+              //{collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+              */}
+              </small>
             </div>
             <p className="mb-1">
             {collection.description}
@@ -101,6 +107,16 @@ class Other extends React.Component {
       {this.renderListGroup()}
       <br />
       </div>
+      <br />
+      <Link to='/manager'>
+      <button
+      id='random'
+      name="Back"
+      className='btn btn-custom'
+      onClick={() => this.props.changeManagerDisplay('promptCollections')}>
+      Back to Prompt Collections</button>
+      </Link>
+      <br />
       </div>)
   }
 }
@@ -114,4 +130,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(Other);
+export default connect(mapStateToProps, actions)(PromptCollectionFind);

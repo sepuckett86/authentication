@@ -1,12 +1,13 @@
 // Note: modal cannot be inside responsive design display or it will not work for all screen sizes
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import {Link} from "react-router-dom";
 
 import React from 'react';
 
 import MediaQuery from 'react-responsive';
 
-class ManagerPromptCollection extends React.Component {
+class PromptCollectionView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +45,7 @@ class ManagerPromptCollection extends React.Component {
           this.props.collection.map((prompt, i) => {
             return (
                 <tr key={this.generateKey(i)}>
-                  <th scope="row">{i}</th>
+                  <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                   <td>
                   <button type="button" name='delete' className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
@@ -67,7 +68,7 @@ class ManagerPromptCollection extends React.Component {
           this.props.collection.map((prompt, i) => {
             return (
                 <tr key={this.generateKey(i)}>
-                  <th scope="row">{i}</th>
+                  <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                 </tr>
             )
@@ -81,7 +82,7 @@ class ManagerPromptCollection extends React.Component {
 
   render() {
     return(
-      <div className="">
+      <div className="container-fluid">
 
       {/* Modal - Must be outside of responsive design displays */}
       <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -104,6 +105,7 @@ class ManagerPromptCollection extends React.Component {
         </div>
       </div>
 
+        <br />
         <div className="box">
         <h2>Prompt Collection</h2>
         <div className="alignL g-box">
@@ -118,6 +120,15 @@ class ManagerPromptCollection extends React.Component {
           </div>
         </div>
         <br />
+
+        <button
+        id='random'
+        name="Back"
+        className='btn btn-custom'
+        onClick={() => this.props.changeHomeDisplay('promptCollectionFind')}>
+        Back to Find Prompt Collections</button>
+
+        <br />
       </div>
   )
   }
@@ -125,10 +136,10 @@ class ManagerPromptCollection extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    collection: state.navigation.currentPromptCollection,
-    collectionInfo: state.navigation.currentStoredPromptCollection,
+    collection: state.navigation.currentPromptCollectionPrompts,
+    collectionInfo: state.navigation.currentPromptCollection,
     user_id: state.user.backend.id,
     nickname: state.navigation.nickname
   }
 }
-export default connect(mapStateToProps, actions)(ManagerPromptCollection);
+export default connect(mapStateToProps, actions)(PromptCollectionView);

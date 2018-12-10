@@ -61,7 +61,10 @@ class User extends React.Component {
           }>
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.publicFlag}</h5>
-              <small className="text-muted">{collection.promptCount} prompts</small>
+              <small className="text-muted">
+              {collection.prompts.length}{' '}
+              {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+              </small>
             </div>
             <p className="mb-1">
             {collection.description}
