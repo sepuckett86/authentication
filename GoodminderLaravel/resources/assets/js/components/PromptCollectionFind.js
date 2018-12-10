@@ -22,6 +22,15 @@ class Other extends React.Component {
     this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
+  componentDidMount() {
+    // Get data from database
+    // Prompt Collections
+    this.props.getPromptCollections(() => {
+
+    })
+  }
+
+
   handleClick(event) {
     if (event.target.name === 'user') {
       this.setState({ display: 'user'})
@@ -32,7 +41,7 @@ class Other extends React.Component {
   }
 
   renderListGroup() {
-    const other = this.props.storedPromptCollections.filter(collection =>
+    const other = this.props.promptCollections.filter(collection =>
       collection.creator_id !== this.props.user_id
     );
     return (
@@ -42,15 +51,17 @@ class Other extends React.Component {
           <div
             className="list-group-item list-group-item-action flex-column align-items-start"
           >
-          <a className='btn-flat' onClick={ () => {
+
+          <div className='btn-flat' onClick={ () => {
               this.props.getPromptCollection(
                 collection.prompt_collection_id,
                 ()=> {
-                  this.props.setCurrentStoredPromptCollection(collection);
-                  this.props.changeManagerDisplay('promptCollection');
+                  this.props.setCurrentPromptCollection(collection);
+                  this.props.changeHomeDisplay('promptCollectionView');
                 })
           }
           }>
+
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
               <small className="text-muted">{collection.promptCount} prompts</small>
@@ -62,10 +73,10 @@ class Other extends React.Component {
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
 
-            <small className="text-muted"><span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
-            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
+            <small className="text-muted"></small>
             </div>
-          </a>
+          </div>
+
           </div>
         </div>
       );
@@ -83,11 +94,13 @@ class Other extends React.Component {
 
   render() {
     return(
-      <div>
-      <h3>Saved Collections from Others</h3>
+      <div className="container-fluid">
+      <br />
+      <div className="box">
+      <h3>Collections from Others</h3>
       {this.renderListGroup()}
       <br />
-
+      </div>
       </div>)
   }
 }
@@ -96,9 +109,8 @@ function mapStateToProps(state) {
   return {
     gminders: state.goodminders,
     prompts: state.prompts,
-    collection: state.navigation.collection,
-    storedPromptCollections: state.storedPromptCollections,
-    user_id: state.user.backend.id
+    user_id: state.user.backend.id,
+    promptCollections: state.promptCollections
   }
 }
 

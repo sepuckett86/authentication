@@ -1,7 +1,7 @@
 import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
   DELETE_STORED_COLLECTION } from '../actions/types';
 
-// This state is an array of prompt collections.
+// This state is an array of prompt collections. ONLY STORED PROMPT COLLECTIONS for the user.
 // Each prompt collection is in this format: { collection, creator_id }
 export default function(state = [], action) {
   switch(action.type) {

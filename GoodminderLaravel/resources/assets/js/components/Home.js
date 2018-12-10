@@ -10,6 +10,8 @@ import Edit from './Edit';
 import More from './More';
 import Pdf from './PDF';
 import PromptCreateEdit from './PromptCreateEdit';
+import PromptCollectionFind from './PromptCollectionFind';
+import PromptCollectionView from './PromptCollectionView';
 import PromptCollectionCreate from './PromptCollectionCreate';
 
 class Home extends Component {
@@ -35,6 +37,10 @@ class Home extends Component {
         return <PromptCreateEdit />;
       case 'promptCollectionCreate':
         return <PromptCollectionCreate />;
+      case 'promptCollectionFind':
+        return <PromptCollectionFind />;
+      case 'promptCollectionView':
+        return <PromptCollectionView />;
       default:
         return <Goodminders />;
       }

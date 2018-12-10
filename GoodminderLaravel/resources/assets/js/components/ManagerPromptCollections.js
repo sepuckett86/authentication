@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Link } from 'react-router-dom';
 
 import User from './ManagerPromptCollectionsUser';
 import Other from './ManagerPromptCollectionsOther';
@@ -40,28 +41,12 @@ class PromptCollections extends React.Component {
     if (event.target.name === 'other') {
       this.setState({ display: 'other'})
     }
-  }
-
-  renderListGroup() {
-    return (
-      <div className="list-group alignL">
-        <a
-          href="#"
-          className="list-group-item list-group-item-action flex-column align-items-start"
-        >
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">Prompt | Funny </h5>
-            <small className="text-muted">5 stars</small>
-          </div>
-          <p className="mb-1">
-            What is your favorite food?
-            <br />
-            Burritos. Because delicious.
-          </p>
-          <small className="text-muted">2018-11-15</small>
-        </a>
-      </div>
-    );
+    if (event.target.name === 'createNewCollection') {
+      this.props.changeHomeDisplay('promptCollectionCreate')
+    }
+    if (event.target.name === 'findMorePrompts') {
+      this.props.changeHomeDisplay('promptCollectionFind')
+    }
   }
 
   promptTableDisplayChange() {
@@ -131,13 +116,24 @@ class PromptCollections extends React.Component {
   render() {
     return(
       <div >
+      
 
         <div className="box">
         <div id="promptCollections">
           <h1>Manage Prompt Collections</h1>
           <p>Here is where you can manage your own prompt collections or the display of other users' prompt collections</p>
           <hr />
-          {this.chooseType()}
+          <Link to='/'>
+          <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
+          </Link>
+          {' '}
+          <Link to='/'>
+          <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
+          </Link>
+          <hr/>
+          <User/>
+          <hr/>
+          <Other/>
         </div>
         </div>
 

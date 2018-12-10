@@ -289,7 +289,7 @@ function mapStateToProps(state) {
   return {
     currentPrompt: state.navigation.currentPrompt,
     prompts: state.prompts,
-    promptCollectionID: state.navigation.currentPromptCollectionID
+    promptCollectionID: state.navigation.promptCollectionID
   };
 }
 export default connect(

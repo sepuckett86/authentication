@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Link } from 'react-router-dom';
+
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -30,8 +30,12 @@ class User extends React.Component {
     if (event.target.name === 'other') {
       this.setState({ display: 'other'})
     }
-    if (event.target.name === 'createNewCollection') {
-      this.props.changeHomeDisplay('promptCollectionCreate')
+    if (event.target.name === 'confirmDelete') {
+      this.props.deletePromptCollection(Number(event.target.key), ()=> {
+        this.props.getCollections(()=> {
+
+        })
+      });
     }
   }
 
@@ -65,9 +69,17 @@ class User extends React.Component {
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
             <small className="text-muted">
-            <span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
+            <span onClick={(e) => {
+              console.log('clickeye');
+              e.stopPropagation();}}
+              className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
             {' '}
-            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+            {/* Button trigger modal */}
+            <span name='delete' key={collection.prompt_collection_id} data-toggle="modal" data-target="#editModal"
+            onClick={(e) => {
+
+              e.stopPropagation();}}
+              className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
             </small>
             </div>
             </a>
@@ -89,11 +101,31 @@ class User extends React.Component {
   render() {
     return(
       <div>
+      {/* Modal - Must be outside of responsive design displays */}
+      <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Delete Prompt Collection?</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              Make permanent change to database?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" className="btn btn-primary" name='confirmDelete' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Your Collections</h3>
         {this.renderListGroup()}
         <br />
-        <Link to='/'>
-        <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
-        </Link>
+
       </div>)
   }
 }

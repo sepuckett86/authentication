@@ -88,7 +88,7 @@ class ManagerPromptCollection extends React.Component {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Delete Prompt from Collection</h5>
+              <h5 className="modal-title" id="exampleModalLabel">Add to stored prompt collection?</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -125,7 +125,7 @@ class ManagerPromptCollection extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    collection: state.navigation.currentPromptCollectionPrompts,
+    collection: state.navigation.currentPromptCollection,
     collectionInfo: state.navigation.currentStoredPromptCollection,
     user_id: state.user.backend.id,
     nickname: state.navigation.nickname

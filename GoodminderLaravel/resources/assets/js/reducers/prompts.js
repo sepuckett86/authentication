@@ -1,5 +1,6 @@
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT } from '../actions/types';
 
+// These are the prompts that will be displayed to the user in add prompt
 const initialState = [];
 export default function(state = initialState, action) {
   switch(action.type) {
