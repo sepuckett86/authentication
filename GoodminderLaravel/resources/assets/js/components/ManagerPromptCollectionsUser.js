@@ -31,7 +31,7 @@ class User extends React.Component {
       this.setState({ display: 'other'})
     }
     if (event.target.name === 'confirmDelete') {
-      this.props.deletePromptCollection(Number(event.target.key), ()=> {
+      this.props.deletePromptCollection(Number(this.props.promptCollectionID), ()=> {
         this.props.getCollections(()=> {
 
         })
@@ -75,9 +75,9 @@ class User extends React.Component {
               className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
             {' '}
             {/* Button trigger modal */}
-            <span name='delete' key={collection.prompt_collection_id} data-toggle="modal" data-target="#editModal"
+            <span name='delete' data-toggle="modal" data-target="#editModal"
             onClick={(e) => {
-
+              this.props.setPromptCollectionID(collection.prompt_collection_id);
               e.stopPropagation();}}
               className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
             </small>
@@ -135,6 +135,7 @@ function mapStateToProps(state) {
     gminders: state.goodminders,
     prompts: state.prompts,
     collection: state.navigation.collection,
+    promptCollectionID: state.navigation.promptCollectionID,
     storedPromptCollections: state.storedPromptCollections,
     user_id: state.user.backend.id
   }
