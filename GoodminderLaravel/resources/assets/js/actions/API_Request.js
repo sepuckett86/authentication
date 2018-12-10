@@ -445,14 +445,14 @@ export const getCollections = (callback) => async dispatch => {
 };
 
 // Adds a collection to stored_prompts table
-export const postCollection = (collection, creator_id, callback) => async dispatch => {
+export const postCollection = (promptCollectionID, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/storedPromptCollections';
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
       const content = {
-        'promptCollection': collection,
-        'creator_id': creator_id
+        'promptCollectionID': promptCollectionID,
+        'displayFlag': 1
       };
       const response = await axios.post(path, content, options);
       const payload = { collection: collection, creator_id: creator_id }

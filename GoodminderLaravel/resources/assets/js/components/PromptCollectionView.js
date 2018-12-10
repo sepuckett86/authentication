@@ -20,8 +20,10 @@ class PromptCollectionView extends React.Component {
   }
 
   handleClick(e) {
-    if (e.currentTarget.name === 'delete') {
-      // Change this.state.prompts to new prompt array without the prompt
+    if (e.currentTarget.name === 'addCollection') {
+      this.props.postCollection(this.props.collectionInfo.id, ()=> {
+
+      })
     }
   }
 
@@ -119,6 +121,7 @@ class PromptCollectionView extends React.Component {
           {this.chooseTable()}
           </div>
         </div>
+        <button name='addCollection' onClick={this.handleClick} className='btn btn-green'>Add Collection</button>
         <br />
 
         <button
