@@ -43,7 +43,23 @@ class StoredPromptCollectionController extends Controller
                 'prompt_collections.description', 'stored_prompt_collections.displayFlag',
                 'prompt_collections.publicFlag', 'stored_prompt_collections.created_at',
                 'stored_prompt_collections.updated_at'
-            ]);
+            ])
+            ->all();
+
+        $count = count($storedPromptCollections);
+        for ($i=0; $i<$count; $i++) {
+            $storedPromptCollectionID = $storedPromptCollections[$i]->id;
+            $prompts = \DB::table('prompts_prompt_collections')
+                ->where('prompt_collection_id', '=', $storedPromptCollectionID)
+                ->get(['prompt_id'])
+                ->toArray();
+
+            $prompts = array_map(function($value){
+                return $value->prompt_id;
+            }, $prompts);
+            
+            $storedPromptCollections[$i]->prompts = $prompts;
+        }
 
         return response()->json($storedPromptCollections);
     }
