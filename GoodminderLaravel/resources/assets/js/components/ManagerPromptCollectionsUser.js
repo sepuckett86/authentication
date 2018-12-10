@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-
+import ReactTooltip from 'react-tooltip';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -72,13 +72,13 @@ class User extends React.Component {
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
             <small className="text-muted">
-            <span onClick={(e) => {
+            <span data-tip='Hide collection' onClick={(e) => {
               console.log('clickeye');
               e.stopPropagation();}}
               className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
             {' '}
             {/* Button trigger modal */}
-            <span name='delete' data-toggle="modal" data-target="#editModal"
+            <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
             onClick={(e) => {
               this.props.setPromptCollectionID(collection.prompt_collection_id);
               e.stopPropagation();}}
@@ -128,7 +128,7 @@ class User extends React.Component {
       <h3>Your Collections</h3>
         {this.renderListGroup()}
         <br />
-
+        <ReactTooltip delayShow={200}/>
       </div>)
   }
 }

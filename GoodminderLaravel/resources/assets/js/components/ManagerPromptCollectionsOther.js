@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import ReactTooltip from 'react-tooltip';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -64,8 +65,8 @@ class Other extends React.Component {
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">Updated 2018-11-15.</small>
 
-            <small className="text-muted"><span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
-            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
+            <small className="text-muted"><span data-tip='Hide collection' onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
+            <span data-tip='Remove collection from stored collections' onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
             </div>
           </a>
           </div>
@@ -89,7 +90,7 @@ class Other extends React.Component {
       <h3>Saved Collections from Others</h3>
       {this.renderListGroup()}
       <br />
-
+      <ReactTooltip delayShow={200}/>
       </div>)
   }
 }
