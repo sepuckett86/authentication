@@ -1,7 +1,6 @@
 // Note: modal cannot be inside responsive design display or it will not work for all screen sizes
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import {Link} from "react-router-dom";
 
 import React from 'react';
 
@@ -16,7 +15,22 @@ class PromptCollectionView extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    this.props.getNickname(this.props.collectionInfo.creator_id, ()=>{});
+    this.props.getNickname(this.props.collectionInfo.creator_id, ()=>{
+      this.props.getCollections(()=> {
+
+      })
+    });
+  }
+
+  isCollectionAlreadyStored() {
+    const filtered = this.props.storedCollections.filter(collection =>
+      collection.prompt_collection_id === this.props.collectionInfo.id
+    )
+    if (filtered.length > 0) {
+      return true
+    } else {
+      return false
+    }
   }
 
   handleClick(e) {
@@ -119,16 +133,20 @@ class PromptCollectionView extends React.Component {
           <br />
           <h4><u>Prompts in collection</u></h4>
           {this.chooseTable()}
+
+          { this.isCollectionAlreadyStored() === false ?
+          <button name='addCollection' onClick={this.handleClick} className='btn btn-green'>Add Collection</button>
+          : <div className="alert alert-primary" role="alert">This collection is already in your stored collections.</div>}
           </div>
         </div>
-        <button name='addCollection' onClick={this.handleClick} className='btn btn-green'>Add Collection</button>
+
         <br />
 
         <button
         id='random'
         name="Back"
         className='btn btn-custom'
-        onClick={() => this.props.changeHomeDisplay('promptCollectionFind')}>
+        onClick={() => this.props.changeManagerDisplay('promptCollectionFind')}>
         Back to Find Prompt Collections</button>
 
         <br />
@@ -142,7 +160,8 @@ function mapStateToProps(state) {
     collection: state.navigation.currentPromptCollectionPrompts,
     collectionInfo: state.navigation.currentPromptCollection,
     user_id: state.user.backend.id,
-    nickname: state.navigation.nickname
+    nickname: state.navigation.nickname,
+    storedCollections: state.storedPromptCollections
   }
 }
 export default connect(mapStateToProps, actions)(PromptCollectionView);

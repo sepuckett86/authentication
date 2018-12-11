@@ -2,7 +2,6 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Link } from 'react-router-dom';
 
 import User from './ManagerPromptCollectionsUser';
 import Other from './ManagerPromptCollectionsOther';
@@ -42,10 +41,10 @@ class PromptCollections extends React.Component {
       this.setState({ display: 'other'})
     }
     if (event.target.name === 'createNewCollection') {
-      this.props.changeHomeDisplay('promptCollectionCreate')
+      this.props.changeManagerDisplay('promptCollectionCreate')
     }
     if (event.target.name === 'findMorePrompts') {
-      this.props.changeHomeDisplay('promptCollectionFind')
+      this.props.changeManagerDisplay('promptCollectionFind')
     }
   }
 
@@ -116,20 +115,20 @@ class PromptCollections extends React.Component {
   render() {
     return(
       <div >
-      
+
 
         <div className="box">
         <div id="promptCollections">
           <h1>Manage Prompt Collections</h1>
           <p>Here is where you can manage your own prompt collections or the display of other users' prompt collections</p>
           <hr />
-          <Link to='/'>
+
           <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
-          </Link>
+
           {' '}
-          <Link to='/'>
+
           <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
-          </Link>
+
           <hr/>
           <User/>
           <hr/>

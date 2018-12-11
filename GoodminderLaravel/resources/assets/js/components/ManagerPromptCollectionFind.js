@@ -58,7 +58,7 @@ class PromptCollectionFind extends React.Component {
                 collection.id,
                 ()=> {
                   this.props.setCurrentPromptCollection(collection);
-                  this.props.changeHomeDisplay('promptCollectionView');
+                  this.props.changeManagerDisplay('promptCollectionView');
                 })
           }
           }>
@@ -108,14 +108,12 @@ class PromptCollectionFind extends React.Component {
       <br />
       </div>
       <br />
-      <Link to='/manager'>
       <button
       id='random'
       name="Back"
       className='btn btn-custom'
       onClick={() => this.props.changeManagerDisplay('promptCollections')}>
       Back to Prompt Collections</button>
-      </Link>
       <br />
       </div>)
   }
