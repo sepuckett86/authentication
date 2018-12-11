@@ -17,6 +17,7 @@ class Goodminders extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      filteredGoodminders: this.props.goodminders,
       prompts: [],
       length: '',
       newCurrentGM: {},
@@ -26,6 +27,7 @@ class Goodminders extends Component {
     this.nextClick = this.nextClick.bind(this);
     this.backClick = this.backClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.filterGoodminders = this.filterGoodminders.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +64,16 @@ class Goodminders extends Component {
       this.props.changeHomeDisplay('print');
     }
   }
+
+  filterGoodminders() {
+    const filtered = this.props.goodminders.filter(goodminder =>
+      goodminder.collection === this.props.currentGM.collection
+    )
+    this.setState({
+      filteredGoodminders: filtered
+    })
+  }
+
   // Sets a new random gminder as state and accounts for back/forward ability
   nextClick() {
     if (this.state.animate === false) {
@@ -120,6 +132,7 @@ class Goodminders extends Component {
       })
     }
   }
+
   }
 
   backClick() {
@@ -269,7 +282,8 @@ function mapStateToProps(state) {
     backGM: state.navigation.backGM,
     currentPrompt: state.navigation.currentPrompt,
     navigation: state.navigation,
-    responseError: state.response.responseError
+    responseError: state.response.responseError,
+    displayGM: state.navigation.displayGM
   };
 }
 

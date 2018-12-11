@@ -66,9 +66,9 @@ class PromptTable extends React.Component {
   }
 
   makeCSVArrayPrompts() {
-    let myArray = [['ID', 'Collection', 'Prompt']];
+    let myArray = [['ID', 'Prompt']];
     this.props.prompts.forEach(prompt => {
-      let innerArray = [prompt.id, prompt.collection, prompt.promptText];
+      let innerArray = [prompt.id, prompt.promptText];
       myArray.push(innerArray);
     })
     return myArray;
@@ -81,7 +81,8 @@ class PromptTable extends React.Component {
         <div className="box">
         <div id="beginning">
           <h1>Manage Prompts</h1>
-          <p>Here is where you can create, edit, and respond to your own custom prompts</p>
+          <p>Here is where you can create, edit, and respond to your own custom prompts.</p>
+          <p>To have them show up randomly in while making goodminders, add them to a prompt collection.</p>
           <hr />
           <Link to="/">
           <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
@@ -137,6 +138,7 @@ class PromptTable extends React.Component {
             </div>
           </div> */}
           <a href="#end">Scroll to bottom</a>
+          <h2>All Prompts by You</h2>
           {/* MediaQuery for large screen */}
           <MediaQuery query="(min-width: 576px)">
           <table className="table table-striped" style={{'textAlign': 'left'}}>

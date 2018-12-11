@@ -287,9 +287,8 @@ export const postPrompt = (prompt, callback) => async dispatch => {
   }
 };
 
-export const putPrompt = (updatedPrompt, callback) => async dispatch => {
+export const putPrompt = (updatedPrompt, id, callback) => async dispatch => {
   try {
-    const id = updatedPrompt.id;
     const path = baseURL + `api/prompts/${id}`;
     const options = optionsWithToken();
     const content = updatedPrompt;

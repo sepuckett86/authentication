@@ -29,7 +29,7 @@ class PromptCreateEdit extends React.Component {
       const id = this.props.currentPrompt.id;
       this.props.putPrompt(prompt, id, () => {
         this.props.getPrompts(()=> {});
-        this.props.changeHomeDisplay('goodminders');
+        this.props.changeHomeDisplay('manager');
       })
     }
     if (event.target.name === 'confirmDelete') {
@@ -61,7 +61,7 @@ class PromptCreateEdit extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Edit Prompt</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Save Prompt</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -131,8 +131,9 @@ class PromptCreateEdit extends React.Component {
           { this.props.currentPrompt.id ?
             <div>
             <button type="button" className="btn btn-green" data-toggle="modal" data-target="#editModal">
-              Edit Prompt
+              Save Prompt
             </button>
+            <br />
             <button type="button" className="btn btn-green" data-toggle="modal" data-target="#deleteModal">
               Delete Prompt
             </button>
