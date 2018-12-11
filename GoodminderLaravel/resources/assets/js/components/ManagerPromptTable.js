@@ -14,7 +14,6 @@ class PromptTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      csvData: [],
       promptsShowing: [],
       sortBy: 'id',
       promptTableDisplay: 'promptTable'
@@ -37,7 +36,9 @@ class PromptTable extends React.Component {
   handleClick(event) {
     if (event.currentTarget.name === 'create') {
       this.props.setCurrentPrompt({});
-      this.props.changeHomeDisplay('promptCreateEdit');
+      this.props.changeManagerDisplay('promptCreateEdit');
+    } else if (event.target.name === 'createNewCollection') {
+      this.props.changeManagerDisplay('promptCollectionCreate')
     } else {
     const myID = event.currentTarget.getAttribute('value');
     for (let i = 0; i < this.props.prompts.length; i++) {
@@ -47,7 +48,7 @@ class PromptTable extends React.Component {
     }
 
     if (event.currentTarget.name === 'edit') {
-      this.props.changeHomeDisplay('promptCreateEdit')
+      this.props.changeManagerDisplay('promptCreateEdit')
     }
 
     if (event.currentTarget.name === 'respond') {
@@ -66,12 +67,15 @@ class PromptTable extends React.Component {
   }
 
   makeCSVArrayPrompts() {
-    let myArray = [['ID', 'Prompt']];
-    this.props.prompts.forEach(prompt => {
-      let innerArray = [prompt.id, prompt.promptText];
-      myArray.push(innerArray);
-    })
-    return myArray;
+
+      let myArray = [['ID', 'Prompt']];
+      let innerArray = [];
+      this.props.prompts.forEach(prompt => {
+        innerArray = [prompt.id, prompt.promptText];
+        myArray.push(innerArray);
+      })
+      return myArray;
+
   }
 
   render() {
@@ -84,9 +88,10 @@ class PromptTable extends React.Component {
           <p>Here is where you can create, edit, and respond to your own custom prompts.</p>
           <p>To have them show up randomly in while making goodminders, add them to a prompt collection.</p>
           <hr />
-          <Link to="/">
+
           <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
-          </Link>
+          {' '}
+            <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create Prompt Collection</button>
           <br />
           <br />
           {/*
@@ -144,7 +149,7 @@ class PromptTable extends React.Component {
           <table className="table table-striped" style={{'textAlign': 'left'}}>
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col"></th>
                 <th scope="col">Prompt</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Respond</th>
@@ -156,12 +161,12 @@ class PromptTable extends React.Component {
             this.props.prompts.map((prompt, i) => {
               return (
                   <tr key={this.generateKey(i)}>
-                    <th scope="row">{prompt.id}</th>
+                    <th scope="row">{i+1}</th>
                     <td>{prompt.promptText}</td>
                     <td>
-                    <Link to="/">
+
                     <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
-                    </Link>
+
                     </td>
 
                     <td>
@@ -194,9 +199,9 @@ class PromptTable extends React.Component {
                 <tr key={this.generateKey(i)}>
                   <td scope="row">{prompt.promptText}</td>
                   <td>
-                  <Link to="/">
+
                   <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
-                  </Link>
+
                   </td>
 
                   <td>

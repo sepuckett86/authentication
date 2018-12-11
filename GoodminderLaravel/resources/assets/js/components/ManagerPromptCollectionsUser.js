@@ -80,7 +80,10 @@ class User extends React.Component {
             {collection.description}
             </p>
             <div className="d-flex w-100 justify-content-between">
-            <small className="text-muted">Updated 2018-11-15.</small>
+            <small className="text-muted">Created{' '}
+            {
+              collection.created_at.split(' ')[0]
+            }</small>
             <small className="text-muted">
             <span data-tip='Hide collection' onClick={(e) => {
               console.log('clickeye');
@@ -105,7 +108,7 @@ class User extends React.Component {
         return (
       <div key={i} className="list-group alignL">
         <div
-          className="list-group-item list-group-item-dark list-group-item-action flex-column align-items-start"
+          className="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start"
         >
         <a className='btn-flat' onClick={ () => {
             this.props.getPromptCollection(
@@ -129,7 +132,10 @@ class User extends React.Component {
           {collection.description}
           </p>
           <div className="d-flex w-100 justify-content-between">
-          <small className="text-muted">Updated 2018-11-15.</small>
+          <small className="text-muted">Created{' '}
+          {
+            collection.created_at.split(' ')[0]
+          }</small>
           <small className="text-muted">
           <span data-tip='Show collection' onClick={(e) => {
             console.log('clickeye');

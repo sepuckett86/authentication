@@ -53,7 +53,7 @@ class Other extends React.Component {
           }
           }>
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
+              <h5 className="mb-1">{collection.collection} | {collection.nickname}</h5>
               <small className="text-muted">
               {collection.prompts.length}{' '}
               {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}</small>
@@ -63,14 +63,18 @@ class Other extends React.Component {
             </p>
 
             <div className="d-flex w-100 justify-content-between">
-            <small className="text-muted">Updated 2018-11-15.</small>
+            <small className="text-muted">Created{' '}
+            {
+              collection.created_at.split(' ')[0]
+            }
+            </small>
 
             <small className="text-muted"><span data-tip='Hide collection' onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
             <span data-tip='Remove collection from stored collections'
             onClick={(e) => {
               this.props.deleteCollection(collection.id, ()=> {
                 this.props.getCollections(()=> {
-                  
+
                 })
               })
               e.stopPropagation();

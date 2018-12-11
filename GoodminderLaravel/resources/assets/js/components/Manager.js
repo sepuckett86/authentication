@@ -11,6 +11,7 @@ import PromptCollection from './ManagerPromptCollection';
 import PromptCollectionCreate from './ManagerPromptCollectionCreate';
 import PromptCollectionFind from './ManagerPromptCollectionFind';
 import PromptCollectionView from './ManagerPromptCollectionView';
+import PromptCreateEdit from './ManagerPromptCreateEdit';
 
 
 // This is the front-end of a database manager.
@@ -83,6 +84,8 @@ class Manager extends React.Component {
         return <PromptCollectionFind />;
       case 'promptCollectionView':
         return <PromptCollectionView />;
+      case 'promptCreateEdit':
+        return <PromptCreateEdit />;
       default:
         return (<div>
           <button

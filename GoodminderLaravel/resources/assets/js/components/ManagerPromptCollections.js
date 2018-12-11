@@ -120,7 +120,7 @@ class PromptCollections extends React.Component {
         <div className="box">
         <div id="promptCollections">
           <h1>Manage Prompt Collections</h1>
-          <p>Here is how you determine which random prompts appear when you are making a prompt response goodminder -- with prompt collections.</p>
+          <p>Prompt collections are displayed during goodminder creation.</p>
           <hr />
 
           <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
