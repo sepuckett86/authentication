@@ -44,7 +44,7 @@ class ManagerPromptCollection extends React.Component {
           this.props.collection.map((prompt, i) => {
             return (
                 <tr key={this.generateKey(i)}>
-                  <th scope="row">{i}</th>
+                  <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                   <td>
                   <button type="button" name='delete' className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
@@ -67,7 +67,7 @@ class ManagerPromptCollection extends React.Component {
           this.props.collection.map((prompt, i) => {
             return (
                 <tr key={this.generateKey(i)}>
-                  <th scope="row">{i}</th>
+                  <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                 </tr>
             )

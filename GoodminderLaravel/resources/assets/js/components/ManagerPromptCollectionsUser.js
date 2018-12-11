@@ -43,8 +43,18 @@ class User extends React.Component {
     const user = this.props.storedPromptCollections.filter(collection =>
       collection.creator_id === this.props.user_id
     );
+    let userHidden = [];
+    let userDisplayed = [];
+    user.forEach(collection => {
+      if (collection.displayFlag === 0) {
+        userHidden.push(collection);
+      } else if (collection.displayFlag === 1) {
+        userDisplayed.push(collection);
+      }
+    })
     return (
-      user.map((collection, i) => {
+      <div>
+      {userDisplayed.map((collection, i) => {
           return (
         <div key={i} className="list-group alignL">
           <div
@@ -60,7 +70,7 @@ class User extends React.Component {
           }
           }>
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.publicFlag}</h5>
+              <h5 className="mb-1">{collection.collection} | {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}</h5>
               <small className="text-muted">
               {collection.prompts.length}{' '}
               {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
@@ -89,7 +99,57 @@ class User extends React.Component {
           </div>
         </div>
       );
-    })
+    })}
+
+    {userHidden.map((collection, i) => {
+        return (
+      <div key={i} className="list-group alignL">
+        <div
+          className="list-group-item list-group-item-dark list-group-item-action flex-column align-items-start"
+        >
+        <a className='btn-flat' onClick={ () => {
+            this.props.getPromptCollection(
+              collection.prompt_collection_id,
+              ()=> {
+                this.props.setCurrentStoredPromptCollection(collection);
+                this.props.changeManagerDisplay('promptCollection');
+              })
+        }
+        }>
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="mb-1">{collection.collection} |{' '}
+            {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}{' '}|{' '}
+            <i>Hidden</i></h5>
+            <small className="text-muted">
+            {collection.prompts.length}{' '}
+            {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+            </small>
+          </div>
+          <p className="mb-1">
+          {collection.description}
+          </p>
+          <div className="d-flex w-100 justify-content-between">
+          <small className="text-muted">Updated 2018-11-15.</small>
+          <small className="text-muted">
+          <span data-tip='Show collection' onClick={(e) => {
+            console.log('clickeye');
+            e.stopPropagation();}}
+            className='btn-flat btn-blue'><i className="fas fa-eye"></i></span>
+          {' '}
+          {/* Button trigger modal */}
+          <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
+          onClick={(e) => {
+            this.props.setPromptCollectionID(collection.prompt_collection_id);
+            e.stopPropagation();}}
+            className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+          </small>
+          </div>
+          </a>
+        </div>
+      </div>
+    );
+  })}
+    </div>
     )
   }
 

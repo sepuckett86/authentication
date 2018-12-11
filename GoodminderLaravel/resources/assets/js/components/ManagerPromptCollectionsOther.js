@@ -66,7 +66,15 @@ class Other extends React.Component {
             <small className="text-muted">Updated 2018-11-15.</small>
 
             <small className="text-muted"><span data-tip='Hide collection' onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
-            <span data-tip='Remove collection from stored collections' onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
+            <span data-tip='Remove collection from stored collections'
+            onClick={(e) => {
+              this.props.deleteCollection(collection.id, ()=> {
+                this.props.getCollections(()=> {
+                  
+                })
+              })
+              e.stopPropagation();
+            }} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
             </div>
           </a>
           </div>

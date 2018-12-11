@@ -81,13 +81,14 @@ class PromptTable extends React.Component {
         <div className="box">
         <div id="beginning">
           <h1>Manage Prompts</h1>
-          <p>Here is where you can view and respond to all prompts and create and edit your own custom prompts</p>
+          <p>Here is where you can create, edit, and respond to your own custom prompts</p>
           <hr />
           <Link to="/">
           <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
           </Link>
           <br />
           <br />
+          {/*
           <div className="row justify-content-center">
             <div className="col col-12 col-sm-6">
               <div className="input-group mb-3">
@@ -134,7 +135,7 @@ class PromptTable extends React.Component {
                 </select>
               </div>
             </div>
-          </div>
+          </div> */}
           <a href="#end">Scroll to bottom</a>
           {/* MediaQuery for large screen */}
           <MediaQuery query="(min-width: 576px)">
@@ -209,13 +210,15 @@ class PromptTable extends React.Component {
       </table>
       </MediaQuery>
 
+      <a id='end' href="#beginning">Scroll to top</a>
+      <br />
         <CSVLink data={this.makeCSVArrayPrompts()}>
         <button className="btn btn-green" type="button">
           Download CSV of all data
         </button>
         </CSVLink>
         <br />
-        <a id='end' href="#beginning">Scroll to top</a>
+
         <MediaQuery query="(max-width: 576px)">
           <hr />
         </MediaQuery>

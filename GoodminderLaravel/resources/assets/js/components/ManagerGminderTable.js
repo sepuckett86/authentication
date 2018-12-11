@@ -163,6 +163,13 @@ class GminderTable extends React.Component {
         return textA < textB ? -1 : textA > textB ? 1 : 0;
       });
     }
+    if (value === "collection") {
+      sorted.sort(function(a, b) {
+        const textA = a.collection.toUpperCase();
+        const textB = b.collection.toUpperCase();
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
+      });
+    }
     if (value === "rating") {
       sorted.sort(function(a, b) {
         const intA = a.rating;
@@ -406,8 +413,9 @@ class GminderTable extends React.Component {
                   id="sort"
                   defaultValue="id"
                 >
-                  <option value="id">ID</option>
+                  <option value="id">Date Added</option>
                   <option value="category">Category</option>
+                  <option value="collection">Collection</option>
                   <option value="rating">Rating</option>
                   <option value="author">Author</option>
                 </select>
@@ -427,8 +435,9 @@ class GminderTable extends React.Component {
             <table className="table table-striped alignL">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col"></th>
                   <th scope="col">Category</th>
+                  <th scope="col">Collection</th>
                   <th scope="col">Rating</th>
                   <th scope="col">Goodminder</th>
                   <th scope="col">Edit</th>
@@ -438,9 +447,10 @@ class GminderTable extends React.Component {
                 {this.state.gmindersShowing.map((gminder, i) => {
                   return (
                     <tr key={this.generateKey(i)}>
-                      <th scope="row">{gminder.id}</th>
+                      <th scope="row">{i+1}</th>
 
                       <td>{gminder.category}</td>
+                      <td>{gminder.collection}</td>
                       <td>{gminder.rating}</td>
                       <td>
                         {gminder.promptID
