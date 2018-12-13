@@ -20,7 +20,7 @@ class GminderTable extends React.Component {
       gmindersShowing: [],
       sortBy: "id",
       filterBy: "all",
-      gmindersFromCSV: [],
+      gmindersFromCSV: []
     };
 
     // bind methods
@@ -81,19 +81,26 @@ class GminderTable extends React.Component {
   }
 
   handleClickUpload() {
-    console.log(this.state.gmindersFromCSV)
-    let arrayOfGminderMainResponses = [];
-    this.props.gminders.forEach(gminder => {
-      arrayOfGminderMainResponses.push(gminder.mainResponse)
-    })
-    // mainResponses must be unique
-    this.state.gmindersFromCSV.forEach(goodminder => {
-      let dequotedGminder = goodminder;
-      if (!arrayOfGminderMainResponses.includes(goodminder.mainResponse)) {
-        dequotedGminder.mainResponse = replaceQuotes(goodminder.mainResponse)
-        this.props.postGoodminder(dequotedGminder, ()=> {})
-      }
-    })
+    if (this.state.gmindersFromCSV.length === 0) {
+      alert('Upload a .csv file')
+    } else {
+      console.log(this.state.gmindersFromCSV)
+      let arrayOfGminderMainResponses = [];
+      this.props.gminders.forEach(gminder => {
+        arrayOfGminderMainResponses.push(gminder.mainResponse)
+      })
+      // mainResponses must be unique
+      this.state.gmindersFromCSV.forEach(goodminder => {
+        let dequotedGminder = goodminder;
+        if (!arrayOfGminderMainResponses.includes(goodminder.mainResponse)) {
+          dequotedGminder.mainResponse = replaceQuotes(goodminder.mainResponse)
+          this.props.postGoodminder(dequotedGminder, ()=> {
+          })
+        }
+      })
+      this.props.changeManagerDisplay('')
+    }
+
   }
 
   setGmindersShowing(filterBy, sortBy) {
