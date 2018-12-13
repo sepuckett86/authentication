@@ -30,35 +30,14 @@ class EditCustom extends React.Component {
     })
   }
 
-  getDate() {
-    let d = new Date();
-    let year = d.getFullYear();
-    let month = d.getMonth() + 1;
-    let day = d.getDate();
-    const fullDate = `${month}/${day}/${year}`;
-    return fullDate;
-  }
-
   newGminder() {
-    const date = this.getDate();
     const newGminder = {
       id: this.props.gminder.id,
-      userID: 1,
-      category: 'custom',
       mainResponse: this.state.inputAnswer,
-      author: null,
-      promptID: null,
-      reason: null,
-      source: null,
-      who: null,
       rating: this.state.inputRating,
       recordedDate: this.props.gminder.recordedDate,
-      eventDate: null,
-      updatedDate: date,
       collection: this.state.inputCollection,
-      publicFlag: 0,
     }
-    console.log(newGminder)
     return newGminder;
   }
 

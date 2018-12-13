@@ -51,35 +51,17 @@ class EditQuote extends React.Component {
     }
   }
 
-  getDate() {
-    let d = new Date();
-    let year = d.getFullYear();
-    let month = d.getMonth() + 1;
-    let day = d.getDate();
-    const fullDate = `${month}/${day}/${year}`;
-    return fullDate;
-  }
-
   newGminder() {
-    const date = this.getDate();
     const newGminder = {
       id: this.props.gminder.id,
-      userID: 1,
-      category: 'quote',
       mainResponse: this.state.inputAnswer,
       author: this.state.inputAuthor,
-      promptID: null,
       reason: this.state.inputReason,
       source: this.state.inputSource,
       who: this.state.inputWho,
       rating: this.state.inputRating,
-      recordedDate: date,
-      eventDate: null,
-      updatedDate: null,
       collection: this.state.inputCollection,
-      publicFlag: 0,
     }
-    console.log(newGminder)
     return newGminder;
   }
 

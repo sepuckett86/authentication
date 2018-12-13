@@ -14,8 +14,9 @@ import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
-import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION, PUT_PROMPT_COLLECTION,
-  DELETE_PROMPT_COLLECTION } from './types';
+import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION,
+  PUT_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION,
+  DELETE_PROMPT_COLLECTION, SET_PROMPT_COLLECTION_ID } from './types';
 import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
   DELETE_STORED_COLLECTION } from './types';
 import { optionsWithToken, tokenInLocalStorage } from './functions';
@@ -286,9 +287,8 @@ export const postPrompt = (prompt, callback) => async dispatch => {
   }
 };
 
-export const putPrompt = (updatedPrompt, callback) => async dispatch => {
+export const putPrompt = (updatedPrompt, id, callback) => async dispatch => {
   try {
-    const id = updatedPrompt.id;
     const path = baseURL + `api/prompts/${id}`;
     const options = optionsWithToken();
     const content = updatedPrompt;
@@ -323,10 +323,8 @@ export const getPromptCollections = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/promptCollections';
     const options = optionsWithToken();
-    let response = {};
-    response.data = [ { 'id': 1, 'creator_id': 1, 'collection': 'Happy', 'description': 'This collection is fun.' }, {'id': 2, 'creator_id': 2, 'collection': 'Self', 'description': 'I made this myself'} ]
     if (tokenInLocalStorage()) {
-      // const response = await axios.get(path, options);
+      const response = await axios.get(path, options);
 
       dispatch({ type: GET_PROMPT_COLLECTIONS, payload: response.data });
       callback();
@@ -342,10 +340,9 @@ export const getPromptCollection = (id, callback) => async dispatch => {
   try {
     const path = baseURL + `api/promptCollections/${id}`;
     const options = optionsWithToken();
-    let response = {};
-    response.data = [ { 'id': 1, 'promptText': 'Prompt here' } , { 'id': 2, 'promptText': 'Another prompt' } ];
+
     if (tokenInLocalStorage()) {
-      // const response = await axios.get(path, options);
+      const response = await axios.get(path, options);
 
       dispatch({ type: GET_PROMPT_COLLECTION, payload: response.data });
       callback();
@@ -364,7 +361,9 @@ export const postPromptCollection = (collection, callback) => async dispatch => 
       const options = optionsWithToken();
       const content = collection;
       const response = await axios.post(path, content, options);
+      const promptCollectionID = Number(response.data.split(' ')[1]);
       dispatch({ type: POST_PROMPT_COLLECTION, payload: response });
+      dispatch({ type: SET_PROMPT_COLLECTION_ID, payload: promptCollectionID });
       callback()
     } else {
       console.log('token absent')
@@ -405,16 +404,35 @@ export const deletePromptCollection = (id, callback) => async dispatch => {
   }
 }
 
+// PROMPT PROMPT COLLECTIONS
+export const postPromptPromptCollection = (promptCollectionID, prompts, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/addPromptsToCollection';
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = {
+        promptCollectionID: promptCollectionID,
+        prompts: prompts  // A string of promptIDs
+      }
+      const response = await axios.post(path, content, options);
+      dispatch({ type: POST_PROMPT_PROMPT_COLLECTION, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
 // STORED PROMPT COLLECTIONS
 
 export const getCollections = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/storedPromptCollections';
     const options = optionsWithToken();
-    let response = {};
-    response.data = [ { 'id': 1, 'prompt_collection_id': 3, 'creator_id': 1, 'collection': 'Happy', 'promptCount': 4, 'description': 'This collection is fun.' , 'displayFlag': 1, 'publicFlag': 1}, {'id': 2, 'creator_id': 2, 'prompt_collection_id': 4, 'collection': 'Self', 'promptCount': 4, 'description': 'I made this myself', 'displayFlag': 1, 'publicFlag': 1}, {'id': 3, 'creator_id': 2, 'prompt_collection_id': 5, 'collection': 'Private', 'promptCount': 4, 'description': 'Private collection', 'displayFlag': 1, 'publicFlag': 0} ]
     if (tokenInLocalStorage()) {
-      // const response = await axios.get(path, options);
+      const response = await axios.get(path, options);
       dispatch({ type: GET_STORED_COLLECTIONS, payload: response.data });
       callback();
     } else {
@@ -426,14 +444,14 @@ export const getCollections = (callback) => async dispatch => {
 };
 
 // Adds a collection to stored_prompts table
-export const postCollection = (collection, creator_id, callback) => async dispatch => {
+export const postCollection = (promptCollectionID, callback) => async dispatch => {
   try {
     const path = baseURL + 'api/storedPromptCollections';
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
       const content = {
-        'promptCollection': collection,
-        'creator_id': creator_id
+        'promptCollectionID': promptCollectionID,
+        'displayFlag': 1
       };
       const response = await axios.post(path, content, options);
       const payload = { collection: collection, creator_id: creator_id }

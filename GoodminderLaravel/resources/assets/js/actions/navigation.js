@@ -1,6 +1,6 @@
 import { SET_CURRENT_GM, SET_PREVIOUS_GM, SET_BACK_GM, SET_UPDATED_GM,
   SET_CURRENT_PROMPT, SET_COLLECTION, SET_CURRENT_PROMPT_COLLECTION,
-  SET_CURRENT_STORED_PROMPT_COLLECTION, SET_DISPLAY_GM} from './types';
+  SET_CURRENT_STORED_PROMPT_COLLECTION, SET_DISPLAY_GM, SET_PROMPT_COLLECTION_ID } from './types';
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from './types';
 
 export function navClear() {
@@ -86,5 +86,12 @@ export function setCurrentStoredPromptCollection(collection) {
   return {
     type: SET_CURRENT_STORED_PROMPT_COLLECTION,
     payload: collection
+  }
+}
+
+export function setPromptCollectionID(id) {
+  return {
+    type: SET_PROMPT_COLLECTION_ID,
+    payload: id
   }
 }

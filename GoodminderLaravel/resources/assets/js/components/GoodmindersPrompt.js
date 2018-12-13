@@ -3,6 +3,7 @@ import Stars from './Stars';
 import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import ReactTooltip from 'react-tooltip';
 
 class Prompt extends React.Component {
 
@@ -25,7 +26,13 @@ class Prompt extends React.Component {
                   />
               </div>
             <div className="col alignR paragraph-font">
-              <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }</p>
+              <p>{date} {gminder.collection ?
+                <span>{ this.props.displayGM === 'random' ?
+                <span>{' | '} <button className='btn-flat btn-blue' data-tip='Click to see goodminders in this collection only' onClick={()=>{this.props.setDisplayGM('same')}}>{gminder.collection}</button></span>
+                :
+                <span>{' | '} <button className='btn-flat btn-blue' data-tip='Click to see goodminders in all collections' onClick={()=>{this.props.setDisplayGM('random')}}><b>{gminder.collection}</b></button></span>
+                }</span>
+                : null }</p>
             </div>
             </div>
           </MediaQuery>
@@ -66,10 +73,16 @@ class Prompt extends React.Component {
 
             />
           <br />
-            <p>{date} {gminder.collection ? ' | ' + gminder.collection : null }</p>
+            <p>{date} {gminder.collection ?
+              <span>{ this.props.displayGM === 'random' ?
+              <span>{' | '} <button className='btn-flat btn-blue' data-tip='Click to see goodminders in this collection only' onClick={()=>{this.props.setDisplayGM('same')}}>{gminder.collection}</button></span>
+              :
+              <span>{' | '} <button className='btn-flat btn-blue' data-tip='Click to see goodminders in all collections' onClick={()=>{this.props.setDisplayGM('random')}}><b>{gminder.collection}</b></button></span>
+              }</span>
+              : null }</p>
        </MediaQuery>
 
-
+       <ReactTooltip delayShow={200}/>
     </div>
   )
   }
@@ -79,7 +92,8 @@ function mapStateToProps(state) {
   return {
     currentGM: state.navigation.currentGM,
     prompt: state.navigation.currentPrompt,
-    prompts: state.prompts
+    prompts: state.prompts,
+    displayGM: state.navigation.displayGM
   };
 }
 

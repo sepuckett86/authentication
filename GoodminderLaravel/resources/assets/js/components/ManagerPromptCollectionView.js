@@ -6,7 +6,7 @@ import React from 'react';
 
 import MediaQuery from 'react-responsive';
 
-class ManagerPromptCollection extends React.Component {
+class PromptCollectionView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,12 +15,29 @@ class ManagerPromptCollection extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    this.props.getNickname(this.props.collectionInfo.creator_id, ()=>{});
+    this.props.getNickname(this.props.collectionInfo.creator_id, ()=>{
+      this.props.getCollections(()=> {
+
+      })
+    });
+  }
+
+  isCollectionAlreadyStored() {
+    const filtered = this.props.storedCollections.filter(collection =>
+      collection.prompt_collection_id === this.props.collectionInfo.id
+    )
+    if (filtered.length > 0) {
+      return true
+    } else {
+      return false
+    }
   }
 
   handleClick(e) {
-    if (e.currentTarget.name === 'delete') {
-      // Change this.state.prompts to new prompt array without the prompt
+    if (e.currentTarget.name === 'addCollection') {
+      this.props.postCollection(this.props.collectionInfo.id, ()=> {
+
+      })
     }
   }
 
@@ -81,14 +98,14 @@ class ManagerPromptCollection extends React.Component {
 
   render() {
     return(
-      <div className="">
+      <div className="container-fluid">
 
       {/* Modal - Must be outside of responsive design displays */}
       <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Delete Prompt from Collection</h5>
+              <h5 className="modal-title" id="exampleModalLabel">Add to stored prompt collection?</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -104,6 +121,7 @@ class ManagerPromptCollection extends React.Component {
         </div>
       </div>
 
+        <br />
         <div className="box">
         <h2>Prompt Collection</h2>
         <div className="alignL g-box">
@@ -115,8 +133,22 @@ class ManagerPromptCollection extends React.Component {
           <br />
           <h4><u>Prompts in collection</u></h4>
           {this.chooseTable()}
+
+          { this.isCollectionAlreadyStored() === false ?
+          <button name='addCollection' onClick={this.handleClick} className='btn btn-green'>Add Collection</button>
+          : <div className="alert alert-primary" role="alert">This collection is already in your stored collections.</div>}
           </div>
         </div>
+
+        <br />
+
+        <button
+        id='random'
+        name="Back"
+        className='btn btn-custom'
+        onClick={() => this.props.changeManagerDisplay('promptCollectionFind')}>
+        Back to Find Prompt Collections</button>
+
         <br />
       </div>
   )
@@ -126,9 +158,10 @@ class ManagerPromptCollection extends React.Component {
 function mapStateToProps(state) {
   return {
     collection: state.navigation.currentPromptCollectionPrompts,
-    collectionInfo: state.navigation.currentStoredPromptCollection,
+    collectionInfo: state.navigation.currentPromptCollection,
     user_id: state.user.backend.id,
-    nickname: state.navigation.nickname
+    nickname: state.navigation.nickname,
+    storedCollections: state.storedPromptCollections
   }
 }
-export default connect(mapStateToProps, actions)(ManagerPromptCollection);
+export default connect(mapStateToProps, actions)(PromptCollectionView);

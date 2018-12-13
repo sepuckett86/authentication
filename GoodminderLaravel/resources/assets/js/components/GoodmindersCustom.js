@@ -50,7 +50,13 @@ class Custom extends React.Component {
              gminder={this.props.currentGM}
              />
              <br />
-             <p>{date} {gminder.collection ? ' | ' + gminder.collection + ' ': null }
+             <p>{date} {gminder.collection ?
+               <span>{ this.props.displayGM === 'random' ?
+               <span>{' | '} <button className='btn-flat btn-blue' data-tip='Click to see goodminders in this collection only' onClick={()=>{this.props.setDisplayGM('same')}}>{gminder.collection}</button></span>
+               :
+               <span>{' | '} <button className='btn-flat btn-blue' data-tip='Click to see goodminders in all collections' onClick={()=>{this.props.setDisplayGM('random')}}><b>{gminder.collection}</b></button></span>
+               }</span>
+               : null }
                 </p>
            </MediaQuery>
            <ReactTooltip delayShow={200}/>

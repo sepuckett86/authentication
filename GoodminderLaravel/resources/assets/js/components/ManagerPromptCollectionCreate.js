@@ -31,9 +31,16 @@ class PromptCollectionCreate extends React.Component {
   handleClick(event) {
     if (event.target.name === "confirmCreate") {
       const collection = this.createCollection();
+      let promptString = '';
+      this.state.list2.forEach(prompt => {promptString = promptString + String(prompt.id) + ', '})
+
       this.props.postPromptCollection(collection, () => {
-        this.props.getPromptCollections(() => {});
-        this.props.changeManagerDisplay("promptCollections");
+        const promptCollectionID = this.props.promptCollectionID;
+        console.log(promptCollectionID)
+        this.props.postPromptPromptCollection(promptCollectionID, promptString, ()=> {
+          this.props.getPromptCollections(() => {});
+          this.props.changeManagerDisplay("promptCollections");
+        })
       });
     }
 
@@ -259,14 +266,16 @@ class PromptCollectionCreate extends React.Component {
         <br />
         <div className="row">
           <div className="col">
+          <Link to='manager'>
             <button
               id="random"
               name="Back"
               className="btn btn-custom"
-              onClick={() => this.props.changeHomeDisplay("goodminders")}
+              onClick={() => this.props.changeManagerDisplay("promptCollections")}
             >
-              <i className="fas fa-home" /> Back to Home
+            Back to Prompt Collections
             </button>
+            </Link>
             <br />
 
             <br />
@@ -281,7 +290,8 @@ class PromptCollectionCreate extends React.Component {
 function mapStateToProps(state) {
   return {
     currentPrompt: state.navigation.currentPrompt,
-    prompts: state.prompts
+    prompts: state.prompts,
+    promptCollectionID: state.navigation.promptCollectionID
   };
 }
 export default connect(

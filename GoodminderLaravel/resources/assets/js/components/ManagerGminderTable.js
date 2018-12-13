@@ -20,7 +20,7 @@ class GminderTable extends React.Component {
       gmindersShowing: [],
       sortBy: "id",
       filterBy: "all",
-      gmindersFromCSV: [],
+      gmindersFromCSV: []
     };
 
     // bind methods
@@ -42,38 +42,65 @@ class GminderTable extends React.Component {
   }
 
   handleForce(data) {
-    const arrayOfArrays = data;
-    let arrayOfNewGminders = [];
-    let newGminder = {};
-    for (let arr of arrayOfArrays) {
-      newGminder["category"] = arr[0];
-      newGminder["mainResponse"] = arr[1];
-      newGminder["author"] = arr[2];
-      newGminder["reason"] = arr[3];
-      newGminder["source"] = arr[4];
-      newGminder["who"] = arr[5];
-      newGminder["rating"] = Number(arr[6]);
-      newGminder["collection"] = arr[7];
-      arrayOfNewGminders.push({ ...newGminder });
-    }
-    arrayOfNewGminders.shift();
-    this.setState({ gmindersFromCSV: arrayOfNewGminders })
+    this.props.getPrompts(()=> {
+      const arrayOfArrays = data;
+      let arrayOfNewGminders = [];
+      let newGminder = {};
+      for (let arr of arrayOfArrays) {
+        newGminder["category"] = arr[0];
+        newGminder["collection"] = arr[1];
+        newGminder["promptText"] = arr[2];
+        newGminder["mainResponse"] = arr[3];
+        newGminder["author"] = arr[4];
+        newGminder["reason"] = arr[5];
+        newGminder["source"] = arr[6];
+        newGminder["who"] = arr[7];
+        newGminder["rating"] = Number(arr[8]);
+        if (arr[0] === 'prompt') {
+            let filtered = this.props.prompts.filter(prompt => prompt.promptText === arr[2]);
+            // If prompt exists to user
+            if (filtered.length >= 1) {
+              newGminder["prompt_id"] = filtered[0].id;
+              console.log(filtered[0].id);
+              arrayOfNewGminders.push({ ...newGminder });
+            } else {
+              newGminder["prompt_id"] = null;
+              console.log('Add prompt to database first')
+            }
+        } else {
+          newGminder["prompt_id"] = null;
+          arrayOfNewGminders.push({ ...newGminder });
+        }
+
+      }
+      // Remove first row of column names
+      arrayOfNewGminders.shift();
+      this.setState({ gmindersFromCSV: arrayOfNewGminders })
+    })
+
   }
 
   handleClickUpload() {
-    console.log(this.state.gmindersFromCSV)
-    let arrayOfGminderMainResponses = [];
-    this.props.gminders.forEach(gminder => {
-      arrayOfGminderMainResponses.push(gminder.mainResponse)
-    })
-    // mainResponses must be unique
-    this.state.gmindersFromCSV.forEach(goodminder => {
-      let dequotedGminder = goodminder;
-      if (!arrayOfGminderMainResponses.includes(goodminder.mainResponse)) {
-        dequotedGminder.mainResponse = replaceQuotes(goodminder.mainResponse)
-        this.props.postGoodminder(dequotedGminder, ()=> {})
-      }
-    })
+    if (this.state.gmindersFromCSV.length === 0) {
+      alert('Upload a .csv file')
+    } else {
+      console.log(this.state.gmindersFromCSV)
+      let arrayOfGminderMainResponses = [];
+      this.props.gminders.forEach(gminder => {
+        arrayOfGminderMainResponses.push(gminder.mainResponse)
+      })
+      // mainResponses must be unique
+      this.state.gmindersFromCSV.forEach(goodminder => {
+        let dequotedGminder = goodminder;
+        if (!arrayOfGminderMainResponses.includes(goodminder.mainResponse)) {
+          dequotedGminder.mainResponse = replaceQuotes(goodminder.mainResponse)
+          this.props.postGoodminder(dequotedGminder, ()=> {
+          })
+        }
+      })
+      this.props.changeManagerDisplay('')
+    }
+
   }
 
   setGmindersShowing(filterBy, sortBy) {
@@ -163,6 +190,13 @@ class GminderTable extends React.Component {
         return textA < textB ? -1 : textA > textB ? 1 : 0;
       });
     }
+    if (value === "collection") {
+      sorted.sort(function(a, b) {
+        const textA = a.collection.toUpperCase();
+        const textB = b.collection.toUpperCase();
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
+      });
+    }
     if (value === "rating") {
       sorted.sort(function(a, b) {
         const intA = a.rating;
@@ -231,35 +265,54 @@ class GminderTable extends React.Component {
     let myEmptyArray = [
       [
         "category",
+        "collection",
+        "promptText",
         "mainResponse",
         "author",
         "reason",
         "source",
         "who",
         "rating",
-        "collection"
+
       ]
     ];
     let innerArray = [
+      'prompt',
+      'Questions',
+      'What is your favorite comfort food?',
+      'Grilled cheese sandwiches',
+      null,
+      'My mom used to make them for me.',
+      null,
+      null,
+      5,
+
+    ];
+    myEmptyArray.push(innerArray);
+    innerArray = [
       'quote',
+      'Funny Sayings',
+      null,
       'May your beer be laid under an enchantment of surpassing excellence for seven years!',
       'J.R.R. Tolkien',
       'We laughed out loud at this quote.',
       'The Fellowship of the Ring',
       'Gandalf',
       5,
-      'Funny Sayings'
+
     ];
     myEmptyArray.push(innerArray);
     innerArray = [
       'custom',
+      'Affirmations',
+      null,
       'Breathe.',
       null,
       null,
       null,
       null,
       4,
-      'Affirmations'
+
     ];
     myEmptyArray.push(innerArray);
     return myEmptyArray;
@@ -268,28 +321,27 @@ class GminderTable extends React.Component {
   makeCSVArray() {
     let myArray = [
       [
-        "ID",
-        "Category",
-        "Collection",
-        "Date",
-        "Prompt",
-        "Answer",
-        "Reason",
-        "Author",
-        "Stars"
+        "category",
+        "collection",
+        "promptText",
+        "mainResponse",
+        "author",
+        "reason",
+        "source",
+        "who",
+        "rating"
       ]
     ];
-
     this.props.gminders.forEach(gminder => {
       let innerArray = [
-        gminder.id,
         gminder.category,
         gminder.collection,
-        gminder.date,
-        gminder.promptID,
+        gminder.promptText,
         gminder.mainResponse,
-        gminder.reason,
         gminder.author,
+        gminder.reason,
+        gminder.source,
+        gminder.who,
         gminder.rating
       ];
       myArray.push(innerArray);
@@ -406,8 +458,9 @@ class GminderTable extends React.Component {
                   id="sort"
                   defaultValue="id"
                 >
-                  <option value="id">ID</option>
+                  <option value="id">Date Added</option>
                   <option value="category">Category</option>
+                  <option value="collection">Collection</option>
                   <option value="rating">Rating</option>
                   <option value="author">Author</option>
                 </select>
@@ -427,8 +480,9 @@ class GminderTable extends React.Component {
             <table className="table table-striped alignL">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col"></th>
                   <th scope="col">Category</th>
+                  <th scope="col">Collection</th>
                   <th scope="col">Rating</th>
                   <th scope="col">Goodminder</th>
                   <th scope="col">Edit</th>
@@ -438,15 +492,16 @@ class GminderTable extends React.Component {
                 {this.state.gmindersShowing.map((gminder, i) => {
                   return (
                     <tr key={this.generateKey(i)}>
-                      <th scope="row">{gminder.id}</th>
+                      <th scope="row">{i+1}</th>
 
                       <td>{gminder.category}</td>
+                      <td>{gminder.collection}</td>
                       <td>{gminder.rating}</td>
                       <td>
-                        {gminder.promptID
-                          ? 'fix me later'
-                          : null}
-                        {gminder.promptID ? <br /> : null}
+                        {gminder.promptText
+                          ? gminder.promptText : null}
+                        {gminder.promptText
+                            ? <br /> : null}
                         {gminder.mainResponse}
                         {gminder.author ? <br /> : null}
                         {gminder.author ? this.displayAuthor(gminder) : null}
@@ -489,10 +544,11 @@ class GminderTable extends React.Component {
                     <tr key={this.generateKey(i)}>
                       <td>{gminder.rating}</td>
                       <td>
-                        {gminder.promptID
-                          ? 'fix me later'
+                        {gminder.promptText
+                          ? gminder.promptText
                           : null}
-                        {gminder.promptID ? <br /> : null}
+                          {gminder.promptText
+                              ? <br /> : null}
                         {gminder.mainResponse}
                         {gminder.author ? <br /> : null}
                         {gminder.author ? this.displayAuthor(gminder) : null}
@@ -539,7 +595,7 @@ class GminderTable extends React.Component {
             <div className="card card-body">
             <CSVReader
               cssclassName="react-csv-input"
-              label="Select CSV file with goodminders to upload. It must have the .csv extension and be a modified version of the downloadable CSV template, with the same column order. Goodminder will only be added if the mainResponse is unique."
+              label="Select CSV file with goodminders to upload. It must have the .csv extension and be a modified version of the downloadable CSV template, with the same column order. Goodminder will only be added if the mainResponse is unique. Prompt responses will only be added if the prompt is in your collection."
               onFileLoaded={this.handleForce}
             />
             <button onClick={this.handleClickUpload}>Add Goodminders from Uploaded CSV to Database</button>
@@ -557,7 +613,8 @@ class GminderTable extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminders: state.goodminders
+    gminders: state.goodminders,
+    prompts: state.prompts
   };
 }
 

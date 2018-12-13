@@ -2,7 +2,8 @@ import { SET_CURRENT_GM, SET_PREVIOUS_GM,
   SET_BACK_GM, SET_UPDATED_GM,
   SET_CURRENT_PROMPT, SET_COLLECTION, GET_NICKNAME,
   SET_CURRENT_PROMPT_COLLECTION, GET_PROMPT_COLLECTION,
-  SET_CURRENT_STORED_PROMPT_COLLECTION, SET_DISPLAY_GM} from '../actions/types';
+  SET_CURRENT_STORED_PROMPT_COLLECTION, SET_DISPLAY_GM,
+  POST_PROMPT_COLLECTION, SET_PROMPT_COLLECTION_ID } from '../actions/types';
 
 import { NAV_BACK, NAV_NEXT, NAV_CLEAR } from '../actions/types';
 
@@ -15,9 +16,11 @@ const initialState = {
     collection: '',
     updatedGM: {},
     nickname: '',
-    currentPromptCollection: [],
+    currentPromptCollection: {},
+    promptCollectionID: '', // this is a storage place for prompt collection id to perform action on
+    currentPromptCollectionPrompts: [],
     currentStoredPromptCollection: {},
-
+    currentStoredPromptCollectionPrompts: []
   };
 
 export default function(state = initialState, action) {
@@ -43,7 +46,9 @@ export default function(state = initialState, action) {
     case SET_CURRENT_STORED_PROMPT_COLLECTION:
       return { ...state, currentStoredPromptCollection: action.payload };
     case GET_PROMPT_COLLECTION:
-      return { ...state, currentPromptCollection: action.payload };
+      return { ...state, currentPromptCollectionPrompts: action.payload };
+    case SET_PROMPT_COLLECTION_ID:
+      return { ...state, promptCollectionID: action.payload };
     case NAV_BACK:
       return { ...state}
     case NAV_NEXT:

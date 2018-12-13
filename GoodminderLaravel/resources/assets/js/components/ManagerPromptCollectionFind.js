@@ -2,11 +2,11 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import ReactTooltip from 'react-tooltip';
+import {Link} from "react-router-dom";
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
-class Other extends React.Component {
+class PromptCollectionFind extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +23,15 @@ class Other extends React.Component {
     this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
+  componentDidMount() {
+    // Get data from database
+    // Prompt Collections
+    this.props.getPromptCollections(() => {
+
+    })
+  }
+
+
   handleClick(event) {
     if (event.target.name === 'user') {
       this.setState({ display: 'user'})
@@ -32,8 +41,21 @@ class Other extends React.Component {
     }
   }
 
+  isCollectionAlreadyStored(collectionID) {
+    this.props.getCollections(()=> {
+      const filtered = this.props.storedCollections.filter(collection =>
+        collection.prompt_collection_id === collectionID
+      )
+      if (filtered.length > 0) {
+        return true
+      } else {
+        return false
+      }
+    })
+  }
+
   renderListGroup() {
-    const other = this.props.storedPromptCollections.filter(collection =>
+    const other = this.props.promptCollections.filter(collection =>
       collection.creator_id !== this.props.user_id
     );
     return (
@@ -43,44 +65,42 @@ class Other extends React.Component {
           <div
             className="list-group-item list-group-item-action flex-column align-items-start"
           >
-          <a className='btn-flat' onClick={ () => {
+
+          <div className='btn-flat' onClick={ () => {
               this.props.getPromptCollection(
-                collection.prompt_collection_id,
+                collection.id,
                 ()=> {
-                  this.props.setCurrentStoredPromptCollection(collection);
-                  this.props.changeManagerDisplay('promptCollection');
+                  this.props.setCurrentPromptCollection(collection);
+                  this.props.changeManagerDisplay('promptCollectionView');
                 })
           }
           }>
+
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.nickname}</h5>
+              <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
               <small className="text-muted">
-              {collection.prompts.length}{' '}
-              {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}</small>
+              { this.isCollectionAlreadyStored(collection.id) === false ?
+                null
+              : <span><i>This collection is already in your stored collections.</i></span>}
+              {/*
+                {collection.prompts.length}{' '}
+              //{collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+              */}
+              </small>
             </div>
             <p className="mb-1">
             {collection.description}
             </p>
 
             <div className="d-flex w-100 justify-content-between">
-            <small className="text-muted">Created{' '}
-            {
-              collection.created_at.split(' ')[0]
-            }
+            <small className="text-muted">
+
             </small>
 
-            <small className="text-muted"><span data-tip='Hide collection' onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i name='eye' className="fas fa-eye-slash"></i></span>{' '}
-            <span data-tip='Remove collection from stored collections'
-            onClick={(e) => {
-              this.props.deleteCollection(collection.id, ()=> {
-                this.props.getCollections(()=> {
-
-                })
-              })
-              e.stopPropagation();
-            }} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span></small>
+            <small className="text-muted"></small>
             </div>
-          </a>
+          </div>
+
           </div>
         </div>
       );
@@ -98,11 +118,21 @@ class Other extends React.Component {
 
   render() {
     return(
-      <div>
-      <h3>Saved Collections from Others</h3>
+      <div className="container-fluid">
+      <br />
+      <div className="box">
+      <h3>Collections from Others</h3>
       {this.renderListGroup()}
       <br />
-      <ReactTooltip delayShow={200}/>
+      </div>
+      <br />
+      <button
+      id='random'
+      name="Back"
+      className='btn btn-custom'
+      onClick={() => this.props.changeManagerDisplay('promptCollections')}>
+      Back to Prompt Collections</button>
+      <br />
       </div>)
   }
 }
@@ -111,10 +141,9 @@ function mapStateToProps(state) {
   return {
     gminders: state.goodminders,
     prompts: state.prompts,
-    collection: state.navigation.collection,
-    storedPromptCollections: state.storedPromptCollections,
-    user_id: state.user.backend.id
+    user_id: state.user.backend.id,
+    promptCollections: state.promptCollections
   }
 }
 
-export default connect(mapStateToProps, actions)(Other);
+export default connect(mapStateToProps, actions)(PromptCollectionFind);

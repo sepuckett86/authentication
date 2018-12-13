@@ -8,6 +8,11 @@ import GminderTable from './ManagerGminderTable';
 import PromptTable from './ManagerPromptTable';
 import PromptCollections from './ManagerPromptCollections';
 import PromptCollection from './ManagerPromptCollection';
+import PromptCollectionCreate from './ManagerPromptCollectionCreate';
+import PromptCollectionFind from './ManagerPromptCollectionFind';
+import PromptCollectionView from './ManagerPromptCollectionView';
+import PromptCreateEdit from './ManagerPromptCreateEdit';
+
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -73,6 +78,14 @@ class Manager extends React.Component {
           {' '}Back to Manage</button>
           <br />
         </div>)
+      case 'promptCollectionCreate':
+        return <PromptCollectionCreate/>
+      case 'promptCollectionFind':
+        return <PromptCollectionFind />;
+      case 'promptCollectionView':
+        return <PromptCollectionView />;
+      case 'promptCreateEdit':
+        return <PromptCreateEdit />;
       default:
         return (<div>
           <button

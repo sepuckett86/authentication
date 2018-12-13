@@ -81,21 +81,11 @@ class AddPrompt extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  getDate() {
-    let d = new Date();
-    let year = d.getFullYear();
-    let month = d.getMonth() + 1;
-    let day = d.getDate();
-    const fullDate = `${month}/${day}/${year}`;
-    return fullDate;
-  }
-
   generateId() {
     return `${new Date().getTime()}`;
   }
 
   newGminder() {
-    const date = this.getDate();
     const newGminder = {
       category: 'prompt',
       mainResponse: this.state.inputAnswer,
@@ -135,9 +125,12 @@ class AddPrompt extends React.Component {
           </button>
 
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-          <button onClick={() => {this.props.setCurrentPrompt({}); this.props.changeHomeDisplay('promptCreateEdit')}} className="dropdown-item btn-dropdown">
+          <Link to='/manager' onClick={() => {
+            this.props.setCurrentPrompt({});
+            this.props.changeManagerDisplay('promptCreateEdit')}}
+            className="dropdown-item btn-dropdown">
             Create New Prompt
-          </button>
+          </Link>
           <Link to='/manager' onClick={() => this.props.changeManagerDisplay('promptTable')} className="dropdown-item">
             View Prompts
           </Link>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
@@ -30,8 +30,12 @@ class User extends React.Component {
     if (event.target.name === 'other') {
       this.setState({ display: 'other'})
     }
-    if (event.target.name === 'createNewCollection') {
-      this.props.changeHomeDisplay('promptCollectionCreate')
+    if (event.target.name === 'confirmDelete') {
+      this.props.deletePromptCollection(Number(this.props.promptCollectionID), ()=> {
+        this.props.getCollections(()=> {
+
+        })
+      });
     }
   }
 
@@ -39,8 +43,18 @@ class User extends React.Component {
     const user = this.props.storedPromptCollections.filter(collection =>
       collection.creator_id === this.props.user_id
     );
+    let userHidden = [];
+    let userDisplayed = [];
+    user.forEach(collection => {
+      if (collection.displayFlag === 0) {
+        userHidden.push(collection);
+      } else if (collection.displayFlag === 1) {
+        userDisplayed.push(collection);
+      }
+    })
     return (
-      user.map((collection, i) => {
+      <div>
+      {userDisplayed.map((collection, i) => {
           return (
         <div key={i} className="list-group alignL">
           <div
@@ -56,25 +70,92 @@ class User extends React.Component {
           }
           }>
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.publicFlag}</h5>
-              <small className="text-muted">{collection.promptCount} prompts</small>
+              <h5 className="mb-1">{collection.collection} | {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}</h5>
+              <small className="text-muted">
+              {collection.prompts.length}{' '}
+              {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+              </small>
             </div>
             <p className="mb-1">
             {collection.description}
             </p>
             <div className="d-flex w-100 justify-content-between">
-            <small className="text-muted">Updated 2018-11-15.</small>
+            <small className="text-muted">Created{' '}
+            {
+              collection.created_at.split(' ')[0]
+            }</small>
             <small className="text-muted">
-            <span onClick={(e) => {console.log('clickeye'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
+            <span data-tip='Hide collection' onClick={(e) => {
+              console.log('clickeye');
+              e.stopPropagation();}}
+              className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
             {' '}
-            <span onClick={(e) => {console.log('clicktrash'); e.stopPropagation();}} className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+            {/* Button trigger modal */}
+            <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
+            onClick={(e) => {
+              this.props.setPromptCollectionID(collection.prompt_collection_id);
+              e.stopPropagation();}}
+              className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
             </small>
             </div>
             </a>
           </div>
         </div>
       );
-    })
+    })}
+
+    {userHidden.map((collection, i) => {
+        return (
+      <div key={i} className="list-group alignL">
+        <div
+          className="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start"
+        >
+        <a className='btn-flat' onClick={ () => {
+            this.props.getPromptCollection(
+              collection.prompt_collection_id,
+              ()=> {
+                this.props.setCurrentStoredPromptCollection(collection);
+                this.props.changeManagerDisplay('promptCollection');
+              })
+        }
+        }>
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="mb-1">{collection.collection} |{' '}
+            {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}{' '}|{' '}
+            <i>Hidden</i></h5>
+            <small className="text-muted">
+            {collection.prompts.length}{' '}
+            {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+            </small>
+          </div>
+          <p className="mb-1">
+          {collection.description}
+          </p>
+          <div className="d-flex w-100 justify-content-between">
+          <small className="text-muted">Created{' '}
+          {
+            collection.created_at.split(' ')[0]
+          }</small>
+          <small className="text-muted">
+          <span data-tip='Show collection' onClick={(e) => {
+            console.log('clickeye');
+            e.stopPropagation();}}
+            className='btn-flat btn-blue'><i className="fas fa-eye"></i></span>
+          {' '}
+          {/* Button trigger modal */}
+          <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
+          onClick={(e) => {
+            this.props.setPromptCollectionID(collection.prompt_collection_id);
+            e.stopPropagation();}}
+            className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+          </small>
+          </div>
+          </a>
+        </div>
+      </div>
+    );
+  })}
+    </div>
     )
   }
 
@@ -89,11 +170,31 @@ class User extends React.Component {
   render() {
     return(
       <div>
+      {/* Modal - Must be outside of responsive design displays */}
+      <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Delete Prompt Collection?</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              Make permanent change to database?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" className="btn btn-primary" name='confirmDelete' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Your Collections</h3>
         {this.renderListGroup()}
         <br />
-        <Link to='/'>
-        <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
-        </Link>
+        <ReactTooltip delayShow={200}/>
       </div>)
   }
 }
@@ -103,6 +204,7 @@ function mapStateToProps(state) {
     gminders: state.goodminders,
     prompts: state.prompts,
     collection: state.navigation.collection,
+    promptCollectionID: state.navigation.promptCollectionID,
     storedPromptCollections: state.storedPromptCollections,
     user_id: state.user.backend.id
   }

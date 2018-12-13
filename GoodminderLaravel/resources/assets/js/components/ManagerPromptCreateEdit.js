@@ -21,7 +21,7 @@ class PromptCreateEdit extends React.Component {
       const prompt = this.newPrompt();
       this.props.postPrompt(prompt, () => {
         this.props.getPrompts(()=> {});
-        this.props.changeHomeDisplay('goodminders');
+        this.props.changeManagerDisplay('promptTable');
       })
     }
     if (event.target.name === 'confirmChange') {
@@ -29,14 +29,14 @@ class PromptCreateEdit extends React.Component {
       const id = this.props.currentPrompt.id;
       this.props.putPrompt(prompt, id, () => {
         this.props.getPrompts(()=> {});
-        this.props.changeHomeDisplay('goodminders');
+        this.props.changeManagerDisplay('promptTable');
       })
     }
     if (event.target.name === 'confirmDelete') {
       const id = this.props.currentPrompt.id;
       this.props.deletePrompt(id, () => {
         this.props.getPrompts(()=> {});
-        this.props.changeHomeDisplay('manager');
+        this.props.changeManagerDisplay('promptTable');
       })
     }
   }
@@ -61,7 +61,7 @@ class PromptCreateEdit extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Edit Prompt</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Save Prompt</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -131,8 +131,9 @@ class PromptCreateEdit extends React.Component {
           { this.props.currentPrompt.id ?
             <div>
             <button type="button" className="btn btn-green" data-toggle="modal" data-target="#editModal">
-              Edit Prompt
+              Save Prompt
             </button>
+            <br />
             <button type="button" className="btn btn-green" data-toggle="modal" data-target="#deleteModal">
               Delete Prompt
             </button>
@@ -154,8 +155,8 @@ class PromptCreateEdit extends React.Component {
         id='random'
         name="Back"
         className='btn btn-custom'
-        onClick={() => this.props.changeHomeDisplay('goodminders')}>
-        <i className="fas fa-home"></i>{' '}Back to Home</button>
+        onClick={() => this.props.changeManagerDisplay('promptTable')}>
+        Back to Prompt Table</button>
         <br />
 
       <br />

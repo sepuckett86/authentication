@@ -17,6 +17,8 @@ class Goodminders extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      randomizedGoodminders: [],
+      currentIndex: 0,
       prompts: [],
       length: '',
       newCurrentGM: {},
@@ -26,6 +28,7 @@ class Goodminders extends Component {
     this.nextClick = this.nextClick.bind(this);
     this.backClick = this.backClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.shuffleGoodminders = this.shuffleGoodminders.bind(this);
   }
 
   componentDidMount() {
@@ -33,20 +36,43 @@ class Goodminders extends Component {
     this.props.navClear();
     this.props.clearResponse();
     // Request to pull from database
+    this.shuffleGoodminders();
+  }
+  // from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  shuffleGoodminders() {
     this.props.getGoodminders(() => {
+      // Make randomized array of all goodminders and save in state.
+      const randomized = this.shuffle(this.props.goodminders);
+      this.setState({
+        randomizedGoodminders: randomized
+      })
       // Then set current gminder
       if (this.props.goodminders.length > 0) {
-        let current = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
+        let current = this.state.randomizedGoodminders[0];
         this.props.setCurrentGM(current);
-        // Also set current gminder to first in previous list
-        this.props.setPreviousGM([current]);
       }
       this.setState({
         length: this.props.goodminders.length,
         goodminder: this.props.currentGM
-      })
-      this.props.getCollections(() => {
-
       })
     })
   }
@@ -62,86 +88,76 @@ class Goodminders extends Component {
       this.props.changeHomeDisplay('print');
     }
   }
+
   // Sets a new random gminder as state and accounts for back/forward ability
   nextClick() {
+    const goodminders = this.state.randomizedGoodminders;
+    let index = this.state.currentIndex;
+    // Only allow once transition complete
     if (this.state.animate === false) {
-    // Check that there we haven't gone back yet
-    if (this.props.backGM === 0) {
-      // Check that there are gminders in database
-      if (this.props.goodminders.length !== 0) {
-        // If we've gone through everything, alert.
-        if (this.props.previousGM.length === this.props.goodminders.length) {
-          alert("You've gone through all of your goodminders. Reload to reset.")
-        } else {
-          this.setState({animate: true});
-          let a = true;
-          let brake = 20;
-          while (a && brake > 0) {
-            let unique = true;
-            let previous = [ ...this.props.previousGM ];
-            // Pick random gminder and save it
-            let random = this.props.goodminders[Math.floor(Math.random() * this.props.goodminders.length)];
-            // Make sure we haven't already seen this one
-            for (let i = 0; i < previous.length; i++)
-              if (previous[i] === random) {
-                unique = false;
-              }
-            else {
-              // Do nothing
-            }
-            if (unique) {
-              let previous = [ ...this.props.previousGM ];
-              previous.push(random);
-              this.setState({
-                newCurrentGM: random
-              })
+      // Check that there are gminders
+      if (goodminders.length !== 0) {
 
-              this.props.setPreviousGM(previous);
-              a = false;
+        // while loop for displayGM condition
+        if (this.props.displayGM === "same") {
+          const currentCollection = this.props.currentGM.collection;
+          while(index < goodminders.length - 1) {
+            if (goodminders[index + 1].collection === currentCollection) {
+              break;
             }
-            brake--;
-          } // End while loop
+            index++;
+          }
+        }
+
+        // If we've gone through everything, alert.
+        if (index + 1 >= goodminders.length) {
+          alert("You've gone through all of your goodminders. Reload to reset.")
+        } else if (index + 1 < goodminders.length) {
+          const nextGM = goodminders[index + 1];
+          this.setState({
+            animate: true,
+            newCurrentGM: nextGM,
+            currentIndex: index + 1,
+          })
         }
       }
     }
     // If no gminders in database
-    if (this.props.goodminders.length === 0) {
+    if (goodminders.length === 0) {
       console.log('There are no gminders');
     }
-
-    // If we have gone back and are going forward again
-    if (this.props.backGM !== 0) {
-      this.setState({animate: true});
-      let next = this.props.previousGM[this.props.previousGM.length - this.props.backGM];
-      let back = this.props.backGM - 1;
-      this.props.setBackGM(back);
-      this.setState({
-        newCurrentGM: next
-      })
-    }
-  }
   }
 
   backClick() {
+    const goodminders = this.state.randomizedGoodminders;
+    let index = this.state.currentIndex;
+    // Only allow when transition complete
     if (this.state.animate === false) {
+
+      // while loop for displayGM condition
+      if (this.props.displayGM === "same") {
+        const currentCollection = this.props.currentGM.collection;
+        while(index > 0) {
+          if (goodminders[index - 1].collection === currentCollection) {
+            break;
+          }
+          index--;
+        }
+      }
+
     // If nothing to go back to
-    if (this.props.previousGM.length === 1) {
+    if (index - 1 < 0) {
       alert("Nothing there. Go forward :)");
-    } else {
-    // If at beginning of previous array
-    if (this.props.previousGM.length === this.props.backGM + 1) {
-      alert("Nothing there. Go forward :)")// If not at beginning and have something to go back to);
-    } else if (this.props.previousGM.length > 1) {
-      this.setState({animate: true});
-      let current = this.props.previousGM[this.props.previousGM.length - 2 - this.props.backGM];
-      let back = this.props.backGM + 1;
-      this.props.setBackGM(back);
+    } else if (index - 1 >= 0) {
+
+      const previousGM = goodminders[index - 1];
       this.setState({
-        newCurrentGM: current
+        animate: true,
+        newCurrentGM: previousGM,
+        currentIndex: index - 1
       })
     }
     }
-  }
   }
 
   chooseDisplay() {
@@ -265,11 +281,10 @@ function mapStateToProps(state) {
     goodminders: state.goodminders,
     prompts: state.prompts,
     currentGM: state.navigation.currentGM,
-    previousGM: state.navigation.previousGM,
-    backGM: state.navigation.backGM,
     currentPrompt: state.navigation.currentPrompt,
     navigation: state.navigation,
-    responseError: state.response.responseError
+    responseError: state.response.responseError,
+    displayGM: state.navigation.displayGM
   };
 }
 
