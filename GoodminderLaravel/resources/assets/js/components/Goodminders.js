@@ -89,15 +89,6 @@ class Goodminders extends Component {
     }
   }
 
-  filterGoodminders() {
-    const filtered = this.props.goodminders.filter(goodminder =>
-      goodminder.collection === this.props.currentGM.collection
-    )
-    this.setState({
-      filteredGoodminders: filtered
-    })
-  }
-
   // Sets a new random gminder as state and accounts for back/forward ability
   nextClick() {
     const goodminders = this.state.randomizedGoodminders;

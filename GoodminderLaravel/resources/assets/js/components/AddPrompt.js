@@ -81,21 +81,11 @@ class AddPrompt extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  getDate() {
-    let d = new Date();
-    let year = d.getFullYear();
-    let month = d.getMonth() + 1;
-    let day = d.getDate();
-    const fullDate = `${month}/${day}/${year}`;
-    return fullDate;
-  }
-
   generateId() {
     return `${new Date().getTime()}`;
   }
 
   newGminder() {
-    const date = this.getDate();
     const newGminder = {
       category: 'prompt',
       mainResponse: this.state.inputAnswer,

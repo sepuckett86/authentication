@@ -13,7 +13,8 @@ class EditPrompt extends React.Component {
       prompt: '',
       inputAnswer: this.props.gminder.mainResponse,
       inputReason: this.props.gminder.reason || '',
-      inputRating: this.props.gminder.rating
+      inputRating: this.props.gminder.rating,
+      inputCollection: this.props.gminder.collection || '',
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -41,16 +42,9 @@ class EditPrompt extends React.Component {
     if (event.target.id === "prompt-reason") {
       this.setState({inputReason: event.target.value});
     }
-
-  }
-
-  getDate() {
-    let d = new Date();
-    let year = d.getFullYear();
-    let month = d.getMonth() + 1;
-    let day = d.getDate();
-    const fullDate = `${month}/${day}/${year}`;
-    return fullDate;
+    if (event.target.id === "prompt-collection") {
+      this.setState({inputCollection: event.target.value});
+    }
   }
 
   generateId() {
@@ -58,25 +52,13 @@ class EditPrompt extends React.Component {
   }
 
   newGminder() {
-    const date = this.getDate();
     const newGminder = {
       id: this.props.gminder.id,
-      userID: 1,
-      category: 'prompt',
       mainResponse: this.state.inputAnswer,
-      author: null,
-      promptID: this.props.gminder.promptID,
       reason: this.state.inputReason,
-      source: null,
-      who: null,
       rating: this.state.inputRating,
-      recordedDate: date,
-      eventDate: null,
-      updatedDate: null,
-      collection: this.props.gminder.collection,
-      publicFlag: 0
+      collection: this.state.inputCollection,
     }
-    console.log(newGminder)
     return newGminder;
   }
 
@@ -109,6 +91,12 @@ class EditPrompt extends React.Component {
           <p className="lato">Reason</p>
           <textarea className="form-control" value={this.state.inputReason} onChange={this.handleChange} id="prompt-reason" rows="3"></textarea>
           <br/>
+          <div className="form-group">
+              <label>Collection</label>
+              <input type="text" value={this.state.inputCollection}
+                onChange={this.handleChange} className="form-control"
+                id="prompt-collection" />
+          </div>
         </div>
 
       </form>
