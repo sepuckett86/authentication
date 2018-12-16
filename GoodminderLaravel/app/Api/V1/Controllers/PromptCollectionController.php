@@ -83,7 +83,7 @@ class PromptCollectionController extends Controller
                 return $value->prompt_id;
             }, $prompts);
             
-            $promptCollections[$i]->prompts = $prompts;
+            $promptCollections[$i]->prompt_ids = $prompts;
         }
 
         return response()->json($promptCollections);

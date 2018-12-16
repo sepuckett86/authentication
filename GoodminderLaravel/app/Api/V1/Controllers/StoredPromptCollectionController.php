@@ -58,7 +58,7 @@ class StoredPromptCollectionController extends Controller
                 return $value->prompt_id;
             }, $prompts);
             
-            $storedPromptCollections[$i]->prompts = $prompts;
+            $storedPromptCollections[$i]->prompt_ids = $prompts;
         }
 
         return response()->json($storedPromptCollections);
@@ -68,7 +68,7 @@ class StoredPromptCollectionController extends Controller
     {
         $storedPromptCollection = new StoredPromptCollection;
         $storedPromptCollection->user_id = Auth::guard()->user()->id;
-        $storedPromptCollection->prompt_collection_id = $request->get('promptCollectionID');
+        $storedPromptCollection->prompt_collection_id = $request->get('prompt_collection_id');
         
         if ($request->get('displayFlag') !== null) {
             $storedPromptCollection->displayFlag = $request->get('displayFlag');
