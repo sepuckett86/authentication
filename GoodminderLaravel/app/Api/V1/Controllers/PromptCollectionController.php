@@ -56,21 +56,37 @@ class PromptCollectionController extends Controller
     }
 
     /* 
-    * Get public prompt collections, regardless of user.
+    * Get public prompt collections and the prompt_ids, regardless of user.
     */
     public function promptCollections()
     {   
-        $promptCollection = PromptCollection::where('publicFlag', '=', 1)->get();
+        $promptCollections = PromptCollection::where('publicFlag', '=', 1)->get();
         
-        $promptCollection = \DB::table('users')
+        $promptCollections = \DB::table('users')
             ->leftJoin('prompt_collections', 'prompt_collections.creator_id', '=', 'users.id')
             ->where('prompt_collections.publicFlag', '=', 1)
             ->get([
                 'prompt_collections.id', 'prompt_collections.creator_id',
-                'users.nickname', 'prompt_collections.collection', 'prompt_collections.description'
+                'users.nickname', 'prompt_collections.collection', 'prompt_collections.description',
+                'prompt_collections.created_at', 'prompt_collections.updated_at'
             ]);
 
-        return response()->json($promptCollection);
+        $count = count($promptCollections);
+        for ($i=0; $i<$count; $i++) {
+            $promptCollectionID = $promptCollections[$i]->id;
+            $prompts = \DB::table('prompts_prompt_collections')
+                ->where('prompt_collection_id', '=', $promptCollectionID)
+                ->get(['prompt_id'])
+                ->toArray();
+
+            $prompts = array_map(function($value){
+                return $value->prompt_id;
+            }, $prompts);
+            
+            $promptCollections[$i]->prompt_ids = $prompts;
+        }
+
+        return response()->json($promptCollections);
     }
 
     /* 
