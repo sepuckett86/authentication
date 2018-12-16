@@ -52,6 +52,14 @@ return [
         ]
     ],
 
+    // these options are related to the password change procedure
+    'change_password' => [
+        'validation_rules' => [
+            'oldPassword' => 'required',
+            'newPassword' => 'required|confirmed'
+        ]
+    ],
+
     // requirements for storing a gminder
     'gminder_request' => [
 
