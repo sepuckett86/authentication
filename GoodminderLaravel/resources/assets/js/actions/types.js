@@ -30,6 +30,7 @@ export const RESPONSE = 'response';
 export const RESPONSE_ERROR = 'response_error';
 export const CLEAR_RESPONSE = 'clear_response';
 export const POST_RESET = 'post_reset';
+export const POST_PASSWORD = 'post_password';
 
 // User-specific Info
 export const GET_USER = 'get_user';

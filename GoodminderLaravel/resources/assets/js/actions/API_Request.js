@@ -10,7 +10,7 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
-  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET } from './types';
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET, POST_PASSWORD } from './types';
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
@@ -526,6 +526,19 @@ export const putUser = (name, nickname, id, callback) => async dispatch => {
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: { 'name': '', 'username': 'User name already taken' }});
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const postPassword = (oldPassword, password, password_confirmation, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/change';
+    const options = optionsWithToken();
+    const content = { 'oldPassword': password, 'newPassword': password, 'newPassword_confirmation': password_confirmation };
+    const response = await axios.post(path, content, options);
+    dispatch({ type: POST_PASSWORD, payload: 'new password submitted' });
+    callback();
+  } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }
 }

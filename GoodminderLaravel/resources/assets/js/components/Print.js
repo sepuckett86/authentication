@@ -58,7 +58,9 @@ class Print extends React.Component {
                 />
             </div>
           <div className="col-8 alignR">
-            <p className="header-font">Added {this.props.gminder.recordedDate} from Prompt Collection: {this.props.gminder.collection}</p>
+            <p className="header-font">{/*this.props.gminder.date*/}
+            {this.props.gminder.collection ? <span>{this.props.gminder.collection}</span>:null}
+            </p>
           </div>
           </div>
 
