@@ -38,7 +38,7 @@ class StoredPromptCollectionController extends Controller
             ->leftJoin('users', 'prompt_collections.creator_id', '=', 'users.id')
             ->where('stored_prompt_collections.user_id', '=', $currentUser)
             ->get([
-                'prompt_collections.id', 'stored_prompt_collections.prompt_collection_id',
+                'stored_prompt_collections.id', 'stored_prompt_collections.prompt_collection_id',
                 'prompt_collections.creator_id', 'users.nickname', 'prompt_collections.collection',
                 'prompt_collections.description', 'stored_prompt_collections.displayFlag',
                 'prompt_collections.publicFlag', 'stored_prompt_collections.created_at',
