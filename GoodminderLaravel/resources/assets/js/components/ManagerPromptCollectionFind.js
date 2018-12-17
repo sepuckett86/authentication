@@ -53,14 +53,13 @@ class PromptCollectionFind extends React.Component {
 
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
+
               <small className="text-muted">
-              { this.isCollectionAlreadyStored(collection.id) === false ?
-                null
-              : <span><i>This collection is already in your stored collections.</i></span>}
-              {/*
-                {collection.prompts.length}{' '}
-              //{collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
-              */}
+
+
+                {collection.prompt_ids.length}{' '}
+              {collection.prompt_ids.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+
               </small>
             </div>
             <p className="mb-1">
@@ -69,10 +68,17 @@ class PromptCollectionFind extends React.Component {
 
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">
-
+            Created{' '}
+            {
+              collection.created_at.split(' ')[0]
+            }
             </small>
 
-            <small className="text-muted"></small>
+            <small className="text-muted">
+            { this.isCollectionAlreadyStored(collection.id) === false ?
+              null
+            : <span><i>This collection is already in your stored collections.</i></span>}
+            </small>
             </div>
           </div>
 

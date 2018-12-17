@@ -3,8 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import User from './ManagerPromptCollectionsUser';
-import Other from './ManagerPromptCollectionsOther';
 import ListGroup from './ManagerPromptCollectionsListGroup';
 
 // This is the front-end of a database manager.
@@ -70,8 +68,10 @@ class PromptCollections extends React.Component {
           <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
 
           <hr/>
+          <h3>Your Collections</h3>
           <ListGroup who='user'/>
           <hr/>
+          <h3>Collections from Others</h3>
           <ListGroup who='other'/>
         </div>
         </div>

@@ -53,6 +53,9 @@ class ListGroup extends React.Component {
       }
     })
 
+    let hiddenStyle={
+      'color': '#E8E8E8'
+    }
     return (
       <div>
       {filteredDisplayed.map((collection, i) => {
@@ -71,11 +74,18 @@ class ListGroup extends React.Component {
           }
           }>
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}</h5>
+              <h5 className="mb-1">{collection.collection} |{' '}
+              {who === 'user'?
+              <span>
+                {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}
+              </span>
+              : <span>{collection.nickname}</span>
+              }
+              </h5>
               <small className="text-muted">
-              {collection.prompts ? <span>
-                {collection.prompts.length}{' '}
-                {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+              {collection.prompt_ids ? <span>
+                {collection.prompt_ids.length}{' '}
+                {collection.prompt_ids.length === 1 ? <span>prompt</span> : <span>prompts</span>}
                 </span> : null}</small>
             </div>
             <p className="mb-1">
@@ -113,7 +123,7 @@ class ListGroup extends React.Component {
         return (
       <div key={i} className="list-group alignL">
         <div
-          className="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start"
+          className="list-group-item list-group-item-action list-group-item-night flex-column align-items-start"
         >
         <a className='btn-flat' onClick={ () => {
             this.props.getPromptCollection(
@@ -126,12 +136,20 @@ class ListGroup extends React.Component {
         }>
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1">{collection.collection} |{' '}
-            {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}{' '}|{' '}
+            {who === 'user'?
+            <span>
+              {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}
+            </span>
+            : <span>{collection.nickname}</span>
+            }
+
+
+            {' '}|{' '}
             <i>Hidden</i></h5>
             <small className="text-muted">
-            {collection.prompts ? <span>
-              {collection.prompts.length}{' '}
-              {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+            {collection.prompt_ids ? <span>
+              {collection.prompt_ids.length}{' '}
+              {collection.prompt_ids.length === 1 ? <span>prompt</span> : <span>prompts</span>}
               </span> : null}
             </small>
           </div>
@@ -149,7 +167,9 @@ class ListGroup extends React.Component {
               this.props.getCollections(()=>{})
             })
             e.stopPropagation();}}
-            className='btn-flat btn-blue'><i className="fas fa-eye"></i></span>
+            className='btn-flat btn-blue'
+            style={hiddenStyle}
+            ><i className="fas fa-eye"></i></span>
           {' '}
           {/* Button trigger modal */}
           <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
@@ -157,7 +177,9 @@ class ListGroup extends React.Component {
             this.props.setPromptCollectionID(collection.prompt_collection_id);
             this.props.setCurrentStoredPromptCollection(collection);
             e.stopPropagation();}}
-            className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+            className='btn-flat btn-blue'
+            style={hiddenStyle}
+            ><i className="fas fa-trash"></i></span>
           </small>
           </div>
           </a>
@@ -165,6 +187,7 @@ class ListGroup extends React.Component {
       </div>
     );
   })}
+  {filteredHidden.length === 0 && filteredDisplayed.length === 0 ? <p>No Collections Stored</p>: null}
     </div>
     )
   }

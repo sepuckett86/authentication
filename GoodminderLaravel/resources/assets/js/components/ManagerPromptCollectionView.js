@@ -135,9 +135,10 @@ class PromptCollectionView extends React.Component {
           {this.chooseTable()}
 
           { this.isCollectionAlreadyStored() === false ?
+            <div style={{'textAlign': 'center'}}>
           <button name='addCollection'
           onClick={this.handleClick}
-          className='btn btn-green'>Add Collection</button>
+          className='btn btn-green'>Add Collection</button></div>
           : <div className="alert alert-primary" role="alert">This collection is already in your stored collections.</div>}
           </div>
         </div>

@@ -70,6 +70,15 @@ body {
   white-space: pre-line
 }
 
+.list-group-item-night {
+  background-color: #2b2b2b;
+  color: #E8E8E8;
+}
+
+.list-group-item-night:hover {
+  background-color: #515151;
+  color: #E8E8E8;
+}
 
 /* FONTS */
 
