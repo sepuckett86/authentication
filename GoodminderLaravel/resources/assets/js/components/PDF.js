@@ -297,6 +297,9 @@ class Pdf extends React.Component {
     if (quote.who && !quote.source && !quote.author) {
       return `-- ${quote.who}`;
     }
+    if (quote.who && quote.source && !quote.author) {
+      return `-- ${quote.who}, ${quote.source}`;
+    }
   }
 
   makePDF() {
@@ -366,12 +369,7 @@ class Pdf extends React.Component {
           if (gminder.category === 'prompt') {
           // Prompt
             // get prompt text
-            let promptText;
-            for (let i = 0; i < this.state.prompts.length; i++) {
-              if (this.state.prompts[i].id === gminder.prompt_id) {
-                promptText = this.state.prompts[i].promptText;
-              }
-            }
+            let promptText = gminder.promptText
             text = promptText;
             lines = doc.setFont(font).setFontSize(size).splitTextToSize(text, 11);
             // This code puts the text on the document.
@@ -388,6 +386,7 @@ class Pdf extends React.Component {
             verticalOffset += (lines.length * 4) * size / 72;
 
           // Reason
+          if (gminder.reason) {
             text = gminder.reason;
             lines = doc.setFont(font).setFontSize(size).splitTextToSize(text, 11);
             // This code puts the text on the document.
@@ -395,6 +394,8 @@ class Pdf extends React.Component {
             // Reset vertical Offset for next page
             verticalOffset = margin;
           }
+          }
+
           if (gminder.category === 'quote') {
             // Main Response
             text = '"' + gminder.mainResponse + '"';
@@ -466,7 +467,7 @@ class Pdf extends React.Component {
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <div className="input-group-text">
-                  <input id='checkboxTitle' type="checkbox" onClick={this.handleCheck} checked={this.state.checkboxTitle} aria-label="Checkbox for following text input"/>
+                  <input id='checkboxTitle' type="checkbox" onChange={this.handleCheck} checked={this.state.checkboxTitle} aria-label="Checkbox for following text input"/>
                 </div>
               </div>
               <input type="text" value={this.state.inputTitle} onChange={this.handleChange} className="form-control" id="title" placeholder="optional - this creates a title page"/>
@@ -477,7 +478,7 @@ class Pdf extends React.Component {
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <div className="input-group-text">
-                  <input id='checkboxAuthor' type="checkbox" onClick={this.handleCheck} checked={this.state.checkboxAuthor} aria-label="Checkbox for following text input"/>
+                  <input id='checkboxAuthor' type="checkbox" onChange={this.handleCheck} checked={this.state.checkboxAuthor} aria-label="Checkbox for following text input"/>
                 </div>
               </div>
               <input type="text" value={this.state.inputAuthor} onChange={this.handleChange} className="form-control" id="author" placeholder="optional - this creates an author on the title page"/>
