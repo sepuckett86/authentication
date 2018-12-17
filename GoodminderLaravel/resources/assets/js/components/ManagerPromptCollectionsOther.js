@@ -55,8 +55,11 @@ class Other extends React.Component {
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.nickname}</h5>
               <small className="text-muted">
-              {collection.prompts.length}{' '}
-              {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}</small>
+              {collection.prompts ? <span>
+                {collection.prompts.length}{' '}
+                {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+                </span> : null}
+            </small>
             </div>
             <p className="mb-1">
             {collection.description}

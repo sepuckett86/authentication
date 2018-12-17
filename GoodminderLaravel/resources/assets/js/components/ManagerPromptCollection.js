@@ -10,7 +10,8 @@ class ManagerPromptCollection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prompts: this.props.collection.prompts
+      prompts: this.props.collection.prompts,
+      promptToDelete: ''
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -20,8 +21,19 @@ class ManagerPromptCollection extends React.Component {
 
   handleClick(e) {
     if (e.currentTarget.name === 'delete') {
-      // Change this.state.prompts to new prompt array without the prompt
+      const dataKey = Number(e.currentTarget.getAttribute("data-key"));
+      this.setState({
+        promptToDelete: dataKey
+      })
     }
+    if (e.currentTarget.name === 'confirmDelete') {
+      // delete request to database
+      this.props.deletePromptsFromCollection([this.state.promptToDelete], ()=>{
+        this.props.getPrompts
+      })
+
+    }
+
   }
 
   generateKey(index) {
@@ -47,7 +59,7 @@ class ManagerPromptCollection extends React.Component {
                   <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                   <td>
-                  <button type="button" name='delete' className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
+                  <button type="button" name='delete' data-key={prompt.id} className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
                     <i className="fas fa-trash"></i>
                   </button>
                   </td>
@@ -84,11 +96,11 @@ class ManagerPromptCollection extends React.Component {
       <div className="">
 
       {/* Modal - Must be outside of responsive design displays */}
-      <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="deleteModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Delete Prompt from Collection</h5>
+              <h5 className="modal-title" id="x">Delete Prompt from Collection</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -98,7 +110,7 @@ class ManagerPromptCollection extends React.Component {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary" name='confirmChange' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+              <button type="button" className="btn btn-primary" name='confirmDelete' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
             </div>
           </div>
         </div>

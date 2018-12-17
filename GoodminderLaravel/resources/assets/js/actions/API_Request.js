@@ -15,7 +15,7 @@ import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
 import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION,
-  PUT_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION,
+  PUT_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION, DELETE_PROMPTS_FROM_COLLECTION,
   DELETE_PROMPT_COLLECTION, SET_PROMPT_COLLECTION_ID } from './types';
 import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
   DELETE_STORED_COLLECTION } from './types';
@@ -387,6 +387,8 @@ export const putPromptCollection = (updatedCollection, callback) => async dispat
   }
 }
 
+
+
 export const deletePromptCollection = (id, callback) => async dispatch => {
   try {
     const path = baseURL + `api/promptCollections/${id}`;
@@ -425,6 +427,28 @@ export const postPromptPromptCollection = (promptCollectionID, prompts, callback
   }
 }
 
+export const deletePromptsFromCollection = (promptCollectionID, promptsToDelete, callback) => async dispatch => {
+  try {
+    const id = promptCollectionID;
+    const path = baseURL + `api/deletePromptsFromCollection/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = {
+        prompt_ids: promptsToDelete, // [1,2,3]
+      }
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_PROMPTS_FROM_COLLECTION, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+
+
 // STORED PROMPT COLLECTIONS
 
 export const getCollections = (callback) => async dispatch => {
@@ -450,7 +474,7 @@ export const postCollection = (promptCollectionID, callback) => async dispatch =
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
       const content = {
-        'promptCollectionID': promptCollectionID,
+        'prompt_collection_id': promptCollectionID,
         'displayFlag': 1
       };
       const response = await axios.post(path, content, options);

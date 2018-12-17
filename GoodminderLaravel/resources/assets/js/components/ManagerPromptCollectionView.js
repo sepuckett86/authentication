@@ -64,7 +64,7 @@ class PromptCollectionView extends React.Component {
                   <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                   <td>
-                  <button type="button" name='delete' className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
+                  <button type="button" name='delete' onClick={this.handleClick} className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
                     <i className="fas fa-trash"></i>
                   </button>
                   </td>

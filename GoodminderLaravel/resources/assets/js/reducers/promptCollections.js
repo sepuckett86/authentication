@@ -1,5 +1,6 @@
 import { GET_PROMPT_COLLECTIONS,
- PUT_PROMPT_COLLECTION, DELETE_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION } from '../actions/types';
+ PUT_PROMPT_COLLECTION, DELETE_PROMPT_COLLECTION,
+ POST_PROMPT_PROMPT_COLLECTION, DELETE_PROMPTS_FROM_COLLECTION } from '../actions/types';
 
 // This state is an array of prompt collections. ALL PUBLIC PROMPT COLLECTIONS.
 // Each prompt collection is in this format: { collection, creator_id }
@@ -12,6 +13,8 @@ export default function(state = [], action) {
     case DELETE_PROMPT_COLLECTION:
       return state;
     case POST_PROMPT_PROMPT_COLLECTION:
+      return state;
+    case DELETE_PROMPTS_FROM_COLLECTION:
       return state;
     default:
       return state;

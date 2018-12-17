@@ -27,7 +27,7 @@ class PromptCollectionFind extends React.Component {
     // Get data from database
     // Prompt Collections
     this.props.getPromptCollections(() => {
-
+      this.props.getCollections(()=>{})
     })
   }
 
@@ -42,7 +42,7 @@ class PromptCollectionFind extends React.Component {
   }
 
   isCollectionAlreadyStored(collectionID) {
-    this.props.getCollections(()=> {
+
       const filtered = this.props.storedCollections.filter(collection =>
         collection.prompt_collection_id === collectionID
       )
@@ -51,7 +51,7 @@ class PromptCollectionFind extends React.Component {
       } else {
         return false
       }
-    })
+
   }
 
   renderListGroup() {
@@ -142,7 +142,8 @@ function mapStateToProps(state) {
     gminders: state.goodminders,
     prompts: state.prompts,
     user_id: state.user.backend.id,
-    promptCollections: state.promptCollections
+    promptCollections: state.promptCollections,
+    storedCollections: state.storedPromptCollections
   }
 }
 
