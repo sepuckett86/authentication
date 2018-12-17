@@ -44,8 +44,6 @@ class Print extends React.Component {
       paddingRight: '5px'
     };
 
-    const prompt = this.props.prompt;
-
     return(
       <div style={backgroundStyle}>
       <div style={mediaStyle}>
@@ -67,7 +65,7 @@ class Print extends React.Component {
           {this.props.gminder.prompt_id ?
           (<div className="media prompt">
             <div className="media-body">
-              <p className="paragraph-font">{prompt.promptText}</p>
+              <p className="paragraph-font">{this.props.gminder.promptText}</p>
             </div>
           </div>)
           : null }
@@ -124,8 +122,7 @@ class Print extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gminder: state.navigation.currentGM,
-    prompt: state.navigation.currentPrompt
+    gminder: state.navigation.currentGM
   }
 }
 export default connect(mapStateToProps, actions)(Print);

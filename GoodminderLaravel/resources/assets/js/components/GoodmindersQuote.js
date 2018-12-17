@@ -26,6 +26,9 @@ class Quote extends React.Component {
     if (quote.who && !quote.source && !quote.author) {
       return `-- ${quote.who}`;
     }
+    if (quote.who && quote.source && !quote.author) {
+      return `-- ${quote.who}, ${quote.source}`;
+    }
   }
   render() {
     const gminder = { ...this.props.currentGM };
