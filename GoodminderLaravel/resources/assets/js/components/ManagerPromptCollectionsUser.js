@@ -9,28 +9,14 @@ import ReactTooltip from 'react-tooltip';
 class User extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      promptsShowing: [],
-      sortBy: 'id',
-      promptTableDisplay: 'promptTable',
-      display: 'none'
-    };
-    // props
-    this.changeDisplay = this.props.changeDisplay;
-
+    
     // bind methods
     this.handleClick = this.handleClick.bind(this);
-    this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
   handleClick(event) {
-    if (event.target.name === 'user') {
-      this.setState({ display: 'user'})
-    }
-    if (event.target.name === 'other') {
-      this.setState({ display: 'other'})
-    }
     if (event.target.name === 'confirmDelete') {
+      if (Number(this.props.promptCollectionID))
       this.props.deletePromptCollection(Number(this.props.promptCollectionID), ()=> {
         this.props.getCollections(()=> {
 
@@ -87,7 +73,9 @@ class User extends React.Component {
             }</small>
             <small className="text-muted">
             <span data-tip='Hide collection' onClick={(e) => {
-              console.log('clickeye');
+              this.props.putCollection(collection.id, 0, ()=>{
+                this.props.getCollections(()=>{})
+              })
               e.stopPropagation();}}
               className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
             {' '}
@@ -141,7 +129,9 @@ class User extends React.Component {
           }</small>
           <small className="text-muted">
           <span data-tip='Show collection' onClick={(e) => {
-            console.log('clickeye');
+            this.props.putCollection(collection.id, 1, ()=>{
+              this.props.getCollections(()=>{})
+            })
             e.stopPropagation();}}
             className='btn-flat btn-blue'><i className="fas fa-eye"></i></span>
           {' '}
@@ -160,10 +150,6 @@ class User extends React.Component {
   })}
     </div>
     )
-  }
-
-  promptTableDisplayChange() {
-    this.setState({promptTableDisplay: 'addPrompt'})
   }
 
   generateKey(index) {

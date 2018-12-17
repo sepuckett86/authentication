@@ -7,21 +7,6 @@ import {Link} from "react-router-dom";
 // This is the front-end of a database manager.
 // How you interact and change the database.
 class PromptCollectionFind extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      promptsShowing: [],
-      sortBy: 'id',
-      promptTableDisplay: 'promptTable',
-      display: 'none'
-    };
-    // props
-    this.changeDisplay = this.props.changeDisplay;
-
-    // bind methods
-    this.handleClick = this.handleClick.bind(this);
-    this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
-  }
 
   componentDidMount() {
     // Get data from database
@@ -29,16 +14,6 @@ class PromptCollectionFind extends React.Component {
     this.props.getPromptCollections(() => {
       this.props.getCollections(()=>{})
     })
-  }
-
-
-  handleClick(event) {
-    if (event.target.name === 'user') {
-      this.setState({ display: 'user'})
-    }
-    if (event.target.name === 'other') {
-      this.setState({ display: 'other'})
-    }
   }
 
   isCollectionAlreadyStored(collectionID) {
@@ -106,10 +81,6 @@ class PromptCollectionFind extends React.Component {
       );
     })
     )
-  }
-
-  promptTableDisplayChange() {
-    this.setState({promptTableDisplay: 'addPrompt'})
   }
 
   generateKey(index) {

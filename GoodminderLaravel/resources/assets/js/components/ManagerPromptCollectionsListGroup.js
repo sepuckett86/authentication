@@ -6,43 +6,56 @@ import ReactTooltip from 'react-tooltip';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
-class Other extends React.Component {
+class ListGroup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      promptsShowing: [],
-      sortBy: 'id',
-      promptTableDisplay: 'promptTable',
-      display: 'none'
-    };
-    // props
-    this.changeDisplay = this.props.changeDisplay;
 
     // bind methods
     this.handleClick = this.handleClick.bind(this);
-    this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
   handleClick(event) {
+    if (event.target.name === 'confirmDelete') {
+      if (this.props.storedPromptCollection.creator_id === this.props.user_id) {
+        this.props.deletePromptCollection(Number(this.props.promptCollectionID), ()=> {
+          this.props.getCollections(()=> {
+          })
+        });
+      } else {
+        this.props.deleteCollection(this.props.storedPromptCollection.id, ()=>{
+          this.props.getCollections(()=> {
+          })
+        })
+      }
 
+    }
   }
 
-  renderListGroup() {
-    const other = this.props.storedPromptCollections.filter(collection =>
-      collection.creator_id !== this.props.user_id
-    );
-    let otherHidden = [];
-    let otherDisplayed = [];
-    other.forEach(collection => {
+  renderListGroup(who) {
+    let filtered = [];
+    if (who === 'user') {
+       filtered = this.props.storedPromptCollections.filter(collection =>
+        collection.creator_id === this.props.user_id
+      );
+
+    } else if (who === 'other') {
+       filtered = this.props.storedPromptCollections.filter(collection =>
+        collection.creator_id !== this.props.user_id
+      );
+    }
+    let filteredHidden = [];
+    let filteredDisplayed = [];
+    filtered.forEach(collection => {
       if (collection.displayFlag === 0) {
-        otherHidden.push(collection);
+        filteredHidden.push(collection);
       } else if (collection.displayFlag === 1) {
-        otherDisplayed.push(collection);
+        filteredDisplayed.push(collection);
       }
     })
+
     return (
       <div>
-      {otherDisplayed.map((collection, i) => {
+      {filteredDisplayed.map((collection, i) => {
           return (
         <div key={i} className="list-group alignL">
           <div
@@ -85,6 +98,7 @@ class Other extends React.Component {
             <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
             onClick={(e) => {
               this.props.setPromptCollectionID(collection.prompt_collection_id);
+              this.props.setCurrentStoredPromptCollection(collection);
               e.stopPropagation();}}
               className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
             </small>
@@ -95,7 +109,7 @@ class Other extends React.Component {
       );
     })}
 
-    {otherHidden.map((collection, i) => {
+    {filteredHidden.map((collection, i) => {
         return (
       <div key={i} className="list-group alignL">
         <div
@@ -141,6 +155,7 @@ class Other extends React.Component {
           <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
           onClick={(e) => {
             this.props.setPromptCollectionID(collection.prompt_collection_id);
+            this.props.setCurrentStoredPromptCollection(collection);
             e.stopPropagation();}}
             className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
           </small>
@@ -154,10 +169,6 @@ class Other extends React.Component {
     )
   }
 
-  promptTableDisplayChange() {
-    this.setState({promptTableDisplay: 'addPrompt'})
-  }
-
   generateKey(index) {
     return `${ index }_${ new Date().getTime() }`;
   }
@@ -165,10 +176,29 @@ class Other extends React.Component {
   render() {
     return(
       <div>
-      <h3>Saved Collections from Others</h3>
-      {this.renderListGroup()}
-      <br />
-      <ReactTooltip delayShow={200}/>
+      {/* Modal - Must be outside of responsive design displays */}
+      <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Delete Prompt Collection?</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              Make permanent change to database?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" className="btn btn-primary" name='confirmDelete' data-dismiss="modal" onClick={this.handleClick}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        {this.renderListGroup(this.props.who)}
+        <ReactTooltip delayShow={200}/>
       </div>)
   }
 }
@@ -178,9 +208,11 @@ function mapStateToProps(state) {
     gminders: state.goodminders,
     prompts: state.prompts,
     collection: state.navigation.collection,
+    promptCollectionID: state.navigation.promptCollectionID,
+    storedPromptCollection: state.navigation.currentStoredPromptCollection,
     storedPromptCollections: state.storedPromptCollections,
     user_id: state.user.backend.id
   }
 }
 
-export default connect(mapStateToProps, actions)(Other);
+export default connect(mapStateToProps, actions)(ListGroup);

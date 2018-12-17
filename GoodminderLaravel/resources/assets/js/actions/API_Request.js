@@ -478,8 +478,7 @@ export const postCollection = (promptCollectionID, callback) => async dispatch =
         'displayFlag': 1
       };
       const response = await axios.post(path, content, options);
-      const payload = { collection: collection, creator_id: creator_id }
-      dispatch({ type: POST_STORED_COLLECTION, payload: payload });
+      dispatch({ type: POST_STORED_COLLECTION, payload: 'success' });
       callback()
     } else {
       console.log('token absent')
@@ -489,12 +488,11 @@ export const postCollection = (promptCollectionID, callback) => async dispatch =
   }
 }
 
-export const putCollection = (updatedCollection, callback) => async dispatch => {
+export const putCollection = (id, displayFlag, callback) => async dispatch => {
   try {
-    const id = updatedCollection.id;
     const path = baseURL + `api/storedPromptCollections/${id}`;
     const options = optionsWithToken();
-    const content = updatedCollection;
+    const content = {'displayFlag': displayFlag};
     const response = await axios.put(path, content, options);
     dispatch({ type: PUT_STORED_COLLECTION, payload: response });
     callback();
