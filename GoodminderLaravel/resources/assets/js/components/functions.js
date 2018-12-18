@@ -55,6 +55,8 @@ export const goodminderTextFails = (text) => {
 export const replaceQuotes = (text) => {
   const goodQuotes = text
     .replace(/[\u2018\u2019]/g, "'")
-    .replace(/[\u201C\u201D\u275D\u275E]/g, '"');
+    .replace(/[\u201C\u201D\u275D\u275E]/g, '"')
+    .replace(/[\u2014]/g, '--')
+    .replace(/[\u2026]/g, '...');
   return goodQuotes
 }

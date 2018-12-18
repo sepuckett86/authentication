@@ -30,6 +30,7 @@ export const RESPONSE = 'response';
 export const RESPONSE_ERROR = 'response_error';
 export const CLEAR_RESPONSE = 'clear_response';
 export const POST_RESET = 'post_reset';
+export const POST_PASSWORD = 'post_password';
 
 // User-specific Info
 export const GET_USER = 'get_user';
@@ -63,5 +64,8 @@ export const POST_PROMPT_COLLECTION = 'post_prompt_collection';
 export const PUT_PROMPT_COLLECTION = 'put_prompt_collection';
 export const DELETE_PROMPT_COLLECTION = 'delete_prompt_collection';
 export const GET_PROMPT_COLLECTION = 'get_prompt_collection';
-export const POST_PROMPT_PROMPT_COLLECTION = 'post_prompt_prompt_collection';
 export const SET_PROMPT_COLLECTION_ID = 'set_prompt_collection_id';
+
+// Prompt Prompt Collections Table
+export const DELETE_PROMPTS_FROM_COLLECTION = 'delete_prompts_from_collection';
+export const POST_PROMPT_PROMPT_COLLECTION = 'post_prompt_prompt_collection';

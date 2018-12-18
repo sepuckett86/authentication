@@ -6,55 +6,59 @@ import ReactTooltip from 'react-tooltip';
 
 // This is the front-end of a database manager.
 // How you interact and change the database.
-class User extends React.Component {
+class ListGroup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      promptsShowing: [],
-      sortBy: 'id',
-      promptTableDisplay: 'promptTable',
-      display: 'none'
-    };
-    // props
-    this.changeDisplay = this.props.changeDisplay;
 
     // bind methods
     this.handleClick = this.handleClick.bind(this);
-    this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
   }
 
   handleClick(event) {
-    if (event.target.name === 'user') {
-      this.setState({ display: 'user'})
-    }
-    if (event.target.name === 'other') {
-      this.setState({ display: 'other'})
-    }
     if (event.target.name === 'confirmDelete') {
-      this.props.deletePromptCollection(Number(this.props.promptCollectionID), ()=> {
-        this.props.getCollections(()=> {
-
+      if (this.props.storedPromptCollection.creator_id === this.props.user_id) {
+        this.props.deletePromptCollection(Number(this.props.promptCollectionID), ()=> {
+          this.props.getCollections(()=> {
+          })
+        });
+      } else {
+        this.props.deleteCollection(this.props.storedPromptCollection.id, ()=>{
+          this.props.getCollections(()=> {
+          })
         })
-      });
+      }
+
     }
   }
 
-  renderListGroup() {
-    const user = this.props.storedPromptCollections.filter(collection =>
-      collection.creator_id === this.props.user_id
-    );
-    let userHidden = [];
-    let userDisplayed = [];
-    user.forEach(collection => {
+  renderListGroup(who) {
+    let filtered = [];
+    if (who === 'user') {
+       filtered = this.props.storedPromptCollections.filter(collection =>
+        collection.creator_id === this.props.user_id
+      );
+
+    } else if (who === 'other') {
+       filtered = this.props.storedPromptCollections.filter(collection =>
+        collection.creator_id !== this.props.user_id
+      );
+    }
+    let filteredHidden = [];
+    let filteredDisplayed = [];
+    filtered.forEach(collection => {
       if (collection.displayFlag === 0) {
-        userHidden.push(collection);
+        filteredHidden.push(collection);
       } else if (collection.displayFlag === 1) {
-        userDisplayed.push(collection);
+        filteredDisplayed.push(collection);
       }
     })
+
+    let hiddenStyle={
+      'color': '#E8E8E8'
+    }
     return (
       <div>
-      {userDisplayed.map((collection, i) => {
+      {filteredDisplayed.map((collection, i) => {
           return (
         <div key={i} className="list-group alignL">
           <div
@@ -70,11 +74,19 @@ class User extends React.Component {
           }
           }>
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}</h5>
+              <h5 className="mb-1">{collection.collection} |{' '}
+              {who === 'user'?
+              <span>
+                {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}
+              </span>
+              : <span>{collection.nickname}</span>
+              }
+              </h5>
               <small className="text-muted">
-              {collection.prompts.length}{' '}
-              {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
-              </small>
+              {collection.prompt_ids ? <span>
+                {collection.prompt_ids.length}{' '}
+                {collection.prompt_ids.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+                </span> : null}</small>
             </div>
             <p className="mb-1">
             {collection.description}
@@ -86,7 +98,9 @@ class User extends React.Component {
             }</small>
             <small className="text-muted">
             <span data-tip='Hide collection' onClick={(e) => {
-              console.log('clickeye');
+              this.props.putCollection(collection.id, 0, ()=>{
+                this.props.getCollections(()=>{})
+              })
               e.stopPropagation();}}
               className='btn-flat btn-blue'><i className="fas fa-eye-slash"></i></span>
             {' '}
@@ -94,6 +108,7 @@ class User extends React.Component {
             <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
             onClick={(e) => {
               this.props.setPromptCollectionID(collection.prompt_collection_id);
+              this.props.setCurrentStoredPromptCollection(collection);
               e.stopPropagation();}}
               className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
             </small>
@@ -104,11 +119,11 @@ class User extends React.Component {
       );
     })}
 
-    {userHidden.map((collection, i) => {
+    {filteredHidden.map((collection, i) => {
         return (
       <div key={i} className="list-group alignL">
         <div
-          className="list-group-item list-group-item-action list-group-item-dark flex-column align-items-start"
+          className="list-group-item list-group-item-action list-group-item-night flex-column align-items-start"
         >
         <a className='btn-flat' onClick={ () => {
             this.props.getPromptCollection(
@@ -121,11 +136,21 @@ class User extends React.Component {
         }>
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1">{collection.collection} |{' '}
-            {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}{' '}|{' '}
+            {who === 'user'?
+            <span>
+              {collection.publicFlag === 0 ? <span>Private</span>: <span>Public</span>}
+            </span>
+            : <span>{collection.nickname}</span>
+            }
+
+
+            {' '}|{' '}
             <i>Hidden</i></h5>
             <small className="text-muted">
-            {collection.prompts.length}{' '}
-            {collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+            {collection.prompt_ids ? <span>
+              {collection.prompt_ids.length}{' '}
+              {collection.prompt_ids.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+              </span> : null}
             </small>
           </div>
           <p className="mb-1">
@@ -138,16 +163,23 @@ class User extends React.Component {
           }</small>
           <small className="text-muted">
           <span data-tip='Show collection' onClick={(e) => {
-            console.log('clickeye');
+            this.props.putCollection(collection.id, 1, ()=>{
+              this.props.getCollections(()=>{})
+            })
             e.stopPropagation();}}
-            className='btn-flat btn-blue'><i className="fas fa-eye"></i></span>
+            className='btn-flat btn-blue'
+            style={hiddenStyle}
+            ><i className="fas fa-eye"></i></span>
           {' '}
           {/* Button trigger modal */}
           <span data-tip='Delete collection' name='delete' data-toggle="modal" data-target="#editModal"
           onClick={(e) => {
             this.props.setPromptCollectionID(collection.prompt_collection_id);
+            this.props.setCurrentStoredPromptCollection(collection);
             e.stopPropagation();}}
-            className='btn-flat btn-blue'><i className="fas fa-trash"></i></span>
+            className='btn-flat btn-blue'
+            style={hiddenStyle}
+            ><i className="fas fa-trash"></i></span>
           </small>
           </div>
           </a>
@@ -155,12 +187,9 @@ class User extends React.Component {
       </div>
     );
   })}
+  {filteredHidden.length === 0 && filteredDisplayed.length === 0 ? <p>No Collections Stored</p>: null}
     </div>
     )
-  }
-
-  promptTableDisplayChange() {
-    this.setState({promptTableDisplay: 'addPrompt'})
   }
 
   generateKey(index) {
@@ -191,9 +220,7 @@ class User extends React.Component {
         </div>
       </div>
 
-      <h3>Your Collections</h3>
-        {this.renderListGroup()}
-        <br />
+        {this.renderListGroup(this.props.who)}
         <ReactTooltip delayShow={200}/>
       </div>)
   }
@@ -205,9 +232,10 @@ function mapStateToProps(state) {
     prompts: state.prompts,
     collection: state.navigation.collection,
     promptCollectionID: state.navigation.promptCollectionID,
+    storedPromptCollection: state.navigation.currentStoredPromptCollection,
     storedPromptCollections: state.storedPromptCollections,
     user_id: state.user.backend.id
   }
 }
 
-export default connect(mapStateToProps, actions)(User);
+export default connect(mapStateToProps, actions)(ListGroup);

@@ -36,7 +36,7 @@ class PromptCollectionView extends React.Component {
   handleClick(e) {
     if (e.currentTarget.name === 'addCollection') {
       this.props.postCollection(this.props.collectionInfo.id, ()=> {
-
+        this.props.changeManagerDisplay('promptCollections');
       })
     }
   }
@@ -64,7 +64,7 @@ class PromptCollectionView extends React.Component {
                   <th scope="row">{i+1}</th>
                   <td>{prompt.promptText}</td>
                   <td>
-                  <button type="button" name='delete' className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
+                  <button type="button" name='delete' onClick={this.handleClick} className="btn-flat btn-blue" data-toggle="modal" data-target="#deleteModal">
                     <i className="fas fa-trash"></i>
                   </button>
                   </td>
@@ -135,7 +135,10 @@ class PromptCollectionView extends React.Component {
           {this.chooseTable()}
 
           { this.isCollectionAlreadyStored() === false ?
-          <button name='addCollection' onClick={this.handleClick} className='btn btn-green'>Add Collection</button>
+            <div style={{'textAlign': 'center'}}>
+          <button name='addCollection'
+          onClick={this.handleClick}
+          className='btn btn-green'>Add Collection</button></div>
           : <div className="alert alert-primary" role="alert">This collection is already in your stored collections.</div>}
           </div>
         </div>

@@ -5,13 +5,11 @@ import requireAuth from './requireAuth';
 
 const emojiRegex = require('emoji-regex');
 
-// This is for a user who has their old password and wants to reset it
 
 class Reset extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPassword: '',
       password: '',
       password_again: '',
       submitted: false
@@ -42,7 +40,6 @@ class Reset extends Component {
     if (passwordFails.length === 0) {
       // API_request action
       this.props.postPassword(
-        this.state.oldPassword,
         this.state.password,
         this.state.password_again,
         () => {
@@ -63,19 +60,12 @@ class Reset extends Component {
   render() {
     return (
       <main>
-      {console.log(this.state)}
 	<div className="log-box">
 			 <h1>Reset Password</h1>
             <p>Please enter your new password for {this.props.user.email}</p>
 						<form id="needs-validation" noValidate>
-              <div className="form-group row">
-                <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Old Password</label>
-                <div className="col-sm-10">
-                  <input name='oldPassword' type="password" onChange={this.handleChange} className="form-control" id="inputOldPassword" placeholder="********" required/>
-                </div>
-              </div>
 							<div className="form-group row">
-								<label htmlFor="inputPassword" className="col-sm-2 col-form-label">New Password</label>
+								<label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
 								<div className="col-sm-10">
 									<input name='password' type="password" onChange={this.handleChange} className="form-control" id="inputPassword" aria-describedby="passwordHelpBlock" placeholder="********" required/>
 									<small id="passwordHelpBlock" className="form-text text-muted">
@@ -84,7 +74,7 @@ class Reset extends Component {
 								</div>
 							</div>
 							<div className="form-group row">
-								<label htmlFor="inputPassword2" className="col-sm-2 col-form-label">Re-Type New Password</label>
+								<label htmlFor="inputPassword2" className="col-sm-2 col-form-label">Re-Type Password</label>
 								<div className="col-sm-10">
 									<input name='password_again' type="password" onChange={this.handleChange} className="form-control" id="inputPassword2" placeholder="********" required/>
 								</div>

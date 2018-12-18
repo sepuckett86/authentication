@@ -7,42 +7,17 @@ import {Link} from "react-router-dom";
 // This is the front-end of a database manager.
 // How you interact and change the database.
 class PromptCollectionFind extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      promptsShowing: [],
-      sortBy: 'id',
-      promptTableDisplay: 'promptTable',
-      display: 'none'
-    };
-    // props
-    this.changeDisplay = this.props.changeDisplay;
-
-    // bind methods
-    this.handleClick = this.handleClick.bind(this);
-    this.promptTableDisplayChange = this.promptTableDisplayChange.bind(this);
-  }
 
   componentDidMount() {
     // Get data from database
     // Prompt Collections
     this.props.getPromptCollections(() => {
-
+      this.props.getCollections(()=>{})
     })
   }
 
-
-  handleClick(event) {
-    if (event.target.name === 'user') {
-      this.setState({ display: 'user'})
-    }
-    if (event.target.name === 'other') {
-      this.setState({ display: 'other'})
-    }
-  }
-
   isCollectionAlreadyStored(collectionID) {
-    this.props.getCollections(()=> {
+
       const filtered = this.props.storedCollections.filter(collection =>
         collection.prompt_collection_id === collectionID
       )
@@ -51,7 +26,7 @@ class PromptCollectionFind extends React.Component {
       } else {
         return false
       }
-    })
+
   }
 
   renderListGroup() {
@@ -78,14 +53,13 @@ class PromptCollectionFind extends React.Component {
 
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
+
               <small className="text-muted">
-              { this.isCollectionAlreadyStored(collection.id) === false ?
-                null
-              : <span><i>This collection is already in your stored collections.</i></span>}
-              {/*
-                {collection.prompts.length}{' '}
-              //{collection.prompts.length === 1 ? <span>prompt</span> : <span>prompts</span>}
-              */}
+
+
+                {collection.prompt_ids.length}{' '}
+              {collection.prompt_ids.length === 1 ? <span>prompt</span> : <span>prompts</span>}
+
               </small>
             </div>
             <p className="mb-1">
@@ -94,10 +68,17 @@ class PromptCollectionFind extends React.Component {
 
             <div className="d-flex w-100 justify-content-between">
             <small className="text-muted">
-
+            Created{' '}
+            {
+              collection.created_at.split(' ')[0]
+            }
             </small>
 
-            <small className="text-muted"></small>
+            <small className="text-muted">
+            { this.isCollectionAlreadyStored(collection.id) === false ?
+              null
+            : <span><i>This collection is already in your stored collections.</i></span>}
+            </small>
             </div>
           </div>
 
@@ -106,10 +87,6 @@ class PromptCollectionFind extends React.Component {
       );
     })
     )
-  }
-
-  promptTableDisplayChange() {
-    this.setState({promptTableDisplay: 'addPrompt'})
   }
 
   generateKey(index) {
@@ -142,7 +119,8 @@ function mapStateToProps(state) {
     gminders: state.goodminders,
     prompts: state.prompts,
     user_id: state.user.backend.id,
-    promptCollections: state.promptCollections
+    promptCollections: state.promptCollections,
+    storedCollections: state.storedPromptCollections
   }
 }
 

@@ -10,12 +10,12 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
-  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET } from './types';
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET, POST_PASSWORD } from './types';
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
 import { GET_PROMPT_COLLECTIONS, GET_PROMPT_COLLECTION, POST_PROMPT_COLLECTION,
-  PUT_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION,
+  PUT_PROMPT_COLLECTION, POST_PROMPT_PROMPT_COLLECTION, DELETE_PROMPTS_FROM_COLLECTION,
   DELETE_PROMPT_COLLECTION, SET_PROMPT_COLLECTION_ID } from './types';
 import { GET_STORED_COLLECTIONS, POST_STORED_COLLECTION, PUT_STORED_COLLECTION,
   DELETE_STORED_COLLECTION } from './types';
@@ -387,6 +387,8 @@ export const putPromptCollection = (updatedCollection, callback) => async dispat
   }
 }
 
+
+
 export const deletePromptCollection = (id, callback) => async dispatch => {
   try {
     const path = baseURL + `api/promptCollections/${id}`;
@@ -425,6 +427,28 @@ export const postPromptPromptCollection = (promptCollectionID, prompts, callback
   }
 }
 
+export const deletePromptsFromCollection = (promptCollectionID, promptsToDelete, callback) => async dispatch => {
+  try {
+    const id = promptCollectionID;
+    const path = baseURL + `api/deletePromptsFromCollection/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      const content = {
+        prompt_ids: promptsToDelete, // [1,2,3]
+      }
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_PROMPTS_FROM_COLLECTION, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+
+
 // STORED PROMPT COLLECTIONS
 
 export const getCollections = (callback) => async dispatch => {
@@ -450,12 +474,11 @@ export const postCollection = (promptCollectionID, callback) => async dispatch =
     if (tokenInLocalStorage()) {
       const options = optionsWithToken();
       const content = {
-        'promptCollectionID': promptCollectionID,
+        'prompt_collection_id': promptCollectionID,
         'displayFlag': 1
       };
       const response = await axios.post(path, content, options);
-      const payload = { collection: collection, creator_id: creator_id }
-      dispatch({ type: POST_STORED_COLLECTION, payload: payload });
+      dispatch({ type: POST_STORED_COLLECTION, payload: 'success' });
       callback()
     } else {
       console.log('token absent')
@@ -465,12 +488,11 @@ export const postCollection = (promptCollectionID, callback) => async dispatch =
   }
 }
 
-export const putCollection = (updatedCollection, callback) => async dispatch => {
+export const putCollection = (id, displayFlag, callback) => async dispatch => {
   try {
-    const id = updatedCollection.id;
     const path = baseURL + `api/storedPromptCollections/${id}`;
     const options = optionsWithToken();
-    const content = updatedCollection;
+    const content = {'displayFlag': displayFlag};
     const response = await axios.put(path, content, options);
     dispatch({ type: PUT_STORED_COLLECTION, payload: response });
     callback();
@@ -526,6 +548,19 @@ export const putUser = (name, nickname, id, callback) => async dispatch => {
     callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: { 'name': '', 'username': 'User name already taken' }});
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const postPassword = (oldPassword, password, password_confirmation, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/auth/change';
+    const options = optionsWithToken();
+    const content = { 'oldPassword': password, 'newPassword': password, 'newPassword_confirmation': password_confirmation };
+    const response = await axios.post(path, content, options);
+    dispatch({ type: POST_PASSWORD, payload: 'new password submitted' });
+    callback();
+  } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }
 }
