@@ -14,10 +14,10 @@ class CreatePromptsPromptCollectionsTable extends Migration
     public function up()
     {
         Schema::create('prompts_prompt_collections', function (Blueprint $table) {
-            $table->unsignedInteger('prompt_id')->nullable();
+            $table->unsignedInteger('prompt_id')->index();
             $table->foreign('prompt_id')->references('id')->on('prompts')->onDelete('cascade');
             
-            $table->unsignedInteger('prompt_collection_id')->nulllable();
+            $table->unsignedInteger('prompt_collection_id')->index();
             $table->foreign('prompt_collection_id')->references('id')->on('prompt_collections')->onDelete('cascade');
             
             $table->timestamps();
