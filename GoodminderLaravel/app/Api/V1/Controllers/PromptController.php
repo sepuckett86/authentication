@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Auth;
 use App\Prompt;
 use App\Gminder;
+use App\StoredPromptCollection;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use App\Api\V1\Requests\PromptRequest;
@@ -42,10 +43,39 @@ class PromptController extends Controller
     /*
     * Get all of user's prompts
     */
-    public function userPrompts()
+    public function userPrompts(PromptRequest $request)
     {   
         $currentUser = Auth::guard()->user()->id;
+
+        if ($request->get('getDisplayPromptsOnly') === 'true') {
+            return response()->json($this->getDisplayPrompts($currentUser));
+        }
+
         $prompts = Prompt::where('creator_id', $currentUser)->get();
+
+        return response()->json($prompts);
+    }
+
+    /*
+    * Get all prompts that have displayFlag=1 in stored_prompt_collections.
+    */
+    public function getDisplayPrompts($currentUser)
+    {
+        $prompts = [];
+        $promptIDs = \DB::table('stored_prompt_collections')
+            ->join(
+                'prompts_prompt_collections', 
+                'stored_prompt_collections.prompt_collection_id',
+                '=',
+                'prompts_prompt_collections.prompt_collection_id'
+            )->where('user_id', '=', $currentUser)
+            ->where('stored_prompt_collections.displayFlag', '=', 1)
+            ->get(['prompt_id'])->unique();
+        
+            foreach ($promptIDs as $promptID) {
+                $prompt = Prompt::find($promptID->prompt_id);
+                $prompts[] = $prompt;
+            }
 
         return response()->json($prompts);
     }
