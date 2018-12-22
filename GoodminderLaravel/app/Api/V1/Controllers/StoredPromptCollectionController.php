@@ -48,7 +48,7 @@ class StoredPromptCollectionController extends Controller
 
         $count = count($storedPromptCollections);
         for ($i=0; $i<$count; $i++) {
-            $storedPromptCollectionID = $storedPromptCollections[$i]->id;
+            $storedPromptCollectionID = $storedPromptCollections[$i]->prompt_collection_id;
             $prompts = \DB::table('prompts_prompt_collections')
                 ->where('prompt_collection_id', '=', $storedPromptCollectionID)
                 ->get(['prompt_id'])
