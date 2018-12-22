@@ -247,7 +247,8 @@ export const deleteGoodminder = (id, goodminders, callback) => async dispatch =>
 export const getPrompts = (callback) => async dispatch => {
   try {
     const path = baseURL + 'api/prompts';
-    const options = optionsWithToken();
+    let options = optionsWithToken();
+    options = { 'headers': { ...options.headers, 'getDisplayedPromptsOnly': true }}
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
       let data = [];
@@ -556,10 +557,14 @@ export const postPassword = (oldPassword, password, password_confirmation, callb
   try {
     const path = baseURL + 'api/auth/change';
     const options = optionsWithToken();
-    const content = { 'oldPassword': password, 'newPassword': password, 'newPassword_confirmation': password_confirmation };
-    const response = await axios.post(path, content, options);
-    dispatch({ type: POST_PASSWORD, payload: 'new password submitted' });
-    callback();
+    if (tokenInLocalStorage()) {
+      const content = { 'oldPassword': oldPassword, 'newPassword': password, 'newPassword_confirmation': password_confirmation };
+      const response = await axios.post(path, content, options);
+      dispatch({ type: POST_PASSWORD, payload: response });
+      callback();
+    } else {
+      console.log('No token')
+    }
   } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }
