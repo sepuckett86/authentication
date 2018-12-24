@@ -23,6 +23,8 @@ class ChangePasswordController extends Controller
             //$user->password = Hash::make($request->get('newPassword'));
             //$newPassword = Hash::make($request->get('newPassword'));
             $user->password = $request->get('newPassword');
+        } else {
+            return 'Old password did not match.';
         }
 
         if ($user->save()) {
