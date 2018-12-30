@@ -59,7 +59,7 @@ class Intro extends Component {
                       About
                     </Link>
                     <Link to='/examples' onClick={() => this.scrollToTop()} className='btn-green btn-center btn' style={{minWidth: '20%'}}>
-                      Examples
+                      Features
                     </Link>
                     <Link to='/contact' onClick={() => this.scrollToTop()} className='btn-green btn-right btn' style={{minWidth: '20%'}}>
                       Contact
