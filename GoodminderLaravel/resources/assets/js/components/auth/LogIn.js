@@ -52,7 +52,7 @@ class LogIn extends Component {
         { !this.props.auth ?
         <div className="log-box" >
         <h1>Log In</h1>
-        {this.props.error}
+        {typeof this.props.error === 'string' ? this.props.error : null}
         <br />
 				<form onSubmit={this.handleSubmit}>
 				  <div className="form-group row">
