@@ -300,6 +300,9 @@ class Pdf extends React.Component {
     if (quote.who && quote.source && !quote.author) {
       return `-- ${quote.who}, ${quote.source}`;
     }
+    if (!quote.who && quote.source && !quote.author) {
+      return `-- ${quote.source}`;
+    }
   }
 
   makePDF() {
