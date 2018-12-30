@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Footer from './Footer';
 import Privacy from './Privacy';
+import Terms from './Terms';
 
 class Legal extends Component {
 
@@ -15,9 +16,9 @@ class Legal extends Component {
     <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Terms of Service</a>
   </div>
 </nav>
-<div className="tab-content" id="nav-tabContent">
+<div className="tab-content" id="nav-tabContent" style={{'paddingTop': '20px'}}>
   <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><Privacy /></div>
-  <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+  <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><Terms /></div>
 </div>
 </div>
 <Footer />
