@@ -40,8 +40,8 @@ class AddPrompt extends React.Component {
   changePrompt() {
     let random = this.props.prompts[Math.floor(Math.random() * this.props.prompts.length)];
     // Only perform get request if needed
-    if (this.props.currentPrompt.user_id !== random.user_id) {
-      this.props.getNickname(random.user_id, () => {
+    if (this.props.currentPrompt.creator_id !== random.creator_id) {
+      this.props.getNickname(random.creator_id, () => {
         this.props.setCurrentPrompt(random);
       })
     } else {

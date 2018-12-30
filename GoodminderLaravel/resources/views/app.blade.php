@@ -8,7 +8,7 @@
         <!-- To get enable CSFR token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>GoodminderLaravel</title>
+        <title>Goodminder</title>
 
         <link rel="icon" type="image/ico" href="favicon.ico" />
         <!-- FONTS -->
