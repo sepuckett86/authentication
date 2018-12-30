@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/send/email', 'MailController@mail');
+
 Route::get('reset_password/{token}', ['as' => 'password.reset', function($token)
 {
     // implement your reset password route here!
