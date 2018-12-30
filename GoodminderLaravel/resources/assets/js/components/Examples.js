@@ -9,7 +9,7 @@ class Examples extends Component {
       <main>
         <div className="bgimg-2 parallax">
           <div className="caption">
-            <span className="border comfortaa">Examples</span>
+            <span className="border comfortaa">Features</span>
           </div>
         </div>
         <div className="opaque-container">
@@ -68,7 +68,11 @@ class Examples extends Component {
       </div>
       <div className="card-body">
         <h5 className="card-title">Email</h5>
-        <p className="card-text">Choose to receive a goodminder by email daily, weekly, or never</p>
+        <p className="card-text">
+        <b>Coming soon</b>
+        <br/>
+        Choose to receive a goodminder by email daily, weekly, or never
+        </p>
       </div>
       </div>
       <br />

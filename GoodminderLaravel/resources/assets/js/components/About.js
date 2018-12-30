@@ -21,7 +21,7 @@ export default () => {
           <ul>
           <li>Have you ever recalled something wonderful, useful, funny, touching, or inspiring that you haven't thought about for months or years, and been thankful that something reminded you of it?</li>
           <li>Do you ever have bad days and want to be cheered up?</li>
-          <li>Would you like some life advice from yourself sometimes, rather than other people?</li>
+          <li>Would you like to see wisdom from yourself sometimes, rather than other people?</li>
           </ul>
           <br/>
           </div>
@@ -93,7 +93,7 @@ export default () => {
           <hr/>
           <br />
           <h1>Resources</h1>
-          <p>A big thanks go to all of the great resources available online for free listed here:
+          <p>A big thanks go to all of the great resources available online listed here:
           </p>
 
           <div className="container">
@@ -139,39 +139,23 @@ export default () => {
                   </li>
                 </ul>
               </div>
-              <div className="col-sm"></div>
-            </div>
-          </div>
-
-          <p>
-            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapseExample">
-              Show goodminder fonts
-            </button>{' '}
-            <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseExample">
-              Show something else
-            </button>
-          </p>
-          <div className="collapse" id="collapse1">
-            <div className="card card-body">
+              <div className="col-sm">
               <ul className='clean'>
                 <dl>
-                  <b>Fonts</b>
+                  <b>Boilerplates</b>
                 </dl>
                 <li>
-                  <a className="header-font" href="https://fonts.google.com/specimen/Comfortaa" rel="noopener noreferrer" target="_blank">Comfortaa</a>
+                  <a href="https://github.com/francescomalatesta/laravel-api-boilerplate-jwt" rel="noopener noreferrer" target="_blank">Francesco Malatesta's Laravel JWT Authentication</a>
                 </li>
                 <li>
-                  <a className="paragraph-font" href="https://fonts.google.com/specimen/Lato" rel="noopener noreferrer" target="_blank">Lato</a>
+                  <a href="https://www.udemy.com/react-redux-tutorial/" rel="noopener noreferrer" target="_blank">Stephen Grider's Authentication Udemy Class</a>
                 </li>
-
               </ul>
+              </div>
             </div>
           </div>
-          <div className="collapse" id="collapse2">
-            <div className="card card-body">
-              Hi there!
-            </div>
-          </div>
+
+
           <br />
           <hr/>
           <br />
@@ -194,6 +178,8 @@ export default () => {
                 </dl>
                 <li>Goodminder phone app</li>
                 <li>More layout options</li>
+                <li>Goodminder decks</li>
+                <li>Options to privately share goodminders</li>
                 <li>Fun rewards for using our site</li>
               </ul>
             </div>
