@@ -141,7 +141,7 @@ class Add extends React.Component {
                 </button>
               </div>
               <div className="modal-body">
-                Make permanent change to database?
+                Confirm change?
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>

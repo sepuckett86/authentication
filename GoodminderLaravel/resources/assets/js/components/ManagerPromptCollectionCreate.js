@@ -168,7 +168,7 @@ class PromptCollectionCreate extends React.Component {
                 </button>
               </div>
               <div className="modal-body">
-                Make permanent change to database?
+                Confirm change?
               </div>
               <div className="modal-footer">
                 <button
