@@ -52,7 +52,7 @@ class PromptCollectionFind extends React.Component {
           }>
 
             <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{collection.collection} | {collection.creator_id}</h5>
+              <h5 className="mb-1">{collection.collection} | {collection.nickname}</h5>
 
               <small className="text-muted">
 

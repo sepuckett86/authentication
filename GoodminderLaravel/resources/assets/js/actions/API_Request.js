@@ -246,7 +246,7 @@ export const deleteGoodminder = (id, goodminders, callback) => async dispatch =>
 
 export const getPrompts = (callback) => async dispatch => {
   try {
-    const path = baseURL + 'api/prompts';
+    const path = baseURL + 'api/prompts?getDisplayedPromptsOnly=true';
     let options = optionsWithToken();
     options = { 'headers': { ...options.headers, 'getDisplayedPromptsOnly': true }}
     if (tokenInLocalStorage()) {
