@@ -36,7 +36,7 @@ class Navbar extends Component {
                           <div className="dropdown-divider"></div>
                           <Link to="/intro" className="dropdown-item">Welcome</Link>
                           <Link to="/about" className="dropdown-item" >About</Link>
-                          <Link to="/examples" className="dropdown-item">Examples</Link>
+                          <Link to="/examples" className="dropdown-item">Features</Link>
                           <Link to="/contact" className="dropdown-item">Contact</Link>
                           <Link to="/legal" className="dropdown-item">Legal</Link>
                           <div className="dropdown-divider"></div>
@@ -81,7 +81,7 @@ class Navbar extends Component {
                           <Link to="/intro" className="dropdown-item">Welcome</Link>
                           <div className="dropdown-divider"></div>
                           <Link to="/about" className="dropdown-item" >About</Link>
-                          <Link to="/examples" className="dropdown-item">Examples</Link>
+                          <Link to="/examples" className="dropdown-item">Features</Link>
 
                           <Link to="/contact" className="dropdown-item">Contact</Link>
                           <Link to="/legal" className="dropdown-item">Legal</Link>
