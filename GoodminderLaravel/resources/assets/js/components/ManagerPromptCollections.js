@@ -65,7 +65,7 @@ class PromptCollections extends React.Component {
 
           {' '}
           */}
-          <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
+          <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompt Collections</button>
 
           <hr/>
           {/*
@@ -73,7 +73,7 @@ class PromptCollections extends React.Component {
           <ListGroup who='user'/>
           <hr/>
           */}
-          <h3>Collections from Others</h3>
+          <h3>Saved Collections</h3>
           <ListGroup who='other'/>
         </div>
         </div>

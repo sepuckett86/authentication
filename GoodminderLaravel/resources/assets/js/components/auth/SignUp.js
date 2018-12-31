@@ -102,7 +102,10 @@ class SignUp extends Component {
                 </p>
               </div>
             </div>
-          : <div className='log-box'>Check your email to activate your account!</div>
+          : <div className='log-box'><p>Your account has been created!</p>
+          <Link to='/login' className='btn btn-green '>
+            <i className="fas fa-arrow-circle-right"></i>{' '}Log In
+          </Link></div>
       }
       <br/>
       <br/>
