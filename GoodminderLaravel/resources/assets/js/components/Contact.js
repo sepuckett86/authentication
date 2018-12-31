@@ -52,11 +52,13 @@ class Contact extends Component {
   	</div>
   	<div className="opaque-container">
     <div className="container">
-  		<br />
+  		<br /><br />
+      <h4>Want to reach us? Do you have questions, comments, suggestions, or donations? Let us know here.</h4>
 
       <br />
-      <h2>Have a question? </h2>
-      <h2>Want to comment, make a suggestion, or donate?</h2>
+      <hr />
+      <br />
+      <h2>Comment Form</h2>
       <br />
   			 <div id="contact" className="box alignL">
   			<form>
@@ -82,9 +84,15 @@ class Contact extends Component {
 
         </form>
         <div style={{'textAlign': 'center'}}>
-        	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit</button>
+        	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit Comment</button>
         </div>
         </div>
+        <br />
+        <hr />
+        <br />
+        <h2>Donation Link</h2>
+        <a href="https://www.paypal.me/goodminder" className='btn btn-green'>Link to our Paypal</a>
+        <br /><br />
         </div>
   <br /><br />
 </div>
