@@ -73,6 +73,13 @@ return [
     // requirements for storing a prompt
     'user_request' => [
 
+    ],
+
+    // requirements for storing a prompt
+    'contact_admin' => [
+        'validation_rules' => [
+            'email' => 'required'
+        ]
     ]
 
 ];
