@@ -91,7 +91,7 @@ class PromptTable extends React.Component {
 
           <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
           {' '}
-            <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create Prompt Collection</button>
+            {/*<button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create Prompt Collection</button>*/}
           <br />
           <br />
           {/*
