@@ -569,7 +569,7 @@ export const postPassword = (oldPassword, password, password_confirmation, callb
       console.log('No token')
     }
   } catch (e) {
-    dispatch({ type: RESPONSE_ERROR, payload: e });
+    dispatch({ type: AUTH_ERROR, payload: response.data });
   }
 }
 

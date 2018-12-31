@@ -20,7 +20,9 @@ class Reset extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  componendDidMount(){
+    this.props.clearError();
+  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -64,10 +66,11 @@ class Reset extends Component {
   render() {
     return (
       <main>
-      {console.log(this.state)}
-	<div className="log-box">
+	     <div className="log-box">
 			 <h1>Reset Password</h1>
-
+       {!this.state.submitted ?
+         <div>
+         {this.props.authError ? <div>{this.props.authError}</div> : null}
             <p>Please enter your new password for {this.props.user.email}</p>
 						<form id="needs-validation" noValidate>
               <div className="form-group row">
@@ -97,7 +100,7 @@ class Reset extends Component {
 								</div>
 							</div>
 						</form>
-
+            </div>:<p>Password changed successfully!</p>}
     </div>
 
 </main>
@@ -108,7 +111,8 @@ class Reset extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    token: state.auth.authenticated
+    token: state.auth.authenticated,
+    authError: state.auth.errorMessage
    }
 }
 
