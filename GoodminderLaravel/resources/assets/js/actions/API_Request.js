@@ -80,9 +80,9 @@ export const postSignup = (email, nickname, password, password_confirmation, cal
     if (e.response.status === 500) {
       const payload = {'component':'SignUp', 'status': 500, 'message': 'Email in use'};
       console.log(payload)
-      dispatch({ type: RESPONSE, payload: payload});
+      dispatch({ type: RESPONSE_ERROR, payload: payload});
     } else {
-      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+      dispatch({ type: RESPONSE_ERROR, payload: 'Unknown error' });
     }
   }
 };

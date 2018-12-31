@@ -17,6 +17,9 @@ class SignUp extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount() {
+    this.props.clearResponse();
+  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -68,6 +71,8 @@ class SignUp extends Component {
           ? <div className="log-box">
               <h1>Create New Account</h1>
               <br/>
+              {this.props.responseError ? this.props.responseError : null}
+              <br/>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group row">
                   <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Email address</label>
@@ -114,6 +119,6 @@ class SignUp extends Component {
 };
 
 function mapStateToProps(state){
-  return { response: state.response }
+  return { responseError: state.response.responseError.message }
 }
 export default connect(mapStateToProps, actions)(SignUp);
