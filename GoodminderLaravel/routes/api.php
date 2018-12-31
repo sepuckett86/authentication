@@ -62,6 +62,8 @@ $api->version('v1', function (Router $api) {
                     ]);
                 }
         ]);
+
+        $api->delete('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@destroy');
     });
 });
 
