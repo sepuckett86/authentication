@@ -246,9 +246,11 @@ export const deleteGoodminder = (id, goodminders, callback) => async dispatch =>
 
 export const getPrompts = (callback) => async dispatch => {
   try {
+    // Gets all available prompts
     const path = baseURL + 'api/prompts?getDisplayPromptsOnly=true';
+    // Gets Your prompts only
+    //const path = baseURL + 'api/prompts';
     let options = optionsWithToken();
-    options = { 'headers': { ...options.headers, 'getDisplayedPromptsOnly': true }}
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
       let data = [];
@@ -346,7 +348,7 @@ export const getPromptCollection = (id, callback) => async dispatch => {
       const response = await axios.get(path, options);
 
       dispatch({ type: GET_PROMPT_COLLECTION, payload: response.data });
-      callback();
+      callback(response.data);
     } else {
       console.log('No token')
     }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
+import { Link } from 'react-router-dom';
 
 class ResetBegin extends Component {
   constructor(props) {
@@ -27,6 +28,11 @@ class ResetBegin extends Component {
       <div className="log-box">
         <h1>Reset Password</h1>
         <br/>
+        <p>Please contact us and let us know the email of the account and that you'd like to reset it, and we'll send you a new password. </p>
+        <Link to='/contact' className='btn-green btn'>
+          Contact
+        </Link>
+        {/*
         <form onSubmit={this.handleSubmit}>
           <p>Please enter your email and click submit. You'll get a link in your email inbox allowing you to reset your password.</p>
           <div className="form-group row">
@@ -38,6 +44,7 @@ class ResetBegin extends Component {
           <br/>
           <button className="btn btn-primary" type="submit" name="btn-submit">Submit</button>
         </form>
+        */}
       </div>
 
     </main>)

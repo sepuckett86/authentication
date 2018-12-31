@@ -34,8 +34,8 @@ class Contact extends Component {
     if (event.target.id === 'submitContact') {
       const contact = {
         email: this.state.inputEmail,
-        first: this.state.inputFirst,
-        last: this.state.inputLast,
+        firstName: this.state.inputFirst,
+        lastName: this.state.inputLast,
         comment: this.state.inputComment
       }
       console.log(contact);
@@ -55,7 +55,8 @@ class Contact extends Component {
   		<br />
 
       <br />
-      <h2>Have a question? </h2> <h2>Want to comment, make a suggestion, or donate?</h2>
+      <h2>Have a question? </h2>
+      <h2>Want to comment, make a suggestion, or donate?</h2>
       <br />
   			 <div id="contact" className="box alignL">
   			<form>

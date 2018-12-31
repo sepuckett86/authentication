@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import requireAuth from './requireAuth';
+import { Link } from 'react-router-dom';
 
 const emojiRegex = require('emoji-regex');
 
@@ -66,7 +67,8 @@ class Reset extends Component {
       {console.log(this.state)}
 	<div className="log-box">
 			 <h1>Reset Password</h1>
-            <p>Please enter your new password for {this.props.user.email}</p>
+       
+            {/*<p>Please enter your new password for {this.props.user.email}</p>
 						<form id="needs-validation" noValidate>
               <div className="form-group row">
                 <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Old Password</label>
@@ -95,6 +97,7 @@ class Reset extends Component {
 								</div>
 							</div>
 						</form>
+            */}
     </div>
 
 </main>

@@ -95,7 +95,7 @@ class PromptCollectionFind extends React.Component {
 
   render() {
     return(
-      <div className="container-fluid">
+      <div >
       <br />
       <div className="box">
       <h3>Collections from Others</h3>

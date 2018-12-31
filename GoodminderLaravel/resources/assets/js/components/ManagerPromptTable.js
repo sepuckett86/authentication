@@ -86,7 +86,7 @@ class PromptTable extends React.Component {
         <div id="beginning">
           <h1>Manage Prompts</h1>
           <p>Here is where you can create, edit, and respond to your own custom prompts.</p>
-          <p>To have them show up randomly in while making goodminders, add them to a prompt collection.</p>
+          {/*<p>To have them show up randomly in while making goodminders, add them to a prompt collection.</p>*/}
           <hr />
 
           <button name='create' className='btn btn-green' onClick={this.handleClick}>Create Prompt</button>
@@ -159,23 +159,26 @@ class PromptTable extends React.Component {
             <tbody>
           {
             this.props.prompts.map((prompt, i) => {
-              return (
-                  <tr key={this.generateKey(i)}>
-                    <th scope="row">{i+1}</th>
-                    <td>{prompt.promptText}</td>
-                    <td>
+              if (prompt.creator_id === this.props.user_id) {
+                return (
+                    <tr key={this.generateKey(i)}>
+                      <th scope="row">{i+1}</th>
+                      <td>{prompt.promptText}</td>
+                      <td>
 
-                    <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
+                      <button className='btn-flat btn-blue' type='button' name='edit' value={prompt.id} onClick={this.handleClick}><i className="fas fa-edit"></i></button>
 
-                    </td>
+                      </td>
 
-                    <td>
-                    <Link to="/">
-                    <button className='btn-flat btn-blue' type='button' name='respond' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
-                    </Link>
-                    </td>
-                  </tr>
-              )
+                      <td>
+                      <Link to="/">
+                      <button className='btn-flat btn-blue' type='button' name='respond' value={prompt.id} onClick={this.handleClick}><i className="fas fa-pencil-alt"></i></button>
+                      </Link>
+                      </td>
+                    </tr>
+                )
+              }
+
             })
           }
         </tbody>
@@ -195,6 +198,7 @@ class PromptTable extends React.Component {
           <tbody>
         {
           this.props.prompts.map((prompt, i) => {
+            if (prompt.creator_id === this.props.user_id) {
             return (
                 <tr key={this.generateKey(i)}>
                   <td scope="row">{prompt.promptText}</td>
@@ -211,6 +215,7 @@ class PromptTable extends React.Component {
                   </td>
                 </tr>
             )
+          }
           })
         }
       </tbody>
@@ -243,7 +248,8 @@ function mapStateToProps(state) {
   return {
     gminders: state.goodminders,
     prompts: state.prompts,
-    collection: state.navigation.collection
+    collection: state.navigation.collection,
+    user_id: state.user.backend.id
   }
 }
 
