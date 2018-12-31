@@ -166,7 +166,11 @@ class Settings extends Component {
         <button className="btn btn-green">Change password</button>
         </Link>
         <br /><br />
-        <button className="btn btn-green" onClick={() => {this.props.deleteUser()}}>Delete Account</button>
+        <p style={{'color': 'red'}}>WARNING: Delete account cannot be undone</p>
+        <button className="btn btn-green" onClick={() => {this.props.deleteAccount(this.props.user.backend.id, ()=>{
+          this.props.postSignout();
+          this.props.history.push('/');
+        })}}>Delete Account</button>
         <br /><br />
         <Link to="/">
         <button
@@ -175,7 +179,7 @@ class Settings extends Component {
         className='btn btn-custom'
         onClick={() => this.props.changeHomeDisplay('goodminders')}>
         <i className="fas fa-home"></i>{' '}Back to Home</button>
-              </Link>
+        </Link>
       </div>
 
       </div>

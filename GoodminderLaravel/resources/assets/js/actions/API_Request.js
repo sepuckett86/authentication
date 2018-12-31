@@ -10,7 +10,8 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
-  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET, POST_PASSWORD, POST_CONTACT } from './types';
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET,
+  POST_PASSWORD, POST_CONTACT, DELETE_USER } from './types';
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
@@ -580,6 +581,23 @@ export const postContact = (email, firstName, lastName, comment, callback) => as
       dispatch({ type: POST_CONTACT, payload: response });
       callback();
 
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const deleteAccount = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `api/users/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      // DELETE request
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_USER, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
+    }
   } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }

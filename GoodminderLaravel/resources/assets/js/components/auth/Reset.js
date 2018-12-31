@@ -67,8 +67,8 @@ class Reset extends Component {
       {console.log(this.state)}
 	<div className="log-box">
 			 <h1>Reset Password</h1>
-       
-            {/*<p>Please enter your new password for {this.props.user.email}</p>
+
+            <p>Please enter your new password for {this.props.user.email}</p>
 						<form id="needs-validation" noValidate>
               <div className="form-group row">
                 <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Old Password</label>
@@ -91,13 +91,13 @@ class Reset extends Component {
 									<input name='password_again' type="password" onChange={this.handleChange} className="form-control" id="inputPassword2" placeholder="********" required/>
 								</div>
 							</div>
-							<div className="form-group row">
-								<div className="col-sm-10">
+							<div className="form-group row" style={{'textAlign': 'center'}}>
+								<div className="col-sm-12">
 									<button type="submit" onClick={this.handleSubmit} className="btn btn-green">Submit</button>
 								</div>
 							</div>
 						</form>
-            */}
+
     </div>
 
 </main>
