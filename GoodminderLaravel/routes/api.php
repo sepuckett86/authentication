@@ -19,6 +19,8 @@ $api->version('v1', function (Router $api) {
         $api->get('me', 'App\\Api\\V1\\Controllers\\UserController@me');
     });
 
+    $api->post('contact', 'App\\Api\\V1\\Controllers\ContactAdminController@sendInfo');
+
     $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
         $api->get('protected', function() {
             return response()->json([
@@ -62,6 +64,8 @@ $api->version('v1', function (Router $api) {
                     ]);
                 }
         ]);
+
+        $api->delete('users/{id}', 'App\\Api\\V1\\Controllers\\UserController@destroy');
     });
 });
 
