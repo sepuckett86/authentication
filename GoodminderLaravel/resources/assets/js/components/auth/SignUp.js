@@ -41,7 +41,7 @@ class SignUp extends Component {
     event.preventDefault();
     const password = this.state.password;
     let passwordFails = [];
-    // this.passTest((password.length < 8), 'Password too short', passwordFails);
+    this.passTest((password.length < 8), 'Password too short', passwordFails);
     this.passTest((password.length > 20), 'Password too long', passwordFails);
     this.passTest((password !== this.state.password_again), 'Passwords do not match', passwordFails);
     this.passTest((password.match(emojiRegex()) !== null), 'Emoji not accepted in password', passwordFails);
