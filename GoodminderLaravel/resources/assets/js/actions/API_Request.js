@@ -10,7 +10,7 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
-  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET, POST_PASSWORD } from './types';
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET, POST_PASSWORD, POST_CONTACT } from './types';
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
@@ -567,6 +567,19 @@ export const postPassword = (oldPassword, password, password_confirmation, callb
     } else {
       console.log('No token')
     }
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const postContact = (email, firstName, lastName, comment, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/contact';
+      const content = { 'email': email, 'firstName': firstName, 'lastName': lastName, 'comment': comment };
+      const response = await axios.post(path, content);
+      dispatch({ type: POST_CONTACT, payload: response });
+      callback();
+
   } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });
   }

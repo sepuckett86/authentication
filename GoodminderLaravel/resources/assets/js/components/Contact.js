@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Footer from './Footer';
-
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class Contact extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Contact extends Component {
       inputEmail: '',
       inputFirst: '',
       inputLast: '',
-      inputComment: ''
+      inputComment: '',
+      submitted: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -32,6 +34,12 @@ class Contact extends Component {
 
   handleClick(event) {
     if (event.target.id === 'submitContact') {
+      this.props.postContact(this.state.inputEmail, this.state.inputFirst,
+        this.state.inputLast, this.state.inputComment, ()=>{
+          this.setState({
+            submitted: true
+          })
+        });
       const contact = {
         email: this.state.inputEmail,
         firstName: this.state.inputFirst,
@@ -60,6 +68,7 @@ class Contact extends Component {
       <br />
       <h2>Comment Form</h2>
       <br />
+      { !this.state.submitted ?
   			 <div id="contact" className="box alignL">
   			<form>
   				<div className="form-group">
@@ -87,6 +96,7 @@ class Contact extends Component {
         	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit Comment</button>
         </div>
         </div>
+        : <p>Comment successfully submitted!</p>}
         <br />
         <hr />
         <br />
@@ -94,6 +104,7 @@ class Contact extends Component {
         <a href="https://www.paypal.me/goodminder" className='btn btn-green'>Link to our Paypal</a>
         <br /><br />
         </div>
+
   <br /><br />
 </div>
 <Footer />
@@ -103,4 +114,9 @@ class Contact extends Component {
   }
 }
 
-export default Contact;
+function mapStateToProps(state) {
+  return {
+    error: state.auth.errorMessage
+  }
+}
+export default connect(mapStateToProps, actions)(Contact);
