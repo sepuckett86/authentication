@@ -76,6 +76,10 @@ class Settings extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+
   renderEdit(field) {
     const edit = this.state.edit;
     switch(field) {
@@ -146,6 +150,34 @@ class Settings extends Component {
   render() {
     return (
       <div>
+      {/* Modal - Must be outside of responsive design displays */}
+      <div className="modal fade" id="deleteModal" tabIndex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="x">Delete Account</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              This will permanently delete all account information. There is no going back. Proceed?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" className="btn btn-warning" data-dismiss="modal" onClick={() => {
+                this.props.deleteAccount(this.props.user.backend.id, ()=>{
+                  localStorage.removeItem('id_token');
+                  sessionStorage.removeItem('myData');
+                  this.scrollToTop();
+                  this.props.history.push('/intro');
+                  alert('Account deleted.');
+                  this.props.getUser();
+              })}}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className='log-box'>
         <h1>Settings</h1>
         <br />
@@ -166,12 +198,31 @@ class Settings extends Component {
         <button className="btn btn-green">Change password</button>
         </Link>
         <br /><br />
-        <p style={{'color': 'red'}}>WARNING: Delete account cannot be undone</p>
-        <button className="btn btn-green" onClick={() => {this.props.deleteAccount(this.props.user.backend.id, ()=>{
-          this.props.postSignout();
-          this.props.history.push('/');
-        })}}>Delete Account</button>
+
+        <p>
+  <button className="btn btn-green" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Delete Account
+  </button>
+</p>
+<div className="collapse" id="collapseExample">
+  <div className="card card-body">
+  <p style={{'color': 'red'}}>WARNING: Delete account cannot be undone.</p>
+  <p style={{'color': 'red'}}>All your goodminders and prompts will be deleted permanently!</p>
+
+  {/* Button trigger modal */}
+  <button id="create-goodminder" type="button" className="btn btn-warning" data-toggle="modal" onClick={this.handleClick} data-target="#deleteModal">
+    Proceed with Account Deletion
+  </button>
+
+
+  </div>
+</div>
+
+
         <br /><br />
+
+
+
         <Link to="/">
         <button
         id='random'

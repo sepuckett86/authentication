@@ -22,7 +22,7 @@ export default function(state = INITIAL_STATE, action) {
     case POST_CONTACT:
       return { ...state, response: action.payload};
     case DELETE_USER:
-      return { ...state, response: action.payload};
+      return INITIAL_STATE;
     default:
       return state;
   }
