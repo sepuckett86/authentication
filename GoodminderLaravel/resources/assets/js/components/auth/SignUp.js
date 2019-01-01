@@ -17,6 +17,9 @@ class SignUp extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount() {
+    this.props.clearResponse();
+  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -38,7 +41,7 @@ class SignUp extends Component {
     event.preventDefault();
     const password = this.state.password;
     let passwordFails = [];
-    // this.passTest((password.length < 8), 'Password too short', passwordFails);
+    this.passTest((password.length < 8), 'Password too short', passwordFails);
     this.passTest((password.length > 20), 'Password too long', passwordFails);
     this.passTest((password !== this.state.password_again), 'Passwords do not match', passwordFails);
     this.passTest((password.match(emojiRegex()) !== null), 'Emoji not accepted in password', passwordFails);
@@ -67,6 +70,8 @@ class SignUp extends Component {
         !this.state.submitted
           ? <div className="log-box">
               <h1>Create New Account</h1>
+              <br/>
+              {this.props.responseError ? this.props.responseError : null}
               <br/>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group row">
@@ -102,7 +107,10 @@ class SignUp extends Component {
                 </p>
               </div>
             </div>
-          : <div className='log-box'>Check your email to activate your account!</div>
+          : <div className='log-box'><p>Your account has been created!</p>
+          <Link to='/login' className='btn btn-green '>
+            <i className="fas fa-arrow-circle-right"></i>{' '}Log In
+          </Link></div>
       }
       <br/>
       <br/>
@@ -111,6 +119,6 @@ class SignUp extends Component {
 };
 
 function mapStateToProps(state){
-  return { response: state.response }
+  return { responseError: state.response.responseError.message }
 }
 export default connect(mapStateToProps, actions)(SignUp);

@@ -10,7 +10,8 @@
 
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, RESPONSE, RESPONSE_ERROR,
-  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET, POST_PASSWORD } from './types';
+  GET_USER, DELETE_ACCOUNT, GET_NICKNAME, PUT_USER, POST_RESET,
+  POST_PASSWORD, POST_CONTACT, DELETE_USER } from './types';
 import { GET_GOODMINDERS, POST_GOODMINDER, PUT_GOODMINDER,
   DELETE_GOODMINDER } from './types';
 import { GET_PROMPTS, POST_PROMPT, PUT_PROMPT, DELETE_PROMPT} from './types';
@@ -79,9 +80,9 @@ export const postSignup = (email, nickname, password, password_confirmation, cal
     if (e.response.status === 500) {
       const payload = {'component':'SignUp', 'status': 500, 'message': 'Email in use'};
       console.log(payload)
-      dispatch({ type: RESPONSE, payload: payload});
+      dispatch({ type: RESPONSE_ERROR, payload: payload});
     } else {
-      dispatch({ type: RESPONSE, payload: 'Unknown error' });
+      dispatch({ type: RESPONSE_ERROR, payload: 'Unknown error' });
     }
   }
 };
@@ -246,9 +247,11 @@ export const deleteGoodminder = (id, goodminders, callback) => async dispatch =>
 
 export const getPrompts = (callback) => async dispatch => {
   try {
+    // Gets all available prompts
     const path = baseURL + 'api/prompts?getDisplayPromptsOnly=true';
+    // Gets Your prompts only
+    //const path = baseURL + 'api/prompts';
     let options = optionsWithToken();
-    options = { 'headers': { ...options.headers, 'getDisplayedPromptsOnly': true }}
     if (tokenInLocalStorage()) {
       const response = await axios.get(path, options);
       let data = [];
@@ -346,7 +349,7 @@ export const getPromptCollection = (id, callback) => async dispatch => {
       const response = await axios.get(path, options);
 
       dispatch({ type: GET_PROMPT_COLLECTION, payload: response.data });
-      callback();
+      callback(response.data);
     } else {
       console.log('No token')
     }
@@ -564,6 +567,36 @@ export const postPassword = (oldPassword, password, password_confirmation, callb
       callback();
     } else {
       console.log('No token')
+    }
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: response.data });
+  }
+}
+
+export const postContact = (email, firstName, lastName, comment, callback) => async dispatch => {
+  try {
+    const path = baseURL + 'api/contact';
+      const content = { 'email': email, 'firstName': firstName, 'lastName': lastName, 'comment': comment };
+      const response = await axios.post(path, content);
+      dispatch({ type: POST_CONTACT, payload: response });
+      callback();
+
+  } catch (e) {
+    dispatch({ type: RESPONSE_ERROR, payload: e });
+  }
+}
+
+export const deleteAccount = (id, callback) => async dispatch => {
+  try {
+    const path = baseURL + `api/users/${id}`;
+    if (tokenInLocalStorage()) {
+      const options = optionsWithToken();
+      // DELETE request
+      const response = await axios.delete(path, options);
+      dispatch({ type: DELETE_USER, payload: response });
+      callback()
+    } else {
+      console.log('token absent')
     }
   } catch (e) {
     dispatch({ type: RESPONSE_ERROR, payload: e });

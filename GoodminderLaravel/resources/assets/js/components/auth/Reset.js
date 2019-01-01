@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import requireAuth from './requireAuth';
+import { Link } from 'react-router-dom';
 
 const emojiRegex = require('emoji-regex');
 
@@ -19,7 +20,9 @@ class Reset extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  componendDidMount(){
+    this.props.clearError();
+  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -63,9 +66,11 @@ class Reset extends Component {
   render() {
     return (
       <main>
-      {console.log(this.state)}
-	<div className="log-box">
+	     <div className="log-box">
 			 <h1>Reset Password</h1>
+       {!this.state.submitted ?
+         <div>
+         {this.props.authError ? <div>{this.props.authError}</div> : null}
             <p>Please enter your new password for {this.props.user.email}</p>
 						<form id="needs-validation" noValidate>
               <div className="form-group row">
@@ -89,12 +94,13 @@ class Reset extends Component {
 									<input name='password_again' type="password" onChange={this.handleChange} className="form-control" id="inputPassword2" placeholder="********" required/>
 								</div>
 							</div>
-							<div className="form-group row">
-								<div className="col-sm-10">
+							<div className="form-group row" style={{'textAlign': 'center'}}>
+								<div className="col-sm-12">
 									<button type="submit" onClick={this.handleSubmit} className="btn btn-green">Submit</button>
 								</div>
 							</div>
 						</form>
+            </div>:<p>Password changed successfully!</p>}
     </div>
 
 </main>
@@ -105,7 +111,8 @@ class Reset extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    token: state.auth.authenticated
+    token: state.auth.authenticated,
+    authError: state.auth.errorMessage
    }
 }
 

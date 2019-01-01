@@ -117,7 +117,7 @@ class AddPrompt extends React.Component {
       <div className="prompt-grid-box">
         <div className="grid-upper-left">
         <div>
-          <button id='next-prompt-same' data-tip="Next prompt from same collection" type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}
+          {/*<button id='next-prompt-same' data-tip="Next prompt from same collection" type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-long-arrow-alt-right"></i></button>{" "}|{" "}*/}
 
           <button id='next-prompt-all' data-tip="Next prompt from any collection" type="button" className="btn-flat btn-blue" onClick={this.handleClick}><i className="fas fa-random"></i></button>{" "}|{" "}
           <button id="btnGroupDrop1" data-tip="More options" type="button" className="btn-flat btn-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -146,7 +146,7 @@ class AddPrompt extends React.Component {
 
       <div className="grid-upper-right header-text">
 
-      <div>
+      {/*<div>
       { this.props.currentPrompt.creator_id === this.props.user_id ?
         (<div>
           <button type="button" onClick={this.handleClick} data-tip="You wrote this prompt" className="btn-flat btn-blue">{this.props.user_name}</button>
@@ -155,7 +155,7 @@ class AddPrompt extends React.Component {
         { this.props.nickname && this.props.currentPrompt.collection ? <div>{" "}|{" "}</div> : null }
 
         <button className="btn-flat btn-blue">{this.props.currentPrompt.collection}</button></div> }
-      </div>
+      </div> */}
       </div>
       {this.props.currentPrompt.promptText ?
         (<div className="grid-center paragraph-text" style={style}>

@@ -95,10 +95,10 @@ class PromptCollectionFind extends React.Component {
 
   render() {
     return(
-      <div className="container-fluid">
+      <div >
       <br />
       <div className="box">
-      <h3>Collections from Others</h3>
+      <h3>Collections to Add</h3>
       {this.renderListGroup()}
       <br />
       </div>

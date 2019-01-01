@@ -60,18 +60,20 @@ class PromptCollections extends React.Component {
           <h1>Manage Prompt Collections</h1>
           <p>Prompt collections are displayed during goodminder creation.</p>
           <hr />
-
+          {/*
           <button name='createNewCollection' onClick={this.handleClick} className='btn btn-green'>Create New Collection</button>
 
           {' '}
-
-          <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompts</button>
+          */}
+          <button name='findMorePrompts' onClick={this.handleClick} className='btn btn-green'>Find More Prompt Collections</button>
 
           <hr/>
+          {/*
           <h3>Your Collections</h3>
           <ListGroup who='user'/>
           <hr/>
-          <h3>Collections from Others</h3>
+          */}
+          <h3>Saved Collections</h3>
           <ListGroup who='other'/>
         </div>
         </div>

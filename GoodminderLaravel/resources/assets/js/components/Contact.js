@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Footer from './Footer';
-
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class Contact extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Contact extends Component {
       inputEmail: '',
       inputFirst: '',
       inputLast: '',
-      inputComment: ''
+      inputComment: '',
+      submitted: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -32,10 +34,16 @@ class Contact extends Component {
 
   handleClick(event) {
     if (event.target.id === 'submitContact') {
+      this.props.postContact(this.state.inputEmail, this.state.inputFirst,
+        this.state.inputLast, this.state.inputComment, ()=>{
+          this.setState({
+            submitted: true
+          })
+        });
       const contact = {
         email: this.state.inputEmail,
-        first: this.state.inputFirst,
-        last: this.state.inputLast,
+        firstName: this.state.inputFirst,
+        lastName: this.state.inputLast,
         comment: this.state.inputComment
       }
       console.log(contact);
@@ -52,11 +60,15 @@ class Contact extends Component {
   	</div>
   	<div className="opaque-container">
     <div className="container">
-  		<br />
+  		<br /><br />
+      <h4>Want to reach us? Do you have questions, comments, suggestions, or donations? Let us know here.</h4>
 
       <br />
-      <h2>Have a question? </h2> <h2>Want to comment, make a suggestion, or donate?</h2>
+      <hr />
       <br />
+      <h2>Comment Form</h2>
+      <br />
+      { !this.state.submitted ?
   			 <div id="contact" className="box alignL">
   			<form>
   				<div className="form-group">
@@ -81,10 +93,18 @@ class Contact extends Component {
 
         </form>
         <div style={{'textAlign': 'center'}}>
-        	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit</button>
+        	<button id='submitContact' className="btn btn-green" onClick={this.handleClick} name="btn-faq">Submit Comment</button>
         </div>
         </div>
+        : <p>Comment successfully submitted!</p>}
+        <br />
+        <hr />
+        <br />
+        <h2>Donation Link</h2>
+        <a href="https://www.paypal.me/goodminder" className='btn btn-green'>Link to our Paypal</a>
+        <br /><br />
         </div>
+
   <br /><br />
 </div>
 <Footer />
@@ -94,4 +114,9 @@ class Contact extends Component {
   }
 }
 
-export default Contact;
+function mapStateToProps(state) {
+  return {
+    error: state.auth.errorMessage
+  }
+}
+export default connect(mapStateToProps, actions)(Contact);

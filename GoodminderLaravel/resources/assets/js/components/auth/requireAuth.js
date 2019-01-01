@@ -31,6 +31,8 @@ export default (ChildComponent, route) => {
           console.log('requireAuth: logged in')
         } else {
           console.log('requireAuth: logged out')
+          console.log(token)
+          console.log(this.isTokenExpired(token))
         }
         return test
     }
