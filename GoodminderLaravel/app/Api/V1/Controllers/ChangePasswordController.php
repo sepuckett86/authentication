@@ -24,7 +24,7 @@ class ChangePasswordController extends Controller
             //$newPassword = Hash::make($request->get('newPassword'));
             $user->password = $request->get('newPassword');
         } else {
-            return 'Old password did not match.';
+            return response()->json('Old password does not match.', 403);
         }
 
         if ($user->save()) {
